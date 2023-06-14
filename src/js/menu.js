@@ -76,7 +76,7 @@ export class Menu extends Scene {
 
     startGame() {
         console.log('start game');
-        this.goToScene('park');
+        this.engine.goToScene('park');
 
     }
 
@@ -84,8 +84,8 @@ export class Menu extends Scene {
         console.log('start je moeder');
     }
 
-    onDeactivate() {
-        this.music.stop();
-        this.music.volume = 0
-    }
+    // onDeactivate() {
+    //     this.music.stop();
+    //     this.music.volume = 0
+    // }
 }

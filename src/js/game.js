@@ -11,7 +11,6 @@ export class Game extends Engine {
         super({width: 1440, height: 900, displayMode: DisplayMode.FillScreen});
         this.start(ResourceLoader).then(() => this.startGame());
         this.showDebug(true);
-        this.add('menu', new Menu());
         this.debug.motion = {
             accelerationColor: Color.Azure,
             showAcceleration: true,
@@ -19,11 +18,14 @@ export class Game extends Engine {
             showVelocity: true,
             velocityColor: Color.Green,
         };
+
+        this.add('menu', new Menu());
+        this.add('park', new Park());
+
     }
 
     startGame(engine) {
         this.game = engine;
-        this.addScene('park', new Park());
         this.goToScene('menu');
     }
 
