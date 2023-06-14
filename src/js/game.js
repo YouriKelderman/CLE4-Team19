@@ -1,22 +1,44 @@
-import '../css/style.css'
-import { Actor, Engine, Vector } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
+import {
+    Actor,
+    Engine,
+    Vector,
+    Label,
+    Color,
+    Font,
+    Debug,
+    Transform,
+    Screen,
+    Scene,
+    Camera,
+    DisplayMode
+} from "excalibur";
+import {Resources, ResourceLoader} from "./resources.js";
+import {Menu} from "./menu.js";
+
 
 export class Game extends Engine {
-
     constructor() {
-        super({ width: 800, height: 600 })
-        this.start(ResourceLoader).then(() => this.startGame())
+        super({width: 1440, height: 900, displayMode: DisplayMode.FillScreen});
+        this.start(ResourceLoader).then(() => this.startGame());
+        this.showDebug(true);
+        this.add('menu', new Menu());
+
+
+        this.debug.motion = {
+            accelerationColor: Color.Azure,
+            showAcceleration: true,
+            showAll: true,
+            showVelocity: true,
+            velocityColor: Color.Green,
+        };
     }
 
-    startGame() {
-        console.log("start de game!")
-        const fish = new Actor()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(400, 300)
-        fish.vel = new Vector(-10,0)
-        this.add(fish)
+    startGame(engine) {
+        this.game = engine;
+        this.goToScene('menu');
+
     }
+
 }
 
-new Game()
+new Game();
