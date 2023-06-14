@@ -1,4 +1,4 @@
-import {Actor, Vector, Engine, Random, CollisionType} from "excalibur";
+import {Actor, Vector, Engine, Random, CollisionType, Shape} from "excalibur";
 import {Resources} from "./resources";
 
 let itemIds = [

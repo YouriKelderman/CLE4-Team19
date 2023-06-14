@@ -1,4 +1,4 @@
-import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis} from "excalibur";
+import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape} from "excalibur";
 import {Scene} from "excalibur";
 import {Placeholder} from "./placeholder.js"
 
@@ -6,9 +6,16 @@ let placing = false;
 let placingSprite;
 let int =0;
 export class Park extends Scene {
+
+    constructor() {
+        super();
+    }
+
+
     onInitialize(_engine) {
         placingSprite = new Placeholder();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput())
+
     }
 mouseInput(){
         if(placing){
@@ -19,6 +26,7 @@ mouseInput(){
         }
 }
     onPreUpdate(engine, delta) {
+
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
             placing = !placing;
             console.log(int)
