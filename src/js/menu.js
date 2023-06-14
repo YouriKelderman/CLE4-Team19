@@ -13,12 +13,14 @@ import {
     Physics,
     Sound,
     FontUnit,
-    Shape, CollisionType, Input, PointerSystem
+    Shape, CollisionType, Input, PointerSystem, vec
 } from "excalibur";
 
 import {Resources, ResourceLoader} from "./resources.js";
 
 export class Menu extends Scene {
+
+    logo
 
     constructor() {
         super();
@@ -35,22 +37,23 @@ export class Menu extends Scene {
     }
     onInitialize(engine) {
         // logo & buttons
-        const logo = new Actor();
-        logo.graphics.use(Resources.Logo.toSprite());
-        logo.pos = new Vector(750, 150);
-        logo.scale = new Vector(0.75, 0.75);
-        logo.z = 1000;
-        this.add(logo);
+        this.logo = new Actor();
+        this.logo.graphics.use(Resources.Logo.toSprite());
+        this.logo.pos = new Vector((this.engine.canvasWidth / 2) - 200, 175);
+        this.logo.scale = new Vector(0.1, 0.1)
+        this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
+        this.logo.z = 1000;
+        this.add(this.logo);
 
-        const race = new Actor();
-        race.graphics.use(Resources.Start.toSprite());
-        race.pos = new Vector(750, 350);
-        race.scale = new Vector(0.75, 0.75);
-        race.z = 1000;
-        race.enableCapturePointer = true;
-        race.pointer.useGraphicsBounds = true;
-        race.on("pointerup", (event) => this.startGame());
-        this.add(race);
+        const startButton = new Actor();
+        startButton.graphics.use(Resources.Start.toSprite());
+        startButton.pos = new Vector((this.engine.canvasWidth / 2) - 200, 400);
+        startButton.scale = new Vector(0.75, 0.75);
+        startButton.z = 1000;
+        startButton.enableCapturePointer = true;
+        startButton.pointer.useGraphicsBounds = true;
+        startButton.on("pointerup", (event) => this.startGame());
+        this.add(startButton);
 
 
         const practise = new Actor();
@@ -66,6 +69,12 @@ export class Menu extends Scene {
         this.add(practise);
 
         
+    }
+
+    onPreUpdate(engine, _delta) {
+        this.logo.actions.scaleTo(vec(1.1,1.1),vec(0.05,0.05));
+        this.logo.actions.scaleTo(vec(1.0,1.0),vec(0.05,0.05));
+
     }
 
     startGame() {
