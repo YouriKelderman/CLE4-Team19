@@ -3,7 +3,7 @@ import logo from '../images/logo.png';
 import start from '../images/start.png';
 import pan from '../images/Bami_Tower.png';
 import kevin from '../images/kevin.png';
-import map1ground from '../images/map-1-gorund.png'
+import map1ground from '../images/map-1-ground.png'
 const Resources = {
     Logo: new ImageSource(logo),
     Start: new ImageSource(start),
