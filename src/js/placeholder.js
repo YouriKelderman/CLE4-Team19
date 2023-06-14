@@ -1,23 +1,24 @@
 import {Actor, Vector, Engine, Random, CollisionType} from "excalibur";
 import {Resources} from "./resources";
 
-
+let itemIds = [
+    Resources.Rock, Resources.Kevin,
+]
 export class Placeholder extends Actor {
-
     constructor(spriteID) {
-
         super({
-            width:Resources.Rock.width, height:Resources.Rock.height
+            width: Resources.Rock.width /2, height: Resources.Rock.height /2
         })
     }
+
     onInitialize(engine) {
-        this.body.collisionType = CollisionType.Fixed;
-        this.sprite = Resources.Rock.toSprite();
-        this.graphics.use(this.sprite);
         this.anchor = new Vector(0.5, 0.5);
-
+        this.scale = new Vector(0.5, 0.5);
     }
-    checkSelf(){
 
+    checkSelf(sprite) {
+        this.sprite = itemIds[sprite].toSprite();
+        this.graphics.use(itemIds[sprite].toSprite());
+        console.log(this.sprite);
     }
 }
