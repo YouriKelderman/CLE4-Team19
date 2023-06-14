@@ -1,22 +1,12 @@
-import {
-    Actor,
-    Engine,
-    Vector,
-    Label,
-    Color,
-    Font,
-    Debug,
-    Transform,
-    Screen,
-    Scene,
-    Camera,
-    DisplayMode
-} from "excalibur";
+import {Actor, Engine, Vector, Label, Color, Font, Debug, Transform, Screen, Scene, Camera, DisplayMode} from "excalibur";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Menu} from "./menu.js";
 
 
 export class Game extends Engine {
+
+    game
+
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FillScreen});
         this.start(ResourceLoader).then(() => this.startGame());
@@ -36,7 +26,6 @@ export class Game extends Engine {
     startGame(engine) {
         this.game = engine;
         this.goToScene('menu');
-
     }
 
 }

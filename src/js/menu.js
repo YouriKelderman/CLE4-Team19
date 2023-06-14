@@ -42,14 +42,14 @@ export class Menu extends Scene {
     onInitialize(engine) {
         // logo & buttons
         const logo = new Actor();
-        // logo.graphics.use(Resources.Logo.toSprite());
+        logo.graphics.use(Resources.Logo.toSprite());
         logo.pos = new Vector(750, 150);
         logo.scale = new Vector(0.75, 0.75);
         logo.z = 1000;
         this.add(logo);
 
         const race = new Actor();
-        // race.graphics.use(Resources.Race.toSprite());
+        race.graphics.use(Resources.Start.toSprite());
         race.pos = new Vector(750, 350);
         race.scale = new Vector(0.75, 0.75);
         race.z = 1000;
@@ -76,6 +76,8 @@ export class Menu extends Scene {
 
     startGame() {
         console.log('start game');
+        this.goToScene('park');
+
     }
 
     startPractise() {
