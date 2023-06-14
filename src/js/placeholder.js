@@ -1,4 +1,4 @@
-import {Actor, Vector, Engine, Random, CollisionType, Shape} from "excalibur";
+import {Actor, Vector, Engine, Random, CollisionType, Shape, Circle} from "excalibur";
 import {Resources} from "./resources";
 
 let itemIds = [
@@ -21,7 +21,12 @@ export class Placeholder extends Actor {
         this.on('pointerdown', () => this.clickEvent())
     }
 clickEvent() {
-    console.log("apuh")
+    let circle = new Circle({
+        radius: 10,
+        color: Color.Red(),
+    })
+    console.log(circle)
+    circle.showDebug = true;
 }
 
     checkSelf(sprite) {
