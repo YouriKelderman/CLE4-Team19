@@ -24,21 +24,15 @@ export class Menu extends Scene {
         super();
         Physics.useRealisticPhysics();
         Physics.gravity = new Vector(0, 200);
-
     }
-
     // music = Resources.menuMusic;
-
     onActivate(_context) {
         this.engine.backgroundColor = Color.White;
-
-
         // this.music.stop()
         // this.music.volume = 1
         // this.music.loop = true;
         // this.music.play();
     }
-
     onInitialize(engine) {
         // logo & buttons
         const logo = new Actor();

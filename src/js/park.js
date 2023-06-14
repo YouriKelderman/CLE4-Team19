@@ -15,8 +15,8 @@ export class Park extends Scene {
     onInitialize(_engine) {
         placingSprite = new Placeholder();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput())
-
     }
+
 mouseInput(){
         if(placing){
             let newClone = new Placeholder();
