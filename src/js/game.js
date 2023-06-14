@@ -14,7 +14,7 @@ import {
 } from "excalibur";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Menu} from "./menu.js";
-
+import {Park} from "./park.js";
 
 export class Game extends Engine {
     constructor() {
@@ -22,8 +22,6 @@ export class Game extends Engine {
         this.start(ResourceLoader).then(() => this.startGame());
         this.showDebug(true);
         this.add('menu', new Menu());
-
-
         this.debug.motion = {
             accelerationColor: Color.Azure,
             showAcceleration: true,
@@ -35,6 +33,7 @@ export class Game extends Engine {
 
     startGame(engine) {
         this.game = engine;
+        this.addScene('park', new Park());
         this.goToScene('menu');
 
     }
