@@ -21,14 +21,14 @@ export class Placeholder extends Actor {
         this.anchor = new Vector(0.5, 0.5);
         this.scale = new Vector(1, 1);
 this.range = Math.floor(Math.random() * 300)
-        const circle = Shape.Circle(50)
+        const circle = Shape.Circle(100)
         this.collider.clear();
         this.collider.set(circle);
 this.on('precollision', () => this.collisionHandler());
     }
 
-    collisionHandler(){
-        console.log("e")
+    collisionHandler(e){
+console.log(e);
     }
 clickEvent() {
 
