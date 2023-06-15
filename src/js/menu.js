@@ -85,6 +85,10 @@ export class Menu extends Scene {
         this.logo.actions.scaleTo(vec(1.1, 1.1), vec(0.05, 0.05));
         this.logo.actions.scaleTo(vec(1.0, 1.0), vec(0.05, 0.05));
 
+        if (Math.floor(Math.random() * (2000 - 1) + 1) === 1) {
+            this.spiderPeek();
+        }
+
         if (engine.input.keyboard.wasReleased(Input.Keys.S)) {
             this.spiderPeek()
         }
