@@ -1,9 +1,14 @@
 import {ImageSource, Sound, Resource, Loader, Color, Vector} from 'excalibur';
 
+// logo
 import logo from '../images/logo.png';
-import loading from '../images/loading.png';
 
+// menu
+import loading from '../images/loading.png';
 import start from '../images/start.png';
+import menuSpider from '../images/menu-spider.png';
+
+
 import pan from '../images/Bami_Tower.png';
 import kevin from '../images/kevin.png';
 import map1ground from '../images/map-1-ground.png'
@@ -13,6 +18,7 @@ const Resources = {
     Logo: new ImageSource(logo),
     Loading: new ImageSource(loading),
     Start: new ImageSource(start),
+    MenuSpider: new ImageSource(menuSpider),
     Pan: new ImageSource(pan),
 Kevin: new ImageSource(kevin),
     Map1Ground: new ImageSource(map1ground),
@@ -23,6 +29,7 @@ const ResourceLoader = new Loader([
     Resources.Logo,
     Resources.Loading,
     Resources.Start,
+    Resources.MenuSpider,
     Resources.Pan,
     Resources.Kevin,
     Resources.Map1Ground,

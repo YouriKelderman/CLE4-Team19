@@ -21,6 +21,7 @@ import {Resources, ResourceLoader} from "./resources.js";
 export class Menu extends Scene {
 
     logo
+    spider
 
     constructor() {
         super();
@@ -68,13 +69,25 @@ export class Menu extends Scene {
         practise.on("pointerup", (event) => this.startPractise());
         this.add(practise);
 
-        
+        // Funny menu things
+        this.spider = new Actor();
+        this.spider.graphics.use(Resources.MenuSpider.toSprite());
+        this.spider.pos = new Vector(100, -100);
+        this.spider.scale = new Vector(1.5, 1.5)
+        this.spider.z = 1000;
+        this.add(this.spider);
+
+
+
     }
 
     onPreUpdate(engine, _delta) {
-        this.logo.actions.scaleTo(vec(1.1,1.1),vec(0.05,0.05));
-        this.logo.actions.scaleTo(vec(1.0,1.0),vec(0.05,0.05));
+        this.logo.actions.scaleTo(vec(1.1, 1.1), vec(0.05, 0.05));
+        this.logo.actions.scaleTo(vec(1.0, 1.0), vec(0.05, 0.05));
 
+        if (engine.input.keyboard.wasReleased(Input.Keys.S)) {
+            this.spiderPeek()
+        }
     }
 
     startGame() {
@@ -86,6 +99,14 @@ export class Menu extends Scene {
     startPractise() {
         console.log('start je moeder');
     }
+
+    spiderPeek() {
+        this.spider.actions
+            .moveTo(vec(100, 50), 50)
+            .delay(1000)
+            .moveTo(vec(100, -100), 50)
+    }
+
 
     // onDeactivate() {
     //     this.music.stop();
