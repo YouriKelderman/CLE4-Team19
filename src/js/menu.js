@@ -25,11 +25,10 @@ export class Menu extends Scene {
     constructor() {
         super();
         Physics.useRealisticPhysics();
-        Physics.gravity = new Vector(0, 200);
     }
     // music = Resources.menuMusic;
     onActivate(_context) {
-        this.engine.backgroundColor = Color.White;
+        this.engine.backgroundColor = new Color(239, 255, 228)
         // this.music.stop()
         // this.music.volume = 1
         // this.music.loop = true;
@@ -48,7 +47,8 @@ export class Menu extends Scene {
         const startButton = new Actor();
         startButton.graphics.use(Resources.Start.toSprite());
         startButton.pos = new Vector((this.engine.canvasWidth / 2) - 200, 400);
-        startButton.scale = new Vector(0.75, 0.75);
+        startButton.scale = new Vector(0.1, 0.1)
+        startButton.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
         startButton.z = 1000;
         startButton.enableCapturePointer = true;
         startButton.pointer.useGraphicsBounds = true;
