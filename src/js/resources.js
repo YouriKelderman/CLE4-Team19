@@ -49,7 +49,7 @@ ResourceLoader.logoWidth = 550;
 ResourceLoader.logoHeight = 250;
 ResourceLoader.backgroundColor = new Color(239, 255, 228);
 ResourceLoader.loadingBarColor = '#3ca370';
-ResourceLoader.suppressPlayButton = false;
+ResourceLoader.suppressPlayButton = true;
 ResourceLoader.playButtonText = 'Speel!';
 
 
