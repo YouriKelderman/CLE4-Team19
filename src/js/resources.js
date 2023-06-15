@@ -18,6 +18,10 @@ import menuMusic from '../sounds/menuMusic.mp3';
 // play & pause
 import playButton from '../images/play-button.png';
 
+// slider
+import sliderBase from '../images/slider-base.png';
+import sliderHead from '../images/slider-head.png';
+
 
 const Resources = {
     Logo: new ImageSource(logo),
@@ -30,9 +34,13 @@ const Resources = {
     Map1Top: new ImageSource(map1top),
 
     PlayButton: new ImageSource(playButton),
-    MenuMusic: new Sound(menuMusic)
+    MenuMusic: new Sound(menuMusic),
+
+    SliderBase: new ImageSource(sliderBase),
+    SliderHead: new ImageSource(sliderHead)
 
 };
+
 const ResourceLoader = new Loader([
     Resources.Logo,
     Resources.Loading,
@@ -44,6 +52,9 @@ const ResourceLoader = new Loader([
     Resources.Map1Top,
     Resources.PlayButton,
     Resources.MenuMusic,
+
+    Resources.SliderBase,
+    Resources.SliderHead,
 
 ]);
 
