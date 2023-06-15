@@ -17,6 +17,10 @@ import map1top from '../images/map-1-top.png';
 // play & pause
 import playButton from '../images/play-button.png';
 
+// slider & menu buttons
+import sliderBase from '../images/slider-base.png';
+import sliderHead from '../images/slider-head.png';
+
 
 const Resources = {
     Logo: new ImageSource(logo),
@@ -28,7 +32,10 @@ const Resources = {
     Map1Ground: new ImageSource(map1ground),
     Map1Top: new ImageSource(map1top),
 
-    PlayButton: new ImageSource(playButton)
+    PlayButton: new ImageSource(playButton),
+
+    SliderBase: new ImageSource(sliderBase),
+    SliderHead: new ImageSource(sliderHead)
 
 };
 const ResourceLoader = new Loader([
@@ -41,6 +48,8 @@ const ResourceLoader = new Loader([
     Resources.Map1Ground,
     Resources.Map1Top,
     Resources.PlayButton,
+    Resources.SliderHead,
+    Resources.SliderBase,
 ]);
 
 // Excaliber logo
@@ -49,7 +58,7 @@ ResourceLoader.logoWidth = 550;
 ResourceLoader.logoHeight = 250;
 ResourceLoader.backgroundColor = new Color(239, 255, 228);
 ResourceLoader.loadingBarColor = '#3ca370';
-ResourceLoader.suppressPlayButton = false;
+ResourceLoader.suppressPlayButton = true;
 ResourceLoader.playButtonText = 'Speel!';
 
 

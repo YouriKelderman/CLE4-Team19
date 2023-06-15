@@ -3,3 +3,9 @@ body {
     padding:0;
     background-color:darkgray;
 }
+
+.start-button {
+    background-image: url("../src/images/play-button.png") !important;
+    width: 128px;
+    height: 128px;
+}
