@@ -14,8 +14,6 @@ import kevin from '../images/kevin.png';
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
 
-import menuMusic from '../sounds/menuMusic.mp3';
-
 // play & pause
 import playButton from '../images/play-button.png';
 
@@ -30,8 +28,7 @@ const Resources = {
     Map1Ground: new ImageSource(map1ground),
     Map1Top: new ImageSource(map1top),
 
-    PlayButton: new ImageSource(playButton),
-    MenuMusic: new Sound(menuMusic)
+    PlayButton: new ImageSource(playButton)
 
 };
 const ResourceLoader = new Loader([
@@ -44,8 +41,6 @@ const ResourceLoader = new Loader([
     Resources.Map1Ground,
     Resources.Map1Top,
     Resources.PlayButton,
-    Resources.MenuMusic
-
 ]);
 
 // Excaliber logo
@@ -54,7 +49,7 @@ ResourceLoader.logoWidth = 550;
 ResourceLoader.logoHeight = 250;
 ResourceLoader.backgroundColor = new Color(239, 255, 228);
 ResourceLoader.loadingBarColor = '#3ca370';
-ResourceLoader.suppressPlayButton = false;
+ResourceLoader.suppressPlayButton = true;
 ResourceLoader.playButtonText = 'Speel!';
 
 
