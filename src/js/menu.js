@@ -29,13 +29,13 @@ export class Menu extends Scene {
         super();
         Physics.useRealisticPhysics();
     }
-    // music = Resources.menuMusic;
+    music = Resources.MenuMusic;
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228)
-        // this.music.stop()
-        // this.music.volume = 1
-        // this.music.loop = true;
-        // this.music.play();
+        this.music.stop()
+        this.music.volume = 1
+        this.music.loop = true;
+        this.music.play().then(r => console.log(r));
     }
     onInitialize(engine) {
         // logo & buttons

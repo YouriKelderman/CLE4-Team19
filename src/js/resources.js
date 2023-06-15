@@ -13,6 +13,7 @@ import pan from '../images/Bami_Tower.png';
 import kevin from '../images/kevin.png';
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
+import menuMusic from '../sounds/menuMusic.mp3';
 
 // play & pause
 import playButton from '../images/play-button.png';
@@ -33,11 +34,13 @@ const Resources = {
     Map1Top: new ImageSource(map1top),
 
     PlayButton: new ImageSource(playButton),
+    MenuMusic: new Sound(menuMusic),
 
     SliderBase: new ImageSource(sliderBase),
     SliderHead: new ImageSource(sliderHead)
 
 };
+
 const ResourceLoader = new Loader([
     Resources.Logo,
     Resources.Loading,
@@ -48,8 +51,11 @@ const ResourceLoader = new Loader([
     Resources.Map1Ground,
     Resources.Map1Top,
     Resources.PlayButton,
+    Resources.MenuMusic,
+
     Resources.SliderBase,
     Resources.SliderHead,
+
 ]);
 
 // Excaliber logo
