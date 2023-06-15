@@ -1,10 +1,12 @@
-import {Actor, Vector, Engine, Random, CollisionType, Shape, Circle} from "excalibur";
+import {Actor, Vector, Engine, Random, CollisionType, Shape, Circle, Color} from "excalibur";
 import {Resources} from "./resources";
+import {Game} from "./game.js";
+import {Range} from "./range.js";
 
 let itemIds = [
     Resources.Pan, Resources.Kevin,
 ]
-
+let range = 0;
 let currentClick = false;
 let engine;
 export class Placeholder extends Actor {
@@ -18,15 +20,19 @@ export class Placeholder extends Actor {
         this.engine = engine;
         this.anchor = new Vector(0.5, 0.5);
         this.scale = new Vector(1, 1);
-        this.on('pointerdown', () => this.clickEvent())
+this.range = Math.floor(Math.random() * 300)
+        const circle = Shape.Circle(50)
+        this.collider.clear();
+        this.collider.set(circle);
+this.on('precollision', () => this.collisionHandler());
+    }
+
+    collisionHandler(){
+        console.log("e")
     }
 clickEvent() {
-    let circle = new Circle({
-        radius: 10,
-        color: Color.Red(),
-    })
-    console.log(circle)
-    circle.showDebug = true;
+
+
 }
 
     checkSelf(sprite) {
