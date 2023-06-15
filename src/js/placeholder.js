@@ -4,7 +4,7 @@ import {Game} from "./game.js";
 import {Range} from "./range.js";
 
 let itemIds = [
-    Resources.Pan, Resources.Kevin,
+    Resources.Pan, Resources.Kevin
 ]
 let range = 0;
 let currentClick = false;

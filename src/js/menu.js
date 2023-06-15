@@ -30,10 +30,11 @@ export class Menu extends Scene {
         Physics.useRealisticPhysics();
     }
     music = Resources.MenuMusic;
+
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228)
         this.music.stop()
-        this.music.volume = 1
+        this.music.volume = 0.1;
         this.music.loop = true;
         this.music.play().then(r => console.log(r));
     }
@@ -87,7 +88,7 @@ export class Menu extends Scene {
     }
 
     onPreUpdate(engine, _delta) {
-        this.logo.actions.scaleTo(vec(1.1, 1.1), vec(0.05, 0.05));
+        this.logo.actions.scaleTo(vec(1.2, 1.2), vec(0.05, 0.05));
         this.logo.actions.scaleTo(vec(1.0, 1.0), vec(0.05, 0.05));
 
         if (Math.floor(Math.random() * (2000 - 1) + 1) === 1) {
@@ -106,7 +107,6 @@ export class Menu extends Scene {
     }
 
     startPractise() {
-        console.log('start je moeder');
     }
 
     spiderPeek() {
@@ -117,8 +117,8 @@ export class Menu extends Scene {
     }
 
 
-    // onDeactivate() {
-    //     this.music.stop();
-    //     this.music.volume = 0
-    // }
+    onDeactivate(_  ) {
+        this.music.stop();
+        this.music.volume = 0
+    }
 }

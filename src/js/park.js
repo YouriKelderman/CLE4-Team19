@@ -12,8 +12,17 @@ export class Park extends Scene {
 
     constructor() {
         super();
-    }
 
+    }
+    music = Resources.BackgroundMusic;
+
+    onActivate(_context) {
+        this.engine.backgroundColor = new Color(239, 255, 228)
+        this.music.stop()
+        this.music.volume = 0.5
+        this.music.loop = true;
+        this.music.play().then(r => console.log(r));
+    }
 
     onInitialize(_engine) {
         placingSprite = new Placeholder();
