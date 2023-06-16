@@ -9,15 +9,16 @@ import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 
 import range from '../images/range.png';
+
+// park
 import bami from '../images/bami.png';
-
-
 import pan from '../images/Bami_Tower.png';
 import kevin from '../images/kevin.png';
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
 import menuMusic from '../sounds/menuMusic.mp3';
+import backgroundMusic from '../sounds/backgroundMusic.mp3';
 
 // play & pause
 import playButton from '../images/play-button.png';
@@ -44,6 +45,8 @@ const Resources = {
 
     PlayButton: new ImageSource(playButton),
     MenuMusic: new Sound(menuMusic),
+    BackgroundMusic: new Sound(backgroundMusic),
+
 
     SliderBase: new ImageSource(sliderBase),
     SliderHead: new ImageSource(sliderHead)
@@ -62,7 +65,9 @@ const ResourceLoader = new Loader([
     Resources.Bami,
     Resources.Map1Top,
     Resources.PlayButton,
+
     Resources.MenuMusic,
+    Resources.BackgroundMusic,
 
     Resources.SliderBase,
     Resources.SliderHead,
@@ -75,7 +80,7 @@ ResourceLoader.logoWidth = 550;
 ResourceLoader.logoHeight = 250;
 ResourceLoader.backgroundColor = new Color(239, 255, 228);
 ResourceLoader.loadingBarColor = '#3ca370';
-ResourceLoader.suppressPlayButton = true;
+ResourceLoader.suppressPlayButton = false;
 ResourceLoader.playButtonText = 'Speel!';
 
 
