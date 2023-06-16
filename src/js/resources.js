@@ -11,6 +11,7 @@ import menuSpider from '../images/menu-spider.png';
 
 import pan from '../images/Bami_Tower.png';
 import kevin from '../images/kevin.png';
+
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
 import menuMusic from '../sounds/menuMusic.mp3';
@@ -23,6 +24,7 @@ import sliderBase from '../images/slider-base.png';
 import sliderHead from '../images/slider-head.png';
 
 
+
 const Resources = {
     Logo: new ImageSource(logo),
     Loading: new ImageSource(loading),
@@ -31,6 +33,10 @@ const Resources = {
     Pan: new ImageSource(pan),
     Kevin: new ImageSource(kevin),
     Map1Ground: new ImageSource(map1ground),
+
+    Range: new ImageSource(range),
+    Bami: new ImageSource(bami),
+
     Map1Top: new ImageSource(map1top),
 
     PlayButton: new ImageSource(playButton),
@@ -49,6 +55,8 @@ const ResourceLoader = new Loader([
     Resources.Pan,
     Resources.Kevin,
     Resources.Map1Ground,
+    Resources.Range,
+    Resources.Bami,
     Resources.Map1Top,
     Resources.PlayButton,
     Resources.MenuMusic,
