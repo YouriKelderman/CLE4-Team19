@@ -11,6 +11,7 @@ import {
     Input,
     ParticleEmitter, EmitterType
 } from "excalibur";
+
 import {Resources} from "./resources";
 import {Game} from "./game.js";
 import {Range} from "./range.js";
