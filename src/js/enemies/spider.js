@@ -14,11 +14,11 @@ import {
 } from "excalibur";
 import {Resources} from "../resources.js";
 
-let path = [];
+let path = [new Vector(0, 0)];
 
 let engine;
-
 export class Spider extends Actor {
+    health = 3
     constructor(spriteID) {
         super({
             width: Resources.Pan.width / 2, height: Resources.Pan.height / 2
@@ -34,21 +34,37 @@ export class Spider extends Actor {
         this.graphics.use(this.sprite);
         this.z = 100;
         this._setName("Enemy")
-        console.log(localStorage.getItem("path"))
+        this.on('collisionstart', (event) => this.collided(event));
         this.move(path)
     }
 
+    collided(event) {
+
+        if(event.other.name === "projectile"){
+            event.other.kill()
+            console.log(this.health)
+            this.health -= 1;
+            if(this.health < 1) {
+                console.log("dood als een pier")
+                this.kill()
+            }
+        }
+    }
+
     mouseClick() {
-        path.push(new Vector(this.engine.input.pointers.primary.lastWorldPos.x, this.engine.input.pointers.primary.lastWorldPos.y));
+        path.push(new Vector(Math.floor(this.engine.input.pointers.primary.lastWorldPos.x), Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)));
         console.log(path)
     }
 
     move(pathToFollow) {
-        console.log(pathToFollow)
-        for (let i = 0; i < pathToFollow.length - 1; i++) {
-            console.log(pathToFollow[i])
-            this.actions
-                .moveTo(pathToFollow[i].x, pathToFollow[i].y, 100)
+        if (pathToFollow !== []) {
+            this.pos = pathToFollow[0];
+            console.log(pathToFollow)
+            for (let i = 0; i < pathToFollow.length - 1; i++) {
+                console.log(pathToFollow[i])
+                this.actions
+                    .moveTo(pathToFollow[i].x, pathToFollow[i].y, 100)
+            }
         }
     }
 
