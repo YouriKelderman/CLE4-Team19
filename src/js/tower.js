@@ -29,6 +29,9 @@ export class Tower extends Actor {
     shootingCooldown = 0;
     amountOfEnemies;
     enemy;
+    enemiesInRadiusName = []
+    enemiesInRadiusTime = []
+
     interpolatedRotation = 0;
 
     constructor(Game) {
@@ -76,7 +79,9 @@ export class Tower extends Actor {
     collisionHandler(event) {
         if (event.other.name === "Enemy") {
             this.amountOfEnemies++;
-            this.enemy = event;
+            this.enemiesInRadiusName.push(event)
+            this.enemiesInRadiusTime.push(event.other.timeAlive)
+
         }
 
     }
@@ -92,42 +97,57 @@ export class Tower extends Actor {
             this.onCollision();
         }
         this.amountOfEnemies = 0;
+
+
+        let oldestEnemy = Math.max(...this.enemiesInRadiusTime);
+        let oldestEnemyName = this.enemiesInRadiusName[this.enemiesInRadiusTime.indexOf(oldestEnemy, 0)]
+
+        console.log(oldestEnemyName)
+        console.log(this.enemiesInRadiusName)
+        this.enemiesInRadiusName = []
+        console.log(this.enemiesInRadiusTime)
+        this.enemiesInRadiusTime = []
+
+        this.enemy = oldestEnemyName
+
     }
 
     onCollision() {
-        let distance = new Vector(this.enemy.other.pos.x - this.pos.x, this.enemy.other.pos.y - this.pos.y);
+        if (this.enemy !== undefined) {
+            let distance = new Vector(this.enemy.other.pos.x - this.pos.x, this.enemy.other.pos.y - this.pos.y);
 
-        let angle = Math.sqrt((distance.x * distance.x) + (distance.y * distance.y));
-        if (distance.x < 0) {
-        }
-        angle = Math.asin(distance.y / angle);
-
-        if (!isNaN(angle)) {
+            let angle = Math.sqrt((distance.x * distance.x) + (distance.y * distance.y));
             if (distance.x < 0) {
-                angle = Math.abs(angle) + Math.PI;
             }
-            if (distance.x < 0 && distance.y > 0) {
+            angle = Math.asin(distance.y / angle);
 
-                angle = -Math.abs(angle);
+            if (!isNaN(angle)) {
+                if (distance.x < 0) {
+                    angle = Math.abs(angle) + Math.PI;
+                }
+                if (distance.x < 0 && distance.y > 0) {
+
+                    angle = -Math.abs(angle);
+                }
+                this.rotation = angle + 0.5 * Math.PI;
+
+                // Unused interpolation algorithm
+                // let accurateRotation = angle + 0.5 * Math.PI;
+                //
+                // if (accurateRotation > this.interpolatedRotation) {
+                //     this.interpolatedRotation += 0.1;
+                // }
+                // if (accurateRotation < this.interpolatedRotation) {
+                //     this.interpolatedRotation -= 0.1;
+                // }
+                //
+                // this.rotation = this.interpolatedRotation;
+                //
+                // console.log(`${this.interpolatedRotation} or ${accurateRotation}`);
+
             }
-            this.rotation = angle + 0.5 * Math.PI;
-
-                    // Unused interpolation algorithm
-            // let accurateRotation = angle + 0.5 * Math.PI;
-            //
-            // if (accurateRotation > this.interpolatedRotation) {
-            //     this.interpolatedRotation += 0.1;
-            // }
-            // if (accurateRotation < this.interpolatedRotation) {
-            //     this.interpolatedRotation -= 0.1;
-            // }
-            //
-            // this.rotation = this.interpolatedRotation;
-            //
-            // console.log(`${this.interpolatedRotation} or ${accurateRotation}`);
-
+            this.inRange();
         }
-        this.inRange();
     }
 
     updateRange(newRange) {

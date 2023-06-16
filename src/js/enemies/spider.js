@@ -32,7 +32,13 @@ let path = [
 
 let engine;
 export class Spider extends Actor {
+
+
+    timeAlive = 0;
+
+
     health = 3
+
     constructor(spriteID) {
         super({
             width: Resources.Pan.width / 2, height: Resources.Pan.height / 2
@@ -98,5 +104,7 @@ export class Spider extends Actor {
         if (engine.input.keyboard.wasPressed(Input.Keys.J)) {
 
         }
+
+        this.timeAlive++
     }
 }
