@@ -14,6 +14,8 @@ let game;
 export class Tower extends Actor {
 
     shootingCooldown = 0
+    amountOfEnemies;
+    enemy;
 
     constructor(Game) {
         super({
@@ -41,7 +43,27 @@ this.game.activeTower(this);
 }
     collisionHandler(event) {
         if (event.other.name === "Enemy") {
-            let distance = new Vector(event.other.pos.x - this.pos.x, event.other.pos.y - this.pos.y);
+            this.amountOfEnemies++
+            this.enemy = event
+        }
+
+    }
+
+    checkSelf(sprite) {
+        this.sprite = itemIds[sprite].toSprite();
+        this.graphics.use(itemIds[sprite].toSprite());
+
+    }
+
+    onPreUpdate(engine, _delta) {
+        if (this.amountOfEnemies > 0) {
+            this.onCollision()
+        }
+        this.amountOfEnemies = 0;
+    }
+
+    onCollision() {
+            let distance = new Vector(this.enemy.other.pos.x - this.pos.x, this.enemy.other.pos.y - this.pos.y);
 
             let angle = Math.sqrt((distance.x * distance.x) + (distance.y * distance.y))
             if (distance.x < 0) {
@@ -60,13 +82,6 @@ this.game.activeTower(this);
                 this.rotation = angle + 0.5 * Math.PI;
             }
             this.inRange();
-        }
-    }
-
-    checkSelf(sprite) {
-        this.sprite = itemIds[sprite].toSprite();
-        this.graphics.use(itemIds[sprite].toSprite());
-
     }
 
     updateRange(newRange){
