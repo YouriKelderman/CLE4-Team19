@@ -1,10 +1,9 @@
-import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape} from "excalibur";
+import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec} from "excalibur";
 import {Scene} from "excalibur";
 import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Range} from "./range.js";
 import {Bami} from "./towers/bami.js";
-import {Spider} from "./enemies/spider.js";
 
 
 let placing = false;
@@ -35,6 +34,7 @@ export class Park extends Scene {
     onInitialize(_engine) {
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
+
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -48,8 +48,16 @@ export class Park extends Scene {
         mapTop.z = 9999
         this.add(mapTop);
 
-this.add(new Spider());
 
+        const settingsButton = new Actor();
+       settingsButton.graphics.use(Resources.SettingsButton.toSprite());
+        settingsButton.pos = new Vector(1000,500);
+        settingsButton.scale = new Vector(1, 1)
+        settingsButton.z = 9999;
+        settingsButton.enableCapturePointer = true;
+        settingsButton.pointer.useGraphicsBounds = true;
+        settingsButton.on("pointerup", (event) => this.startGame());
+        this.add(settingsButton);
 
         let enemy = new Actor()
         enemy.graphics.use(Resources.Bami.toSprite())
@@ -58,6 +66,7 @@ this.add(new Spider());
         enemy._setName("Enemy")
         enemy.pos = new Vector(720, 500);
         this.add(enemy)
+
 
     }
 
@@ -95,9 +104,6 @@ this.add(new Spider());
             } else {
                 placingSprite.kill();
             }
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.Z)) {
-            this.add(new Spider());
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.O)) {
             this.activetower.updateRange(this.activetower.range -= 50);

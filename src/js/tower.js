@@ -6,7 +6,7 @@ import {Projectile} from "./projectile.js";
 
 
 let itemIds = [
-    Resources.Pan, Resources.Kevin,
+    Resources.Pan, Resources.Kevin
 ]
 let towerRange =300;
 let game;
