@@ -1,4 +1,16 @@
-import {Actor, Vector, Engine, Random, CollisionType, Shape, Circle, Color, Line, Input} from "excalibur";
+import {
+    Actor,
+    Vector,
+    Engine,
+    Random,
+    CollisionType,
+    Shape,
+    Circle,
+    Color,
+    Line,
+    Input,
+    ParticleEmitter, EmitterType
+} from "excalibur";
 import {Resources} from "./resources";
 import {Game} from "./game.js";
 import {Range} from "./range.js";
@@ -37,6 +49,22 @@ export class Tower extends Actor {
         this.on('precollision', (event) => this.collisionHandler(event));
         this.on('pointerdown', () => this.clicked())
         console.log(game);
+        this.particle = new ParticleEmitter({
+            emitterType: EmitterType.Rectangle,
+            radius: 5,
+            minVel: 100,
+            maxVel: 200,
+            minAngle: 0,
+            maxAngle: Math.PI * 2,
+            emitRate: 1000,
+            opacity: 1,
+            fadeFlag: true,
+            particleLife: 1000,
+            maxSize: 5,
+            minSize: 1,
+            beginColor: Color.Red,
+            isEmitting: true
+        })
     }
 clicked(){
 this.game.activeTower(this);
