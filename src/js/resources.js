@@ -8,6 +8,9 @@ import loading from '../images/loading.png';
 import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 
+import range from '../images/range.png';
+import bami from '../images/bami.png';
+
 
 import pan from '../images/Bami_Tower.png';
 import kevin from '../images/kevin.png';
