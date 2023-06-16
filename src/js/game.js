@@ -8,7 +8,7 @@ export class Game extends Engine {
     game
 
     constructor() {
-        super({width: 1440, height: 900, displayMode: DisplayMode.FillScreen});
+        super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
         this.start(ResourceLoader).then(() => this.startGame());
         this.showDebug(false);
         this.debug.motion = {
