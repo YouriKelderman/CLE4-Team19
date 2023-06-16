@@ -37,14 +37,14 @@ export class Park extends Scene {
 
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
-        mapFloor.scale = new Vector(6, 6);
-        mapFloor.pos = new Vector(775, 335);
+        mapFloor.scale = new Vector(5.5, 5.5);
+        mapFloor.pos = new Vector(745, 425);
         this.add(mapFloor);
 
         let mapTop = new Actor();
         mapTop.graphics.use(Resources.Map1Top.toSprite());
-        mapTop.scale = new Vector(6, 6);
-        mapTop.pos = new Vector(775, 335);
+        mapTop.scale = new Vector(5.5, 5.5);
+        mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999
         this.add(mapTop);
 
