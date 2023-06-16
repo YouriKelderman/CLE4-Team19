@@ -1,4 +1,4 @@
-import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape} from "excalibur";
+import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec} from "excalibur";
 import {Scene} from "excalibur";
 import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
@@ -45,6 +45,16 @@ export class Park extends Scene {
         mapTop.pos = new Vector(775, 335);
         mapTop.z = 9999
         this.add(mapTop);
+
+        const settingsButton = new Actor();
+       settingsButton.graphics.use(Resources.SettingsButton.toSprite());
+        settingsButton.pos = new Vector(1000,500);
+        settingsButton.scale = new Vector(1, 1)
+        settingsButton.z = 9999;
+        settingsButton.enableCapturePointer = true;
+        settingsButton.pointer.useGraphicsBounds = true;
+        settingsButton.on("pointerup", (event) => this.startGame());
+        this.add(settingsButton);
 
     }
 
