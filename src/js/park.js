@@ -66,10 +66,7 @@ this.add(new Spider());
         enemy._setName("Enemy")
         enemy.pos = new Vector(720, 500);
         this.add(enemy)
-
-
     }
-
     mouseInput() {
         if (placing) {
             let newClone = new Tower(this);
@@ -111,6 +108,10 @@ this.add(new Spider());
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.P)) {
             this.activetower.updateRange(this.activetower.range += 50);
+
+        }
+        if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
+            this.add(new Spider())
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {

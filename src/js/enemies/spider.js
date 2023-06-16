@@ -35,6 +35,7 @@ export class Spider extends Actor {
         this.z = 100;
         this._setName("Enemy")
         console.log(localStorage.getItem("path"))
+        this.move(path)
     }
 
     mouseClick() {
