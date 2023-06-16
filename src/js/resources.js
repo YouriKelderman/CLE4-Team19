@@ -14,6 +14,8 @@ import range from '../images/range.png';
 import bami from '../images/bami.png';
 import pan from '../images/Bami_Tower.png';
 import kevin from '../images/kevin.png';
+import spider from '../images/spider.png';
+
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
@@ -49,7 +51,9 @@ const Resources = {
 
 
     SliderBase: new ImageSource(sliderBase),
-    SliderHead: new ImageSource(sliderHead)
+    SliderHead: new ImageSource(sliderHead),
+
+    Spider: new ImageSource(spider)
 
 };
 
@@ -71,6 +75,7 @@ const ResourceLoader = new Loader([
     Resources.BackgroundMusic,
     Resources.SliderBase,
     Resources.SliderHead,
+    Resources.Spider,
 
 ]);
 

@@ -37,7 +37,7 @@ export class Spider extends Actor {
     timeAlive = 0;
 
 
-    health = 3
+    health = 5
 
     constructor(spriteID) {
         super({
@@ -49,8 +49,8 @@ export class Spider extends Actor {
         this.engine = engine;
 
         this.anchor = new Vector(0.5, 0.5);
-        this.scale = new Vector(1, 1);
-        this.sprite = Resources.MenuSpider.toSprite();
+        this.scale = new Vector(0.5, 0.5);
+        this.sprite = Resources.Spider.toSprite();
         this.graphics.use(this.sprite);
         this.z = 100;
         this._setName("Enemy")
@@ -104,5 +104,6 @@ export class Spider extends Actor {
         }
 
         this.timeAlive++
+
     }
 }
