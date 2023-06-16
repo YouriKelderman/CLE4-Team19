@@ -135,10 +135,10 @@ export class Tower extends Actor {
                 // let accurateRotation = angle + 0.5 * Math.PI;
                 //
                 // if (accurateRotation > this.interpolatedRotation) {
-                //     this.interpolatedRotation += 0.1;
+                //     this.interpolatedRotation += 0.05;
                 // }
                 // if (accurateRotation < this.interpolatedRotation) {
-                //     this.interpolatedRotation -= 0.1;
+                //     this.interpolatedRotation -= 0.05;
                 // }
                 //
                 // this.rotation = this.interpolatedRotation;

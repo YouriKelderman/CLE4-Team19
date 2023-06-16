@@ -22,6 +22,7 @@ export class Park extends Scene {
     }
 
     music = Resources.BackgroundMusic;
+    spiderSpawner = 0
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228)
@@ -57,7 +58,7 @@ this.add(new Spider());
         settingsButton.enableCapturePointer = true;
         settingsButton.pointer.useGraphicsBounds = true;
         settingsButton.on("pointerup", (event) => this.startGame());
-        this.add(settingsButton);
+        // this.add(settingsButton);
 
     }
     mouseInput() {
@@ -104,10 +105,6 @@ this.add(new Spider());
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
-            this.add(new Spider())
-
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
             int += 1;
             if (int > 1) {
                 int = 0;
@@ -119,6 +116,14 @@ this.add(new Spider());
         }
         if (placinge) {
             placingSpritee.pos = engine.input.pointers.primary.lastWorldPos;
+        }
+
+        if (this.spiderSpawner === 1) {
+            this.add(new Spider())
+        }
+        this.spiderSpawner++
+        if (this.spiderSpawner > 50) {
+            this.spiderSpawner = 0
         }
     }
 }
