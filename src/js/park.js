@@ -13,12 +13,14 @@ let placinge = false;
 let placingSpritee = new Range();
 let activetower;
 let range = new Range();
+
 export class Park extends Scene {
 
     constructor() {
         super();
 
     }
+
     music = Resources.BackgroundMusic;
 
     onActivate(_context) {
@@ -35,16 +37,17 @@ export class Park extends Scene {
 
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
-        mapFloor.scale = new Vector(6, 6);
-        mapFloor.pos = new Vector(775, 335);
+        mapFloor.scale = new Vector(5.5, 5.5);
+        mapFloor.pos = new Vector(745, 425);
         this.add(mapFloor);
 
         let mapTop = new Actor();
         mapTop.graphics.use(Resources.Map1Top.toSprite());
-        mapTop.scale = new Vector(6, 6);
-        mapTop.pos = new Vector(775, 335);
+        mapTop.scale = new Vector(5.5, 5.5);
+        mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999
         this.add(mapTop);
+
 
         const settingsButton = new Actor();
        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
@@ -55,6 +58,15 @@ export class Park extends Scene {
         settingsButton.pointer.useGraphicsBounds = true;
         settingsButton.on("pointerup", (event) => this.startGame());
         this.add(settingsButton);
+
+        let enemy = new Actor()
+        enemy.graphics.use(Resources.Bami.toSprite())
+        enemy.draggable = true
+        enemy.collider.set(Shape.Box(100,100));
+        enemy._setName("Enemy")
+        enemy.pos = new Vector(720, 500);
+        this.add(enemy)
+
 
     }
 
@@ -67,16 +79,12 @@ export class Park extends Scene {
             this.activetower = newClone;
         }
     }
-activeTower(tower){
-        range.kill();
-        this.activetower = tower;
-        console.log(this.activetower);
-        range.pos = this.activetower.pos;
-        range.changeScale(this.activetower.range);
-        console.log(this.activetower.range);
-        this.add(range)
 
-}
+    activeTower(tower) {
+        this.activetower = tower;
+
+    }
+
     onPreUpdate(engine, delta) {
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
             placing = !placing;
@@ -98,12 +106,12 @@ activeTower(tower){
             }
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.O)) {
-            this.activetower.updateRange(this.activetower.range -=50);
-            range.changeScale(this.activetower.range)
+            this.activetower.updateRange(this.activetower.range -= 50);
+
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.P)) {
-            this.activetower.updateRange(this.activetower.range +=50);
-            range.changeScale(this.activetower.range)
+            this.activetower.updateRange(this.activetower.range += 50);
+
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
             int += 1;
@@ -115,7 +123,7 @@ activeTower(tower){
         if (placing) {
             placingSprite.pos = engine.input.pointers.primary.lastWorldPos;
         }
-        if(placinge){
+        if (placinge) {
             placingSpritee.pos = engine.input.pointers.primary.lastWorldPos;
         }
     }
