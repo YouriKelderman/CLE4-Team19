@@ -4,7 +4,7 @@ import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Range} from "./range.js";
 import {Bami} from "./towers/bami.js";
-
+import {Spider} from "./enemies/spider.js";
 
 let placing = false;
 let placingSprite;
@@ -40,7 +40,7 @@ export class Park extends Scene {
         mapFloor.scale = new Vector(5.5, 5.5);
         mapFloor.pos = new Vector(745, 425);
         this.add(mapFloor);
-
+this.add(new Spider());
         let mapTop = new Actor();
         mapTop.graphics.use(Resources.Map1Top.toSprite());
         mapTop.scale = new Vector(5.5, 5.5);
