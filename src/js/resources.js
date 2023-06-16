@@ -27,8 +27,6 @@ import playButton from '../images/play-button.png';
 import sliderBase from '../images/slider-base.png';
 import sliderHead from '../images/slider-head.png';
 
-
-
 const Resources = {
     Logo: new ImageSource(logo),
     Loading: new ImageSource(loading),
@@ -40,7 +38,6 @@ const Resources = {
 
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
-
     Map1Top: new ImageSource(map1top),
 
     PlayButton: new ImageSource(playButton),
@@ -68,7 +65,6 @@ const ResourceLoader = new Loader([
 
     Resources.MenuMusic,
     Resources.BackgroundMusic,
-
     Resources.SliderBase,
     Resources.SliderHead,
 

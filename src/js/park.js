@@ -4,6 +4,7 @@ import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Range} from "./range.js";
 import {Bami} from "./towers/bami.js";
+import {Spider} from "./enemies/spider.js";
 
 
 let placing = false;
@@ -34,7 +35,6 @@ export class Park extends Scene {
     onInitialize(_engine) {
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
-
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -47,7 +47,7 @@ export class Park extends Scene {
         mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999
         this.add(mapTop);
-
+this.add(new Spider());
     }
 
     mouseInput() {
@@ -84,6 +84,9 @@ export class Park extends Scene {
             } else {
                 placingSprite.kill();
             }
+        }
+        if (engine.input.keyboard.wasPressed(Input.Keys.Z)) {
+            this.add(new Spider());
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.O)) {
             this.activetower.updateRange(this.activetower.range -= 50);
