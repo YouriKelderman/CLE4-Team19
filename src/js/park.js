@@ -48,6 +48,14 @@ export class Park extends Scene {
         mapTop.z = 9999
         this.add(mapTop);
 
+        let enemy = new Actor()
+        enemy.graphics.use(Resources.Bami.toSprite())
+        enemy.draggable = true
+        enemy.collider.set(Shape.Box(100,100));
+        enemy._setName("Enemy")
+        enemy.pos = new Vector(720, 500);
+        this.add(enemy)
+
     }
 
     mouseInput() {
