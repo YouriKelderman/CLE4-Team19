@@ -42,7 +42,7 @@ export class Menu extends Scene {
         // logo & buttons
         this.logo = new Actor();
         this.logo.graphics.use(Resources.Logo.toSprite());
-        this.logo.pos = new Vector((this.engine.canvasWidth / 2) - 200, 175);
+        this.logo.pos = new Vector(720, 250);
         this.logo.scale = new Vector(0.1, 0.1)
         this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
         this.logo.z = 1000;
@@ -50,7 +50,7 @@ export class Menu extends Scene {
 
         const startButton = new Actor();
         startButton.graphics.use(Resources.Start.toSprite());
-        startButton.pos = new Vector((this.engine.canvasWidth / 2) - 200, 400);
+        startButton.pos = new Vector(720, 500);
         startButton.scale = new Vector(0.1, 0.1)
         startButton.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
         startButton.z = 1000;
@@ -75,7 +75,7 @@ export class Menu extends Scene {
         // Funny menu things
         this.spider = new Actor();
         this.spider.graphics.use(Resources.MenuSpider.toSprite());
-        this.spider.pos = new Vector(100, -100);
+        this.spider.pos = new Vector(100, 0);
         this.spider.scale = new Vector(1.5, 1.5)
         this.spider.z = 1000;
         this.add(this.spider);
@@ -111,9 +111,9 @@ export class Menu extends Scene {
 
     spiderPeek() {
         this.spider.actions
-            .moveTo(vec(100, 50), 50)
+            .moveTo(vec(100, 100), 50)
             .delay(1000)
-            .moveTo(vec(100, -100), 50)
+            .moveTo(vec(100, 0), 50)
     }
 
 
