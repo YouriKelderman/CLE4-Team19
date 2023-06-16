@@ -56,9 +56,7 @@ export class Spider extends Actor {
         this._setName("Enemy")
         this.on('collisionstart', (event) => this.collided(event));
         this.move(path)
-        let tempPath = localStorage.getItem("path")
 
-        tempPath.split("")
     }
 
     collided(event) {
