@@ -19,20 +19,21 @@ import {Projectile} from "./projectile.js";
 
 let itemIds = [
     Resources.Pan, Resources.Kevin
-]
-let towerRange =300;
+];
+let towerRange = 300;
 let game;
 
 export class Tower extends Actor {
 
-    shootingCooldown = 0
+    shootingCooldown = 0;
     amountOfEnemies;
     enemy;
+    interpolatedRotation = 0;
 
     constructor(Game) {
         super({
             width: 50, height: 50
-        })
+        });
         this.game = Game;
     }
 
@@ -42,12 +43,12 @@ export class Tower extends Actor {
         this.scale = new Vector(1, 1);
         this.range = towerRange;
         this.z = 100;
-        const circle = Shape.Circle(towerRange)
+        const circle = Shape.Circle(towerRange);
         this.collider.clear();
-        this._setName("Tower")
+        this._setName("Tower");
         this.collider.set(circle);
         this.on('precollision', (event) => this.collisionHandler(event));
-        this.on('pointerdown', () => this.clicked())
+        this.on('pointerdown', () => this.clicked());
         console.log(game);
         this.particle = new ParticleEmitter({
             emitterType: EmitterType.Rectangle,
@@ -64,15 +65,17 @@ export class Tower extends Actor {
             minSize: 1,
             beginColor: Color.Red,
             isEmitting: true
-        })
+        });
     }
-clicked(){
-this.game.activeTower(this);
-}
+
+    clicked() {
+        this.game.activeTower(this);
+    }
+
     collisionHandler(event) {
         if (event.other.name === "Enemy") {
-            this.amountOfEnemies++
-            this.enemy = event
+            this.amountOfEnemies++;
+            this.enemy = event;
         }
 
     }
@@ -85,52 +88,66 @@ this.game.activeTower(this);
 
     onPreUpdate(engine, _delta) {
         if (this.amountOfEnemies > 0) {
-            this.onCollision()
+            this.onCollision();
         }
         this.amountOfEnemies = 0;
     }
 
     onCollision() {
-            let distance = new Vector(this.enemy.other.pos.x - this.pos.x, this.enemy.other.pos.y - this.pos.y);
+        let distance = new Vector(this.enemy.other.pos.x - this.pos.x, this.enemy.other.pos.y - this.pos.y);
 
-            let angle = Math.sqrt((distance.x * distance.x) + (distance.y * distance.y))
+        let angle = Math.sqrt((distance.x * distance.x) + (distance.y * distance.y));
+        if (distance.x < 0) {
+        }
+        angle = Math.asin(distance.y / angle);
+
+        if (!isNaN(angle)) {
             if (distance.x < 0) {
+                angle = Math.abs(angle) + Math.PI;
             }
-            angle = Math.asin(distance.y / angle);
+            if (distance.x < 0 && distance.y > 0) {
 
-            if (!isNaN(angle)) {
-                if (distance.x < 0) {
-                    angle = Math.abs(angle) + Math.PI;
-                }
-                if (distance.x < 0 && distance.y > 0) {
-
-                    angle = -Math.abs(angle);
-                }
-
-                this.rotation = angle + 0.5 * Math.PI;
+                angle = -Math.abs(angle);
             }
-            this.inRange();
+            this.rotation = angle + 0.5 * Math.PI;
+
+                    // Unused interpolation algorithm
+            // let accurateRotation = angle + 0.5 * Math.PI;
+            //
+            // if (accurateRotation > this.interpolatedRotation) {
+            //     this.interpolatedRotation += 0.1;
+            // }
+            // if (accurateRotation < this.interpolatedRotation) {
+            //     this.interpolatedRotation -= 0.1;
+            // }
+            //
+            // this.rotation = this.interpolatedRotation;
+            //
+            // console.log(`${this.interpolatedRotation} or ${accurateRotation}`);
+
+        }
+        this.inRange();
     }
 
-    updateRange(newRange){
+    updateRange(newRange) {
         const circle = Shape.Circle(newRange);
         this.collider.clear();
-        this._setName("Tower")
+        this._setName("Tower");
         this.collider.set(circle);
 
     }
 
-    inRange(){
+    inRange() {
         if (this.shootingCooldown === 1) {
             let bullet = new Projectile(1000);
             bullet.pos = this.pos;
-            bullet.rotation = this.rotation - Math.PI / 2
-            this.engine.add(bullet)
+            bullet.rotation = this.rotation - Math.PI / 2;
+            this.engine.add(bullet);
         }
         if (this.shootingCooldown > 25) {
-            this.shootingCooldown = 0
+            this.shootingCooldown = 0;
         }
-        this.shootingCooldown++
+        this.shootingCooldown++;
 
     }
 
