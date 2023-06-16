@@ -20,7 +20,7 @@ export class Projectile extends Actor {
         this.sprite = Resources.Bami.toSprite();
         this.graphics.use(this.sprite);
 this._setName("projectile");
-        console.log('shot')
+
     }
 
     onPreUpdate(engine, _delta) {
