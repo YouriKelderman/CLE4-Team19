@@ -13,12 +13,14 @@ let placinge = false;
 let placingSpritee = new Range();
 let activetower;
 let range = new Range();
+
 export class Park extends Scene {
 
     constructor() {
         super();
 
     }
+
     music = Resources.BackgroundMusic;
 
     onActivate(_context) {
@@ -57,16 +59,12 @@ export class Park extends Scene {
             this.activetower = newClone;
         }
     }
-activeTower(tower){
-        range.kill();
-        this.activetower = tower;
-        console.log(this.activetower);
-        range.pos = this.activetower.pos;
-        range.changeScale(this.activetower.range);
-        console.log(this.activetower.range);
-        this.add(range)
 
-}
+    activeTower(tower) {
+        this.activetower = tower;
+
+    }
+
     onPreUpdate(engine, delta) {
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
             placing = !placing;
@@ -88,12 +86,12 @@ activeTower(tower){
             }
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.O)) {
-            this.activetower.updateRange(this.activetower.range -=50);
-            range.changeScale(this.activetower.range)
+            this.activetower.updateRange(this.activetower.range -= 50);
+
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.P)) {
-            this.activetower.updateRange(this.activetower.range +=50);
-            range.changeScale(this.activetower.range)
+            this.activetower.updateRange(this.activetower.range += 50);
+
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
             int += 1;
@@ -105,7 +103,7 @@ activeTower(tower){
         if (placing) {
             placingSprite.pos = engine.input.pointers.primary.lastWorldPos;
         }
-        if(placinge){
+        if (placinge) {
             placingSpritee.pos = engine.input.pointers.primary.lastWorldPos;
         }
     }
