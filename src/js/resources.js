@@ -22,6 +22,7 @@ import backgroundMusic from '../sounds/backgroundMusic.mp3';
 
 // play & pause
 import playButton from '../images/play-button.png';
+import settingsButton from '../images/SettingsButton.png';
 
 // slider
 import sliderBase from '../images/slider-base.png';
@@ -44,6 +45,8 @@ const Resources = {
     Map1Top: new ImageSource(map1top),
 
     PlayButton: new ImageSource(playButton),
+    SettingsButton: new ImageSource(settingsButton),
+
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
 
@@ -65,6 +68,7 @@ const ResourceLoader = new Loader([
     Resources.Bami,
     Resources.Map1Top,
     Resources.PlayButton,
+    Resources.SettingsButton,
 
     Resources.MenuMusic,
     Resources.BackgroundMusic,
