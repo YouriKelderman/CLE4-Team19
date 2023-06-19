@@ -12,19 +12,27 @@ let int = 0;
 let placinge = false;
 let placingSpritee = new Range();
 let activetower;
-let range = new Range();
 let path = "";
 let engine;
 let route = [];
 let mapping = false;
 let running = false;
+let levels = [
+    "7*0,6*1, 10*0, 2*1"
+]
+let waveItem = 0;
+let order = [];
+let parsedResult = levels[0].split(",");
+parsedResult.forEach(item => {
+    item = item.split("*")
+    for(let i=0; i < Number(item[0]); i++) {
+        order.push(Number(item[1]));
+    }
+})
 export class Park extends Scene {
-
     constructor() {
         super();
-
     }
-
     music = Resources.BackgroundMusic;
     spiderSpawner = 0
 
@@ -37,6 +45,8 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
+        console.log(order)
+
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
         engine = _engine;
@@ -45,7 +55,6 @@ export class Park extends Scene {
         mapFloor.scale = new Vector(5.5, 5.5);
         mapFloor.pos = new Vector(745, 425);
         this.add(mapFloor);
-
         let mapTop = new Actor();
         mapTop.graphics.use(Resources.Map1Top.toSprite());
         mapTop.scale = new Vector(5.5, 5.5);
@@ -59,7 +68,7 @@ export class Park extends Scene {
         settingsButton.scale = new Vector(0.9, 0.9)
         settingsButton.z = 9999;
         settingsButton.enableCapturePointer = true;
-        settingsButton.pointer.useGraphicsBounds = true;
+
         settingsButton.on("pointerup", (event) => console.log("settings"));
         this.add(settingsButton);
 
@@ -140,13 +149,17 @@ export class Park extends Scene {
         if (placinge) {
             placingSpritee.pos = engine.input.pointers.primary.lastWorldPos;
         }
-
-        if (this.spiderSpawner === 1 && running) {
-            this.add(new Spider())
-        }
-        this.spiderSpawner++
-        if (this.spiderSpawner > 50) {
-            this.spiderSpawner = 0
+        if (waveItem <= order.length -1) {
+            if (this.spiderSpawner === 1 && running) {
+                let enemy = new Spider();
+                enemy.setType(order[waveItem]);
+                this.add(enemy)
+                waveItem += 1;
+            }
+            this.spiderSpawner++
+            if (this.spiderSpawner > 50) {
+                this.spiderSpawner = 0
+            }
         }
     }
 }

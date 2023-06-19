@@ -20,7 +20,7 @@ export class Projectile extends Actor {
         this.sprite = Resources.Bami.toSprite();
         this.graphics.use(this.sprite);
 this._setName("projectile");
-
+this.scale = new Vector(1.5, 1.5);
     }
 
     onPreUpdate(engine, _delta) {

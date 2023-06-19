@@ -17,6 +17,7 @@ export class Range extends Actor {
         const circle = Shape.Circle(1000)
         this.collider.clear();
         this.collider.set(circle);
+        this._setName("Enemy")
         this.z = 10;
     }
 
