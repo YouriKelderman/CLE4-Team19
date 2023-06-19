@@ -80,10 +80,10 @@ export class Menu extends Scene {
         this.spider.z = 1000;
         this.add(this.spider);
 
-        let sliderBase = new SliderBase(400, 500)
-        let sliderHead = new Slider(400, 500)
-        this.add(sliderHead)
-            this.add(sliderBase)
+        // let sliderBase = new SliderBase(400, 500)
+        // let sliderHead = new Slider(400, 500)
+        // this.add(sliderHead)
+        //     this.add(sliderBase)
 
     }
 
