@@ -52,16 +52,14 @@ export class Park extends Scene {
         mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999
         this.add(mapTop);
-        const settingsButton = new Actor();
-        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
-        settingsButton.pos = new Vector(1000, 500);
-        settingsButton.scale = new Vector(1, 1)
+       settingsButton.graphics.use(Resources.SettingsButton.toSprite());
+        settingsButton.pos = new Vector(1365,125);
+        settingsButton.scale = new Vector(0.9, 0.9)
         settingsButton.z = 9999;
         settingsButton.enableCapturePointer = true;
         settingsButton.pointer.useGraphicsBounds = true;
-        settingsButton.on("pointerup", (event) => this.startGame());
-        // this.add(settingsButton);
-
+        settingsButton.on("pointerup", (event) => console.log("settings"));
+        this.add(settingsButton);
 
 
     }
