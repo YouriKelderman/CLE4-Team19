@@ -48,6 +48,7 @@ export class Park extends Scene {
         mapTop.z = 9999
         this.add(mapTop);
 
+
         const settingsButton = new Actor();
        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
         settingsButton.pos = new Vector(1365,125);
@@ -57,6 +58,15 @@ export class Park extends Scene {
         settingsButton.pointer.useGraphicsBounds = true;
         settingsButton.on("pointerup", (event) => console.log("settings"));
         this.add(settingsButton);
+
+        let enemy = new Actor()
+        enemy.graphics.use(Resources.Bami.toSprite())
+        enemy.draggable = true
+        enemy.collider.set(Shape.Box(100,100));
+        enemy._setName("Enemy")
+        enemy.pos = new Vector(720, 500);
+        this.add(enemy)
+
 
     }
 
