@@ -14,6 +14,17 @@ import {
 } from "excalibur";
 import {Resources} from "../resources.js";
 
+
+let route = [];
+let tempRoute = localStorage.getItem("path").split(",")
+tempRoute.forEach(item => {
+
+    item = item.split(".")
+    let newItem = new Vector(Number(item[0]), Number(item[1]));
+    route.push(newItem)
+})
+route[0] = route[1];
+
 let path = [
     new Vector(1130, 50),
     new Vector(1112, 300),
@@ -32,6 +43,7 @@ let path = [
 
 let engine;
 
+
 export class Spider extends Actor {
 
 
@@ -48,7 +60,6 @@ export class Spider extends Actor {
 
     onInitialize(engine) {
         this.engine = engine;
-
         this.anchor = new Vector(0.5, 0.5);
         this.scale = new Vector(0.5, 0.5);
         this.sprite = Resources.Spider.toSprite();
@@ -56,6 +67,15 @@ export class Spider extends Actor {
         this.z = 100;
         this._setName("Enemy");
         this.on('collisionstart', (event) => this.collided(event));
+
+        this.move(route)
+console.log(route);
+    }
+
+    collided(event) {
+        if(event.other.name === "projectile"){
+            event.other.kill()
+
         this.move(path);
 
     }
@@ -64,6 +84,7 @@ export class Spider extends Actor {
 
         if (event.other.name === "projectile") {
             event.other.kill();
+
             this.health -= 1;
             if (this.health < 1) {
                 this.kill();
@@ -71,11 +92,6 @@ export class Spider extends Actor {
         }
     }
 
-    mouseClick() {
-        path.push(new Vector(Math.floor(this.engine.input.pointers.primary.lastWorldPos.x), Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)));
-
-
-    }
 
     move(pathToFollow) {
         if (pathToFollow !== []) {
@@ -125,7 +141,8 @@ export class Spider extends Actor {
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
-            this.move(path);
+
+            this.move(route)
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.J)) {
 

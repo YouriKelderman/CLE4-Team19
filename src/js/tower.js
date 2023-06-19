@@ -25,19 +25,19 @@ let towerRange = 300;
 let game;
 
 export class Tower extends Actor {
-
+    tier = 1;
     shootingCooldown = 0;
     amountOfEnemies;
     enemy;
     enemiesInRadiusName = []
     enemiesInRadiusTime = []
-
     interpolatedRotation = 0;
 
     constructor(Game) {
         super({
             width: 50, height: 50
         });
+
         this.game = Game;
     }
 
@@ -53,7 +53,7 @@ export class Tower extends Actor {
         this.collider.set(circle);
         this.on('precollision', (event) => this.collisionHandler(event));
         this.on('pointerdown', () => this.clicked());
-        console.log(game);
+
         this.particle = new ParticleEmitter({
             emitterType: EmitterType.Rectangle,
             radius: 5,
@@ -83,7 +83,6 @@ export class Tower extends Actor {
             this.enemiesInRadiusTime.push(event.other.timeAlive)
 
         }
-
     }
 
     checkSelf(sprite) {
@@ -97,17 +96,10 @@ export class Tower extends Actor {
             this.onCollision();
         }
         this.amountOfEnemies = 0;
-
-
         let oldestEnemy = Math.max(...this.enemiesInRadiusTime);
         let oldestEnemyName = this.enemiesInRadiusName[this.enemiesInRadiusTime.indexOf(oldestEnemy, 0)]
-
-        console.log(oldestEnemyName)
-        console.log(this.enemiesInRadiusName)
         this.enemiesInRadiusName = []
-        console.log(this.enemiesInRadiusTime)
         this.enemiesInRadiusTime = []
-
         this.enemy = oldestEnemyName
 
     }
@@ -158,12 +150,32 @@ export class Tower extends Actor {
 
     }
 
-    inRange() {
-        if (this.shootingCooldown === 1) {
+    fire() {
+        if (this.tier === 1) {
             let bullet = new Projectile(1000);
             bullet.pos = this.pos;
             bullet.rotation = this.rotation - Math.PI / 2;
             this.engine.add(bullet);
+        }
+        if (this.tier === 2) {
+            let bullet = new Projectile(1000);
+            bullet.pos = this.pos;
+            bullet.rotation = this.rotation - Math.PI / 2;
+            this.engine.add(bullet);
+            let bullet1 = new Projectile(1000);
+            bullet1.pos = this.pos;
+            bullet1.rotation = this.rotation - 1.3;
+            this.engine.add(bullet1);
+            let bullet2 = new Projectile(1000);
+            bullet2.pos = this.pos;
+            bullet2.rotation = this.rotation - 1.8;
+            this.engine.add(bullet2);
+        }
+    }
+
+    inRange() {
+        if (this.shootingCooldown === 1) {
+            this.fire();
         }
         if (this.shootingCooldown > 25) {
             this.shootingCooldown = 0;
