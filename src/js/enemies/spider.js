@@ -16,33 +16,17 @@ import {Resources} from "../resources.js";
 
 
 let route = [];
-let tempRoute = localStorage.getItem("path").split(",")
+let routeString = ",1128.102,1125.141,1118.192,1114.224,1116.268,1114.318,1098.352,1068.398,1030.444,993.468,936.461,867.452,806.444,761.426,723.401,707.352,674.289,641.246,600.217,547.192,490.182,416.197,345.220,305.252,273.289,250.319,231.368,227.417,234.478,248.526,258.560,273.588,275.619,254.643,214.673,189.705,171.731,156.783";
+let tempRoute = routeString.split(",")
 tempRoute.forEach(item => {
-
     item = item.split(".")
     let newItem = new Vector(Number(item[0]), Number(item[1]));
     route.push(newItem)
 })
 route[0] = route[1];
 
-let path = [
-    new Vector(1130, 50),
-    new Vector(1112, 300),
-    new Vector(931, 460),
-    new Vector(717, 420),
-    new Vector(630, 247),
-    new Vector(470, 187),
-    new Vector(360, 229),
-    new Vector(229, 377),
-    new Vector(256, 554),
-    new Vector(301, 617),
-    new Vector(242, 660),
-    new Vector(180, 717),
-    new Vector(151, 900),
-];
 
 let engine;
-
 
 export class Spider extends Actor {
 
@@ -72,13 +56,13 @@ export class Spider extends Actor {
 console.log(route);
     }
 
-    collided(event) {
-        if(event.other.name === "projectile"){
-            event.other.kill()
-
-        this.move(path);
-
-    }
+    // collided(event) {
+    //     if(event.other.name === "projectile"){
+    //         event.other.kill()
+    //
+    //     this.move(path);
+    //
+    // }
 
     collided(event) {
 
