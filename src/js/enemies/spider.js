@@ -14,15 +14,23 @@ import {
 } from "excalibur";
 import {Resources} from "../resources.js";
 
-let route = [];
-let tempRoute = localStorage.getItem("path").split(",")
-tempRoute.forEach(item => {
+let path = [
+    new Vector(1130, 50),
+    new Vector(1112, 300),
+    new Vector(931, 460),
+    new Vector(717, 420),
+    new Vector(630, 247),
+    new Vector(470, 187),
+    new Vector(360, 229),
+    new Vector(229, 377),
+    new Vector(256, 554),
+    new Vector(301, 617),
+    new Vector(242, 660),
+    new Vector(180, 717),
+    new Vector(151, 900),
+];
 
-    item = item.split(".")
-    let newItem = new Vector(Number(item[0]), Number(item[1]));
-    route.push(newItem)
-})
-route[0] = route[1];
+let engine;
 export class Spider extends Actor {
 
 
@@ -39,6 +47,7 @@ export class Spider extends Actor {
 
     onInitialize(engine) {
         this.engine = engine;
+
         this.anchor = new Vector(0.5, 0.5);
         this.scale = new Vector(0.5, 0.5);
         this.sprite = Resources.Spider.toSprite();
@@ -46,11 +55,12 @@ export class Spider extends Actor {
         this.z = 100;
         this._setName("Enemy")
         this.on('collisionstart', (event) => this.collided(event));
-        this.move(route)
-console.log(route);
+        this.move(path)
+
     }
 
     collided(event) {
+
         if(event.other.name === "projectile"){
             event.other.kill()
             this.health -= 1;
@@ -60,6 +70,11 @@ console.log(route);
         }
     }
 
+    mouseClick() {
+        path.push(new Vector(Math.floor(this.engine.input.pointers.primary.lastWorldPos.x), Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)));
+
+
+    }
 
     move(pathToFollow) {
         if (pathToFollow !== []) {
@@ -82,7 +97,7 @@ console.log(route);
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
-            this.move(route)
+            this.move(path)
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.J)) {
 
