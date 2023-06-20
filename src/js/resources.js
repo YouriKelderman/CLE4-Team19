@@ -2,6 +2,8 @@ import {ImageSource, Sound, Resource, Loader, Color, Vector} from 'excalibur';
 
 // logo
 import logo from '../images/logo.png';
+import pausedLogo from '../images/paused-logo.png';
+import HervatButton from '../images/HervatButton.png';
 
 // menu
 import loading from '../images/loading.png';
@@ -34,6 +36,9 @@ import sliderHead from '../images/slider-head.png';
 
 const Resources = {
     Logo: new ImageSource(logo),
+    PausedLogo : new ImageSource(pausedLogo),
+    HervatButton : new ImageSource(HervatButton),
+
     Loading: new ImageSource(loading),
     Start: new ImageSource(start),
     MenuSpider: new ImageSource(menuSpider),
@@ -57,13 +62,16 @@ const Resources = {
 
     SliderBase: new ImageSource(sliderBase),
     SliderHead: new ImageSource(sliderHead),
-Mouse: new ImageSource(Mouse),
+    Mouse: new ImageSource(Mouse),
     Spider: new ImageSource(spider)
 
 };
 
 const ResourceLoader = new Loader([
     Resources.Logo,
+    Resources.PausedLogo,
+    Resources.HervatButton,
+
     Resources.Loading,
     Resources.Start,
     Resources.MenuSpider,
