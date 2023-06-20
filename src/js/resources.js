@@ -28,10 +28,6 @@ import menuButton from '../images/menu-button.png';
 import sideButton from '../images/side-button.png';
 import buyMenu from '../images/BuyMenuBar.png';
 
-// slider
-import sliderBase from '../images/slider-base.png';
-import sliderHead from '../images/slider-head.png';
-
 const Resources = {
     Logo: new ImageSource(logo),
     Loading: new ImageSource(loading),
@@ -54,10 +50,7 @@ const Resources = {
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
 
-
-    SliderBase: new ImageSource(sliderBase),
-    SliderHead: new ImageSource(sliderHead),
-Mouse: new ImageSource(Mouse),
+    Mouse: new ImageSource(Mouse),
     Spider: new ImageSource(spider)
 
 };
@@ -82,8 +75,6 @@ const ResourceLoader = new Loader([
 
     Resources.MenuMusic,
     Resources.BackgroundMusic,
-    Resources.SliderBase,
-    Resources.SliderHead,
     Resources.Spider,
 Resources.Mouse,
 ]);
