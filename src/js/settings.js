@@ -53,6 +53,25 @@ export class Settings extends Scene {
         this.add(soundButton);
         // spinnen mode
 
+
+        this.logo = new Actor();
+        this.logo.graphics.use(Resources.PausedLogo.toSprite());
+        this.logo.pos = new Vector(720, 250);
+        this.logo.scale = new Vector(0.1, 0.1)
+        this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
+        this.logo.z = 1000;
+        this.add(this.logo);
+
+        const startButton = new Actor();
+        startButton.graphics.use(Resources.HervatButton.toSprite());
+        startButton.pos = new Vector(720, 500);
+        startButton.scale = new Vector(1, 1)
+        startButton.actions.scaleTo(vec(1.1,1.1),vec(0.5,0.5));
+        startButton.z = 1000;
+        startButton.enableCapturePointer = true;
+        startButton.pointer.useGraphicsBounds = true;
+        startButton.on("pointerup", (event) => this.startGame());
+        this.add(startButton);
     }
 
     muteSound() {
