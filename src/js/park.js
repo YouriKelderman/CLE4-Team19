@@ -1,5 +1,6 @@
 import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec} from "excalibur";
 import {Scene} from "excalibur";
+import {Settings} from "./settings.js";
 import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Range} from "./range.js";
@@ -59,12 +60,12 @@ export class Park extends Scene {
         //settingsbutton
         let settingsButton = new Actor();
        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
-        settingsButton.pos = new Vector(50,90);
+        settingsButton.pos = new Vector(50,105);
         settingsButton.scale = new Vector(0.7, 0.7)
         settingsButton.z = 9999;
         settingsButton.enableCapturePointer = true;
         settingsButton.pointer.useGraphicsBounds = true;
-        settingsButton.on("pointerup", (event) => console.log("settings"));
+        settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(settingsButton);
 
         //sidebutton
@@ -101,6 +102,12 @@ export class Park extends Scene {
         this.add(this.sideButton);
     }
 
+    goToSettings() {
+   console.log("goToSettings")
+        this.game = engine;
+        this.engine.goToScene('settings');
+    }
+
     mouseInput() {
         if (placing) {
             let newClone = new Tower(this);
@@ -122,6 +129,9 @@ export class Park extends Scene {
     }
 
     onPreUpdate(engine, delta) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Esc)) {
+            this.goToSettings();
+        }
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
             placing = !placing;
             console.log(int);
