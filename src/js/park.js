@@ -1,4 +1,20 @@
-import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec} from "excalibur";
+import {
+    Actor,
+    Engine,
+    Vector,
+    Color,
+    Debug,
+    Physics,
+    Input,
+    Axis,
+    CollisionType,
+    Shape,
+    vec,
+    SpriteFont,
+    Text,
+    Font,
+    GraphicsGroup
+} from "excalibur";
 import {Scene} from "excalibur";
 import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
@@ -18,10 +34,11 @@ let route = [];
 let mapping = false;
 let running = false;
 let levels = [
-    "7*0,6*1, 10*0, 2*1"
+    "100*0,10*1, 10*0, 2*1"
 ]
 let waveItem = 0;
 let order = [];
+
 let parsedResult = levels[0].split(",");
 parsedResult.forEach(item => {
     item = item.split("*")
@@ -30,12 +47,11 @@ parsedResult.forEach(item => {
     }
 })
 export class Park extends Scene {
-    constructor() {
+    constructor(game) {
         super();
     }
     music = Resources.BackgroundMusic;
     spiderSpawner = 0
-
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228)
         this.music.stop()
@@ -45,8 +61,15 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
-        console.log(order)
+        const text = new Text({
+            text: 'Some Text Drawn Here\nNext line'
+        });
 
+        const actor = new Actor({
+            pos: new Vector(100, 100)
+        });
+        actor.graphics.use(text);
+        this.add(actor)
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
         engine = _engine;
@@ -70,7 +93,6 @@ export class Park extends Scene {
         settingsButton.pointer.useGraphicsBounds = true;
         settingsButton.on("pointerup", (event) => this.startGame());
         // this.add(settingsButton);
-
     }
 
     mouseInput() {
@@ -85,12 +107,13 @@ export class Park extends Scene {
             path += `,${Math.floor(pos.x).toString()}.${Math.floor(pos.y).toString()}`
             localStorage.setItem("path", path);
             console.log(path)
+        } else{
+            console.log("Kwartunstieren")
         }
     }
 
     activeTower(tower) {
         this.activetower = tower;
-
     }
 
     onPreUpdate(engine, delta) {
@@ -128,7 +151,6 @@ export class Park extends Scene {
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.L)) {
             this.activetower.tier += 1;
-            console.log(this.activetower.tier)
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {

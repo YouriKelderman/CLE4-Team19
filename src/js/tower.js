@@ -53,7 +53,6 @@ export class Tower extends Actor {
         this.collider.set(circle);
         this.on('precollision', (event) => this.collisionHandler(event));
         this.on('pointerdown', () => this.clicked());
-
         this.particle = new ParticleEmitter({
             emitterType: EmitterType.Rectangle,
             radius: 5,
@@ -77,6 +76,7 @@ export class Tower extends Actor {
     }
 
     collisionHandler(event) {
+
         if (event.other.name === "Enemy") {
             this.amountOfEnemies++;
             this.enemiesInRadiusName.push(event)
