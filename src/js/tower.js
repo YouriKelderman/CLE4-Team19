@@ -86,9 +86,19 @@ export class Tower extends Actor {
     }
 
     checkSelf(sprite) {
-        this.sprite = itemIds[sprite].toSprite();
-        this.graphics.use(itemIds[sprite].toSprite());
+        console.log('sicko')
+        console.log(this.game.isLegal)
+        if (this.game.isLegal === true) {
+            this.sprite = itemIds[sprite].toSprite();
+            this.graphics.use(itemIds[sprite].toSprite());
+        } else {
+            let tint = itemIds[sprite].toSprite()
+            tint.tint = new Color(100, 0, 0)
 
+            this.sprite = tint;
+            this.graphics.use(tint);
+
+        }
     }
 
     onPreUpdate(engine, _delta) {

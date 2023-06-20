@@ -24,14 +24,15 @@ let levels = [
 ]
 let waveItem = 0;
 let order = [];
-
+let walls = [];
 let parsedResult = levels[0].split(",");
 parsedResult.forEach(item => {
     item = item.split("*")
-    for(let i=0; i < Number(item[0]); i++) {
+    for (let i = 0; i < Number(item[0]); i++) {
         order.push(Number(item[1]));
     }
 })
+
 export class Park extends Scene {
     constructor() {
         super();
@@ -66,27 +67,23 @@ export class Park extends Scene {
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
         engine = _engine;
-
-        let hitboxPoints = [1104,49,1100,188,1087,318,1064,366,983,450,912,443,850,433,821,421,787,407,733,407,737,371,702,291,676,255,657,229,612,197,515,165,462,165,387,179,327,214,261,267,214,347,213,503,223,551,256,606,250,626,185,668,129,806,182,805,203,743,249,700,306,650,357,693,414,702,425,715,554,720,630,686,711,605,744,530,748,472,1017,508,1082,560,1074,801,1112,799,1120,606,1319,804,1376,780,1055,470,1144,333,1151,44, 1151,44];
-
+        let hitboxPoints = [1103, 45, 1094, 188, 1083, 321, 1066, 361, 994, 454, 913, 440, 787, 409, 736, 404, 714, 324, 656, 229, 592, 192, 515, 166, 458, 162, 394, 179, 302, 220, 214, 347, 210, 501, 232, 557, 263, 617, 216, 646, 175, 680, 130, 796, 186, 808, 204, 743, 241, 700, 302, 643, 322, 596, 272, 515, 271, 373, 315, 313, 357, 264, 421, 237, 526, 237, 594, 268, 646, 328, 677, 368, 684, 447, 571, 449, 537, 377, 474, 345, 414, 371, 375, 435, 399, 504, 469, 547, 543, 514, 579, 458, 534, 372, 582, 449, 480, 547, 325, 590, 399, 617, 488, 628, 602, 591, 663, 527, 679, 466, 676, 386, 633, 321, 541, 252, 459, 247, 351, 279, 296, 348, 271, 430, 283, 522, 321, 580, 306, 646, 357, 674, 418, 701, 556, 710, 634, 672, 702, 608, 739, 518, 743, 473, 866, 484, 1009, 500, 1079, 552, 1079, 591, 1075, 708, 1067, 803, 1120, 805, 1121, 734, 1116, 605, 1321, 814, 1410, 809, 1050, 465, 1093, 427, 1126, 369, 1145, 333, 1148, 192, 1152, 47];
         for (let i = 0; i < hitboxPoints.length; i += 2) {
-
             console.log(`${hitboxPoints[i]} ${hitboxPoints[i + 1]} ${hitboxPoints[i + 2]} ${hitboxPoints[i + 3]}`)
-
             let offsetX = 0
             let offsetY = 0
 
             let wall = new Wall((hitboxPoints[i]) + offsetX, (hitboxPoints[i + 1]) + offsetY, (hitboxPoints[i + 2]) + offsetX, (hitboxPoints[i + 3]) + offsetY);
             wall.on("precollision", (event) => {
-                if(event.other instanceof Bami)
+                if (event.other instanceof Bami)
                     this.isLegal = false;
 
             })
             wall.on("collisionend", (event) => {
-                if(event.other instanceof Bami)
+                if (event.other instanceof Bami)
                     this.isLegal = true;
             })
-            this.add(wall);
+            walls.push(wall);
         }
 
         let mapFloor = new Actor();
@@ -102,8 +99,8 @@ export class Park extends Scene {
         this.add(mapTop);
 
         let settingsButton = new Actor();
-       settingsButton.graphics.use(Resources.SettingsButton.toSprite());
-        settingsButton.pos = new Vector(50,105);
+        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
+        settingsButton.pos = new Vector(50, 105);
         settingsButton.scale = new Vector(0.7, 0.7)
         settingsButton.z = 9999;
         settingsButton.enableCapturePointer = true;
@@ -114,7 +111,7 @@ export class Park extends Scene {
         //sidebutton
         this.sideButton = new Actor();
         this.sideButton.graphics.use(Resources.SideButton.toSprite());
-        this.sideButton.pos = new Vector(1400,450);
+        this.sideButton.pos = new Vector(1400, 450);
         this.sideButton.scale = new Vector(0.7, 0.7)
         this.sideButton.z = 9999;
         this.sideButton.enableCapturePointer = true;
@@ -172,7 +169,8 @@ export class Park extends Scene {
             localStorage.setItem("path", path);
             console.log(path)
         } else {
-
+            this.string += `${Math.floor(engine.input.pointers.primary.lastWorldPos.x)}, ${Math.floor(engine.input.pointers.primary.lastWorldPos.y)},`
+            console.log(this.string);
         }
     }
 
@@ -181,18 +179,24 @@ export class Park extends Scene {
     }
 
     onPreUpdate(engine, delta) {
+        placingSprite.checkSelf(int, this.isLegal);
 
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
             placing = !placing;
             console.log(int);
             if (placing) {
+                walls.forEach(wall => {
+                    this.add(wall);
+                })
                 const circle = Shape.Circle(50);
                 placingSprite.collider.set(circle);
                 placingSprite.collisionType = CollisionType.Passive;
                 placingSprite._setName('PlacingSprite')
                 this.add(placingSprite);
-                placingSprite.checkSelf(int);
             } else {
+                walls.forEach(wall => {
+                    wall.kill();
+                })
                 placingSprite.kill();
             }
         }
@@ -231,7 +235,6 @@ export class Park extends Scene {
             if (int > 1) {
                 int = 0;
             }
-            placingSprite.checkSelf(int);
         }
         if (placing) {
             placingSprite.pos = engine.input.pointers.primary.lastWorldPos;
