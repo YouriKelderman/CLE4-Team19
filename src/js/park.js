@@ -31,7 +31,6 @@ let engine;
 let route = [];
 let mapping = false;
 let running = false;
-<<<<<<<<< Temporary merge branch 1
 let levels = [
     "7*0,6*1, 10*0, 2*1"
 ]
