@@ -40,6 +40,7 @@ export class Park extends Scene {
     spiderSpawner = 0
     spiderSpawner = 0;
     isLegal = true;
+    string = "";
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
@@ -55,7 +56,7 @@ export class Park extends Scene {
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
         engine = _engine;
 
-        let hitboxPoints = [1108.45, 1101.188, 1089.333, 1017.439, 853.435, 733.408, 695.282, 611.203, 498.166, 388.182, 271.261, 219.356, 214.509, 256.595, 265.627, 181.681, 130.803, 180.820, 193.757, 287.674, 311.649, 395.697, 511.714, 637.679, 702.609, 748.474, 1026.515, 1084.556, 1074.817, 1108.812, 1117.600, 1343.823, 1401.821, 1053.466, 1107.413, 1140.337, 1147.191, 1158.23, 1105.33, 1105.33]
+        let hitboxPoints = [1104,49,1100,188,1087,318,1064,366,983,450,912,443,850,433,821,421,787,407,733,407,737,371,702,291,676,255,657,229,612,197,515,165,462,165,387,179,327,214,261,267,214,347,213,503,223,551,256,606,250,626,185,668,129,806,182,805,203,743,249,700,306,650,357,693,414,702,425,715,554,720,630,686,711,605,744,530,748,472,1017,508,1082,560,1074,801,1112,799,1120,606,1319,804,1376,780,1055,470,1144,333,1151,44, 1151,44];
 
         for (let i = 0; i < hitboxPoints.length; i += 2) {
 
@@ -65,7 +66,14 @@ export class Park extends Scene {
             let offsetY = 0
 
             let wall = new Wall((hitboxPoints[i]) + offsetX, (hitboxPoints[i + 1]) + offsetY, (hitboxPoints[i + 2]) + offsetX, (hitboxPoints[i + 3]) + offsetY);
-
+            wall.on("collisionstart", (event) => {
+                if(event.other instanceof Bami)
+                    this.isLegal = false;
+            })
+            wall.on("collisionend", (event) => {
+                if(event.other instanceof Bami)
+                    this.isLegal = true;
+            })
             this.add(wall);
         }
 
@@ -82,38 +90,79 @@ export class Park extends Scene {
         this.add(mapTop);
 
         let settingsButton = new Actor();
-        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
-        settingsButton.pos = new Vector(1365, 125);
-        settingsButton.scale = new Vector(0.9, 0.9);
-
-        settingsButton.on("pointerup", (event) => console.log("settings"));
+       settingsButton.graphics.use(Resources.SettingsButton.toSprite());
+        settingsButton.pos = new Vector(50,105);
+        settingsButton.scale = new Vector(0.7, 0.7)
+        settingsButton.z = 9999;
+        settingsButton.enableCapturePointer = true;
+        settingsButton.pointer.useGraphicsBounds = true;
+        settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(settingsButton);
 
+        //sidebutton
+        this.sideButton = new Actor();
+        this.sideButton.graphics.use(Resources.SideButton.toSprite());
+        this.sideButton.pos = new Vector(1400,450);
+        this.sideButton.scale = new Vector(0.7, 0.7)
+        this.sideButton.z = 9999;
+        this.sideButton.enableCapturePointer = true;
+        this.sideButton.pointer.useGraphicsBounds = true;
+        this.sideButton.on("pointerup", (event) => this.drawBuyMenu());
+        this.add(this.sideButton);
+    }
+
+    drawBuyMenu() {
+        this.buyMenu = new Actor();
+        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
+        this.buyMenu.pos = new Vector(1500, 450);
+        this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
+        this.buyMenu.scale = new Vector(2, 0.9)
+        this.buyMenu.z = 9998;
+        this.buyMenu.enableCapturePointer = true;
+        this.buyMenu.pointer.useGraphicsBounds = true;
+        this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
+        this.add(this.buyMenu);
+
+        this.sideButton.kill()
+    }
+
+    undoDrawBuyMenu() {
+        this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
+        this.buyMenu.kill()
+        this.sideButton.pos = new Vector(1500, 450);
+        this.add(this.sideButton);
+    }
+
+    goToSettings() {
+        console.log("goToSettings")
+        this.game = engine;
+        this.engine.goToScene('settings');
     }
 
     checkIfLegal(event) {
-        if (event.other.name === "PlacingSprite") {
-            this.isLegal = false
+        if (event.other instanceof Bami) {
+            console.log("e");
+            this.isLegal = true
         }
-        settingsButton.pointer.useGraphicsBounds = true;
-        settingsButton.on("pointerup", (event) => this.startGame());
-        // this.add(settingsButton);
     }
 
     mouseInput() {
-        if (placing) {
+        console.log(this.isLegal)
+        if (placing && this.isLegal) {
             let newClone = new Tower(this);
             newClone.pos = placingSprite.pos;
             this.add(newClone);
             newClone.checkSelf(int);
             this.activetower = newClone;
-        } else if(mapping) {
+        } else if (mapping) {
             let pos = engine.input.pointers.primary.lastWorldPos;
             path += `,${Math.floor(pos.x).toString()}.${Math.floor(pos.y).toString()}`
             localStorage.setItem("path", path);
             console.log(path)
-        } else{
-            console.log("Kwartunstieren")
+        } else {
+            this.string += `${Math.floor(engine.input.pointers.primary.lastWorldPos.x)},`
+            this.string += `${Math.floor(engine.input.pointers.primary.lastWorldPos.y)},`
+            console.log(this.string)
         }
     }
 
@@ -180,7 +229,7 @@ export class Park extends Scene {
         if (placinge) {
             placingSpritee.pos = engine.input.pointers.primary.lastWorldPos;
         }
-        if (waveItem <= order.length -1) {
+        if (waveItem <= order.length - 1) {
             if (this.spiderSpawner === 1 && running) {
                 let enemy = new Spider();
                 enemy.setType(order[waveItem]);
