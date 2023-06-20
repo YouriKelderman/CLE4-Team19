@@ -19,7 +19,7 @@ let route = [];
 let mapping = false;
 let running = false;
 let levels = [
-    "1000*1,10*1, 10*0, 2*1"
+    "100*0,10*1, 10*0, 2000*1"
 ]
 let waveItem = 0;
 let order = [];
@@ -27,11 +27,10 @@ let order = [];
 let parsedResult = levels[0].split(",");
 parsedResult.forEach(item => {
     item = item.split("*")
-    for (let i = 0; i < Number(item[0]); i++) {
+    for(let i=0; i < Number(item[0]); i++) {
         order.push(Number(item[1]));
     }
 })
-
 export class Park extends Scene {
     constructor() {
         super();
@@ -90,7 +89,6 @@ export class Park extends Scene {
         mapTop.z = 9999
         this.add(mapTop);
 
-        //settingsbutton
         let settingsButton = new Actor();
        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
         settingsButton.pos = new Vector(50,105);
@@ -136,16 +134,16 @@ export class Park extends Scene {
     }
 
     goToSettings() {
-   console.log("goToSettings")
+        console.log("goToSettings")
         this.game = engine;
         this.engine.goToScene('settings');
+    }
 
     checkIfLegal(event) {
         if (event.other instanceof Bami) {
             console.log("e");
             this.isLegal = true
         }
-
     }
 
     mouseInput() {
@@ -239,7 +237,7 @@ export class Park extends Scene {
                 waveItem += 1;
             }
             this.spiderSpawner++
-            if (this.spiderSpawner > 20) {
+            if (this.spiderSpawner > Math.random() * (200 - 50) + 50) {
                 this.spiderSpawner = 0
             }
         }
