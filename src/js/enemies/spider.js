@@ -10,7 +10,7 @@ import {
     Circle,
     Color,
     Line,
-    vec, Input
+    vec, Input, RotationType
 } from "excalibur";
 import {Resources} from "../resources.js";
 
@@ -97,7 +97,7 @@ export class Spider extends Actor {
                         angle = -Math.abs(angle);
                     }
                     this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, 100)
-                    this.actions.rotateTo(angle, 1000, 1)
+                    this.actions.rotateTo(angle, 1000, RotationType.ShortestPath)
 
                 }
 

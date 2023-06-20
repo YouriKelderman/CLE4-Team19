@@ -9,7 +9,7 @@ import {
     Color,
     Line,
     Input,
-    ParticleEmitter, EmitterType
+    ParticleEmitter, EmitterType, RotationType
 } from "excalibur";
 
 import {Resources} from "./resources";
@@ -121,7 +121,8 @@ export class Tower extends Actor {
 
                     angle = -Math.abs(angle);
                 }
-                this.rotation = angle + 0.5 * Math.PI;
+
+                this.actions.rotateTo(angle + 0.5 * Math.PI, 10, RotationType.ShortestPath)
 
                 // Unused interpolation algorithm
                 // let accurateRotation = angle + 0.5 * Math.PI;
