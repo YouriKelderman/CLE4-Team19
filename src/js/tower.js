@@ -31,7 +31,7 @@ export class Tower extends Actor {
     enemy;
     enemiesInRadiusName = []
     enemiesInRadiusTime = []
-    interpolatedRotation = 0;
+    coolDown = 0;
 
     constructor(Game) {
         super({
@@ -122,22 +122,7 @@ export class Tower extends Actor {
                     angle = -Math.abs(angle);
                 }
 
-                this.actions.rotateTo(angle + 0.5 * Math.PI, 10, RotationType.ShortestPath)
-
-                // Unused interpolation algorithm
-                // let accurateRotation = angle + 0.5 * Math.PI;
-                //
-                // if (accurateRotation > this.interpolatedRotation) {
-                //     this.interpolatedRotation += 0.05;
-                // }
-                // if (accurateRotation < this.interpolatedRotation) {
-                //     this.interpolatedRotation -= 0.05;
-                // }
-                //
-                // this.rotation = this.interpolatedRotation;
-                //
-                // console.log(`${this.interpolatedRotation} or ${accurateRotation}`);
-
+                this.actions.rotateTo(angle + 0.5 * Math.PI, 30, RotationType.ShortestPath)
             }
             this.inRange();
         }
@@ -157,8 +142,16 @@ export class Tower extends Actor {
             bullet.pos = this.pos;
             bullet.rotation = this.rotation - Math.PI / 2;
             this.engine.add(bullet);
+            this.coolDown = 25
         }
         if (this.tier === 2) {
+            let bullet = new Projectile(1500);
+            bullet.pos = this.pos;
+            bullet.rotation = this.rotation - Math.PI / 2;
+            this.engine.add(bullet);
+            this.coolDown = 25
+        }
+            if (this.tier === 3) {
             let bullet = new Projectile(1000);
             bullet.pos = this.pos;
             bullet.rotation = this.rotation - Math.PI / 2;
@@ -171,6 +164,22 @@ export class Tower extends Actor {
             bullet2.pos = this.pos;
             bullet2.rotation = this.rotation - 1.8;
             this.engine.add(bullet2);
+                this.coolDown = 20
+            }
+        if (this.tier === 4) {
+            let bullet = new Projectile(2000);
+            bullet.pos = this.pos;
+            bullet.rotation = this.rotation - Math.PI / 2;
+            this.engine.add(bullet);
+            let bullet1 = new Projectile(2000);
+            bullet1.pos = this.pos;
+            bullet1.rotation = this.rotation - 1.3;
+            this.engine.add(bullet1);
+            let bullet2 = new Projectile(2000);
+            bullet2.pos = this.pos;
+            bullet2.rotation = this.rotation - 1.8;
+            this.engine.add(bullet2);
+            this.coolDown = 15
         }
     }
 
@@ -178,7 +187,7 @@ export class Tower extends Actor {
         if (this.shootingCooldown === 1) {
             this.fire();
         }
-        if (this.shootingCooldown > 25) {
+        if (this.shootingCooldown > this.coolDown) {
             this.shootingCooldown = 0;
         }
         this.shootingCooldown++;

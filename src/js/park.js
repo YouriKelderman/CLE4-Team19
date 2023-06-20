@@ -19,7 +19,7 @@ let route = [];
 let mapping = false;
 let running = false;
 let levels = [
-    "100*0,10*1, 10*0, 2*1"
+    "100*0,10*1, 10*0, 2000*1"
 ]
 let waveItem = 0;
 let order = [];
@@ -188,7 +188,7 @@ export class Park extends Scene {
                 waveItem += 1;
             }
             this.spiderSpawner++
-            if (this.spiderSpawner > 50) {
+            if (this.spiderSpawner > Math.random() * (200 - 50) + 50) {
                 this.spiderSpawner = 0
             }
         }
