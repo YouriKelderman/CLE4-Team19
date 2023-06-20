@@ -31,7 +31,6 @@ let engine;
 let route = [];
 let mapping = false;
 let running = false;
-
 let levels = [
     "7*0,6*1, 10*0, 2*1"
 ]
@@ -44,11 +43,11 @@ parsedResult.forEach(item => {
         order.push(Number(item[1]));
     }
 })
-
 export class Park extends Scene {
     constructor() {
         super();
     }
+
     music = Resources.BackgroundMusic;
     spiderSpawner = 0;
     isLegal = true;
@@ -68,7 +67,7 @@ export class Park extends Scene {
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
         engine = _engine;
 
-        let hitboxPoints = [1108.45,1101.188,1089.333,1017.439,853.435,733.408,695.282,611.203,498.166,388.182,271.261,219.356,214.509,256.595,265.627,181.681,130.803,180.820,193.757,287.674,311.649,395.697,511.714,637.679,702.609,748.474,1026.515,1084.556,1074.817,1108.812,1117.600,1343.823,1401.821,1053.466,1107.413,1140.337,1147.191,1158.23,1105.33,1105.33]
+        let hitboxPoints = [1108.45, 1101.188, 1089.333, 1017.439, 853.435, 733.408, 695.282, 611.203, 498.166, 388.182, 271.261, 219.356, 214.509, 256.595, 265.627, 181.681, 130.803, 180.820, 193.757, 287.674, 311.649, 395.697, 511.714, 637.679, 702.609, 748.474, 1026.515, 1084.556, 1074.817, 1108.812, 1117.600, 1343.823, 1401.821, 1053.466, 1107.413, 1140.337, 1147.191, 1158.23, 1105.33, 1105.33]
 
         for (let i = 0; i < hitboxPoints.length; i += 2) {
 
@@ -203,21 +202,29 @@ export class Park extends Scene {
         if (this.spiderSpawner > 50) {
             this.spiderSpawner = 0;
 
-        if (waveItem <= order.length -1) {
-            if (this.spiderSpawner === 1 && running) {
-                let enemy = new Spider();
-                enemy.setType(order[waveItem]);
-                this.add(enemy)
-                waveItem += 1;
-            }
-            this.spiderSpawner++
-            if (this.spiderSpawner > 50) {
-                this.spiderSpawner = 0
+            if (waveItem <= order.length - 1) {
+                if (this.spiderSpawner === 1 && running) {
+                    let enemy = new Spider();
+                    enemy.setType(order[waveItem]);
+                    this.add(enemy)
+                    waveItem += 1;
+                }
+                this.spiderSpawner++
+                if (this.spiderSpawner > 50) {
+                    this.spiderSpawner = 0
+                }
+
+                if (this.spiderSpawner === 1 && running) {
+                    this.add(new Spider());
+                }
+                this.spiderSpawner++;
+                if (this.spiderSpawner > 50) {
+                    this.spiderSpawner = 0;
+                }
+
+                console.log(this.isLegal)
+                this.isLegal = true
             }
         }
-
-        console.log(this.isLegal)
-        this.isLegal = true
     }
 }
-
