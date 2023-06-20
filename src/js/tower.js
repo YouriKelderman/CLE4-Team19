@@ -9,7 +9,7 @@ import {
     Color,
     Line,
     Input,
-    ParticleEmitter, EmitterType
+    ParticleEmitter, EmitterType, RotationType
 } from "excalibur";
 
 import {Resources} from "./resources";
@@ -53,7 +53,6 @@ export class Tower extends Actor {
         this.collider.set(circle);
         this.on('precollision', (event) => this.collisionHandler(event));
         this.on('pointerdown', () => this.clicked());
-
         this.particle = new ParticleEmitter({
             emitterType: EmitterType.Rectangle,
             radius: 5,
@@ -77,6 +76,7 @@ export class Tower extends Actor {
     }
 
     collisionHandler(event) {
+
         if (event.other.name === "Enemy") {
             this.amountOfEnemies++;
             this.enemiesInRadiusName.push(event)
@@ -121,7 +121,8 @@ export class Tower extends Actor {
 
                     angle = -Math.abs(angle);
                 }
-                this.rotation = angle + 0.5 * Math.PI;
+
+                this.actions.rotateTo(angle + 0.5 * Math.PI, 10, RotationType.ShortestPath)
 
                 // Unused interpolation algorithm
                 // let accurateRotation = angle + 0.5 * Math.PI;

@@ -9,13 +9,12 @@ import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 
 import range from '../images/range.png';
-
 // park
 import bami from '../images/bami.png';
-import pan from '../images/Bami_Tower.png';
+import pan from '../images/bami-pan.png';
 import kevin from '../images/kevin.png';
 import spider from '../images/spider.png';
-
+import Mouse from '../images/muis.png';
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
@@ -58,7 +57,7 @@ const Resources = {
 
     SliderBase: new ImageSource(sliderBase),
     SliderHead: new ImageSource(sliderHead),
-
+Mouse: new ImageSource(Mouse),
     Spider: new ImageSource(spider)
 
 };
@@ -86,7 +85,7 @@ const ResourceLoader = new Loader([
     Resources.SliderBase,
     Resources.SliderHead,
     Resources.Spider,
-
+Resources.Mouse,
 ]);
 
 // Excaliber logo
