@@ -24,6 +24,9 @@ export class Settings extends Scene {
     music = Resources.MenuMusic;
 
     onActivate(_context) {
+        this.music.volume = 0.1;
+        this.music.loop = true;
+        this.music.play().then(r => console.log(r));
     }
 
     onInitialize(engine) {
@@ -56,10 +59,12 @@ export class Settings extends Scene {
 
     muteSound() {
         if (this.music.volume === 0) {
-            this.music.volume = 0.5;
+            this.music.volume = 0.1
+            this.engine.musicVolume = 0.5
         }
         else {
             this.music.volume = 0;
+            this.engine.musicVolume = 0;
         }
     }
 
@@ -73,7 +78,6 @@ export class Settings extends Scene {
     }
 
     onDeactivate(_  ) {
-        this.music.stop();
-        this.music.volume = 0
+        this.music.pause();
     }
 }
