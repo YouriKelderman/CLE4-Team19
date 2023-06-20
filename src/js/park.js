@@ -20,16 +20,18 @@ let route = [];
 let mapping = false;
 let running = false;
 let levels = [
-    "100*0,10*1, 10*0, 2000*1"
+    "5*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 100*0*75,10*1*50, 10*0*75, 2000*1*50"
 ]
 let waveItem = 0;
 let order = [];
+let speed = [];
 let walls = [];
 let parsedResult = levels[0].split(",");
 parsedResult.forEach(item => {
     item = item.split("*")
     for (let i = 0; i < Number(item[0]); i++) {
         order.push(Number(item[1]));
+        speed.push(Number(item[2]));
     }
 })
 
@@ -40,7 +42,6 @@ export class Park extends Scene {
 
     music = Resources.BackgroundMusic;
     spiderSpawner = 0
-    spiderSpawner = 0;
     isLegal = true;
     string = "";
 
@@ -126,7 +127,7 @@ export class Park extends Scene {
         this.buyMenu.pos = new Vector(1500, 450);
         this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
         this.buyMenu.scale = new Vector(2, 0.9)
-        this.buyMenu.z = 9998;
+        this.buyMenu.z = 10000;
         this.buyMenu.enableCapturePointer = true;
         this.buyMenu.pointer.useGraphicsBounds = true;
         this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
@@ -249,11 +250,12 @@ export class Park extends Scene {
             if (this.spiderSpawner === 1 && running) {
                 let enemy = new Spider();
                 enemy.setType(order[waveItem]);
+                enemy.setSpeed(speed[waveItem]);
                 this.add(enemy)
                 waveItem += 1;
             }
             this.spiderSpawner++
-            if (this.spiderSpawner > Math.random() * (200 - 50) + 50) {
+            if (this.spiderSpawner > Math.random() * (150 - 50) + 50) {
                 this.spiderSpawner = 0
             }
         }

@@ -11,12 +11,14 @@ import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 
 import range from '../images/range.png';
+
 // park
 import bami from '../images/bami.png';
 import pan from '../images/bami-pan.png';
 import kevin from '../images/kevin.png';
 import spider from '../images/spider.png';
-import Mouse from '../images/muis.png';
+import mouse from '../images/muis.png';
+import rat from '../images/rat.png';
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
@@ -32,8 +34,8 @@ import buyMenu from '../images/BuyMenuBar.png';
 
 const Resources = {
     Logo: new ImageSource(logo),
-    PausedLogo : new ImageSource(pausedLogo),
-    HervatButton : new ImageSource(HervatButton),
+    PausedLogo: new ImageSource(pausedLogo),
+    HervatButton: new ImageSource(HervatButton),
 
     Loading: new ImageSource(loading),
     Start: new ImageSource(start),
@@ -54,9 +56,10 @@ const Resources = {
 
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
-  
-    Mouse: new ImageSource(Mouse),
-    Spider: new ImageSource(spider)
+
+    Mouse: new ImageSource(mouse),
+    Spider: new ImageSource(spider),
+    Rat: new ImageSource(rat),
 
 };
 
@@ -84,7 +87,8 @@ const ResourceLoader = new Loader([
     Resources.MenuMusic,
     Resources.BackgroundMusic,
     Resources.Spider,
-Resources.Mouse,
+    Resources.Mouse,
+    Resources.Rat,
 ]);
 
 // Excaliber logo
