@@ -6,11 +6,12 @@ let itemIds = [
     Resources.Pan, Resources.Kevin,
 ]
 let range = 300;
+
+
 export class Bami extends Tower {
+
     constructor(spriteID) {
-        super({
-            width: Resources.Pan.width / 2, height: Resources.Pan.height / 2
-        })
+        super()
     }
 
 
