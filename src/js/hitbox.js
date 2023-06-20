@@ -4,11 +4,8 @@ import {Actor, Input, Vector, Transform, Debug, Color, Shape, CollisionType, Edg
 export class Wall extends Actor {
     constructor(startX, startY, endX, endY) {
         super()
-
         this._setName('wall')
-
         this.pos = new Vector(0, 0)
-
         const box = new EdgeCollider({
             begin: new Vector(startX, startY),
             end: new Vector(endX, endY),
