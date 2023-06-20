@@ -1,17 +1,4 @@
-import {
-    Actor,
-    Engine,
-    Vector,
-    Color,
-    Debug,
-    Physics,
-    Input,
-    Axis,
-    CollisionType,
-    Shape,
-    vec,
-    PolygonCollider
-} from "excalibur";
+import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec} from "excalibur";
 import {Scene} from "excalibur";
 import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
@@ -32,10 +19,11 @@ let route = [];
 let mapping = false;
 let running = false;
 let levels = [
-    "7*0,6*1, 10*0, 2*1"
+    "100*0,10*1, 10*0, 2*1"
 ]
 let waveItem = 0;
 let order = [];
+
 let parsedResult = levels[0].split(",");
 parsedResult.forEach(item => {
     item = item.split("*")
@@ -49,6 +37,7 @@ export class Park extends Scene {
     }
 
     music = Resources.BackgroundMusic;
+    spiderSpawner = 0
     spiderSpawner = 0;
     isLegal = true;
 
@@ -61,7 +50,6 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
-        console.log(order)
 
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
@@ -85,21 +73,18 @@ export class Park extends Scene {
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
         mapFloor.pos = new Vector(745, 425);
-        // mapFloor.on('precollision', (event) => this.checkIfLegal(event));
         this.add(mapFloor);
         let mapTop = new Actor();
         mapTop.graphics.use(Resources.Map1Top.toSprite());
         mapTop.scale = new Vector(5.5, 5.5);
         mapTop.pos = new Vector(745, 425);
-        mapTop.z = 9999;
+        mapTop.z = 9999
         this.add(mapTop);
 
         let settingsButton = new Actor();
         settingsButton.graphics.use(Resources.SettingsButton.toSprite());
         settingsButton.pos = new Vector(1365, 125);
         settingsButton.scale = new Vector(0.9, 0.9);
-        settingsButton.z = 9999;
-        settingsButton.enableCapturePointer = true;
 
         settingsButton.on("pointerup", (event) => console.log("settings"));
         this.add(settingsButton);
@@ -110,29 +95,30 @@ export class Park extends Scene {
         if (event.other.name === "PlacingSprite") {
             this.isLegal = false
         }
+        settingsButton.pointer.useGraphicsBounds = true;
+        settingsButton.on("pointerup", (event) => this.startGame());
+        // this.add(settingsButton);
     }
 
     mouseInput() {
-        // if (this.isLegal) {
-        //     if (placing) {
-        //         let newClone = new Tower(this);
-        //         newClone.pos = placingSprite.pos;
-        //         this.add(newClone);
-        //         newClone.checkSelf(int);
-        //         this.activetower = newClone;
-        //     } else if (mapping) {
-        //         let pos = engine.input.pointers.primary.lastWorldPos;
-        //         path += `,${Math.floor(pos.x).toString()}.${Math.floor(pos.y).toString()}`;
-        //         localStorage.setItem("path", path);
-        //         console.log(path);
-        //     }
-        // }
-
+        if (placing) {
+            let newClone = new Tower(this);
+            newClone.pos = placingSprite.pos;
+            this.add(newClone);
+            newClone.checkSelf(int);
+            this.activetower = newClone;
+        } else if(mapping) {
+            let pos = engine.input.pointers.primary.lastWorldPos;
+            path += `,${Math.floor(pos.x).toString()}.${Math.floor(pos.y).toString()}`
+            localStorage.setItem("path", path);
+            console.log(path)
+        } else{
+            console.log("Kwartunstieren")
+        }
     }
 
     activeTower(tower) {
         this.activetower = tower;
-
     }
 
     onPreUpdate(engine, delta) {
@@ -175,7 +161,7 @@ export class Park extends Scene {
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.L)) {
             this.activetower.tier += 1;
-            console.log(this.activetower.tier);
+            console.log(this.activetower.tier)
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
@@ -194,37 +180,18 @@ export class Park extends Scene {
         if (placinge) {
             placingSpritee.pos = engine.input.pointers.primary.lastWorldPos;
         }
-
-        if (this.spiderSpawner === 1 && running) {
-            this.add(new Spider());
-        }
-        this.spiderSpawner++;
-        if (this.spiderSpawner > 50) {
-            this.spiderSpawner = 0;
-
-            if (waveItem <= order.length - 1) {
-                if (this.spiderSpawner === 1 && running) {
-                    let enemy = new Spider();
-                    enemy.setType(order[waveItem]);
-                    this.add(enemy)
-                    waveItem += 1;
-                }
-                this.spiderSpawner++
-                if (this.spiderSpawner > 50) {
-                    this.spiderSpawner = 0
-                }
-
-                if (this.spiderSpawner === 1 && running) {
-                    this.add(new Spider());
-                }
-                this.spiderSpawner++;
-                if (this.spiderSpawner > 50) {
-                    this.spiderSpawner = 0;
-                }
-
-                console.log(this.isLegal)
-                this.isLegal = true
+        if (waveItem <= order.length -1) {
+            if (this.spiderSpawner === 1 && running) {
+                let enemy = new Spider();
+                enemy.setType(order[waveItem]);
+                this.add(enemy)
+                waveItem += 1;
+            }
+            this.spiderSpawner++
+            if (this.spiderSpawner > 50) {
+                this.spiderSpawner = 0
             }
         }
     }
 }
+

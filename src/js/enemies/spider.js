@@ -15,7 +15,11 @@ import {
 import {Resources} from "../resources.js";
 
 let route = [];
-let enemies = [Resources.Spider, Resources.Mouse];
+let enemies = [
+    [Resources.Spider, 5,],
+    [Resources.Mouse, 3],
+
+];
 
 let tempRoute = localStorage.getItem("path").split(",")
 tempRoute.forEach(item => {
@@ -47,10 +51,11 @@ export class Spider extends Actor {
     }
 
     setType(type) {
-        console.log(type)
-        console.log(enemies[type]);
-        this.sprite = enemies[type].toSprite();
+
+        this.sprite = enemies[type][0].toSprite();
         this.graphics.use(this.sprite);
+        this.health = enemies[type][1];
+
     }
 
     collided(event) {
@@ -91,8 +96,6 @@ export class Spider extends Actor {
 
                         angle = -Math.abs(angle);
                     }
-
-
                     this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, 100)
                     this.actions.rotateTo(angle, 1000, 1)
 
