@@ -16,6 +16,7 @@ export class Bami extends Tower {
 
 
     onInitialize(engine) {
+        this.scale = new Vector(1, 1);
         console.log(this.towerRange)
         this.towerRange = 300;
 
