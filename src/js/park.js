@@ -5,6 +5,7 @@ import {Resources, ResourceLoader} from "./resources.js";
 import {Range} from "./range.js";
 import {Bami} from "./towers/bami.js";
 import {Spider} from "./enemies/spider.js";
+import {Wall} from "./hitbox.js";
 
 let placing = false;
 let placingSprite;
@@ -49,15 +50,7 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
-        const text = new Text({
-            text: 'Some Text Drawn Here\nNext line'
-        });
 
-        const actor = new Actor({
-            pos: new Vector(100, 100)
-        });
-        actor.graphics.use(text);
-        this.add(actor)
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
         engine = _engine;
@@ -92,12 +85,6 @@ export class Park extends Scene {
         settingsButton.graphics.use(Resources.SettingsButton.toSprite());
         settingsButton.pos = new Vector(1365, 125);
         settingsButton.scale = new Vector(0.9, 0.9);
-        const settingsButton = new Actor();
-        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
-        settingsButton.pos = new Vector(1000, 500);
-        settingsButton.scale = new Vector(1, 1)
-        settingsButton.z = 9999;
-        settingsButton.enableCapturePointer = true;
 
         settingsButton.on("pointerup", (event) => console.log("settings"));
         this.add(settingsButton);
