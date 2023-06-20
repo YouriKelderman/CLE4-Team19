@@ -170,6 +170,7 @@ export class Park extends Scene {
     }
 
     onPreUpdate(engine, delta) {
+        placingSprite.checkSelf(int, this.isLegal);
 
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
             placing = !placing;
@@ -180,7 +181,6 @@ export class Park extends Scene {
                 placingSprite.collisionType = CollisionType.Passive;
                 placingSprite._setName('PlacingSprite')
                 this.add(placingSprite);
-                placingSprite.checkSelf(int);
             } else {
                 placingSprite.kill();
             }
@@ -220,7 +220,6 @@ export class Park extends Scene {
             if (int > 1) {
                 int = 0;
             }
-            placingSprite.checkSelf(int);
         }
         if (placing) {
             placingSprite.pos = engine.input.pointers.primary.lastWorldPos;
