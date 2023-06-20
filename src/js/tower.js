@@ -122,7 +122,7 @@ export class Tower extends Actor {
                     angle = -Math.abs(angle);
                 }
 
-                this.actions.rotateTo(angle + 0.5 * Math.PI, 10, RotationType.ShortestPath)
+                this.actions.rotateTo(angle + 0.5 * Math.PI, 30, RotationType.ShortestPath)
 
                 // Unused interpolation algorithm
                 // let accurateRotation = angle + 0.5 * Math.PI;

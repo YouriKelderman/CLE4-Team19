@@ -7,11 +7,10 @@ let itemIds = [
 ]
 let range = 300;
 
-
 export class Bami extends Tower {
 
     constructor(spriteID) {
-        super()
+
     }
 
 
