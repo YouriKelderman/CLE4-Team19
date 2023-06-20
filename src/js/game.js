@@ -2,11 +2,11 @@ import {Actor, Engine, Vector, Label, Color, Font, Debug, Transform, Screen, Sce
 import {Resources, ResourceLoader} from "./resources.js";
 import {Menu} from "./menu.js";
 import {Park} from "./park.js";
-import {Settings} from "./settings.js";
 
 export class Game extends Engine {
 
     game
+    musicVolume = 0.5;
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
