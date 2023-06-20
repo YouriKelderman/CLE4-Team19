@@ -176,7 +176,7 @@ export class Park extends Scene {
             placing = !placing;
             console.log(int);
             if (placing) {
-                const circle = Shape.Circle(10);
+                const circle = Shape.Circle(50);
                 placingSprite.collider.set(circle);
                 placingSprite.collisionType = CollisionType.Passive;
                 placingSprite._setName('PlacingSprite')
