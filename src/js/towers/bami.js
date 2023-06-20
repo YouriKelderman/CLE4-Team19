@@ -21,9 +21,17 @@ export class Bami extends Tower {
 
     }
 
-    checkSelf(sprite) {
-        this.sprite = itemIds[sprite].toSprite();
-        this.graphics.use(itemIds[sprite].toSprite());
+    checkSelf(sprite, legal) {
+        if (legal === true) {
+            this.sprite = itemIds[sprite].toSprite();
+            this.graphics.use(itemIds[sprite].toSprite());
+        } else {
+            let tint = itemIds[sprite].toSprite()
+            tint.tint = new Color(255, 0, 0)
 
+            this.sprite = tint;
+            this.graphics.use(tint);
+
+        }
     }
 }
