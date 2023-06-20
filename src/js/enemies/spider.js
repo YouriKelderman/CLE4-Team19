@@ -18,6 +18,7 @@ let route = [];
 let enemies = [
     [Resources.Spider, 5,],
     [Resources.Mouse, 3],
+    [Resources.Rat, 6]
 
 ];
 
@@ -31,8 +32,10 @@ route[0] = route[1];
 
 export class Spider extends Actor {
 
+    speed = 100;
     timeAlive = 0;
-    health = 5;
+    health = 1;
+    type = 0;
 
     constructor(spriteID) {
         super({
@@ -51,11 +54,14 @@ export class Spider extends Actor {
     }
 
     setType(type) {
-
+        this.type = type
         this.sprite = enemies[type][0].toSprite();
         this.graphics.use(this.sprite);
         this.health = enemies[type][1];
+    }
 
+    setSpeed(speed) {
+        this.speed = speed;
     }
 
     collided(event) {
@@ -69,6 +75,7 @@ export class Spider extends Actor {
     }
 
     move(pathToFollow) {
+        console.log(`type = ${this.type} speed = ${this.speed}, health = ${this.health}`)
         if (pathToFollow !== []) {
             this.pos = pathToFollow[0];
 
@@ -96,7 +103,7 @@ export class Spider extends Actor {
 
                         angle = -Math.abs(angle);
                     }
-                    this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, 100)
+                    this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, this.speed)
                     this.actions.rotateTo(angle, 1000, RotationType.ShortestPath)
 
                 }
