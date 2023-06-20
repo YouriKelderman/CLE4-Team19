@@ -70,9 +70,10 @@ export class Park extends Scene {
             let offsetY = 0
 
             let wall = new Wall((hitboxPoints[i]) + offsetX, (hitboxPoints[i + 1]) + offsetY, (hitboxPoints[i + 2]) + offsetX, (hitboxPoints[i + 3]) + offsetY);
-            wall.on("collisionstart", (event) => {
+            wall.on("precollision", (event) => {
                 if(event.other instanceof Bami)
                     this.isLegal = false;
+
             })
             wall.on("collisionend", (event) => {
                 if(event.other instanceof Bami)
@@ -164,9 +165,7 @@ export class Park extends Scene {
             localStorage.setItem("path", path);
             console.log(path)
         } else {
-            this.string += `${Math.floor(engine.input.pointers.primary.lastWorldPos.x)},`
-            this.string += `${Math.floor(engine.input.pointers.primary.lastWorldPos.y)},`
-            console.log(this.string)
+
         }
     }
 
@@ -180,7 +179,7 @@ export class Park extends Scene {
             placing = !placing;
             console.log(int);
             if (placing) {
-                const circle = Shape.Circle(10);
+                const circle = Shape.Circle(50);
                 placingSprite.collider.set(circle);
                 placingSprite.collisionType = CollisionType.Passive;
                 placingSprite._setName('PlacingSprite')
