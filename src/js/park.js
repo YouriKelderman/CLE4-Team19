@@ -167,8 +167,11 @@ export class Park extends Scene {
         this.activetower = tower;
     }
 
+
     onPreUpdate(engine, delta) {
         placingSprite.checkSelf(int, this.isLegal);
+
+
 
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
             placing = !placing;

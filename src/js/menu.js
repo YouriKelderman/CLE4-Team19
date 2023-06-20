@@ -17,8 +17,6 @@ import {
 } from "excalibur";
 
 import {Resources, ResourceLoader} from "./resources.js";
-import {SliderBase} from "./sliderBase.js";
-import {Slider} from "./slider.js";
 
 export class Menu extends Scene {
 
