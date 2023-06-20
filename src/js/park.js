@@ -6,6 +6,7 @@ import {Range} from "./range.js";
 import {Bami} from "./towers/bami.js";
 import {Spider} from "./enemies/spider.js";
 import {Wall} from "./hitbox.js";
+import {Settings} from "./settings.js";
 
 let placing = false;
 let placingSprite;
@@ -45,10 +46,20 @@ export class Park extends Scene {
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
-        this.music.stop();
-        this.music.volume = 0.5;
-        this.music.loop = true;
-        this.music.play().then(r => console.log(r));
+        if (this.engine.musicVolume === 0) {
+            this.music.pause()
+
+        }else {
+            this.music.volume = this.engine.musicVolume;
+            this.music.loop = true;
+            this.music.play().then(r => console.log(r));
+        }
+
+    }
+
+    onDeactivate(_context) {
+        super.onDeactivate(_context);
+        this.music.pause();
     }
 
     onInitialize(_engine) {

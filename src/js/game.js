@@ -6,6 +6,7 @@ import {Park} from "./park.js";
 export class Game extends Engine {
 
     game
+    musicVolume = 0.5;
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
