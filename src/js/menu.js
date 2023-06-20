@@ -39,6 +39,8 @@ export class Menu extends Scene {
         this.music.play().then(r => console.log(r));
     }
     onInitialize(engine) {
+
+
         // logo & buttons
         this.logo = new Actor();
         this.logo.graphics.use(Resources.Logo.toSprite());

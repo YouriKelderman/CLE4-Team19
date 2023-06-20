@@ -90,15 +90,55 @@ export class Park extends Scene {
         mapTop.z = 9999
         this.add(mapTop);
 
+        //settingsbutton
         let settingsButton = new Actor();
-        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
-        settingsButton.pos = new Vector(1365, 125);
-        settingsButton.scale = new Vector(0.9, 0.9);
-
-        settingsButton.on("pointerup", (event) => console.log("settings"));
+       settingsButton.graphics.use(Resources.SettingsButton.toSprite());
+        settingsButton.pos = new Vector(50,105);
+        settingsButton.scale = new Vector(0.7, 0.7)
+        settingsButton.z = 9999;
+        settingsButton.enableCapturePointer = true;
+        settingsButton.pointer.useGraphicsBounds = true;
+        settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(settingsButton);
 
+        //sidebutton
+        this.sideButton = new Actor();
+        this.sideButton.graphics.use(Resources.SideButton.toSprite());
+        this.sideButton.pos = new Vector(1400,450);
+        this.sideButton.scale = new Vector(0.7, 0.7)
+        this.sideButton.z = 9999;
+        this.sideButton.enableCapturePointer = true;
+        this.sideButton.pointer.useGraphicsBounds = true;
+        this.sideButton.on("pointerup", (event) => this.drawBuyMenu());
+        this.add(this.sideButton);
     }
+
+    drawBuyMenu() {
+        this.buyMenu = new Actor();
+        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
+        this.buyMenu.pos = new Vector(1500, 450);
+        this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
+        this.buyMenu.scale = new Vector(2, 0.9)
+        this.buyMenu.z = 9998;
+        this.buyMenu.enableCapturePointer = true;
+        this.buyMenu.pointer.useGraphicsBounds = true;
+        this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
+        this.add(this.buyMenu);
+
+        this.sideButton.kill()
+    }
+
+    undoDrawBuyMenu() {
+        this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
+        this.buyMenu.kill()
+        this.sideButton.pos = new Vector(1500, 450);
+        this.add(this.sideButton);
+    }
+
+    goToSettings() {
+   console.log("goToSettings")
+        this.game = engine;
+        this.engine.goToScene('settings');
 
     checkIfLegal(event) {
         if (event.other instanceof Bami) {

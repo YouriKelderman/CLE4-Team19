@@ -25,7 +25,8 @@ import backgroundMusic from '../sounds/backgroundMusic.mp3';
 import playButton from '../images/play-button.png';
 import settingsButton from '../images/settings-button.png';
 import menuButton from '../images/menu-button.png';
-
+import sideButton from '../images/side-button.png';
+import buyMenu from '../images/BuyMenuBar.png';
 
 // slider
 import sliderBase from '../images/slider-base.png';
@@ -47,6 +48,8 @@ const Resources = {
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     MenuButton: new ImageSource(menuButton),
+    SideButton: new ImageSource(sideButton),
+    BuyMenu: new ImageSource(buyMenu),
 
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
@@ -70,9 +73,12 @@ const ResourceLoader = new Loader([
     Resources.Range,
     Resources.Bami,
     Resources.Map1Top,
+
     Resources.PlayButton,
     Resources.SettingsButton,
     Resources.MenuButton,
+    Resources.SideButton,
+    Resources.BuyMenu,
 
     Resources.MenuMusic,
     Resources.BackgroundMusic,

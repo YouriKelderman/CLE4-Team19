@@ -2,6 +2,7 @@ import {Actor, Engine, Vector, Label, Color, Font, Debug, Transform, Screen, Sce
 import {Resources, ResourceLoader} from "./resources.js";
 import {Menu} from "./menu.js";
 import {Park} from "./park.js";
+import {Settings} from "./settings.js";
 
 export class Game extends Engine {
 
@@ -21,7 +22,7 @@ export class Game extends Engine {
 
         this.add('menu', new Menu());
         this.add('park', new Park());
-
+        this.add('settings', new Settings());
     }
 
     startGame(engine) {
