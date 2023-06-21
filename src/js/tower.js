@@ -44,7 +44,7 @@ export class Tower extends Actor {
     onInitialize(engine) {
         this.engine = engine;
         this.anchor = new Vector(0.5, 0.5);
-        this.scale = new Vector(1, 1);
+        this.scale = new Vector(2, 2);
         this.range = towerRange;
         this.z = 100;
         const circle = Shape.Circle(towerRange);

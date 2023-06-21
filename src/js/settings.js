@@ -22,9 +22,14 @@ export class Settings extends Scene {
     music = Resources.MenuMusic;
 
     onActivate(_context) {
-        this.music.volume = 0.1;
-        this.music.loop = true;
-        this.music.play().then(r => console.log(r));
+        if (this.engine.musicVolume === 0) {
+            this.music.pause()
+
+        }else {
+            this.music.volume = 0.1;
+            this.music.loop = true;
+            this.music.play().then(r => console.log(r));
+        }
     }
 
     onInitialize(engine) {
@@ -64,16 +69,6 @@ export class Settings extends Scene {
 
         // spinnen mode
 
-        const startButton = new Actor();
-        startButton.graphics.use(Resources.HervatButton.toSprite());
-        startButton.pos = new Vector(720, 500);
-        startButton.scale = new Vector(1, 1)
-        startButton.actions.scaleTo(vec(1.1,1.1),vec(0.5,0.5));
-        startButton.z = 1000;
-        startButton.enableCapturePointer = true;
-        startButton.pointer.useGraphicsBounds = true;
-        startButton.on("pointerup", (event) => this.startGame());
-        this.add(startButton);
     }
 
     muteSound() {
