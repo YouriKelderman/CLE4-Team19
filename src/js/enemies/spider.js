@@ -18,7 +18,8 @@ let route = [];
 let enemies = [
     [Resources.Spider, 5,],
     [Resources.Mouse, 3],
-    [Resources.Rat, 6]
+    [Resources.Rat, 6],
+    [Resources.Racoon, 10],
 
 ];
 
@@ -37,28 +38,29 @@ export class Spider extends Actor {
     speed = 100;
     health = 1;
     type = 0;
+    deathTime
 
     constructor(game) {
         super();
         this.game = game;
 
-        this.particle = new ParticleEmitter({
-            emitterType: EmitterType.Rectangle,
-            radius: 1,
-            minVel: 100,
-            maxVel: 150,
-            minAngle: 0,
-            maxAngle: Math.PI * 2,
-            emitRate: 300,
-            opacity: 1,
-            fadeFlag: true,
-            particleLife: 1000,
-            maxSize: 5,
-            minSize: 1,
-            beginColor: Color.fromRGB(125, 62, 42),
-
-            isEmitting: false
-        });
+        // this.particle = new ParticleEmitter({
+        //     emitterType: EmitterType.Rectangle,
+        //     radius: 1,
+        //     minVel: 100,
+        //     maxVel: 150,
+        //     minAngle: 0,
+        //     maxAngle: Math.PI * 2,
+        //     emitRate: 300,
+        //     opacity: 1,
+        //     fadeFlag: true,
+        //     particleLife: 1000,
+        //     maxSize: 5,
+        //     minSize: 1,
+        //     beginColor: Color.fromRGB(125, 62, 42),
+        //
+        //     isEmitting: false
+        // });
     }
 
     onInitialize(engine) {
@@ -79,52 +81,53 @@ export class Spider extends Actor {
         if (type === 0) {
             this.body.scale = new Vector(0.25, 0.25);
             this.collider.set(Shape.Box(100, 100));
+            this.speed = 100
         }
         if (type === 1) {
             this.body.scale = new Vector(0.5, 0.5);
             this.collider.set(Shape.Box(100, 50));
+            this.speed = 200
         }
         if (type === 2) {
             this.body.scale = new Vector(0.6, 0.6);
             this.collider.set(Shape.Box(125, 60));
+            this.speed = 150
+        }
+        if (type === 3) {
+            this.body.scale = new Vector(0.5, 0.5);
+            this.collider.set(Shape.Box(125, 60));
+            this.speed = 50
         }
 
     }
 
-    setSpeed(speed) {
-        this.speed = speed;
-    }
-
     collided(event) {
-        if (event.other.name === "projectile") {
-            event.other.kill();
-            this.health -= 1;
-            if (this.health < 1) {
-                // this.game.add(this.particle);
-                // this.particle.pos = this.pos;
-
-                // this.explode();
-                this.kill();
+        console.log(event)
+        if (event.other !== null) {
+            if (event.other.name === "projectile") {
+                event.other.kill();
+                this.health -= 1;
+                if (this.health < 1) {
+                    this.explode();
+                }
             }
         }
     }
 
     explode() {
-        this.particle.isEmitting = true;
-        this.timeAlive = new Timer({
-            fcn: () => {
-
-                this.particle.isEmitting = false;
-                this.game.particle.kill();
-            },
+        this.actions.clearActions()
+        this.collider.clear()
+        this.deathTime = new Timer({
+            fcn: () => this.kill(),
             repeats: false,
-            interval: 200,
-        });
-        this.game.add(this.timeAlive);
-        this.timeAlive.start();
-
-
+            interval: 100,
+        })
+        this.engine.currentScene.add(this.deathTime)
+        this.deathTime.start()
+        this.actions
+            .fade(0,100)
     }
+
 
     move(pathToFollow) {
         console.log(`type = ${this.type} speed = ${this.speed}, health = ${this.health}`);

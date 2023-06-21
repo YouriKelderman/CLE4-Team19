@@ -4,6 +4,9 @@ import {ImageSource, Sound, Resource, Loader, Color, Vector} from 'excalibur';
 import logo from '../images/logo.png';
 import pausedLogo from '../images/paused-logo.png';
 import HervatButton from '../images/HervatButton.png';
+import Volumeup from '../images/Volume-up.png';
+import Volumedown from '../images/Volume-down.png';
+import Mutebutton from '../images/MuteButton.png';
 
 // menu
 import loading from '../images/loading.png';
@@ -19,10 +22,12 @@ import kevin from '../images/kevin.png';
 import spider from '../images/spider.png';
 import mouse from '../images/muis.png';
 import rat from '../images/rat.png';
+import racoon from '../images/racoon.png'
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
-import menuMusic from '../sounds/menuMusic.mp3';
+import menuMusic from '../sounds/Main_Menu.mp3';
+import settingsMusic from '../sounds/Settings_1.mp3';
 import backgroundMusic from '../sounds/backgroundMusic.mp3';
 
 //gui
@@ -34,8 +39,11 @@ import buyMenu from '../images/BuyMenuBar.png';
 
 const Resources = {
     Logo: new ImageSource(logo),
-    PausedLogo: new ImageSource(pausedLogo),
-    HervatButton: new ImageSource(HervatButton),
+    PausedLogo : new ImageSource(pausedLogo),
+    HervatButton : new ImageSource(HervatButton),
+    Volumeup : new ImageSource(Volumeup),
+    Volumedown : new ImageSource(Volumedown),
+    Mutebutton : new ImageSource(Mutebutton),
 
     Loading: new ImageSource(loading),
     Start: new ImageSource(start),
@@ -56,10 +64,12 @@ const Resources = {
 
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
+    SettingsMusic: new Sound(settingsMusic),
 
     Mouse: new ImageSource(mouse),
     Spider: new ImageSource(spider),
     Rat: new ImageSource(rat),
+    Racoon: new ImageSource(racoon),
 
 };
 
@@ -67,6 +77,11 @@ const ResourceLoader = new Loader([
     Resources.Logo,
     Resources.PausedLogo,
     Resources.HervatButton,
+    Resources.Volumeup,
+    Resources.Volumedown,
+    Resources.Mutebutton,
+
+
 
     Resources.Loading,
     Resources.Start,
@@ -86,9 +101,12 @@ const ResourceLoader = new Loader([
 
     Resources.MenuMusic,
     Resources.BackgroundMusic,
+    Resources.SettingsMusic,
+
     Resources.Spider,
     Resources.Mouse,
     Resources.Rat,
+    Resources.Racoon,
 ]);
 
 // Excaliber logo

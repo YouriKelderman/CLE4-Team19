@@ -19,23 +19,11 @@ let engine;
 let route = [];
 let mapping = false;
 let running = false;
-let levels = [
-    "5*0*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 2*1*50, 2*2*100, 100*0*75,10*1*50, 10*0*75, 2000*1*50",
-    "100*0*100",
-    "",
-]
+let levels = []
 let waveItem = 0;
 let order = [];
-let speed = [];
 let walls = [];
-let parsedResult = levels[0].split(",");
-parsedResult.forEach(item => {
-    item = item.split("*")
-    for (let i = 0; i < Number(item[0]); i++) {
-        order.push(Number(item[1]));
-        speed.push(Number(item[2]));
-    }
-})
+
 
 export class Park extends Scene {
     constructor() {
@@ -46,14 +34,17 @@ export class Park extends Scene {
     spiderSpawner = 0
     isLegal = true;
     string = "";
+    endlessMode = true
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
-        if (this.engine.musicVolume === 0) {
+
+        this.music.volume = this.engine.musicVolume;
+        if (this.music.volume === 0) {
             this.music.pause()
 
         }else {
-            this.music.volume = this.engine.musicVolume;
+
             this.music.loop = true;
             this.music.play().then(r => console.log(r));
         }
@@ -99,7 +90,7 @@ export class Park extends Scene {
         mapTop.scale = new Vector(5.5, 5.5);
         mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999
-        // this.add(mapTop);
+        this.add(mapTop);
 
         let settingsButton = new Actor();
         settingsButton.graphics.use(Resources.SettingsButton.toSprite());
@@ -121,6 +112,29 @@ export class Park extends Scene {
         this.sideButton.pointer.useGraphicsBounds = true;
         this.sideButton.on("pointerup", (event) => this.drawBuyMenu());
         this.add(this.sideButton);
+
+        this.enemies()
+    }
+
+    enemies() {
+        if (this.endlessMode) {
+            levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (3 - 0) + 0)}`]
+        } else {
+            levels = ["5*3, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 100*0, 10*1, 10*0, 2000*1"]
+        }
+
+        console.log(levels)
+
+        this.parse()
+    }
+
+    parse() {
+        let parsedResult = levels[0].split(",");
+        parsedResult.forEach(item => {
+            item = item.split("*")
+            for (let i = 0; i < Number(item[0]); i++) {
+                order.push(Number(item[1]));}
+        })
     }
 
     drawBuyMenu() {
@@ -184,7 +198,6 @@ export class Park extends Scene {
 
     onPreUpdate(engine, delta) {
         placingSprite.checkSelf(int, this.isLegal);
-
 
 
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
@@ -252,9 +265,13 @@ export class Park extends Scene {
             if (this.spiderSpawner === 1 && running) {
                 let enemy = new Spider(this);
                 enemy.setType(order[waveItem]);
-                enemy.setSpeed(speed[waveItem]);
                 this.add(enemy)
                 waveItem += 1;
+            }
+            if (this.endlessMode && waveItem === order.length) {
+                levels = [];
+                levels.push(`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (3 - 0) + 0)}`)
+                this.parse()
             }
             this.spiderSpawner++
             if (this.spiderSpawner > Math.random() * (150 - 50) + 50) {
