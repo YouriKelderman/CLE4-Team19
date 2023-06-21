@@ -32,7 +32,7 @@ export class Menu extends Scene {
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228)
         this.music.stop()
-        this.music.volume = 0.1;
+        this.music.volume = 0.5;
         this.music.loop = true;
         this.music.play().then(r => console.log(r));
     }
