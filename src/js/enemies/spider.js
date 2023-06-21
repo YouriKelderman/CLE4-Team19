@@ -38,7 +38,7 @@ export class Spider extends Actor {
     speed = 100;
     health = 1;
     type = 0;
-    deathTime
+    deathAnimation;
 
     constructor(game) {
         super();
@@ -117,17 +117,8 @@ export class Spider extends Actor {
     explode() {
         this.actions.clearActions()
         this.collider.clear()
-        this.deathTime = new Timer({
-            fcn: () => this.kill(),
-            repeats: false,
-            interval: 100,
-        })
-        this.engine.currentScene.add(this.deathTime)
-        this.deathTime.start()
-        this.actions
-            .fade(0,100)
+        this.deathAnimation = 100
     }
-
 
     move(pathToFollow) {
         console.log(`type = ${this.type} speed = ${this.speed}, health = ${this.health}`);
@@ -168,7 +159,16 @@ export class Spider extends Actor {
     }
 
     onPreUpdate(engine, delta) {
-        if (this.pos.y > window.innerHeight) {
+
+        if (this.deathAnimation < 0) {
+            this.kill()
+        }
+        this.deathAnimation--
+        console.log(this.deathAnimation)
+
+
+
+    if (this.pos.y > window.innerHeight) {
             console.log("JE BENT DOOD SUKKEL");
             this.kill();
 
