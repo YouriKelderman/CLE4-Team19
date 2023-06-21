@@ -38,11 +38,13 @@ export class Park extends Scene {
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
-        if (this.engine.musicVolume === 0) {
+
+        this.music.volume = this.engine.musicVolume;
+        if (this.music.volume === 0) {
             this.music.pause()
 
         }else {
-            this.music.volume = this.engine.musicVolume;
+
             this.music.loop = true;
             this.music.play().then(r => console.log(r));
         }
