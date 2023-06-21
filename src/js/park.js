@@ -30,7 +30,7 @@ export class Park extends Scene {
         super();
     }
 
-    music = Resources.BackgroundMusic;
+    music = Resources.ParkMusic;
     click = Resources.Click;
     spiderSpawner = 0
     isLegal = true;
