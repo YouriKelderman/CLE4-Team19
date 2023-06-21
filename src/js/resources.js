@@ -32,6 +32,7 @@ import click from '../sounds/click.wav';
 import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
 import backgroundMusic from '../sounds/backgroundMusic.mp3';
+import parkMusic from '../sounds/parkSong.mp3';
 
 //gui
 import playButton from '../images/play-button.png';
@@ -74,6 +75,7 @@ const Resources = {
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
     SettingsMusic: new Sound(settingsMusic),
+    ParkMusic: new Sound(parkMusic),
 
     Mouse: new ImageSource(mouse),
     Spider: new ImageSource(spider),
@@ -113,6 +115,7 @@ const ResourceLoader = new Loader([
     Resources.MenuMusic,
     Resources.BackgroundMusic,
     Resources.SettingsMusic,
+    Resources.ParkMusic,
 
     Resources.Spider,
     Resources.Mouse,
