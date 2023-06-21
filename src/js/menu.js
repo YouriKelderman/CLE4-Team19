@@ -28,11 +28,12 @@ export class Menu extends Scene {
         Physics.useRealisticPhysics();
     }
     music = Resources.MenuMusic;
+    click = Resources.Click;
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228)
         this.music.stop()
-        this.music.volume = 0.1;
+        this.music.volume = 0.5;
         this.music.loop = true;
         this.music.play().then(r => console.log(r));
     }
@@ -102,6 +103,8 @@ export class Menu extends Scene {
 
     startGame() {
         console.log('start game');
+        this.click.volume = 1;
+        this.click.play();
         this.engine.goToScene('park');
 
     }
