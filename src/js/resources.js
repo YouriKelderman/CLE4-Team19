@@ -4,6 +4,9 @@ import {ImageSource, Sound, Resource, Loader, Color, Vector} from 'excalibur';
 import logo from '../images/logo.png';
 import pausedLogo from '../images/paused-logo.png';
 import HervatButton from '../images/HervatButton.png';
+import Volumeup from '../images/Volume-up.png';
+import Volumedown from '../images/Volume-down.png';
+import Mutebutton from '../images/MuteButton.png';
 
 // menu
 import loading from '../images/loading.png';
@@ -34,8 +37,11 @@ import buyMenu from '../images/BuyMenuBar.png';
 
 const Resources = {
     Logo: new ImageSource(logo),
-    PausedLogo: new ImageSource(pausedLogo),
-    HervatButton: new ImageSource(HervatButton),
+    PausedLogo : new ImageSource(pausedLogo),
+    HervatButton : new ImageSource(HervatButton),
+    Volumeup : new ImageSource(Volumeup),
+    Volumedown : new ImageSource(Volumedown),
+    Mutebutton : new ImageSource(Mutebutton),
 
     Loading: new ImageSource(loading),
     Start: new ImageSource(start),
@@ -67,6 +73,11 @@ const ResourceLoader = new Loader([
     Resources.Logo,
     Resources.PausedLogo,
     Resources.HervatButton,
+    Resources.Volumeup,
+    Resources.Volumedown,
+    Resources.Mutebutton,
+
+
 
     Resources.Loading,
     Resources.Start,
