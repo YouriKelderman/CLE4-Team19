@@ -25,6 +25,7 @@ import rat from '../images/rat.png';
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
+import click from '../sounds/click.wav';
 import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
 import backgroundMusic from '../sounds/backgroundMusic.mp3';
@@ -61,6 +62,7 @@ const Resources = {
     SideButton: new ImageSource(sideButton),
     BuyMenu: new ImageSource(buyMenu),
 
+    Click: new Sound(click),
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
     SettingsMusic: new Sound(settingsMusic),
@@ -97,6 +99,7 @@ const ResourceLoader = new Loader([
     Resources.SideButton,
     Resources.BuyMenu,
 
+    Resources.Click,
     Resources.MenuMusic,
     Resources.BackgroundMusic,
     Resources.SettingsMusic,
