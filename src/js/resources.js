@@ -2,6 +2,8 @@ import {ImageSource, Sound, Resource, Loader, Color, Vector} from 'excalibur';
 
 // logo
 import logo from '../images/logo.png';
+import pausedLogo from '../images/paused-logo.png';
+import HervatButton from '../images/HervatButton.png';
 
 // menu
 import loading from '../images/loading.png';
@@ -9,12 +11,14 @@ import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 
 import range from '../images/range.png';
+
 // park
 import bami from '../images/bami.png';
 import pan from '../images/bami-pan.png';
 import kevin from '../images/kevin.png';
 import spider from '../images/spider.png';
-import Mouse from '../images/muis.png';
+import mouse from '../images/muis.png';
+import rat from '../images/rat.png';
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
@@ -28,12 +32,11 @@ import menuButton from '../images/menu-button.png';
 import sideButton from '../images/side-button.png';
 import buyMenu from '../images/BuyMenuBar.png';
 
-// slider
-import sliderBase from '../images/slider-base.png';
-import sliderHead from '../images/slider-head.png';
-
 const Resources = {
     Logo: new ImageSource(logo),
+    PausedLogo: new ImageSource(pausedLogo),
+    HervatButton: new ImageSource(HervatButton),
+
     Loading: new ImageSource(loading),
     Start: new ImageSource(start),
     MenuSpider: new ImageSource(menuSpider),
@@ -54,16 +57,17 @@ const Resources = {
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
 
-
-    SliderBase: new ImageSource(sliderBase),
-    SliderHead: new ImageSource(sliderHead),
-Mouse: new ImageSource(Mouse),
-    Spider: new ImageSource(spider)
+    Mouse: new ImageSource(mouse),
+    Spider: new ImageSource(spider),
+    Rat: new ImageSource(rat),
 
 };
 
 const ResourceLoader = new Loader([
     Resources.Logo,
+    Resources.PausedLogo,
+    Resources.HervatButton,
+
     Resources.Loading,
     Resources.Start,
     Resources.MenuSpider,
@@ -82,10 +86,9 @@ const ResourceLoader = new Loader([
 
     Resources.MenuMusic,
     Resources.BackgroundMusic,
-    Resources.SliderBase,
-    Resources.SliderHead,
     Resources.Spider,
-Resources.Mouse,
+    Resources.Mouse,
+    Resources.Rat,
 ]);
 
 // Excaliber logo
