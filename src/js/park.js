@@ -24,14 +24,6 @@ let levels = []
 let waveItem = 0;
 let order = [];
 let walls = [];
-let parsedResult = levels[0].split(",");
-parsedResult.forEach(item => {
-    item = item.split("*")
-    for (let i = 0; i < Number(item[0]); i++) {
-        order.push(Number(item[1]));
-        speed.push(Number(item[2]));
-    }
-})
 
 export class Park extends Scene {
     constructor() {
