@@ -11,7 +11,7 @@ export class Game extends Engine {
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
         this.start(ResourceLoader).then(() => this.startGame());
-        this.showDebug(false);
+        this.showDebug(true);
         this.debug.motion = {
             accelerationColor: Color.Azure,
             showAcceleration: true,

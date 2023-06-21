@@ -46,7 +46,6 @@ export class Spider extends Actor {
     onInitialize(engine) {
         this.engine = engine;
         this.anchor = new Vector(0.5, 0.5);
-        this.scale = new Vector(0.5, 0.5);
         this.z = 100;
         this._setName("Enemy");
         this.on('collisionstart', (event) => this.collided(event));
@@ -58,6 +57,17 @@ export class Spider extends Actor {
         this.sprite = enemies[type][0].toSprite();
         this.graphics.use(this.sprite);
         this.health = enemies[type][1];
+
+        if (type === 0) {
+            this.body.scale = new Vector(0.25, 0.25);
+        }
+        if (type === 1) {
+            this.body.scale = new Vector(0.5, 0.5);
+        }
+        if (type === 2) {
+            this.body.scale = new Vector(0.6, 0.6);
+        }
+
     }
 
     setSpeed(speed) {
@@ -103,7 +113,7 @@ export class Spider extends Actor {
 
                         angle = -Math.abs(angle);
                     }
-                    this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, this.speed)
+                    this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, Math.random() * ((this.speed + 20) - (this.speed - 20)) + (this.speed - 20))
                     this.actions.rotateTo(angle, 1000, RotationType.ShortestPath)
 
                 }
