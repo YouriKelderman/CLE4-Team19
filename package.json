@@ -11,6 +11,7 @@
     "vite": "^4.2.0"
   },
   "dependencies": {
+    "@excaliburjs/dev-tools": "^0.27.1",
     "excalibur": "^0.27.0"
   }
 }

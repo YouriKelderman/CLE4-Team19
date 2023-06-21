@@ -38,7 +38,7 @@ export class Spider extends Actor {
     health = 1;
     type = 0;
 
-    constructor(spriteID) {
+    constructor(game) {
         super({
             width: Resources.Pan.width / 2, height: Resources.Pan.height / 2
         });
