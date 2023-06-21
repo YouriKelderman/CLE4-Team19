@@ -21,18 +21,12 @@ export class Settings extends Scene {
     }
     music = Resources.MenuMusic;
 
-    onActivate(_context) {
-        if (this.engine.musicVolume === 0) {
-            this.music.pause()
-
-        }else {
-            this.music.volume = 0.1;
-            this.music.loop = true;
-            this.music.play().then(r => console.log(r));
-        }
-    }
 
     onInitialize(engine) {
+        this.music.volume = 0.1;
+        this.music.loop = true;
+        this.music.play().then(r => console.log(r));
+
         //hervat knop
         const resumeButton = new Actor();
         resumeButton.graphics.use(Resources.Start.toSprite());
@@ -68,14 +62,20 @@ export class Settings extends Scene {
         this.add(this.logo);
 
     }
+    onActivate(_context) {
+
+
+    }
 
     muteSound() {
-        if (this.music.volume === 0) {
+        if (this.engine.musicVolume === 0) {
             this.music.volume = 0.1
+            this.music.play().then(r => console.log(r));
             this.engine.musicVolume = 0.5
         }
         else {
             this.music.volume = 0;
+            this.music.pause();
             this.engine.musicVolume = 0;
         }
     }
