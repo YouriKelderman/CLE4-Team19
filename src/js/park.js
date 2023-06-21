@@ -1,4 +1,4 @@
-import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec} from "excalibur";
+import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec, Label} from "excalibur";
 import {Scene} from "excalibur";
 import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
@@ -6,6 +6,7 @@ import {Range} from "./range.js";
 import {Bami} from "./towers/bami.js";
 import {Spider} from "./enemies/spider.js";
 import {Wall} from "./hitbox.js";
+import {Gulden} from "./money.js";
 import {Settings} from "./settings.js";
 
 let placing = false;
@@ -41,9 +42,10 @@ export class Park extends Scene {
     }
 
     music = Resources.BackgroundMusic;
-    spiderSpawner = 0
+    spiderSpawner = 0;
     isLegal = true;
     string = "";
+    guldenDisplay;
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
@@ -64,6 +66,10 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
+
+   this.guldenDisplay = new Gulden(
+     );
+        this.add(this.guldenDisplay);
 
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
@@ -87,6 +93,8 @@ export class Park extends Scene {
             walls.push(wall);
         }
 
+
+
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -96,7 +104,7 @@ export class Park extends Scene {
         mapTop.graphics.use(Resources.Map1Top.toSprite());
         mapTop.scale = new Vector(5.5, 5.5);
         mapTop.pos = new Vector(745, 425);
-        mapTop.z = 9999
+        mapTop.z = 9998
         // this.add(mapTop);
 
         let settingsButton = new Actor();
@@ -132,7 +140,6 @@ export class Park extends Scene {
         this.buyMenu.pointer.useGraphicsBounds = true;
         this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
         this.add(this.buyMenu);
-
         this.sideButton.kill()
     }
 
@@ -181,6 +188,13 @@ export class Park extends Scene {
 
 
     onPreUpdate(engine, delta) {
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
+            this.goToSettings();
+        }
+
+        this.guldenDisplay.text = `Gulden : ${this.engine.gulden}`;
+
         placingSprite.checkSelf(int, this.isLegal);
 
 

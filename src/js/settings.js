@@ -4,7 +4,7 @@ import {
 
     Scene,
 
-    Physics, vec,
+    Physics, vec, Input,
 
 } from "excalibur";
 
@@ -44,10 +44,9 @@ export class Settings extends Scene {
 
         //hervat knop
         const resumeButton = new Actor();
-        resumeButton.graphics.use(Resources.Start.toSprite());
+        resumeButton.graphics.use(Resources.HervatButton.toSprite());
         resumeButton.pos = new Vector(720, 450);
-        resumeButton.scale = new Vector(0.1, 0.1)
-        resumeButton.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
+        resumeButton.scale = new Vector(1, 1)
         resumeButton.z = 1000;
         resumeButton.enableCapturePointer = true;
         resumeButton.pointer.useGraphicsBounds = true;
@@ -56,15 +55,16 @@ export class Settings extends Scene {
 
         //geluid knop aan uit of zachter
         const soundButton = new Actor();
-        soundButton.graphics.use(Resources.Start.toSprite());
+        soundButton.graphics.use(Resources.Volumeup.toSprite());
         soundButton.pos = new Vector(720, 550);
-        soundButton.scale = new Vector(0.1, 0.1)
-        soundButton.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
+        soundButton.scale = new Vector(1, 1)
         soundButton.z = 1000;
         soundButton.enableCapturePointer = true;
         soundButton.pointer.useGraphicsBounds = true;
         soundButton.on("pointerup", (event) => this.muteSound());
         this.add(soundButton);
+
+
 
 
         // spinnen mode
@@ -89,6 +89,9 @@ export class Settings extends Scene {
     }
 
     onPreUpdate(engine, _delta) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
+            this.resumeGame()
+        }
     }
 
     onDeactivate(_  ) {

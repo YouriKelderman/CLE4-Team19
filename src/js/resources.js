@@ -7,6 +7,8 @@ import HervatButton from '../images/HervatButton.png';
 import Volumeup from '../images/Volume-up.png';
 import Volumedown from '../images/Volume-down.png';
 import Mutebutton from '../images/MuteButton.png';
+import fontFile from "../VCR_OSD_MONO_1.001.ttf";
+
 
 // menu
 import loading from '../images/loading.png';
@@ -34,6 +36,11 @@ import settingsButton from '../images/settings-button.png';
 import menuButton from '../images/menu-button.png';
 import sideButton from '../images/side-button.png';
 import buyMenu from '../images/BuyMenuBar.png';
+
+
+const font = new FontFace("VCR", `url(${fontFile})`)
+document.fonts.add(font)
+font.load()
 
 const Resources = {
     Logo: new ImageSource(logo),
@@ -68,6 +75,7 @@ const Resources = {
     Rat: new ImageSource(rat),
 
 };
+
 
 const ResourceLoader = new Loader([
     Resources.Logo,
