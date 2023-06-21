@@ -21,19 +21,9 @@ export class Settings extends Scene {
     }
     music = Resources.MenuMusic;
 
-    onActivate(_context) {
-        if (this.engine.musicVolume === 0) {
-            this.music.pause()
-
-        }else {
-            this.music.volume = 0.1;
-            this.music.loop = true;
-            this.music.play().then(r => console.log(r));
-        }
-    }
 
     onInitialize(engine) {
-
+      
         this.logo = new Actor();
         this.logo.graphics.use(Resources.PausedLogo.toSprite());
         this.logo.pos = new Vector(720, 250);
@@ -41,6 +31,9 @@ export class Settings extends Scene {
         this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
         this.logo.z = 1000;
         this.add(this.logo);
+        this.music.volume = 0.1;
+        this.music.loop = true;
+        this.music.play().then(r => console.log(r));
 
         //hervat knop
         const resumeButton = new Actor();
@@ -70,14 +63,20 @@ export class Settings extends Scene {
         // spinnen mode
 
     }
+    onActivate(_context) {
+
+
+    }
 
     muteSound() {
-        if (this.music.volume === 0) {
+        if (this.engine.musicVolume === 0) {
             this.music.volume = 0.1
+            this.music.play().then(r => console.log(r));
             this.engine.musicVolume = 0.5
         }
         else {
             this.music.volume = 0;
+            this.music.pause();
             this.engine.musicVolume = 0;
         }
     }
