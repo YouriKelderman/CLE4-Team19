@@ -28,6 +28,15 @@ export class Settings extends Scene {
     }
 
     onInitialize(engine) {
+
+        this.logo = new Actor();
+        this.logo.graphics.use(Resources.PausedLogo.toSprite());
+        this.logo.pos = new Vector(720, 250);
+        this.logo.scale = new Vector(0.1, 0.1)
+        this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
+        this.logo.z = 1000;
+        this.add(this.logo);
+
         //hervat knop
         const resumeButton = new Actor();
         resumeButton.graphics.use(Resources.Start.toSprite());
@@ -51,16 +60,9 @@ export class Settings extends Scene {
         soundButton.pointer.useGraphicsBounds = true;
         soundButton.on("pointerup", (event) => this.muteSound());
         this.add(soundButton);
+
+
         // spinnen mode
-
-
-        this.logo = new Actor();
-        this.logo.graphics.use(Resources.PausedLogo.toSprite());
-        this.logo.pos = new Vector(720, 250);
-        this.logo.scale = new Vector(0.1, 0.1)
-        this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
-        this.logo.z = 1000;
-        this.add(this.logo);
 
         const startButton = new Actor();
         startButton.graphics.use(Resources.HervatButton.toSprite());
