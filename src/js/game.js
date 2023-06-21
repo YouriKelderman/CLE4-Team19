@@ -4,18 +4,20 @@ import {Resources, ResourceLoader} from "./resources.js";
 import {Menu} from "./menu.js";
 import {Park} from "./park.js";
 import {Settings} from "./settings.js";
+import {Gulden} from "./money.js";
 
 export class Game extends Engine {
 
     game
     musicVolume = 0.5;
+    gulden = 0;
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
 
 
         this.start(ResourceLoader).then(() => this.startGame());
-        this.showDebug(false);
+        this.showDebug(true);
         this.debug.motion = {
             accelerationColor: Color.Azure,
             showAcceleration: true,
@@ -27,7 +29,6 @@ export class Game extends Engine {
         this.add('menu', new Menu());
         this.add('park', new Park());
         this.add('settings', new Settings())
-
 
     }
 

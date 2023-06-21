@@ -1,4 +1,4 @@
-import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec} from "excalibur";
+import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec, Label} from "excalibur";
 import {Scene} from "excalibur";
 import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
@@ -6,6 +6,7 @@ import {Range} from "./range.js";
 import {Bami} from "./towers/bami.js";
 import {Spider} from "./enemies/spider.js";
 import {Wall} from "./hitbox.js";
+import {Gulden} from "./money.js";
 import {Settings} from "./settings.js";
 
 let placing = false;
@@ -23,7 +24,6 @@ let levels = []
 let waveItem = 0;
 let order = [];
 let walls = [];
-
 
 export class Park extends Scene {
     constructor() {
@@ -59,6 +59,10 @@ export class Park extends Scene {
 
     onInitialize(_engine) {
 
+   this.guldenDisplay = new Gulden(
+     );
+        this.add(this.guldenDisplay);
+
         placingSprite = new Bami();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
         engine = _engine;
@@ -80,6 +84,8 @@ export class Park extends Scene {
             })
             walls.push(wall);
         }
+
+
 
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
@@ -201,7 +207,15 @@ export class Park extends Scene {
 
 
     onPreUpdate(engine, delta) {
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
+            this.goToSettings();
+        }
+
+        this.guldenDisplay.text = `Gulden : ${this.engine.gulden}`;
+
         placingSprite.checkSelf(int, this.isLegal);
+
 
 
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {

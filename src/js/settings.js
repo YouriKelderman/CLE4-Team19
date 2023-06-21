@@ -22,9 +22,19 @@ export class Settings extends Scene {
     music = Resources.SettingsMusic;
     click = Resources.Click;
 
+    onActivate(_context) {
+        if (this.engine.musicVolume === 0) {
+            this.music.pause()
+
+        }else {
+            this.music.volume = 0.1;
+            this.music.loop = true;
+            this.music.play().then(r => console.log(r));
+        }
+    }
 
     onInitialize(engine) {
-      
+
         this.logo = new Actor();
         this.logo.graphics.use(Resources.PausedLogo.toSprite());
         this.logo.pos = new Vector(720, 250);
