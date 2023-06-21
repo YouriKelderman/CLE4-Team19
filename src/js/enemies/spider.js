@@ -115,7 +115,6 @@ export class Spider extends Actor {
     }
 
     explode() {
-
         this.actions.clearActions()
         this.collider.clear()
         this.deathTime = new Timer({

@@ -26,6 +26,7 @@ let game;
 
 export class Tower extends Actor {
     tier = 1;
+    type = 0;
     shootingCooldown = 0;
     amountOfEnemies;
     enemy;
@@ -44,14 +45,16 @@ export class Tower extends Actor {
     onInitialize(engine) {
         this.engine = engine;
         this.anchor = new Vector(0.5, 0.5);
-        this.scale = new Vector(2, 2);
+        this.scale = new Vector(1, 1);
         this.range = towerRange;
         this.z = 100;
         const circle = Shape.Circle(towerRange);
         this.collider.clear();
         this._setName("Tower");
         this.collider.set(circle);
-        this.on('precollision', (event) => this.collisionHandler(event));
+        this.on('precollision', (event) => {
+            if (event.other.name === "Enemy") this.collisionHandler(event)
+        });
         this.on('pointerdown', () => this.clicked());
         this.particle = new ParticleEmitter({
             emitterType: EmitterType.Rectangle,
@@ -76,7 +79,6 @@ export class Tower extends Actor {
     }
 
     collisionHandler(event) {
-
         if (event.other.name === "Enemy") {
             this.amountOfEnemies++;
             this.enemiesInRadiusName.push(event)
@@ -94,10 +96,8 @@ export class Tower extends Actor {
         } else {
             let tint = itemIds[sprite].toSprite()
             tint.tint = new Color(100, 0, 0)
-
             this.sprite = tint;
             this.graphics.use(tint);
-
         }
     }
 
@@ -161,7 +161,7 @@ export class Tower extends Actor {
             this.engine.add(bullet);
             this.coolDown = 25
         }
-            if (this.tier === 3) {
+        if (this.tier === 3) {
             let bullet = new Projectile(1000);
             bullet.pos = this.pos;
             bullet.rotation = this.rotation - Math.PI / 2;
@@ -174,8 +174,8 @@ export class Tower extends Actor {
             bullet2.pos = this.pos;
             bullet2.rotation = this.rotation - 1.8;
             this.engine.add(bullet2);
-                this.coolDown = 20
-            }
+            this.coolDown = 20
+        }
         if (this.tier === 4) {
             let bullet = new Projectile(2000);
             bullet.pos = this.pos;
