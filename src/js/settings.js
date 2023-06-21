@@ -20,6 +20,7 @@ export class Settings extends Scene {
         Physics.useRealisticPhysics();
     }
     music = Resources.SettingsMusic;
+    click = Resources.Click;
 
 
     onInitialize(engine) {
@@ -100,6 +101,7 @@ export class Settings extends Scene {
     }
 
     muteSound() {
+        this.click.play();
         if (this.engine.musicVolume === 0) {
             this.music.volume = 0.1
             this.music.loop = true;
@@ -113,6 +115,7 @@ export class Settings extends Scene {
         }
     }
     raiseVolume() {
+        this.click.play();
         if (this.engine.musicVolume < 1 && this.music.volume < 0.3) {
             this.engine.musicVolume += 0.1;
             this.music.volume += 0.03;
@@ -120,6 +123,7 @@ export class Settings extends Scene {
 
     }
     lowerVolume() {
+        this.click.play();
         if (this.engine.musicVolume > 0 && this.music.volume > 0) {
             this.engine.musicVolume -= 0.1;
             this.music.volume -= 0.03
@@ -127,6 +131,7 @@ export class Settings extends Scene {
     }
 
     resumeGame() {
+        this.click.play();
         console.log('start game');
         this.engine.goToScene('park');
 

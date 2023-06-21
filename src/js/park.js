@@ -31,6 +31,7 @@ export class Park extends Scene {
     }
 
     music = Resources.BackgroundMusic;
+    click = Resources.Click;
     spiderSpawner = 0
     isLegal = true;
     string = "";
@@ -149,6 +150,8 @@ export class Park extends Scene {
         this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
         this.add(this.buyMenu);
 
+        this.click.play();
+
         this.sideButton.kill()
     }
 
@@ -161,6 +164,7 @@ export class Park extends Scene {
 
     goToSettings() {
         console.log("goToSettings")
+        this.click.play();
         this.game = engine;
         this.engine.goToScene('settings');
     }
