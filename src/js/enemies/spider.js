@@ -81,28 +81,28 @@ export class Spider extends Actor {
         if (type === 0) {
             this.body.scale = new Vector(0.25, 0.25);
             this.collider.set(Shape.Box(100, 100));
-            this.speed = 100
+            this.speed = 100;
         }
         if (type === 1) {
             this.body.scale = new Vector(0.5, 0.5);
             this.collider.set(Shape.Box(100, 50));
-            this.speed = 200
+            this.speed = 200;
         }
         if (type === 2) {
             this.body.scale = new Vector(0.6, 0.6);
             this.collider.set(Shape.Box(125, 60));
-            this.speed = 150
+            this.speed = 150;
         }
         if (type === 3) {
             this.body.scale = new Vector(0.5, 0.5);
             this.collider.set(Shape.Box(125, 60));
-            this.speed = 50
+            this.speed = 50;
         }
 
     }
 
     collided(event) {
-        console.log(event)
+        console.log(event);
         if (event.other !== null) {
             if (event.other.name === "projectile") {
                 event.other.kill();
@@ -115,9 +115,9 @@ export class Spider extends Actor {
     }
 
     explode() {
-        this.actions.clearActions()
-        this.collider.clear()
-        this.deathAnimation = 100
+        this.actions.clearActions();
+        this.collider.clear();
+        this.deathAnimation = 50;
     }
 
     move(pathToFollow) {
@@ -161,14 +161,19 @@ export class Spider extends Actor {
     onPreUpdate(engine, delta) {
 
         if (this.deathAnimation < 0) {
-            this.kill()
+            this.kill();
         }
-        this.deathAnimation--
-        console.log(this.deathAnimation)
+        if (this.deathAnimation > 0) {
+            this.graphics.opacity = (this.deathAnimation / 50);
+            let graphic = enemies[this.type][0].toSprite();
+            graphic.tint = new Color(this.deathAnimation * 5, 0, 0)
+            this.graphics.use(graphic)
+
+        }
+        this.deathAnimation--;
 
 
-
-    if (this.pos.y > window.innerHeight) {
+        if (this.pos.y > window.innerHeight) {
             console.log("JE BENT DOOD SUKKEL");
             this.kill();
 
