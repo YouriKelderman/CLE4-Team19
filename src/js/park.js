@@ -24,7 +24,14 @@ let levels = []
 let waveItem = 0;
 let order = [];
 let walls = [];
-
+let parsedResult = levels[0].split(",");
+parsedResult.forEach(item => {
+    item = item.split("*")
+    for (let i = 0; i < Number(item[0]); i++) {
+        order.push(Number(item[1]));
+        speed.push(Number(item[2]));
+    }
+})
 
 export class Park extends Scene {
     constructor() {
@@ -32,18 +39,11 @@ export class Park extends Scene {
     }
 
     music = Resources.BackgroundMusic;
-<<<<<<< HEAD
-    spiderSpawner = 0;
-    isLegal = true;
-    string = "";
-    guldenDisplay;
-=======
     click = Resources.Click;
     spiderSpawner = 0
     isLegal = true;
     string = "";
     endlessMode = true
->>>>>>> 356820c752d3fbe56371a8622fbdc0b2882e29f6
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
@@ -104,13 +104,8 @@ export class Park extends Scene {
         mapTop.graphics.use(Resources.Map1Top.toSprite());
         mapTop.scale = new Vector(5.5, 5.5);
         mapTop.pos = new Vector(745, 425);
-<<<<<<< HEAD
-        mapTop.z = 9998
-        // this.add(mapTop);
-=======
         mapTop.z = 9999
         this.add(mapTop);
->>>>>>> 356820c752d3fbe56371a8622fbdc0b2882e29f6
 
         let settingsButton = new Actor();
         settingsButton.graphics.use(Resources.SettingsButton.toSprite());
@@ -168,12 +163,9 @@ export class Park extends Scene {
         this.buyMenu.pointer.useGraphicsBounds = true;
         this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
         this.add(this.buyMenu);
-<<<<<<< HEAD
-=======
 
         this.click.play();
 
->>>>>>> 356820c752d3fbe56371a8622fbdc0b2882e29f6
         this.sideButton.kill()
     }
 
@@ -231,6 +223,7 @@ export class Park extends Scene {
         this.guldenDisplay.text = `Gulden : ${this.engine.gulden}`;
 
         placingSprite.checkSelf(int, this.isLegal);
+
 
 
         if (engine.input.keyboard.wasPressed(Input.Keys.B)) {
