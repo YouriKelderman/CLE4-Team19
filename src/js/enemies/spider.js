@@ -20,6 +20,7 @@ let enemies = [
     [Resources.Mouse, 3],
     [Resources.Rat, 6],
     [Resources.Racoon, 10],
+    [Resources.Snail, 50],
 
 ];
 
@@ -97,6 +98,11 @@ export class Spider extends Actor {
             this.body.scale = new Vector(0.5, 0.5);
             this.collider.set(Shape.Box(125, 60));
             this.speed = 50;
+        }
+        if (type === 4) {
+            this.body.scale = new Vector(0.25, 0.25);
+            this.collider.set(Shape.Box(50, 50));
+            this.speed = 30;
         }
 
     }
