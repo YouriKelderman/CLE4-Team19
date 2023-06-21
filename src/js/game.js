@@ -1,4 +1,5 @@
 import {Actor, Engine, Vector, Label, Color, Font, Debug, Transform, Screen, Scene, Camera, DisplayMode} from "excalibur";
+import {DevTool} from "@excaliburjs/dev-tools";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Menu} from "./menu.js";
 import {Park} from "./park.js";
@@ -11,6 +12,8 @@ export class Game extends Engine {
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
+
+
         this.start(ResourceLoader).then(() => this.startGame());
         this.showDebug(false);
         this.debug.motion = {
@@ -23,11 +26,17 @@ export class Game extends Engine {
 
         this.add('menu', new Menu());
         this.add('park', new Park());
-        this.add('settings', new Settings());
+        this.add('settings', new Settings())
+
+
+    }
+
+    onInitialize(engine) {
+        this.game = engine;
+        const devtool = new DevTool(this.game);
     }
 
     startGame(engine) {
-        this.game = engine;
         this.goToScene('menu');
     }
 

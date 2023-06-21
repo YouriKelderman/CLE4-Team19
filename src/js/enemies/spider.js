@@ -22,27 +22,27 @@ let enemies = [
 
 ];
 
-let tempRoute = ",1128.102,1125.141,1118.192,1114.224,1116.268,1114.318,1098.352,1068.398,1030.444,993.468,936.461,867.452,806.444,761.426,723.401,707.352,674.289,641.246,600.217,547.192,490.182,416.197,345.220,305.252,273.289,250.319,231.368,227.417,234.478,248.526,258.560,273.588,275.619,254.643,214.673,189.705,171.731,156.783".split(",")
+let tempRoute = ",1128.102,1125.141,1118.192,1114.224,1116.268,1114.318,1098.352,1068.398,1030.444,993.468,936.461,867.452,806.444,761.426,723.401,707.352,674.289,641.246,600.217,547.192,490.182,416.197,345.220,305.252,273.289,250.319,231.368,227.417,234.478,248.526,258.560,273.588,275.619,254.643,214.673,189.705,171.731,156.783".split(",");
 tempRoute.forEach(item => {
-    item = item.split(".")
+    item = item.split(".");
     let newItem = new Vector(Number(item[0]), Number(item[1]));
-    route.push(newItem)
-})
+    route.push(newItem);
+});
 route[0] = route[1];
 
 export class Spider extends Actor {
-    game
+    game;
     timeAlive = 0;
-    particle
+    particle;
     speed = 100;
     health = 1;
     type = 0;
 
-    constructor(spriteID) {
-        super({
-            width: Resources.Pan.width / 2, height: Resources.Pan.height / 2
-        });
+    constructor(game) {
+        super();
+
         this.game = game;
+
         this.particle = new ParticleEmitter({
             emitterType: EmitterType.Rectangle,
             radius: 1,
@@ -59,7 +59,7 @@ export class Spider extends Actor {
             beginColor: Color.fromRGB(125, 62, 42),
 
             isEmitting: false
-        })
+        });
     }
 
     onInitialize(engine) {
@@ -68,23 +68,26 @@ export class Spider extends Actor {
         this.z = 100;
         this._setName("Enemy");
         this.on('collisionstart', (event) => this.collided(event));
-        this.move(route)
+        this.move(route);
     }
 
     setType(type) {
-        this.type = type
+        this.type = type;
         this.sprite = enemies[type][0].toSprite();
         this.graphics.use(this.sprite);
         this.health = enemies[type][1];
 
         if (type === 0) {
             this.body.scale = new Vector(0.25, 0.25);
+            this.collider.set(Shape.Box(100, 100));
         }
         if (type === 1) {
             this.body.scale = new Vector(0.5, 0.5);
+            this.collider.set(Shape.Box(100, 50));
         }
         if (type === 2) {
             this.body.scale = new Vector(0.6, 0.6);
+            this.collider.set(Shape.Box(125, 60));
         }
 
     }
@@ -98,14 +101,15 @@ export class Spider extends Actor {
             event.other.kill();
             this.health -= 1;
             if (this.health < 1) {
-                this.game.add(this.particle)
-                this.particle.pos = this.pos;
+                // this.game.add(this.particle);
+                // this.particle.pos = this.pos;
 
-                this.explode();
-this.kill();
+                // this.explode();
+                this.kill();
             }
         }
     }
+
     explode() {
         this.particle.isEmitting = true;
         this.timeAlive = new Timer({
@@ -116,20 +120,21 @@ this.kill();
             },
             repeats: false,
             interval: 200,
-        })
+        });
         this.game.add(this.timeAlive);
-        this.timeAlive.start()
+        this.timeAlive.start();
 
 
     }
+
     move(pathToFollow) {
-        console.log(`type = ${this.type} speed = ${this.speed}, health = ${this.health}`)
+        console.log(`type = ${this.type} speed = ${this.speed}, health = ${this.health}`);
         if (pathToFollow !== []) {
             this.pos = pathToFollow[0];
 
             for (let i = 0; i < pathToFollow.length; i++) {
 
-                let previousPos = i + 1
+                let previousPos = i + 1;
                 let distance;
 
                 if (pathToFollow[previousPos] === undefined) {
@@ -151,8 +156,8 @@ this.kill();
 
                         angle = -Math.abs(angle);
                     }
-                    this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, Math.random() * ((this.speed + 20) - (this.speed - 20)) + (this.speed - 20))
-                    this.actions.rotateTo(angle, 1000, RotationType.ShortestPath)
+                    this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, Math.random() * ((this.speed + 20) - (this.speed - 20)) + (this.speed - 20));
+                    this.actions.rotateTo(angle, 1000, RotationType.ShortestPath);
 
                 }
 
@@ -167,7 +172,7 @@ this.kill();
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
-            this.move(route)
+            this.move(route);
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.J)) {
