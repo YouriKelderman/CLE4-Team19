@@ -40,7 +40,6 @@ export class Spider extends Actor {
 
     constructor(game) {
         super();
-
         this.game = game;
 
         this.particle = new ParticleEmitter({
