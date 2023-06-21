@@ -125,9 +125,9 @@ export class Park extends Scene {
 
     enemies() {
         if (this.endlessMode) {
-            levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (3 - 0) + 0)}`]
+            levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`]
         } else {
-            levels = ["5*3, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 100*0, 10*1, 10*0, 2000*1"]
+            levels = ["100*4, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 2*1, 2*2, 100*0, 10*1, 10*0, 2000*1"]
         }
 
         console.log(levels)
@@ -287,7 +287,7 @@ export class Park extends Scene {
                 waveItem += 1;
             }
             if (this.endlessMode && waveItem === order.length) {
-                levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (3 - 0) + 0)}`]
+                levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`]
                 this.parse()
             }
             this.spiderSpawner++
