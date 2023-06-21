@@ -10,7 +10,7 @@ import {
     Circle,
     Color,
     Line,
-    vec, Input, RotationType
+    vec, Input, RotationType, ParticleEmitter, EmitterType, Timer
 } from "excalibur";
 import {Resources} from "../resources.js";
 
@@ -30,14 +30,32 @@ tempRoute.forEach(item => {
 route[0] = route[1];
 
 export class Spider extends Actor {
-
+    game
     timeAlive = 0;
     health = 5;
-
-    constructor(spriteID) {
+particle
+    constructor(game) {
         super({
             width: Resources.Pan.width / 2, height: Resources.Pan.height / 2
         });
+        this.game = game;
+        this.particle = new ParticleEmitter({
+            emitterType: EmitterType.Rectangle,
+            radius: 1,
+            minVel: 100,
+            maxVel: 150,
+            minAngle: 0,
+            maxAngle: Math.PI * 2,
+            emitRate: 300,
+            opacity: 1,
+            fadeFlag: true,
+            particleLife: 1000,
+            maxSize: 5,
+            minSize: 1,
+            beginColor: Color.fromRGB(125, 62, 42),
+
+            isEmitting: false
+        })
     }
 
     onInitialize(engine) {
@@ -63,11 +81,30 @@ export class Spider extends Actor {
             event.other.kill();
             this.health -= 1;
             if (this.health < 1) {
-                this.kill();
+                this.game.add(this.particle)
+                this.particle.pos = this.pos;
+
+                this.explode();
+this.kill();
             }
         }
     }
+    explode() {
+        this.particle.isEmitting = true;
+        this.timeAlive = new Timer({
+            fcn: () => {
 
+                this.particle.isEmitting = false;
+                this.particle.kill();
+            },
+            repeats: false,
+            interval: 200,
+        })
+        this.game.add(this.timeAlive);
+        this.timeAlive.start()
+
+
+    }
     move(pathToFollow) {
         if (pathToFollow !== []) {
             this.pos = pathToFollow[0];
