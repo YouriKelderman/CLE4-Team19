@@ -273,8 +273,7 @@ export class Park extends Scene {
                 waveItem += 1;
             }
             if (this.endlessMode && waveItem === order.length) {
-                levels = [];
-                levels.push(`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (3 - 0) + 0)}`)
+                levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (3 - 0) + 0)}`]
                 this.parse()
             }
             this.spiderSpawner++
