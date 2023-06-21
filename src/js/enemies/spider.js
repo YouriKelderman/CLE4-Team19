@@ -115,7 +115,7 @@ export class Spider extends Actor {
             fcn: () => {
 
                 this.particle.isEmitting = false;
-                this.particle.kill();
+                this.game.particle.kill();
             },
             repeats: false,
             interval: 200,
