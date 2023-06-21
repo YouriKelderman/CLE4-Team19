@@ -97,7 +97,7 @@ export class Park extends Scene {
         mapTop.scale = new Vector(5.5, 5.5);
         mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999
-        this.add(mapTop);
+        // this.add(mapTop);
 
         let settingsButton = new Actor();
         settingsButton.graphics.use(Resources.SettingsButton.toSprite());
