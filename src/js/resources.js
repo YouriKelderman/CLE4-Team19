@@ -22,6 +22,7 @@ import kevin from '../images/kevin.png';
 import spider from '../images/spider.png';
 import mouse from '../images/muis.png';
 import rat from '../images/rat.png';
+import racoon from '../images/racoon.png'
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
@@ -70,6 +71,7 @@ const Resources = {
     Mouse: new ImageSource(mouse),
     Spider: new ImageSource(spider),
     Rat: new ImageSource(rat),
+    Racoon: new ImageSource(racoon),
 
 };
 
@@ -107,6 +109,7 @@ const ResourceLoader = new Loader([
     Resources.Spider,
     Resources.Mouse,
     Resources.Rat,
+    Resources.Racoon,
 ]);
 
 // Excaliber logo
