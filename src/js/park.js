@@ -248,7 +248,7 @@ export class Park extends Scene {
         }
         if (waveItem <= order.length - 1) {
             if (this.spiderSpawner === 1 && running) {
-                let enemy = new Spider();
+                let enemy = new Spider(this);
                 enemy.setType(order[waveItem]);
                 enemy.setSpeed(speed[waveItem]);
                 this.add(enemy)
