@@ -1,9 +1,9 @@
 import {Actor, Vector, Engine, Random, CollisionType, Shape, Circle, Color, Line} from "excalibur";
 import {Resources} from "../resources.js";
-import {Tower} from "./tower.js";
+import {PanBami} from "./panBami.js";
 
 
-export class PlaceTower extends Tower {
+export class PlaceTower extends PanBami {
     
     range;
     itemIds = [

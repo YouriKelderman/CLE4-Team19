@@ -24,8 +24,9 @@ let itemIds = [
 let towerRange = 300;
 let game;
 
-export class Tower extends Actor {
-    tier = 1;
+export class PanBami extends Actor {
+    tier = 0;
+    tierList = [0, 1.1, 1.2, 2.1, 2.2]
     type = 0;
     shootingCooldown = 0;
     amountOfEnemies;
@@ -57,22 +58,6 @@ export class Tower extends Actor {
             if (event.other.name === "Enemy") this.collisionHandler(event)
         });
         this.on('pointerdown', () => this.clicked());
-        this.particle = new ParticleEmitter({
-            emitterType: EmitterType.Rectangle,
-            radius: 5,
-            minVel: 100,
-            maxVel: 200,
-            minAngle: 0,
-            maxAngle: Math.PI * 2,
-            emitRate: 1000,
-            opacity: 1,
-            fadeFlag: true,
-            particleLife: 1000,
-            maxSize: 5,
-            minSize: 1,
-            beginColor: Color.Red,
-            isEmitting: true
-        });
     }
 
     clicked() {
@@ -142,56 +127,62 @@ export class Tower extends Actor {
     updateRange(newRange) {
         const circle = Shape.Circle(newRange);
         this.collider.clear();
-        this._setName("Tower");
+        this._setName("PanBami");
         this.collider.set(circle);
 
     }
 
     fire() {
-        if (this.tier === 1) {
-            let bullet = new Projectile(1000, this.damage);
+        // default
+        if (this.tier === 0) {
+            let bullet = new Projectile(1000, this.damage, 0, 1);
             bullet.pos = this.pos;
             bullet.rotation = this.rotation - Math.PI / 2;
             this.engine.add(bullet);
             this.coolDown = 25
         }
-        if (this.tier === 2) {
-            let bullet = new Projectile(1500, this.damage);
+
+        // pad 1
+        if (this.tier === 1.1) {
+            let bullet = new Projectile(1300, this.damage, 0, 1);
             bullet.pos = this.pos;
             bullet.rotation = this.rotation - Math.PI / 2;
             this.engine.add(bullet);
             this.coolDown = 25
         }
-        if (this.tier === 3) {
-            let bullet = new Projectile(1000, this.damage);
+        if (this.tier === 1.2) {
+            let bullet = new Projectile(1700, this.damage * 1.3, 0, 1);
             bullet.pos = this.pos;
             bullet.rotation = this.rotation - Math.PI / 2;
             this.engine.add(bullet);
-            let bullet1 = new Projectile(1000, this.damage);
-            bullet1.pos = this.pos;
-            bullet1.rotation = this.rotation - 1.3;
-            this.engine.add(bullet1);
-            let bullet2 = new Projectile(1000, this.damage);
-            bullet2.pos = this.pos;
-            bullet2.rotation = this.rotation - 1.8;
-            this.engine.add(bullet2);
+            this.coolDown = 25
+        }
+        if (this.tier === 1.2) {
+            let bullet = new Projectile(2000, this.damage * 1.5, 0, 1);
+            bullet.pos = this.pos;
+            bullet.rotation = this.rotation - Math.PI / 2;
+            this.engine.add(bullet);
             this.coolDown = 20
         }
-        if (this.tier === 4) {
-            let bullet = new Projectile(2000, this.damage);
+
+
+        // pad 2
+        if (this.tier === 2.1) {
+            let bullet = new Projectile(1000, this.damage, 1, 1);
             bullet.pos = this.pos;
             bullet.rotation = this.rotation - Math.PI / 2;
             this.engine.add(bullet);
-            let bullet1 = new Projectile(2000, this.damage);
-            bullet1.pos = this.pos;
-            bullet1.rotation = this.rotation - 1.3;
-            this.engine.add(bullet1);
-            let bullet2 = new Projectile(2000, this.damage);
-            bullet2.pos = this.pos;
-            bullet2.rotation = this.rotation - 1.8;
-            this.engine.add(bullet2);
-            this.coolDown = 15
+            this.coolDown = 25
         }
+        if (this.tier === 2.2) {
+            let bullet = new Projectile(1000, this.damage, 2, 5);
+            bullet.pos = this.pos;
+            bullet.rotation = this.rotation - Math.PI / 2;
+            this.engine.add(bullet);
+            this.coolDown = 25
+        }
+
+
     }
 
     inRange() {
