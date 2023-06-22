@@ -14,6 +14,7 @@ export class Park extends Scene {
         super();
     }
 
+
     placing = false;
     placingSprite;
     int = 0;
@@ -30,6 +31,8 @@ export class Park extends Scene {
 
 
     music = Resources.BackgroundMusic;
+    music = Resources.ParkMusic;
+
     click = Resources.Click;
     spiderSpawner = 0;
     isLegal = true;
