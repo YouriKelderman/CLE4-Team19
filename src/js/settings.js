@@ -99,16 +99,6 @@ export class Settings extends Scene {
         // spinnen mode
 
     }
-    onActivate(_context) {
-
-    if (this.music.volume === 0){
-        this.music.pause()
-    }
-    else {
-        this.music.loop = true;
-        this.music.play().then(r => console.log(r));
-    }
-    }
 
     muteSound() {
         this.click.play();
