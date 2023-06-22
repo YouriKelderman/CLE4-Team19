@@ -19,13 +19,14 @@ export class Enemy extends Actor {
     route = [];
     tempRoute;
     enemies = [
-        [Resources.Spider, 5,],
+        [Resources.Spider, 5],
         [Resources.Mouse, 3],
         [Resources.Rat, 6],
         [Resources.Racoon, 10],
         [Resources.Snail, 50],
 
     ];
+    positionInRoute;
     
     game;
     timeAlive = 0;
@@ -34,6 +35,10 @@ export class Enemy extends Actor {
     health = 1;
     type = 0;
     deathAnimation;
+    damageAnimation;
+    nextPath
+    damageOverTime = 0
+    damageCooldown = 0
 
     constructor(game) {
         super();
@@ -95,16 +100,25 @@ export class Enemy extends Actor {
     }
 
     collided(event) {
-        console.log(event);
         if (event.other !== null) {
             if (event.other.name === "projectile") {
-                event.other.kill();
-                this.health -= event.other.damage;
-                if (this.health < 1) {
-                    this.explode();
+                if (event.other.special === 1 || event.other.special === 2) {
+                    this.damageOverTime = 1000;
                 }
+                this.removeBulletHealth(event)
+                this.health -= event.other.damage;
+                this.damageAnimation = 50
             }
         }
+    }
+
+    removeBulletHealth(target) {
+        let bullet = target
+        bullet.other.health--
+
+        if (bullet.other.speed > 10) {
+        bullet.other.speed = bullet.other.speed - 10
+    }
     }
 
     explode() {
@@ -114,6 +128,7 @@ export class Enemy extends Actor {
     }
 
     move(pathToFollow) {
+        let nextPath = pathToFollow.length
         console.log(`type = ${this.type} speed = ${this.speed}, health = ${this.health}`);
         if (pathToFollow !== []) {
             this.pos = pathToFollow[0];
@@ -144,7 +159,6 @@ export class Enemy extends Actor {
                     }
                     this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, Math.random() * ((this.speed + 20) - (this.speed - 20)) + (this.speed - 20));
                     this.actions.rotateTo(angle, 1000, RotationType.ShortestPath);
-
                 }
 
             }
@@ -152,6 +166,27 @@ export class Enemy extends Actor {
     }
 
     onPreUpdate(engine, delta) {
+        if (this.health < 0 && this.health > -9999) {
+            this.explode();
+            this.health = -10000
+        }
+
+        if (this.damageOverTime > 1) {
+            this.damageOverTime--
+        }
+
+        if (this.damageOverTime > 1 && this.damageCooldown === 1) {
+            this.health--
+            this.damageAnimation = 50
+            console.log('damage!')
+        }
+
+        if (this.damageCooldown > 100) {
+            this.damageCooldown = 0
+        }
+        this.damageCooldown++
+
+
 
         if (this.deathAnimation < 0) {
             this.kill();
@@ -165,6 +200,16 @@ export class Enemy extends Actor {
         }
         this.deathAnimation--;
 
+        if (this.damageAnimation > 1 && this.health > 1) {
+            let graphic = this.enemies[this.type][0].toSprite();
+            graphic.tint = new Color(250 - this.damageAnimation * 5, 255, 255)
+            this.graphics.use(graphic)
+
+        }
+        if (this.damageAnimation > 0) {
+            this.damageAnimation--;
+        }
+
 
         if (this.pos.y > window.innerHeight) {
             console.log("JE BENT DOOD SUKKEL");
@@ -172,7 +217,7 @@ export class Enemy extends Actor {
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
-            this.move(route);
+            this.move(this.route);
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.J)) {

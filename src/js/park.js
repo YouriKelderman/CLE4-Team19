@@ -1,6 +1,6 @@
 import {Actor, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec, Label, FontUnit, Font, TextAlign} from "excalibur";
 import {Scene} from "excalibur";
-import {Tower} from "./towers/tower.js";
+import {PanBami} from "./towers/panBami.js";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Range} from "./range.js";
 import {PlaceTower} from "./towers/placeTower.js";
@@ -222,7 +222,7 @@ export class Park extends Scene {
     mouseInput() {
         // console.log(this.isLegal)
         if (this.placing && this.isLegal) {
-            let newClone = new Tower(this);
+            let newClone = new PanBami(this);
             newClone.pos = this.placingSprite.pos;
             this.add(newClone);
             newClone.checkSelf(this.int);
@@ -238,14 +238,14 @@ export class Park extends Scene {
         }
     }
 
-    activetower(tower) {
+    activeTower(tower) {
         this.activetower = tower;
 
         this.menuInfo();
     }
 
     menuInfo() {
-        if (this.nameLabel) {
+        if (this.nameLabel && this.activetower) {
         this.nameLabel.text = this.activetower.name.toString()
 
         console.log(this.activetower);
@@ -299,10 +299,13 @@ export class Park extends Scene {
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.K)) {
-            this.activetower.tier -= 1;
+            this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) - 1)];
+            console.log(this.activetower.tier)
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.L)) {
-            this.activetower.tier += 1;
+            this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) + 1)];
+            console.log(this.activetower.tier)
+
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
             this.mapping = !this.mapping;
