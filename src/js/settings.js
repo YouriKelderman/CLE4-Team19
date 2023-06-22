@@ -22,24 +22,14 @@ export class Settings extends Scene {
     music = Resources.SettingsMusic;
     click = Resources.Click;
 
-    onActivate(_context) {
-        if (this.engine.musicVolume === 0) {
-            this.music.pause()
 
-        }else {
-            this.music.volume = 0.1;
-            this.music.loop = true;
-            this.music.play().then(r => console.log(r));
-        }
-    }
 
     onInitialize(engine) {
 
         this.logo = new Actor();
         this.logo.graphics.use(Resources.PausedLogo.toSprite());
         this.logo.pos = new Vector(720, 250);
-        this.logo.scale = new Vector(0.1, 0.1)
-        this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
+        this.logo.scale = new Vector(1.1, 1.1)
         this.logo.z = 1000;
         this.add(this.logo);
 
@@ -48,58 +38,63 @@ export class Settings extends Scene {
         this.music.play().then(r => console.log(r));
 
         //hervat knop
-        const resumeButton = new Actor();
-        resumeButton.graphics.use(Resources.HervatButton.toSprite());
-        resumeButton.pos = new Vector(720, 400);
-        resumeButton.scale = new Vector(0.1, 0.1)
-        resumeButton.actions.scaleTo(vec(1.1,1.1),vec(0.5,0.5));
-        resumeButton.z = 1000;
-        resumeButton.enableCapturePointer = true;
-        resumeButton.pointer.useGraphicsBounds = true;
-        resumeButton.on("pointerup", (event) => this.resumeGame());
-        this.add(resumeButton);
+       this. resumeButton = new Actor();
+        this.resumeButton.graphics.use(Resources.HervatButton.toSprite());
+        this.resumeButton.pos = new Vector(720, 400);
+       this.resumeButton.scale = new Vector(0.1, 0.1)
+
+        this.resumeButton.z = 1000;
+        this.resumeButton.enableCapturePointer = true;
+        this.resumeButton.pointer.useGraphicsBounds = true;
+        this.resumeButton.on("pointerup", (event) => this.resumeGame());
+        this.add(this.resumeButton);
 
         //geluid knop aan uit of zachter
-        const soundButton = new Actor();
-        soundButton.graphics.use(Resources.Mutebutton.toSprite());
-        soundButton.pos = new Vector(648.00, 540);
-        soundButton.scale = new Vector(0.1, 0.1)
-        soundButton.actions.scaleTo(vec(1.1,1.1),vec(0.5,0.5));
-        soundButton.z = 1000;
-        soundButton.enableCapturePointer = true;
-        soundButton.pointer.useGraphicsBounds = true;
-        soundButton.on("pointerup", (event) => this.muteSound());
-        this.add(soundButton);
+      this.soundButton = new Actor();
+        this.soundButton.graphics.use(Resources.Mutebutton.toSprite());
+        this.soundButton.pos = new Vector(648.00, 540);
+        this.soundButton.scale = new Vector(0.1, 0.1)
+
+        this.soundButton.z = 1000;
+        this.soundButton.enableCapturePointer = true;
+        this.soundButton.pointer.useGraphicsBounds = true;
+        this.soundButton.on("pointerup", (event) => this.muteSound());
+        this.add(this.soundButton);
 
         //volume knop harder
-        const volumeUpButton = new Actor();
-        volumeUpButton.graphics.use(Resources.Volumeup.toSprite());
-        volumeUpButton.pos = new Vector(790, 520.00);
-        volumeUpButton.scale = new Vector(0.1, 0.1)
-        volumeUpButton.actions.scaleTo(vec(1.1,1.1),vec(0.5,0.5));
-        volumeUpButton.z = 1000;
-        volumeUpButton.enableCapturePointer = true;
-        volumeUpButton.pointer.useGraphicsBounds = true;
-        volumeUpButton.on("pointerup", (event) => this.raiseVolume());
-        this.add(volumeUpButton);
+        this.volumeUpButton = new Actor();
+        this.volumeUpButton.graphics.use(Resources.Volumeup.toSprite());
+        this.volumeUpButton.pos = new Vector(790, 520.00);
+        this.volumeUpButton.scale = new Vector(0.1, 0.1)
+
+        this.volumeUpButton.z = 1000;
+        this.volumeUpButton.enableCapturePointer = true;
+        this.volumeUpButton.pointer.useGraphicsBounds = true;
+        this.volumeUpButton.on("pointerup", (event) => this.raiseVolume());
+        this.add(this.volumeUpButton);
 
         //volume knop zachter
-        const volumeDownButton = new Actor();
-        volumeDownButton.graphics.use(Resources.Volumedown.toSprite());
-        volumeDownButton.pos = new Vector(790, 570.00);
-        volumeDownButton.scale = new Vector(0.1, 0.1)
-        volumeDownButton.actions.scaleTo(vec(1.1,1.1),vec(0.5,0.5));
-        volumeDownButton.z = 1000;
-        volumeDownButton.enableCapturePointer = true;
-        volumeDownButton.pointer.useGraphicsBounds = true;
-        volumeDownButton.on("pointerup", (event) => this.lowerVolume());
-        this.add(volumeDownButton);
+        this.volumeDownButton = new Actor();
+        this.volumeDownButton.graphics.use(Resources.Volumedown.toSprite());
+        this.volumeDownButton.pos = new Vector(790, 570.00);
+        this.volumeDownButton.scale = new Vector(0.1, 0.1)
+        this.volumeDownButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
+        this.volumeDownButton.z = 1000;
+        this.volumeDownButton.enableCapturePointer = true;
+        this.volumeDownButton.pointer.useGraphicsBounds = true;
+        this.volumeDownButton.on("pointerup", (event) => this.lowerVolume());
+        this.add(this.volumeDownButton);
 
 
         // spinnen mode
 
     }
     onActivate(_context) {
+
+        this.resumeButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
+        this.soundButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
+        this.volumeUpButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
+        this.volumeDownButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
 
     if (this.music.volume === 0){
         this.music.pause()
@@ -151,6 +146,16 @@ export class Settings extends Scene {
     }
 
     onDeactivate(_  ) {
+        this.resumeButton.scale = new Vector(0.1, 0.1)
+        this.soundButton.scale = new Vector(0.1, 0.1)
+        this.volumeUpButton.scale = new Vector(0.1, 0.1)
+        this.volumeDownButton.scale = new Vector(0.1, 0.1)
+
+        this.resumeButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
+        this.soundButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
+        this.volumeUpButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
+        this.volumeDownButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
+
         this.music.pause();
     }
 }

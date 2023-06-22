@@ -1,4 +1,18 @@
-import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec, Label} from "excalibur";
+import {
+    Actor,
+    Engine,
+    Vector,
+    Color,
+    Debug,
+    Physics,
+    Input,
+    Axis,
+    CollisionType,
+    Shape,
+    vec,
+    Label,
+    sign,
+} from "excalibur";
 import {Scene} from "excalibur";
 import {Tower} from "./tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
@@ -8,6 +22,8 @@ import {Spider} from "./enemies/spider.js";
 import {Wall} from "./hitbox.js";
 import {Gulden} from "./money.js";
 import {Settings} from "./settings.js";
+
+
 
 let placing = false;
 let placingSprite;
@@ -109,18 +125,67 @@ export class Park extends Scene {
         settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(settingsButton);
 
+
+
         //sidebutton
         this.sideButton = new Actor();
         this.sideButton.graphics.use(Resources.SideButton.toSprite());
         this.sideButton.pos = new Vector(1400, 450);
-        this.sideButton.scale = new Vector(0.7, 0.7)
+        this.sideButton.scale = new Vector(0.8, 1.0)
         this.sideButton.z = 9999;
         this.sideButton.enableCapturePointer = true;
         this.sideButton.pointer.useGraphicsBounds = true;
         this.sideButton.on("pointerup", (event) => this.drawBuyMenu());
-        this.add(this.sideButton);
+
+        this.exitButton = new Actor();
+        this.exitButton.graphics.use(Resources.SideButton.toSprite());
+        this.exitButton.pos = new Vector(1200, 450);
+        this.exitButton.scale = new Vector(0.8, 1.0)
+        this.exitButton.z = 9999;
+        this.exitButton.enableCapturePointer = true;
+        this.exitButton.pointer.useGraphicsBounds = true;
+        this.exitButton.on("pointerup", (event) => this.undoDrawBuyMenu());
+
+        this.add(this.exitButton);
+
+        this.buyMenu = new Actor();
+        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
+        this.buyMenu.pos = new Vector(1400, 450);
+        this.buyMenu.scale = new Vector(3, 1.0)
+        this.buyMenu.z = 99999;
+        this.buyMenu.enableCapturePointer = true;
+        this.buyMenu.pointer.useGraphicsBounds = true;
+
+
+        this.add(this.buyMenu);
 
         this.enemies()
+
+    }
+
+
+drawBuyMenu() {
+    this.exitButton.pos = new Vector(1400, 450);
+    this.exitButton.actions.moveTo(1200, 450, 700);
+    this.buyMenu.actions.moveTo(1400, 450, 700);
+    this.add(this.exitButton);
+    this.sideButton.kill();
+}
+
+
+undoDrawBuyMenu() {
+    this.exitButton.kill();
+    this.buyMenu.actions.moveTo(1600, 450, 700);
+    this.add(this.sideButton);
+    this.sideButton.pos = new Vector(1400, 450);
+
+
+}
+    goToSettings() {
+        console.log("goToSettings")
+        this.click.play();
+        this.game = engine;
+        this.engine.goToScene('settings');
     }
 
     enemies() {
@@ -144,36 +209,7 @@ export class Park extends Scene {
         })
     }
 
-    drawBuyMenu() {
-        this.buyMenu = new Actor();
-        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
-        this.buyMenu.pos = new Vector(1500, 450);
-        this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
-        this.buyMenu.scale = new Vector(2, 0.9)
-        this.buyMenu.z = 10000;
-        this.buyMenu.enableCapturePointer = true;
-        this.buyMenu.pointer.useGraphicsBounds = true;
-        this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
-        this.add(this.buyMenu);
 
-        this.click.play();
-
-        this.sideButton.kill()
-    }
-
-    undoDrawBuyMenu() {
-        this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
-        this.buyMenu.kill()
-        this.sideButton.pos = new Vector(1500, 450);
-        this.add(this.sideButton);
-    }
-
-    goToSettings() {
-        console.log("goToSettings")
-        this.click.play();
-        this.game = engine;
-        this.engine.goToScene('settings');
-    }
 
     checkIfLegal(event) {
         if (event.other instanceof Bami) {

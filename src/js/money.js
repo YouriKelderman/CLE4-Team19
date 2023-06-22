@@ -7,7 +7,7 @@ export class Gulden extends Label {
     constructor() {
         super({
             pos: new Vector(100,80),
-            z: 9999,
+            z: 99999,
             font: new Font({
                 unit: FontUnit.Px,
                 family: 'VCR',
