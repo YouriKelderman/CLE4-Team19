@@ -108,7 +108,7 @@ export class Settings extends Scene {
     muteSound() {
         this.click.play();
         if (this.engine.musicVolume === 0) {
-            this.music.volume = 0.1
+            this.music.volume = 0.5
             this.music.loop = true;
             this.music.play().then(r => console.log(r));
             this.engine.musicVolume = 0.5
@@ -121,22 +121,23 @@ export class Settings extends Scene {
     }
     raiseVolume() {
         this.click.play();
-        if (this.engine.musicVolume < 1 && this.music.volume < 0.3) {
+        if (this.engine.musicVolume < 1 ) {
             this.engine.musicVolume += 0.1;
-            this.music.volume += 0.03;
+            this.music.volume += 0.1;
         }
 
     }
     lowerVolume() {
         this.click.play();
-        if (this.engine.musicVolume > 0 && this.music.volume > 0) {
+        if (this.engine.musicVolume > 0) {
             this.engine.musicVolume -= 0.1;
-            this.music.volume -= 0.03
+            this.music.volume -= 0.1
         }
     }
 
     resumeGame() {
         this.click.play();
+        this.music.pause();
         console.log('start game');
         this.engine.goToScene('park');
 
@@ -146,6 +147,7 @@ export class Settings extends Scene {
     }
 
     onDeactivate(_  ) {
+
         this.resumeButton.scale = new Vector(0.1, 0.1)
         this.soundButton.scale = new Vector(0.1, 0.1)
         this.volumeUpButton.scale = new Vector(0.1, 0.1)

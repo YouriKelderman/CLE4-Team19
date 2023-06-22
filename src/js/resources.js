@@ -25,6 +25,7 @@ import spider from '../images/spider.png';
 import mouse from '../images/muis.png';
 import rat from '../images/rat.png';
 import racoon from '../images/racoon.png'
+import snail from '../images/snail.png'
 
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
@@ -32,6 +33,7 @@ import click from '../sounds/click.wav';
 import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
 import backgroundMusic from '../sounds/backgroundMusic.mp3';
+import parkMusic from '../sounds/parkSong.mp3';
 
 //gui
 import playButton from '../images/play-button.png';
@@ -74,11 +76,13 @@ const Resources = {
     MenuMusic: new Sound(menuMusic),
     BackgroundMusic: new Sound(backgroundMusic),
     SettingsMusic: new Sound(settingsMusic),
+    ParkMusic: new Sound(parkMusic),
 
     Mouse: new ImageSource(mouse),
     Spider: new ImageSource(spider),
     Rat: new ImageSource(rat),
     Racoon: new ImageSource(racoon),
+    Snail: new ImageSource(snail),
 
 };
 
@@ -113,11 +117,13 @@ const ResourceLoader = new Loader([
     Resources.MenuMusic,
     Resources.BackgroundMusic,
     Resources.SettingsMusic,
+    Resources.ParkMusic,
 
     Resources.Spider,
     Resources.Mouse,
     Resources.Rat,
     Resources.Racoon,
+    Resources.Snail,
 ]);
 
 // Excaliber logo
