@@ -112,18 +112,44 @@ export class Park extends Scene {
         settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(settingsButton);
 
+
+
         //sidebutton
         this.sideButton = new Actor();
         this.sideButton.graphics.use(Resources.SideButton.toSprite());
         this.sideButton.pos = new Vector(1400, 450);
         this.sideButton.scale = new Vector(0.7, 0.7);
+        this.sideButton.scale = new Vector(0.8, 1.0)
         this.sideButton.z = 9999;
         this.sideButton.enableCapturePointer = true;
         this.sideButton.pointer.useGraphicsBounds = true;
         this.sideButton.on("pointerup", (event) => this.drawBuyMenu());
-        this.add(this.sideButton);
 
-        this.enemies();
+        this.exitButton = new Actor();
+        this.exitButton.graphics.use(Resources.SideButton.toSprite());
+        this.exitButton.pos = new Vector(1200, 450);
+        this.exitButton.scale = new Vector(0.8, 1.0)
+        this.exitButton.z = 9999;
+        this.exitButton.enableCapturePointer = true;
+        this.exitButton.pointer.useGraphicsBounds = true;
+        this.exitButton.on("pointerup", (event) => this.undoDrawBuyMenu());
+
+
+
+        this.buyMenu = new Actor();
+        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
+        this.buyMenu.pos = new Vector(1400, 450);
+        this.buyMenu.scale = new Vector(3, 1.0)
+        this.buyMenu.z = 99999;
+        this.buyMenu.enableCapturePointer = true;
+        this.buyMenu.pointer.useGraphicsBounds = true;
+
+
+        this.add(this.buyMenu);
+        this.add(this.exitButton);
+
+        this.enemies()
+
     }
 
     enemies() {
@@ -149,16 +175,11 @@ export class Park extends Scene {
     }
 
     drawBuyMenu() {
-        this.buyMenu = new Actor();
-        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
-        this.buyMenu.pos = new Vector(1500, 450);
-        this.buyMenu.actions.moveTo(new Vector(1300, 450), 750);
-        this.buyMenu.scale = new Vector(2.2, 2.2);
-        this.buyMenu.z = 10000;
-        this.buyMenu.enableCapturePointer = true;
-        this.buyMenu.pointer.useGraphicsBounds = true;
-        this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
-        this.add(this.buyMenu);
+        this.exitButton.pos = new Vector(1400, 450);
+        this.add(this.exitButton);
+        this.exitButton.actions.moveTo(1200, 450, 700);
+        this.buyMenu.actions.moveTo(1400, 450, 700);
+        this.sideButton.kill();
 
         this.nameLabel = new Label({
             pos: new Vector(-45, 20),
@@ -183,10 +204,11 @@ export class Park extends Scene {
     }
 
     undoDrawBuyMenu() {
-        this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
-        this.buyMenu.kill();
-        this.sideButton.pos = new Vector(1500, 450);
+        this.buyMenu.actions.moveTo(1600, 450, 700);
+        this.exitButton.kill();
         this.add(this.sideButton);
+        this.sideButton.pos = new Vector(1400, 450);
+
     }
 
     goToSettings() {
