@@ -3,15 +3,17 @@ import {Actor, Vector} from "excalibur";
 
 export class Projectile extends Actor {
 
-    projectileSpeed
-    projectileTime = 100
+    projectileSpeed;
+    projectileTime = 100;
+    damage = 1;
 
-    constructor(speed) {
+    constructor(speed, damage) {
         super({
             width: 10, height: 10
         });
 
-        this.projectileSpeed = speed
+        this.projectileSpeed = speed;
+        this.damage = damage;
 
     }
 
@@ -27,11 +29,11 @@ export class Projectile extends Actor {
         this.vel = new Vector(
             Math.cos(this.rotation) * this.projectileSpeed,
             Math.sin(this.rotation) * this.projectileSpeed
-        )
+        );
         if (this.projectileTime < 0) {
-            this.kill()
+            this.kill();
         }
-        this.projectileTime--
+        this.projectileTime--;
     }
 
 }
