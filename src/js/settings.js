@@ -4,11 +4,12 @@ import {
 
     Scene,
 
-    Physics, vec,
+    Physics, vec, Input,
 
 } from "excalibur";
 
 import {Resources, ResourceLoader} from "./resources.js";
+import {Park} from "./park.js";
 
 export class Settings extends Scene {
 
@@ -25,6 +26,9 @@ export class Settings extends Scene {
 
 
     onInitialize(engine) {
+
+
+
 
         this.logo = new Actor();
         this.logo.graphics.use(Resources.PausedLogo.toSprite());
@@ -86,6 +90,7 @@ export class Settings extends Scene {
         this.add(this.volumeDownButton);
 
 
+
         // spinnen mode
 
     }
@@ -126,6 +131,9 @@ export class Settings extends Scene {
             this.music.volume += 0.1;
         }
 
+
+
+
     }
     lowerVolume() {
         this.click.play();
@@ -144,6 +152,9 @@ export class Settings extends Scene {
     }
 
     onPreUpdate(engine, _delta) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
+            this.goToPark();
+        }
     }
 
     onDeactivate(_  ) {
@@ -159,5 +170,12 @@ export class Settings extends Scene {
         this.volumeDownButton.actions.scaleTo(vec(1.1,1.1),vec(8,8));
 
         this.music.pause();
+    }
+
+    goToPark() {
+        this.click.play();
+        this.music.pause();
+        console.log('start game');
+        this.engine.goToScene('park');
     }
 }

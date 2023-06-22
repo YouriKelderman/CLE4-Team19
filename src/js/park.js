@@ -134,7 +134,7 @@ export class Park extends Scene {
         this.exitButton.pointer.useGraphicsBounds = true;
         this.exitButton.on("pointerup", (event) => this.undoDrawBuyMenu());
 
-        this.add(this.exitButton);
+
 
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
@@ -146,35 +146,10 @@ export class Park extends Scene {
 
 
         this.add(this.buyMenu);
+        this.add(this.exitButton);
 
         this.enemies()
 
-    }
-
-
-drawBuyMenu() {
-    this.exitButton.pos = new Vector(1400, 450);
-    this.exitButton.actions.moveTo(1200, 450, 700);
-    this.buyMenu.actions.moveTo(1400, 450, 700);
-    this.add(this.exitButton);
-    this.sideButton.kill();
-}
-
-
-undoDrawBuyMenu() {
-    this.exitButton.kill();
-    this.buyMenu.actions.moveTo(1600, 450, 700);
-    this.add(this.sideButton);
-    this.sideButton.pos = new Vector(1400, 450);
-
-        this.enemies();
-
-}
-    goToSettings() {
-        console.log("goToSettings")
-        this.click.play();
-        this.game = engine;
-        this.engine.goToScene('settings');
     }
 
     enemies() {
@@ -200,16 +175,11 @@ undoDrawBuyMenu() {
     }
 
     drawBuyMenu() {
-        this.buyMenu = new Actor();
-        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
-        this.buyMenu.pos = new Vector(1500, 450);
-        this.buyMenu.actions.moveTo(new Vector(1300, 450), 750);
-        this.buyMenu.scale = new Vector(2.2, 2.2);
-        this.buyMenu.z = 10000;
-        this.buyMenu.enableCapturePointer = true;
-        this.buyMenu.pointer.useGraphicsBounds = true;
-        this.buyMenu.on("pointerup", (event) => console.log("drawMenuBar"));
-        this.add(this.buyMenu);
+        this.exitButton.pos = new Vector(1400, 450);
+        this.add(this.exitButton);
+        this.exitButton.actions.moveTo(1200, 450, 700);
+        this.buyMenu.actions.moveTo(1400, 450, 700);
+        this.sideButton.kill();
 
         this.nameLabel = new Label({
             pos: new Vector(-45, 20),
@@ -234,10 +204,11 @@ undoDrawBuyMenu() {
     }
 
     undoDrawBuyMenu() {
-        this.buyMenu.actions.moveTo(new Vector(1400, 450), 750);
-        this.buyMenu.kill();
-        this.sideButton.pos = new Vector(1500, 450);
+        this.buyMenu.actions.moveTo(1600, 450, 700);
+        this.exitButton.kill();
         this.add(this.sideButton);
+        this.sideButton.pos = new Vector(1400, 450);
+
     }
 
     goToSettings() {
