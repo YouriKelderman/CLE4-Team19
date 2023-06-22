@@ -19,6 +19,7 @@ import range from '../images/range.png';
 
 // park
 import bami from '../images/bami.png';
+import spicyBami from '../images/spicyBami.png';
 import pan from '../images/bami-pan.png';
 import kevin from '../images/kevin.png';
 import spider from '../images/spider.png';
@@ -59,6 +60,7 @@ const Resources = {
     Start: new ImageSource(start),
     MenuSpider: new ImageSource(menuSpider),
     Pan: new ImageSource(pan),
+    SpicyPan: new ImageSource(spicyBami),
     Kevin: new ImageSource(kevin),
     Map1Ground: new ImageSource(map1ground),
 
@@ -105,6 +107,7 @@ const ResourceLoader = new Loader([
     Resources.Map1Ground,
     Resources.Range,
     Resources.Bami,
+    Resources.SpicyPan,
     Resources.Map1Top,
 
     Resources.PlayButton,

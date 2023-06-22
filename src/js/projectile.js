@@ -1,31 +1,48 @@
 import {Resources} from "./resources.js";
-import {Actor, Vector} from "excalibur";
+import {Actor, Shape, Vector} from "excalibur";
 
 export class Projectile extends Actor {
 
     projectileSpeed;
     projectileTime = 100;
     damage = 1;
+    health;
+    special;
 
-    constructor(speed, damage) {
-        super({
-            width: 10, height: 10
-        });
+    constructor(speed, damage, special, health) {
+        super({});
 
         this.projectileSpeed = speed;
         this.damage = damage;
+        this.health = health
+        this.special = special
 
     }
 
     onInitialize(engine) {
-        this.scale = new Vector(1, 1);
-        this.sprite = Resources.Bami.toSprite();
-        this.graphics.use(this.sprite);
+        this.graphics.use(Resources.Bami.toSprite());
         this._setName("projectile");
-        this.scale = new Vector(1.5, 1.5);
+        this.collider.set(Shape.Box(10, 10))
+         this.scale = new Vector(0.2, 0.2);
+
+        if (this.special === 1) {
+            this.graphics.use(Resources.SpicyPan.toSprite());
+        }
+
+
+        if (this.special === 2) {
+            this.scale = new Vector(0.4, 0.4)
+            this.collider.set(Shape.Box(25, 25))
+            this.graphics.use(Resources.SpicyPan.toSprite());
+        }
     }
 
     onPreUpdate(engine, _delta) {
+
+        if (this.health < 1) {
+            this.kill()
+        }
+
         this.vel = new Vector(
             Math.cos(this.rotation) * this.projectileSpeed,
             Math.sin(this.rotation) * this.projectileSpeed
