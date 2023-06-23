@@ -116,8 +116,8 @@ export class Enemy extends Actor {
         let bullet = target
         bullet.other.health--
 
-        if (bullet.other.speed > 10) {
-        bullet.other.speed = bullet.other.speed - 10
+        if (bullet.other.speed > 100) {
+        bullet.other.speed = bullet.other.speed - 100
     }
     }
 

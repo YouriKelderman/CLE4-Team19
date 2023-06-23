@@ -33,8 +33,10 @@ export class PanBami extends Actor {
     enemy;
     enemiesInRadiusName = []
     enemiesInRadiusTime = []
+    enemiesDistance = []
     coolDown = 0;
     damage = 1;
+    shootingMode = 3
 
     constructor(Game) {
         super({
@@ -92,11 +94,51 @@ export class PanBami extends Actor {
             this.onCollision();
         }
         this.amountOfEnemies = 0;
-        let oldestEnemy = Math.max(...this.enemiesInRadiusTime);
-        let oldestEnemyName = this.enemiesInRadiusName[this.enemiesInRadiusTime.indexOf(oldestEnemy, 0)]
-        this.enemiesInRadiusName = []
-        this.enemiesInRadiusTime = []
-        this.enemy = oldestEnemyName
+
+        // oldet enemy algorithm
+
+        if (this.shootingMode === 0) {
+            let oldestEnemy = Math.max(...this.enemiesInRadiusTime);
+            let oldestEnemyName = this.enemiesInRadiusName[this.enemiesInRadiusTime.indexOf(oldestEnemy, 0)]
+            this.enemiesInRadiusName = []
+            this.enemiesInRadiusTime = []
+            this.enemy = oldestEnemyName
+        }
+        if (this.shootingMode === 1) {
+            let youngestEnemy = Math.min(...this.enemiesInRadiusTime);
+            let youngestEnemyName = this.enemiesInRadiusName[this.enemiesInRadiusTime.indexOf(youngestEnemy, 0)]
+            this.enemiesInRadiusName = []
+            this.enemiesInRadiusTime = []
+            this.enemy = youngestEnemyName
+        }
+        if (this.shootingMode === 2) {
+            let randomEnemyName = this.enemiesInRadiusName[Math.random() * (this.enemiesInRadiusName.length - 0) * 0, 0]
+            this.enemiesInRadiusName = []
+            this.enemiesInRadiusTime = []
+            this.enemy = randomEnemyName
+        }
+        if (this.shootingMode === 3) {
+
+            for (let i = 0; i < this.enemiesInRadiusName.length; i++) {
+                let pos1 = new Vector(this.pos.x, this.pos.y,)
+                let pos2 = new Vector(this.enemiesInRadiusName[i].other.pos.x, this.enemiesInRadiusName[i].other.pos.y)
+
+                let distance = pos1.distance(pos2)
+
+                this.enemiesDistance.push(distance)
+
+            }
+
+            let nearestEnemy = Math.min(...this.enemiesDistance);
+            let nearestEnemyName = this.enemiesInRadiusName[this.enemiesDistance.indexOf(nearestEnemy, 0)]
+
+
+            this.enemiesInRadiusName = []
+            this.enemiesDistance = []
+
+            this.enemy = nearestEnemyName
+        }
+
 
     }
 
