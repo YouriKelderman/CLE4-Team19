@@ -1,4 +1,4 @@
-import {Actor, Input, Vector, Transform, Debug, Color, Shape, CollisionType, EdgeCollider} from "excalibur";
+import {Actor, Vector, CollisionType, EdgeCollider} from "excalibur";
 
 
 export class Wall extends Actor {

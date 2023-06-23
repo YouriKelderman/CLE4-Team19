@@ -5,12 +5,14 @@ import {Menu} from "./menu.js";
 import {Park} from "./park.js";
 import {Settings} from "./settings.js";
 import {Gulden} from "./money.js";
+import {Levens} from "./health.js";
 
 export class Game extends Engine {
 
     game
     musicVolume = 0.5;
-    gulden = 0;
+    gulden = 1000;
+    levens = 0;
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});

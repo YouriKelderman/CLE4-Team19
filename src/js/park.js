@@ -5,8 +5,10 @@ import {Resources, ResourceLoader} from "./resources.js";
 import {Range} from "./range.js";
 import {PlaceTower} from "./towers/placeTower.js";
 import {Enemy} from "./enemies/enemy.js";
-import {Wall} from "./hitbox.js";
+import { Wall } from "./hitbox.js";
 import {Gulden} from "./money.js";
+import {Levens} from "./health.js";
+
 import {Settings} from "./settings.js";
 
 export class Park extends Scene {
@@ -29,8 +31,6 @@ export class Park extends Scene {
     order = [];
     walls = [];
 
-
-    music = Resources.BackgroundMusic;
     music = Resources.ParkMusic;
 
     click = Resources.Click;
@@ -40,6 +40,7 @@ export class Park extends Scene {
     endlessMode = true;
 
     nameLabel;
+    settingsButton;
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
@@ -63,9 +64,28 @@ export class Park extends Scene {
 
     onInitialize(_engine) {
 
+        this.guldenLogo = new Actor();
+       this.guldenLogo.graphics.use(Resources.Gulden.toSprite());
+        this.guldenLogo.scale = new Vector(0.4, 0.4);
+        this.guldenLogo.pos = new Vector(120, 80);
+        this.guldenLogo.z = 99999;
+        this.add(this.guldenLogo);
+
         this.guldenDisplay = new Gulden(
+
         );
         this.add(this.guldenDisplay);
+
+        this.levensLogo = new Actor();
+        this.levensLogo.graphics.use(Resources.Health.toSprite());
+        this.levensLogo.scale = new Vector(0.4, 0.4);
+        this.levensLogo.pos = new Vector(120, 120);
+        this.levensLogo.z = 99999;
+        this.add(this.levensLogo);
+
+        this.levensDisplay = new Levens(
+        );
+        this.add(this.levensDisplay);
 
         this.placingSprite = new PlaceTower();
         this.engine.input.pointers.primary.on("down", () => this.mouseInput());
@@ -101,51 +121,46 @@ export class Park extends Scene {
         mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999;
         this.add(mapTop);
-        let settingsButton = new Actor();
-        settingsButton.graphics.use(Resources.SettingsButton.toSprite());
-        settingsButton.pos = new Vector(50, 105);
-        settingsButton.scale = new Vector(0.7, 0.7);
-        settingsButton.z = 9999;
-        settingsButton.enableCapturePointer = true;
-        settingsButton.pointer.useGraphicsBounds = true;
-        settingsButton.on("pointerup", (event) => this.goToSettings());
-        this.add(settingsButton);
+
+        this. settingsButton = new Actor();
+        this.settingsButton.graphics.use(Resources.SettingsButton.toSprite());
+        this.settingsButton.pos = new Vector(50, 105);
+        this.settingsButton.scale = new Vector(0.7, 0.7);
+        this.settingsButton.z = 9999;
+        this.settingsButton.enableCapturePointer = true;
+        this.settingsButton.pointer.useGraphicsBounds = true;
+        this.settingsButton.on("pointerup", (event) => this.goToSettings());
+        this.add(this.settingsButton);
 
 
 
         //sidebutton
-        this.sideButton = new Actor();
-        this.sideButton.graphics.use(Resources.SideButton.toSprite());
-        this.sideButton.pos = new Vector(1400, 450);
-        this.sideButton.scale = new Vector(0.7, 0.7);
-        this.sideButton.scale = new Vector(0.8, 1.0)
-        this.sideButton.z = 9999;
-        this.sideButton.enableCapturePointer = true;
-        this.sideButton.pointer.useGraphicsBounds = true;
-        this.sideButton.on("pointerup", (event) => this.drawBuyMenu());
-
-        this.exitButton = new Actor();
-        this.exitButton.graphics.use(Resources.SideButton.toSprite());
-        this.exitButton.pos = new Vector(1200, 450);
-        this.exitButton.scale = new Vector(0.8, 1.0)
-        this.exitButton.z = 9999;
-        this.exitButton.enableCapturePointer = true;
-        this.exitButton.pointer.useGraphicsBounds = true;
-        this.exitButton.on("pointerup", (event) => this.undoDrawBuyMenu());
 
 
 
+        this.enemies();
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
         this.buyMenu.scale = new Vector(3, 1.0)
-        this.buyMenu.z = 99999;
+        this.buyMenu.z = 9999;
         this.buyMenu.enableCapturePointer = true;
         this.buyMenu.pointer.useGraphicsBounds = true;
 
 
         this.add(this.buyMenu);
-        this.add(this.exitButton);
+
+        //buy bami tower
+        this.bamiButton = new Actor();
+        this.bamiButton.graphics.use(Resources.Bami.toSprite());
+        this.bamiButton.pos = new Vector(1350, 200);
+        this.bamiButton.scale = new Vector(1, 1);
+        this.bamiButton.z = 99999;
+        this.bamiButton.enableCapturePointer = true;
+        this.bamiButton.pointer.useGraphicsBounds = true;
+        this.bamiButton.on("pointerup", (event) => this.buyBami());
+        this.add(this.bamiButton);
+
 
         this.enemies()
 
@@ -173,43 +188,6 @@ export class Park extends Scene {
         });
     }
 
-    drawBuyMenu() {
-        this.exitButton.pos = new Vector(1400, 450);
-        this.add(this.exitButton);
-        this.exitButton.actions.moveTo(1200, 450, 700);
-        this.buyMenu.actions.moveTo(1400, 450, 700);
-        this.sideButton.kill();
-
-        this.nameLabel = new Label({
-            pos: new Vector(-45, 20),
-            text: "test",
-            font: new Font({
-                family: 'VCR',
-                size: 15,
-                unit: FontUnit.Px,
-                color: Color.White,
-                textAlign: TextAlign.Left,
-            }),
-        });
-        this.nameLabel.z = 10000
-
-
-        this.buyMenu.addChild(this.nameLabel);
-        this.menuInfo()
-
-        this.click.play();
-
-        this.sideButton.kill();
-    }
-
-    undoDrawBuyMenu() {
-        this.buyMenu.actions.moveTo(1600, 450, 700);
-        this.exitButton.kill();
-        this.add(this.sideButton);
-        this.sideButton.pos = new Vector(1400, 450);
-
-    }
-
     goToSettings() {
         console.log("goToSettings");
         this.click.play();
@@ -226,6 +204,8 @@ export class Park extends Scene {
             this.add(newClone);
             newClone.checkSelf(this.int);
             this.activetower = newClone;
+            this.placing = false;
+            this.placingSprite.kill();
         } else if (this.mapping) {
             let pos = this.engine.input.pointers.primary.lastWorldPos;
             this.path += `,${Math.floor(pos.x).toString()}.${Math.floor(pos.y).toString()}`;
@@ -256,6 +236,27 @@ export class Park extends Scene {
     }
     }
 
+    buyBami() {
+        this.placing = !this.placing;
+        // console.log(this.int);
+        if (this.placing) {
+            this.walls.forEach(wall => {
+                this.add(wall);
+            });
+            const circle = Shape.Circle(50);
+            this.placingSprite.collider.set(circle);
+            this.placingSprite.collisionType = CollisionType.Passive;
+            this.placingSprite._setName('this.placingSprite');
+            this.add(this.placingSprite);
+        } else {
+            this.walls.forEach(wall => {
+                wall.kill();
+            });
+            this.placingSprite.kill();
+        }
+
+    }
+
 
     onPreUpdate(engine, delta) {
 
@@ -263,7 +264,8 @@ export class Park extends Scene {
             this.goToSettings();
         }
 
-        this.guldenDisplay.text = `Gulden : ${this.engine.gulden}`;
+        this.guldenDisplay.text =  `${this.engine.gulden}`;
+        this.levensDisplay.text = `${this.engine.levens}`;
 
         this.placingSprite.checkSelf(this.int, this.isLegal);
 
