@@ -40,6 +40,9 @@ import settingsMusic from '../sounds/Settings_1.mp3';
 import backgroundMusic from '../sounds/backgroundMusic.mp3';
 import parkMusic from '../sounds/parkSong.mp3';
 
+// map select screens
+import parkMapselect from '../images/parkmapselect.png';
+
 //gui
 import playButton from '../images/play-button.png';
 import settingsButton from '../images/settings-button.png';
@@ -74,6 +77,7 @@ const Resources = {
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
     Map1Top: new ImageSource(map1top),
+    ParkMapselect: new ImageSource(parkMapselect),
 
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
@@ -115,6 +119,7 @@ const ResourceLoader = new Loader([
     Resources.TinyLau,
     Resources.SpiderTrike,
     Resources.Map1Ground,
+    Resources.ParkMapselect,
     Resources.Range,
     Resources.Bami,
     Resources.SpicyPan,
