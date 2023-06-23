@@ -4,7 +4,7 @@ import {Actor, Shape, Vector} from "excalibur";
 export class Projectile extends Actor {
 
     projectileSpeed;
-    projectileTime = 100;
+    projectileTime = 200;
     damage = 1;
     health;
     special;
