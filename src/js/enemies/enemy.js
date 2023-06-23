@@ -116,8 +116,8 @@ export class Enemy extends Actor {
         let bullet = target
         bullet.other.health--
 
-        if (bullet.other.speed > 10) {
-        bullet.other.speed = bullet.other.speed - 10
+        if (bullet.other.speed > 100) {
+        bullet.other.speed = bullet.other.speed - 100
     }
     }
 
@@ -129,7 +129,7 @@ export class Enemy extends Actor {
 
     move(pathToFollow) {
         let nextPath = pathToFollow.length
-        console.log(`type = ${this.type} speed = ${this.speed}, health = ${this.health}`);
+        //console.log(`type = ${this.type} speed = ${this.speed}, health = ${this.health}`);
         if (pathToFollow !== []) {
             this.pos = pathToFollow[0];
 
@@ -159,6 +159,7 @@ export class Enemy extends Actor {
                     }
                     this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, Math.random() * ((this.speed + 20) - (this.speed - 20)) + (this.speed - 20));
                     this.actions.rotateTo(angle, 1000, RotationType.ShortestPath);
+                    console.log(this.speed);
                 }
 
             }
@@ -178,7 +179,7 @@ export class Enemy extends Actor {
         if (this.damageOverTime > 1 && this.damageCooldown === 1) {
             this.health--
             this.damageAnimation = 50
-            console.log('damage!')
+            //console.log('damage!')
         }
 
         if (this.damageCooldown > 100) {
@@ -212,7 +213,7 @@ export class Enemy extends Actor {
 
 
         if (this.pos.y > window.innerHeight) {
-            console.log("JE BENT DOOD SUKKEL");
+            //console.log("JE BENT DOOD SUKKEL");
             this.kill();
 
         }
