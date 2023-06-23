@@ -39,6 +39,7 @@ import parkMusic from '../sounds/parkSong.mp3';
 //gui
 import playButton from '../images/play-button.png';
 import settingsButton from '../images/settings-button.png';
+import buyButton from '../images/BuyLogo.png';
 import menuButton from '../images/menu-button.png';
 import sideButton from '../images/side-button.png';
 import buyMenu from '../images/BuyMenuBar.png';
@@ -72,6 +73,7 @@ const Resources = {
 
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
+    BuyButton: new ImageSource(buyButton),
     MenuButton: new ImageSource(menuButton),
     SideButton: new ImageSource(sideButton),
     BuyMenu: new ImageSource(buyMenu),
@@ -116,6 +118,7 @@ const ResourceLoader = new Loader([
 
     Resources.PlayButton,
     Resources.SettingsButton,
+    Resources.BuyButton,
     Resources.MenuButton,
     Resources.SideButton,
     Resources.BuyMenu,

@@ -9,6 +9,8 @@ import { Wall } from "./hitbox.js";
 import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
 
+import {UpgradeMenu} from "./buyMenu.js";
+
 import {Settings} from "./settings.js";
 
 export class Park extends Scene {
@@ -41,6 +43,7 @@ export class Park extends Scene {
 
     nameLabel;
     settingsButton;
+    buyMenuClick = 0;
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
@@ -63,6 +66,22 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
+
+        this.buyMenu = new Actor();
+        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
+        this.buyMenu.pos = new Vector(1400, 450);
+        this.buyMenu.scale = new Vector(3, 1.0)
+        this.buyMenu.z = 9999;
+        this.buyMenu.enableCapturePointer = true;
+        this.buyMenu.pointer.useGraphicsBounds = true;
+
+        this.bamiButton = new Actor();
+        this.bamiButton.graphics.use(Resources.Bami.toSprite());
+        this.bamiButton.scale = new Vector(1, 1);
+        this.bamiButton.z = 99999;
+        this.bamiButton.enableCapturePointer = true;
+        this.bamiButton.pointer.useGraphicsBounds = true;
+        this.bamiButton.on("pointerup", (event) => this.buyBami());
 
         this.guldenLogo = new Actor();
        this.guldenLogo.graphics.use(Resources.Gulden.toSprite());
@@ -132,34 +151,18 @@ export class Park extends Scene {
         this.settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(this.settingsButton);
 
+        this. buyMenuButton = new Actor();
+        this.buyMenuButton.graphics.use(Resources.BuyButton.toSprite());
+        this.buyMenuButton.pos = new Vector(50, 195);
+        this.buyMenuButton.scale = new Vector(0.7, 0.7);
+        this.buyMenuButton.z = 9999;
+        this.buyMenuButton.enableCapturePointer = true;
+        this.buyMenuButton.pointer.useGraphicsBounds = true;
+        this.buyMenuButton.on("pointerup", (event) => this.drawBuyMenu());
+        this.add(this.buyMenuButton);
 
 
         //sidebutton
-
-
-
-        this.enemies();
-        this.buyMenu = new Actor();
-        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
-        this.buyMenu.pos = new Vector(1400, 450);
-        this.buyMenu.scale = new Vector(3, 1.0)
-        this.buyMenu.z = 9999;
-        this.buyMenu.enableCapturePointer = true;
-        this.buyMenu.pointer.useGraphicsBounds = true;
-
-
-        this.add(this.buyMenu);
-
-        //buy bami tower
-        this.bamiButton = new Actor();
-        this.bamiButton.graphics.use(Resources.Bami.toSprite());
-        this.bamiButton.pos = new Vector(1350, 200);
-        this.bamiButton.scale = new Vector(1, 1);
-        this.bamiButton.z = 99999;
-        this.bamiButton.enableCapturePointer = true;
-        this.bamiButton.pointer.useGraphicsBounds = true;
-        this.bamiButton.on("pointerup", (event) => this.buyBami());
-        this.add(this.bamiButton);
 
 
         this.enemies()
@@ -186,6 +189,43 @@ export class Park extends Scene {
                 this.order.push(Number(item[1]));
             }
         });
+    }
+
+    drawBuyMenu() {
+        this.buyMenuClick++;
+        if (this.buyMenuClick === 1) {
+            this.buyMenu.pos = new Vector(1500, 450);
+            this.buyMenu.actions.moveTo(1400, 450,1100);
+
+            this.bamiButton.pos = new Vector(1500, 450);
+            this.bamiButton.actions.moveTo(1350, 450,1300);
+            this.add(this.buyMenu);
+            this.add(this.bamiButton);
+        }
+        if (this.buyMenuClick === 2) {
+            this.buyMenu.pos = new Vector(1500, 450);
+            this.buyMenu.actions.moveTo(1400, 450,800);
+            this.buyMenu.kill()
+
+            this.bamiButton.pos = new Vector(1350, 450);
+            this.bamiButton.actions.moveTo(1500, 450,1300);
+            this.bamiButton.kill()
+            this.buyMenuClick = 0;
+        }
+
+    }
+
+
+    drawUpgradeMenu() {
+        this.upgradeMenu = new UpgradeMenu();
+        this.pos = new Vector(1600, 450);
+        this.upgradeMenu.actions.moveTo(1400,450,1000);
+        this.add(this.upgradeMenu);
+    }
+
+    undoDrawUpgradeMenu() {
+        this.upgradeMenu.actions.moveTo(1600,450,1000);
+        this.upgradeMenu.kill()
     }
 
     goToSettings() {
@@ -259,6 +299,22 @@ export class Park extends Scene {
 
 
     onPreUpdate(engine, delta) {
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.Q)) {
+           this.drawUpgradeMenu()
+        }
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.W)) {
+            this.undoDrawUpgradeMenu()
+        }
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.E)) {
+            this.drawBuyMenu()
+        }
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.R)) {
+            this.undoDrawBuyMenu()
+        }
 
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
             this.goToSettings();

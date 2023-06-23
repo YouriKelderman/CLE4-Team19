@@ -6,6 +6,7 @@ import {Park} from "./park.js";
 import {Settings} from "./settings.js";
 import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
+import {UpgradeMenu} from "./buyMenu.js";
 
 export class Game extends Engine {
 
@@ -13,6 +14,7 @@ export class Game extends Engine {
     musicVolume = 0.5;
     gulden = 1000;
     levens = 0;
+    buyMenu;
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
@@ -31,6 +33,8 @@ export class Game extends Engine {
         this.add('menu', new Menu());
         this.add('park', new Park());
         this.add('settings', new Settings())
+
+
 
     }
 
