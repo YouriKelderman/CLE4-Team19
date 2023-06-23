@@ -22,6 +22,10 @@ import bami from '../images/bami.png';
 import spicyBami from '../images/spicyBami.png';
 import pan from '../images/bami-pan.png';
 import tinyLau from '../images/TinyLau_Tower.png';
+
+import spidermeneer from '../images/spider-meneer.png';
+import spiderTrike from '../images/SpinManTrike_Sprite.png'
+
 import spider from '../images/spider.png';
 import mouse from '../images/muis.png';
 import rat from '../images/rat.png';
@@ -65,8 +69,9 @@ const Resources = {
     Pan: new ImageSource(pan),
     SpicyPan: new ImageSource(spicyBami),
     TinyLau: new ImageSource(tinyLau),
+    SpiderTrike: new ImageSource(spiderTrike),
     Map1Ground: new ImageSource(map1ground),
-
+    SpiderMeneer: new ImageSource(spidermeneer),
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
     Map1Top: new ImageSource(map1top),
@@ -110,12 +115,13 @@ const ResourceLoader = new Loader([
     Resources.MenuSpider,
     Resources.Pan,
     Resources.TinyLau,
+    Resources.SpiderTrike,
     Resources.Map1Ground,
     Resources.Range,
     Resources.Bami,
     Resources.SpicyPan,
     Resources.Map1Top,
-
+    Resources.SpiderMeneer,
     Resources.PlayButton,
     Resources.SettingsButton,
     Resources.BuyButton,
