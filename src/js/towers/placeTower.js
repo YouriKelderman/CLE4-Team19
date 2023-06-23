@@ -7,7 +7,7 @@ export class PlaceTower extends PanBami {
     
     range;
     itemIds = [
-        Resources.Pan, Resources.Kevin,
+        Resources.Pan, Resources.TinyLau,
     ]
 
     constructor(spriteID) {
