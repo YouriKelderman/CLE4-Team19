@@ -159,7 +159,7 @@ export class Enemy extends Actor {
                     }
                     this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, Math.random() * ((this.speed + 20) - (this.speed - 20)) + (this.speed - 20));
                     this.actions.rotateTo(angle, 1000, RotationType.ShortestPath);
-                    console.log(this.speed);
+
                 }
 
             }
