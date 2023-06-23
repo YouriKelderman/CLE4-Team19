@@ -31,8 +31,6 @@ export class Park extends Scene {
     order = [];
     walls = [];
 
-
-    music = Resources.BackgroundMusic;
     music = Resources.ParkMusic;
 
     click = Resources.Click;
@@ -139,16 +137,30 @@ export class Park extends Scene {
         //sidebutton
 
 
+
+        this.enemies();
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
         this.buyMenu.scale = new Vector(3, 1.0)
-        this.buyMenu.z = 99999;
+        this.buyMenu.z = 9999;
         this.buyMenu.enableCapturePointer = true;
         this.buyMenu.pointer.useGraphicsBounds = true;
 
 
         this.add(this.buyMenu);
+
+        //buy bami tower
+        this.bamiButton = new Actor();
+        this.bamiButton.graphics.use(Resources.Bami.toSprite());
+        this.bamiButton.pos = new Vector(1350, 200);
+        this.bamiButton.scale = new Vector(1, 1);
+        this.bamiButton.z = 99999;
+        this.bamiButton.enableCapturePointer = true;
+        this.bamiButton.pointer.useGraphicsBounds = true;
+        this.bamiButton.on("pointerup", (event) => this.buyBami());
+        this.add(this.bamiButton);
+
 
         this.enemies()
 
@@ -192,6 +204,8 @@ export class Park extends Scene {
             this.add(newClone);
             newClone.checkSelf(this.int);
             this.activetower = newClone;
+            this.placing = false;
+            this.placingSprite.kill();
         } else if (this.mapping) {
             let pos = this.engine.input.pointers.primary.lastWorldPos;
             this.path += `,${Math.floor(pos.x).toString()}.${Math.floor(pos.y).toString()}`;
@@ -220,6 +234,27 @@ export class Park extends Scene {
         console.log(this.activetower.range);
         console.log(this.activetower.damage);
     }
+    }
+
+    buyBami() {
+        this.placing = !this.placing;
+        // console.log(this.int);
+        if (this.placing) {
+            this.walls.forEach(wall => {
+                this.add(wall);
+            });
+            const circle = Shape.Circle(50);
+            this.placingSprite.collider.set(circle);
+            this.placingSprite.collisionType = CollisionType.Passive;
+            this.placingSprite._setName('this.placingSprite');
+            this.add(this.placingSprite);
+        } else {
+            this.walls.forEach(wall => {
+                wall.kill();
+            });
+            this.placingSprite.kill();
+        }
+
     }
 
 
