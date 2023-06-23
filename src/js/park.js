@@ -1,11 +1,25 @@
-import {Actor, Vector, Color, Debug, Physics, Input, Axis, CollisionType, Shape, vec, Label, FontUnit, Font, TextAlign} from "excalibur";
+import {
+    Actor,
+    Vector,
+    Color,
+    Debug,
+    Physics,
+    Input,
+    Axis,
+    CollisionType,
+    Shape,
+    vec,
+    Label,
+    FontUnit,
+    Font,
+    TextAlign
+} from "excalibur";
 import {Scene} from "excalibur";
 import {PanBami} from "./towers/panBami.js";
 import {Resources, ResourceLoader} from "./resources.js";
-import {Range} from "./range.js";
 import {PlaceTower} from "./towers/placeTower.js";
 import {Enemy} from "./enemies/enemy.js";
-import { Wall } from "./hitbox.js";
+import {Wall} from "./hitbox.js";
 import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
 
@@ -16,7 +30,6 @@ export class Park extends Scene {
         super();
     }
 
-
     placing = false;
     placingSprite;
     int = 0;
@@ -24,12 +37,15 @@ export class Park extends Scene {
     path = "";
     engine;
     route = [];
+    towers = [];
+    towersInDistance = [];
     mapping = false;
     running = false;
     levels = [];
     waveItem = 0;
     order = [];
     walls = [];
+    nearestTowerName;
 
     music = Resources.ParkMusic;
 
@@ -65,17 +81,14 @@ export class Park extends Scene {
     onInitialize(_engine) {
 
         this.guldenLogo = new Actor();
-       this.guldenLogo.graphics.use(Resources.Gulden.toSprite());
+        this.guldenLogo.graphics.use(Resources.Gulden.toSprite());
         this.guldenLogo.scale = new Vector(0.4, 0.4);
         this.guldenLogo.pos = new Vector(120, 80);
         this.guldenLogo.z = 99999;
         this.add(this.guldenLogo);
-
         this.guldenDisplay = new Gulden(
-
         );
         this.add(this.guldenDisplay);
-
         this.levensLogo = new Actor();
         this.levensLogo.graphics.use(Resources.Health.toSprite());
         this.levensLogo.scale = new Vector(0.4, 0.4);
@@ -95,7 +108,6 @@ export class Park extends Scene {
             //console.log(`${hitboxPoints[i]} ${hitboxPoints[i + 1]} ${hitboxPoints[i + 2]} ${hitboxPoints[i + 3]}`);
             let offsetX = 0;
             let offsetY = 0;
-
             let wall = new Wall((hitboxPoints[i]) + offsetX, (hitboxPoints[i + 1]) + offsetY, (hitboxPoints[i + 2]) + offsetX, (hitboxPoints[i + 3]) + offsetY);
             wall.on("precollision", (event) => {
                 if (event.other instanceof PlaceTower)
@@ -122,7 +134,7 @@ export class Park extends Scene {
         mapTop.z = 9999;
         this.add(mapTop);
 
-        this. settingsButton = new Actor();
+        this.settingsButton = new Actor();
         this.settingsButton.graphics.use(Resources.SettingsButton.toSprite());
         this.settingsButton.pos = new Vector(50, 105);
         this.settingsButton.scale = new Vector(0.7, 0.7);
@@ -137,7 +149,7 @@ export class Park extends Scene {
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
-        this.buyMenu.scale = new Vector(3, 1.0)
+        this.buyMenu.scale = new Vector(3, 1.0);
         this.buyMenu.z = 9999;
         this.buyMenu.enableCapturePointer = true;
         this.buyMenu.pointer.useGraphicsBounds = true;
@@ -177,7 +189,7 @@ export class Park extends Scene {
         this.add(this.spiderTrikeButton);
 
 
-        this.enemies()
+        this.enemies();
 
     }
 
@@ -212,11 +224,51 @@ export class Park extends Scene {
 
 
     mouseInput() {
-        // console.log(this.isLegal)
+        if (!this.placing) {
+
+            // determine which tower is closest and which tower gets click priority
+            for (let i = 0; i < this.towers.length; i++) {
+                let pos1 = new Vector(this.engine.input.pointers.primary.lastWorldPos.x, this.engine.input.pointers.primary.lastWorldPos.y);
+                let pos2 = new Vector(this.towers[i].worldPosition.x, this.towers[i].worldPosition.y);
+
+                let distance = pos1.distance(pos2);
+
+                this.towersInDistance.push(distance);
+            }
+            let nearestTower = Math.min(...this.towersInDistance);
+
+                this.nearestTowerName = this.towers[this.towersInDistance.indexOf(nearestTower, 0)];
+
+            console.log(this.towersInDistance)
+
+
+            if (nearestTower < 100) {
+
+                this.towers.forEach(tower => {
+                    tower.deSelect();
+                });
+                this.activetower = this.nearestTowerName;
+                this.activetower.select();
+                this.menuInfo();
+
+
+            } else {
+                this.towers.forEach(tower => {
+                    tower.deSelect();
+                });
+
+            }
+            this.towersInDistance = [];
+
+
+        }
+
+
         if (this.placing && this.isLegal) {
             let newClone = new PanBami(this, this.int);
             newClone.pos = this.placingSprite.pos;
             this.add(newClone);
+            this.towers.push(newClone);
             newClone.checkSelf(this.int);
             this.activetower = newClone;
             this.placing = false;
@@ -227,28 +279,22 @@ export class Park extends Scene {
             localStorage.setItem("this.path", this.path);
             // console.log(this.path)
         } else {
-            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}, ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
-            // console.log(this.string);
+            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+            console.log(this.string);
         }
-    }
-
-    activeTower(tower) {
-        this.activetower = tower;
-
-        this.menuInfo();
     }
 
     menuInfo() {
         if (this.nameLabel && this.activetower) {
-        this.nameLabel.text = this.activetower.name.toString()
+            this.nameLabel.text = this.activetower.name.toString();
 
-        console.log(this.activetower);
-        console.log(this.activetower.id);
-        console.log(this.activetower._name);
-        console.log(this.activetower.tier);
-        console.log(this.activetower.range);
-        console.log(this.activetower.damage);
-    }
+            console.log(this.activetower);
+            console.log(this.activetower.id);
+            console.log(this.activetower._name);
+            console.log(this.activetower.tier);
+            console.log(this.activetower.range);
+            console.log(this.activetower.damage);
+        }
     }
 
     buyTower() {
@@ -278,7 +324,7 @@ export class Park extends Scene {
             this.goToSettings();
         }
 
-        this.guldenDisplay.text =  `${this.engine.gulden}`;
+        this.guldenDisplay.text = `${this.engine.gulden}`;
         this.levensDisplay.text = `${this.engine.levens}`;
 
         this.placingSprite.checkSelf(this.int, this.isLegal);
@@ -286,7 +332,6 @@ export class Park extends Scene {
 
         if (this.engine.input.keyboard.wasPressed(Input.Keys.B)) {
             this.placing = !this.placing;
-            // console.log(this.int);
             if (this.placing) {
                 this.walls.forEach(wall => {
                     this.add(wall);
@@ -314,16 +359,18 @@ export class Park extends Scene {
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.T)) {
+            this.towers.splice(this.towers.indexOf(this.activetower), 1);
             this.activetower.kill();
+
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.K)) {
             this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) - 1)];
-            console.log(this.activetower.tier)
+            console.log(this.activetower.tier);
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.L)) {
             this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) + 1)];
-            console.log(this.activetower.tier)
+            console.log(this.activetower.tier);
 
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
@@ -356,4 +403,3 @@ export class Park extends Scene {
         }
     }
 }
-
