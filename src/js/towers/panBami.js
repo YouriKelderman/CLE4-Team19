@@ -19,7 +19,7 @@ import {Projectile} from "../projectile.js";
 
 
 let itemIds = [
-    Resources.Pan, Resources.Kevin
+    Resources.Pan, Resources.TinyLau
 ];
 let towerRange = 300;
 let game;
@@ -36,15 +36,16 @@ export class PanBami extends Actor {
     coolDown = 0;
     damage = 1;
 
-    constructor(Game) {
+    constructor(Game, type) {
         super({
             width: 50, height: 50
         });
-
+        this.type = type;
         this.game = Game;
     }
 
     onInitialize(engine) {
+        this.coolDown = 25;
         this.engine = engine;
         this.anchor = new Vector(0.5, 0.5);
         this.scale = new Vector(1, 1);
@@ -54,9 +55,17 @@ export class PanBami extends Actor {
         this.collider.clear();
         this._setName("Pan Bami");
         this.collider.set(circle);
-        this.on('precollision', (event) => {
-            if (event.other.name === "Enemy") this.collisionHandler(event)
-        });
+        if (this.type === 1) {
+            this.on('collisionstart', (event) => {
+                if(event.other instanceof PanBami && event.other !== this.game.placingSprite) this.collisionHandlerTinyLau(event)
+            });
+        }
+        console.log(this.type);
+        if (this.type === 0) {
+            this.on('precollision', (event) => {
+                if (event.other.name === "Enemy") this.collisionHandler(event)
+            });
+        }
         this.on('pointerdown', () => this.clicked());
     }
 
@@ -69,13 +78,18 @@ export class PanBami extends Actor {
             this.amountOfEnemies++;
             this.enemiesInRadiusName.push(event)
             this.enemiesInRadiusTime.push(event.other.timeAlive)
+        }
+    }
 
+    collisionHandlerTinyLau(event) {
+
+        if(event.other instanceof PanBami && event.other.type !== 1) {
+            event.other.coolDown = event.other.coolDown - (0.25 * event.other.coolDown);
+            console.log(event.other.coolDown);
         }
     }
 
     checkSelf(sprite) {
-        console.log('sicko')
-        console.log(this.game.isLegal)
         if (this.game.isLegal === true) {
             this.sprite = itemIds[sprite].toSprite();
             this.graphics.use(itemIds[sprite].toSprite());
@@ -120,7 +134,9 @@ export class PanBami extends Actor {
 
                 this.actions.rotateTo(angle + 0.5 * Math.PI, 30, RotationType.ShortestPath)
             }
-            this.inRange();
+            if (this.type === 0) {
+                this.inRange();
+            }
         }
     }
 
