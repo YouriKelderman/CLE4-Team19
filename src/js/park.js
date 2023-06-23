@@ -378,7 +378,7 @@ export class Park extends Scene {
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
             this.int += 1;
-            if (this.int > 1) {
+            if (this.int > 2) {
                 this.int = 0;
             }
         }
