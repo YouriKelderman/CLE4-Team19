@@ -1,13 +1,11 @@
 import {Font, FontUnit, GraphicsGroup, ScreenElement, Vector, Color, Label} from "excalibur";
 
-export class Gulden extends Label {
+export class Levens extends Label {
 
-    // scoreText
-    engine;
 
     constructor() {
         super({
-            pos: new Vector(140, 90),
+            pos: new Vector(140,130),
             z: 99999,
             font: new Font({
                 unit: FontUnit.Px,
@@ -23,6 +21,6 @@ export class Gulden extends Label {
 
 
     updateScore() {
-        this.text = `Score: 200`
+        this.text = `Levens: 200`
     }
 }
