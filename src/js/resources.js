@@ -42,6 +42,8 @@ import settingsButton from '../images/settings-button.png';
 import menuButton from '../images/menu-button.png';
 import sideButton from '../images/side-button.png';
 import buyMenu from '../images/BuyMenuBar.png';
+import Gulden from '../images/Gulden.png';
+import Health from '../images/Levens.png';
 
 
 const font = new FontFace("VCR", `url(${fontFile})`)
@@ -73,6 +75,8 @@ const Resources = {
     MenuButton: new ImageSource(menuButton),
     SideButton: new ImageSource(sideButton),
     BuyMenu: new ImageSource(buyMenu),
+    Gulden: new ImageSource(Gulden),
+    Health: new ImageSource(Health),
 
     Click: new Sound(click),
     MenuMusic: new Sound(menuMusic),
@@ -115,6 +119,8 @@ const ResourceLoader = new Loader([
     Resources.MenuButton,
     Resources.SideButton,
     Resources.BuyMenu,
+    Resources.Gulden,
+    Resources.Health,
 
     Resources.Click,
     Resources.MenuMusic,
