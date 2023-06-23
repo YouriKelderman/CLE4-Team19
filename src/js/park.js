@@ -88,7 +88,7 @@ export class Park extends Scene {
         this.add(this.levensDisplay);
 
         this.placingSprite = new PlaceTower();
-        this.engine.input.pointers.primary.on("down", () => this.mouseInput());
+        this.engine.input.pointers.primary.on("up", () => this.mouseInput());
         this.engine = _engine;
         let hitboxPoints = [1103, 45, 1094, 188, 1083, 321, 1066, 361, 994, 454, 913, 440, 787, 409, 736, 404, 714, 324, 656, 229, 592, 192, 515, 166, 458, 162, 394, 179, 302, 220, 214, 347, 210, 501, 232, 557, 263, 617, 216, 646, 175, 680, 130, 796, 186, 808, 204, 743, 241, 700, 302, 643, 322, 596, 272, 515, 271, 373, 315, 313, 357, 264, 421, 237, 526, 237, 594, 268, 646, 328, 677, 368, 684, 447, 571, 449, 537, 377, 474, 345, 414, 371, 375, 435, 399, 504, 469, 547, 543, 514, 579, 458, 534, 372, 582, 449, 480, 547, 325, 590, 399, 617, 488, 628, 602, 591, 663, 527, 679, 466, 676, 386, 633, 321, 541, 252, 459, 247, 351, 279, 296, 348, 271, 430, 283, 522, 321, 580, 306, 646, 357, 674, 418, 701, 556, 710, 634, 672, 702, 608, 739, 518, 743, 473, 866, 484, 1009, 500, 1079, 552, 1079, 591, 1075, 708, 1067, 803, 1120, 805, 1121, 734, 1116, 605, 1321, 814, 1410, 809, 1050, 465, 1093, 427, 1126, 369, 1145, 333, 1148, 192, 1152, 47];
         for (let i = 0; i < hitboxPoints.length; i += 2) {
@@ -133,11 +133,6 @@ export class Park extends Scene {
         this.add(this.settingsButton);
 
 
-
-        //sidebutton
-
-
-
         this.enemies();
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
@@ -146,8 +141,6 @@ export class Park extends Scene {
         this.buyMenu.z = 9999;
         this.buyMenu.enableCapturePointer = true;
         this.buyMenu.pointer.useGraphicsBounds = true;
-
-
         this.add(this.buyMenu);
 
         //buy bami tower
@@ -158,8 +151,19 @@ export class Park extends Scene {
         this.bamiButton.z = 99999;
         this.bamiButton.enableCapturePointer = true;
         this.bamiButton.pointer.useGraphicsBounds = true;
-        this.bamiButton.on("pointerup", (event) => this.buyBami());
+        this.bamiButton.on("pointerdown", (event) => this.buyTower());
         this.add(this.bamiButton);
+
+        // buy tini en lau tower
+        this.tinyLauButton = new Actor();
+        this.tinyLauButton.graphics.use(Resources.TinyLau.toSprite());
+        this.tinyLauButton.pos = new Vector(1350, 350);
+        this.tinyLauButton.scale = new Vector(1, 1);
+        this.tinyLauButton.z = 99999;
+        this.tinyLauButton.enableCapturePointer = true;
+        this.tinyLauButton.pointer.useGraphicsBounds = true;
+        this.tinyLauButton.on("pointerdown", (event) => this.buyTower());
+        this.add(this.tinyLauButton);
 
 
         this.enemies()
@@ -236,7 +240,7 @@ export class Park extends Scene {
     }
     }
 
-    buyBami() {
+    buyTower() {
         this.placing = !this.placing;
         // console.log(this.int);
         if (this.placing) {
@@ -256,7 +260,6 @@ export class Park extends Scene {
         }
 
     }
-
 
     onPreUpdate(engine, delta) {
 
