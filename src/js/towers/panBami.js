@@ -14,7 +14,6 @@ import {
 
 import {Resources} from "../resources.js";
 import {Game} from "../game.js";
-import {Range} from "../range.js";
 import {Projectile} from "../projectile.js";
 
 
@@ -37,6 +36,8 @@ export class PanBami extends Actor {
     coolDown = 0;
     damage = 1;
     shootingMode = 3
+    rangeDisplay;
+    worldPosition
 
     constructor(Game, type) {
         super({
@@ -47,11 +48,16 @@ export class PanBami extends Actor {
     }
 
     onInitialize(engine) {
+        this.rangeDisplay = new Actor();
+        this.rangeDisplay.graphics.use(Resources.Range.toSprite())
+        this.rangeDisplay.pos = new Vector(0, 0)
+
         this.coolDown = 25;
         this.engine = engine;
         this.anchor = new Vector(0.5, 0.5);
         this.scale = new Vector(1, 1);
         this.range = towerRange;
+        this.rangeDisplay.scale = new Vector(towerRange / 24, towerRange / 24)
         this.z = 100;
         const circle = Shape.Circle(towerRange);
         this.collider.clear();
@@ -68,11 +74,20 @@ export class PanBami extends Actor {
                 if (event.other.name === "Enemy") this.collisionHandler(event)
             });
         }
-        this.on('pointerdown', () => this.clicked());
+
+        this.worldPosition = new Vector(this.pos.x, this.pos.y)
     }
 
-    clicked() {
-        this.game.activeTower(this);
+    select() {
+        // this.game.activeTower(this);
+        if (this.children < 1) {
+            this.addChild(this.rangeDisplay)
+        }
+    }
+
+    deSelect() {
+        this.rangeDisplay.unparent()
+        this.rangeDisplay.kill()
     }
 
     collisionHandler(event) {
@@ -184,6 +199,7 @@ export class PanBami extends Actor {
 
     updateRange(newRange) {
         const circle = Shape.Circle(newRange);
+        this.rangeDisplay.scale = new Vector(newRange / 24, newRange / 24)
         this.collider.clear();
         this._setName("PanBami");
         this.collider.set(circle);

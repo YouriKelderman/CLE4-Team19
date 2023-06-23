@@ -4,7 +4,7 @@ import {PanBami} from "./panBami.js";
 
 
 export class PlaceTower extends PanBami {
-    
+
     range;
     itemIds = [
         Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer,
