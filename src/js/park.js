@@ -15,8 +15,6 @@ export class Park extends Scene {
     constructor() {
         super();
     }
-
-
     placing = false;
     placingSprite;
     int = 0;
@@ -70,12 +68,9 @@ export class Park extends Scene {
         this.guldenLogo.pos = new Vector(120, 80);
         this.guldenLogo.z = 99999;
         this.add(this.guldenLogo);
-
         this.guldenDisplay = new Gulden(
-
         );
         this.add(this.guldenDisplay);
-
         this.levensLogo = new Actor();
         this.levensLogo.graphics.use(Resources.Health.toSprite());
         this.levensLogo.scale = new Vector(0.4, 0.4);
@@ -95,7 +90,6 @@ export class Park extends Scene {
             //console.log(`${hitboxPoints[i]} ${hitboxPoints[i + 1]} ${hitboxPoints[i + 2]} ${hitboxPoints[i + 3]}`);
             let offsetX = 0;
             let offsetY = 0;
-
             let wall = new Wall((hitboxPoints[i]) + offsetX, (hitboxPoints[i + 1]) + offsetY, (hitboxPoints[i + 2]) + offsetX, (hitboxPoints[i + 3]) + offsetY);
             wall.on("precollision", (event) => {
                 if (event.other instanceof PlaceTower)
@@ -135,8 +129,6 @@ export class Park extends Scene {
 
 
         //sidebutton
-
-
 
         this.enemies();
         this.buyMenu = new Actor();
@@ -212,8 +204,8 @@ export class Park extends Scene {
             localStorage.setItem("this.path", this.path);
             // console.log(this.path)
         } else {
-            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}, ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
-            // console.log(this.string);
+            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+            console.log(this.string);
         }
     }
 
