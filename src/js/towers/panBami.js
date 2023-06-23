@@ -19,7 +19,7 @@ import {Projectile} from "../projectile.js";
 
 
 let itemIds = [
-    Resources.Pan, Resources.TinyLau
+    Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer,
 ];
 let towerRange = 300;
 let game;
