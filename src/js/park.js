@@ -145,9 +145,9 @@ export class Park extends Scene {
 
         //buy bami tower
         this.bamiButton = new Actor();
-        this.bamiButton.graphics.use(Resources.Bami.toSprite());
+        this.bamiButton.graphics.use(Resources.Pan.toSprite());
         this.bamiButton.pos = new Vector(1350, 200);
-        this.bamiButton.scale = new Vector(1, 1);
+        this.bamiButton.scale = new Vector(1.5, 1.5);
         this.bamiButton.z = 99999;
         this.bamiButton.enableCapturePointer = true;
         this.bamiButton.pointer.useGraphicsBounds = true;
@@ -158,12 +158,23 @@ export class Park extends Scene {
         this.tinyLauButton = new Actor();
         this.tinyLauButton.graphics.use(Resources.TinyLau.toSprite());
         this.tinyLauButton.pos = new Vector(1350, 350);
-        this.tinyLauButton.scale = new Vector(1, 1);
+        this.tinyLauButton.scale = new Vector(2, 2);
         this.tinyLauButton.z = 99999;
         this.tinyLauButton.enableCapturePointer = true;
         this.tinyLauButton.pointer.useGraphicsBounds = true;
         this.tinyLauButton.on("pointerdown", (event) => this.buyTower());
         this.add(this.tinyLauButton);
+
+        // buy spiderTrike tower
+        this.spiderTrikeButton = new Actor();
+        this.spiderTrikeButton.graphics.use(Resources.SpiderTrike.toSprite());
+        this.spiderTrikeButton.pos = new Vector(1350, 500);
+        this.spiderTrikeButton.scale = new Vector(1.5, 1.5);
+        this.spiderTrikeButton.z = 99999;
+        this.spiderTrikeButton.enableCapturePointer = true;
+        this.spiderTrikeButton.pointer.useGraphicsBounds = true;
+        this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
+        this.add(this.spiderTrikeButton);
 
 
         this.enemies()
