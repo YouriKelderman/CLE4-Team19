@@ -15,6 +15,7 @@ export class PlaceTower extends PanBami {
     }
 
 
+
     onInitialize(engine) {
         this.scale = new Vector(1, 1);
         console.log(this.towerRange)

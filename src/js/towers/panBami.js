@@ -9,7 +9,7 @@ import {
     Color,
     Line,
     Input,
-    ParticleEmitter, EmitterType, RotationType
+    ParticleEmitter, EmitterType, RotationType, Timer
 } from "excalibur";
 
 import {Resources} from "../resources.js";
@@ -37,7 +37,30 @@ export class PanBami extends Actor {
     damage = 1;
     shootingMode = 3
     rangeDisplay;
-    worldPosition
+    worldPosition;
+    upgrade = Resources.Upgrade;
+    upgradeParticles = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 2,
+        minVel: 100,
+        maxVel: 200,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate:300,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 1000,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Green,
+        endColor: Color.Green,
+        isEmitting: false
+    })
+    timer = new Timer({
+        fcn: () => this.removeParticles(),
+        repeats: false,
+        interval: 200,
+    })
 
     constructor(Game, type) {
         super({
@@ -65,7 +88,7 @@ export class PanBami extends Actor {
         this.collider.set(circle);
         if (this.type === 1) {
             this.on('collisionstart', (event) => {
-                if(event.other instanceof PanBami && event.other !== this.game.placingSprite) this.collisionHandlerTinyLau(event)
+                if (event.other instanceof PanBami && event.other !== this.game.placingSprite) this.collisionHandlerTinyLau(event)
             });
         }
         console.log(this.type);
@@ -100,7 +123,7 @@ export class PanBami extends Actor {
 
     collisionHandlerTinyLau(event) {
 
-        if(event.other instanceof PanBami && event.other.type !== 1) {
+        if (event.other instanceof PanBami && event.other.type !== 1) {
             event.other.coolDown = event.other.coolDown - (0.25 * event.other.coolDown);
             console.log(event.other.coolDown);
         }
@@ -206,6 +229,20 @@ export class PanBami extends Actor {
 
     }
 
+    tierUp() {
+        this.game.add(this.upgradeParticles);
+        this.upgradeParticles.isEmitting = true;
+        this.upgrade.play();
+        this.upgradeParticles.pos = this.pos;
+        this.game.add(this.timer);
+        this.timer.start()
+    }
+
+    removeParticles() {
+        this.upgradeParticles.isEmitting = false;
+        this.upgradeParticles.kill();
+    }
+
     fire() {
         // default
         if (this.tier === 0) {
@@ -238,7 +275,6 @@ export class PanBami extends Actor {
             this.engine.add(bullet);
             this.coolDown = 20
         }
-
 
         // pad 2
         if (this.tier === 2.1) {

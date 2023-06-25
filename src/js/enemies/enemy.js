@@ -28,6 +28,7 @@ export class Enemy extends Actor {
     ];
     positionInRoute;
 
+engine;
     game;
     timeAlive = 0;
     particle;
@@ -52,12 +53,13 @@ export class Enemy extends Actor {
         this._setName("Enemy");
         this.on('collisionstart', (event) => this.collided(event));
         this.setRoute()
+
     }
 
     setRoute() {
         this.tempRoute = [",1128.102,1125.141,1118.192,1114.224,1116.268,1114.318,1098.352,1068.398,1030.444,993.468,936.461,867.452,806.444,761.426,723.401,707.352,674.289,641.246,600.217,547.192,490.182,416.197,345.220,305.252,273.289,250.319,231.368,227.417,234.478,248.526,258.560,273.588,275.619,254.643,214.673,189.705,171.731,156.1083".split(","),
             ",1310. 730,1120. 545,1023. 477,924. 463,800. 442,715. 414,704. 348,662. 274,588. 212,511. 189,409. 197,372. 212,372. 256,370. 295,387. 317,436. 321,486. 312,539. 311,585. 346,607. 388,617. 435,605. 493,574. 539,540. 559,455. 576,394. 583,342. 606,290. 630,249. 659,219. 678,188. 699,170. 729,155. 758, 153.1018".split(","),
-            "24. 65,1087. 775,1085. 624,1117. 556,1028. 479,926. 459,817. 444,721. 425,711. 487,680. 563,630. 619,572. 652,511. 661,431. 653,353. 629,321. 612,296. 612,283. 629,262. 647,241. 662,226. 672,203. 685,184. 702,174. 719,163. 746,162. 770,154. 1052".split(",")];
+            "0. 0,1087. 745,1085. 624,1117. 556,1028. 479,926. 459,817. 444,721. 425,711. 487,680. 563,630. 619,572. 652,511. 661,431. 653,353. 629,321. 612,296. 612,283. 629,262. 647,241. 662,226. 672,203. 685,184. 702,174. 719,163. 746,162. 770,154. 1052".split(",")];
         let routeToUse = Math.round(Math.random() *2);
         this.tempRoute[routeToUse].forEach(item => {
             item = item.split(".");
@@ -65,7 +67,7 @@ export class Enemy extends Actor {
             this.route.push(newItem);
         });
         this.route[0] = this.route[1];
-        console.log(this.route[1]);
+
         this.move(this.route);
     }
 
@@ -163,7 +165,6 @@ export class Enemy extends Actor {
                     }
                     this.actions.moveTo(pathToFollow[i].x, pathToFollow[i].y, Math.random() * ((this.speed + 20) - (this.speed - 20)) + (this.speed - 20));
                     this.actions.rotateTo(angle, 1000, RotationType.ShortestPath);
-
                 }
 
             }
@@ -194,6 +195,11 @@ export class Enemy extends Actor {
 
         if (this.deathAnimation < 0) {
             this.kill();
+            this.game.activeEnemies -=1;
+            if(this.engine.levens < 1) {
+                this.engine.goToScene('menu');
+            }
+
         }
         if (this.deathAnimation > 0) {
             this.graphics.opacity = (this.deathAnimation / 50);
@@ -215,11 +221,6 @@ export class Enemy extends Actor {
         }
 
 
-        if (this.pos.y > window.innerHeight) {
-            //console.log("JE BENT DOOD SUKKEL");
-            this.kill();
-
-        }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
             this.move(this.route);
 
