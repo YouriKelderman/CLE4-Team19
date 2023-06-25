@@ -43,8 +43,10 @@ import click from '../sounds/click.wav';
 import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
 import backgroundMusic from '../sounds/backgroundMusic.mp3';
+import crunch from '../sounds/crunch.mp3';
+import plop from '../sounds/plop.mp3'
 import parkMusic from '../sounds/parkSong.mp3';
-
+import upgrade from '../sounds/upgrade.mp3'
 //gui
 import playButton from '../images/play-button.png';
 import settingsButton from '../images/settings-button.png';
@@ -98,7 +100,9 @@ const Resources = {
     BackgroundMusic: new Sound(backgroundMusic),
     SettingsMusic: new Sound(settingsMusic),
     ParkMusic: new Sound(parkMusic),
-
+    Crunch: new Sound(crunch),
+    Upgrade: new Sound(upgrade),
+    Plop: new Sound(plop),
     Mouse: new ImageSource(mouse),
     Spider: new ImageSource(spider),
     Rat: new ImageSource(rat),

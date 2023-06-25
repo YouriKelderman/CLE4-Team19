@@ -12,7 +12,7 @@ import {
     Label,
     FontUnit,
     Font,
-    TextAlign
+    TextAlign, ParticleEmitter, EmitterType, Timer
 } from "excalibur";
 import {Scene} from "excalibur";
 import {PanBami} from "./towers/panBami.js";
@@ -29,6 +29,7 @@ export class Park extends Scene {
     constructor() {
         super();
     }
+
     placing = false;
     placingSprite;
     int = 0;
@@ -37,6 +38,29 @@ export class Park extends Scene {
     engine;
     route = [];
     towers = [];
+    crunch = Resources.Crunch;
+    upgradeParticles = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 2,
+        minVel: 100,
+        maxVel: 200,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate:300,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 1000,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Green,
+        endColor: Color.Green,
+        isEmitting: false
+    })
+    timer = new Timer({
+        fcn: () => this.removeParticles(),
+        repeats: false,
+        interval: 200,
+    })
     towersInDistance = [];
     mapping = false;
     running = false;
@@ -46,21 +70,22 @@ export class Park extends Scene {
         "5*0",
         "5*0, 6*1",
     ];
-wave = 0;
+    wave = 0;
     waveItem = 0;
+    activeWave;
     order = [];
     walls = [];
     nearestTowerName;
     garden = new Actor({width: 100, height: 100});
     gardenSprites = [Resources.Garden, Resources.Garden4, Resources.Garden3, Resources.Garden2, Resources.Garden1, Resources.Garden1]
     music = Resources.ParkMusic;
-
+    plop = Resources.Plop;
     click = Resources.Click;
     spiderSpawner = 0;
     isLegal = true;
     string = "";
     endlessMode = false;
-
+    activeEnemies = 0;
     nameLabel;
     settingsButton;
 
@@ -136,9 +161,9 @@ wave = 0;
         this.garden.on("collisionstart", (event) => {
             if (event.other instanceof Enemy) {
                 this.engine.damage();
-                this.garden.graphics.use(this.gardenSprites[Math.ceil(this.engine.levens/4)].toSprite())
-                console.log(Math.ceil(this.engine.levens/4))
-
+                this.crunch.play();
+                this.garden.graphics.use(this.gardenSprites[Math.ceil(this.engine.levens / 4)].toSprite())
+                event.other.explode();
             }
         });
 
@@ -193,6 +218,11 @@ wave = 0;
         this.button(this.spiderTrikeButton, Resources.SpiderTrike, new Vector(1350, 500), new Vector(1.5, 1.5))
         this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
         this.enemies();
+
+
+        this.activeWave = new Actor();
+        this.button(this.activeWave, Resources.TinyLau, new Vector(130, 350), new Vector(2, 2))
+        this.activeWave.on("pointerdown", (event) => this.startWave());
     }
 
     //Functie voor het maken van een knop die gebruikt wordt in het menu. Het gebruik:
@@ -213,8 +243,6 @@ wave = 0;
         if (this.endlessMode) {
             this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
         }
-
-        console.log(this.levels);
 
         this.parse(this.wave);
     }
@@ -255,7 +283,6 @@ wave = 0;
 
             this.nearestTowerName = this.towers[this.towersInDistance.indexOf(nearestTower, 0)];
 
-            console.log(this.towersInDistance)
             if (nearestTower < 100) {
                 this.towers.forEach(tower => {
                     tower.deSelect();
@@ -282,21 +309,30 @@ wave = 0;
             newClone.pos = this.placingSprite.pos;
             this.add(newClone);
             this.towers.push(newClone);
+            this.add(this.upgradeParticles);
+            this.upgradeParticles.isEmitting = true;
+            this.upgradeParticles.pos = newClone.pos;
+            this.add(this.timer);
+            this.timer.start()
             newClone.checkSelf(this.int);
             this.activetower = newClone;
             this.placing = false;
             this.placingSprite.kill();
+            this.plop.play();
         } else if (this.mapping) {
             let pos = this.engine.input.pointers.primary.lastWorldPos;
             this.path += `,${Math.floor(pos.x).toString()}.${Math.floor(pos.y).toString()}`;
             localStorage.setItem("this.path", this.path);
             // console.log(this.path)
         } else {
-            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
-            console.log(this.string);
+            //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+
         }
     }
-
+    removeParticles() {
+        this.upgradeParticles.isEmitting = false;
+        this.upgradeParticles.kill();
+    }
     menuInfo() {
         if (this.nameLabel && this.activetower) {
             this.nameLabel.text = this.activetower.name.toString();
@@ -309,12 +345,22 @@ wave = 0;
         }
     }
 
+    startWave() {
+        if (this.activeEnemies === 0) {
+            this.waveItem = 0;
+            this.parse(this.wave);
+            this.running = true;
+            this.wave += 1;
+        } else {
+            console.log("Already Running");
+        }
+    }
+
     buyTower() {
         if (this.engine.gulden >= 50) {
             this.engine.gulden -= 50;
             this.guldenDisplay.text = `${this.engine.gulden}`;
-            console.log(this.engine.gulden);
-            console.log("e");
+
             this.placing = !this.placing;
             // console.log(this.int);
             if (this.placing) {
@@ -344,8 +390,6 @@ wave = 0;
         this.levensDisplay.text = `${this.engine.levens}`;
 
         this.placingSprite.checkSelf(this.int, this.isLegal);
-
-
         if (this.engine.input.keyboard.wasPressed(Input.Keys.B)) {
             this.placing = !this.placing;
             if (this.placing) {
@@ -388,16 +432,15 @@ wave = 0;
             this.activetower.kill();
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.K)) {
-            0
-            this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) - 1)];
 
+            this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) - 1)];
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.L)) {
             if (this.engine.gulden >= 50) {
                 this.engine.gulden -= 50;
                 this.guldenDisplay.text = `${this.engine.gulden}`;
                 this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) + 1)];
-                console.log(this.activetower.tier);
+                this.activetower.tierUp();
             }
 
 
@@ -414,20 +457,25 @@ wave = 0;
         if (this.placing) {
             this.placingSprite.pos = this.engine.input.pointers.primary.lastWorldPos;
         }
-        if (this.waveItem <= this.order.length - 1) {
-            if (this.spiderSpawner === 1 && this.running) {
-                let enemy = new Enemy(this);
-                enemy.setType(this.order[this.waveItem]);
-                this.add(enemy);
-                this.waveItem += 1;
-            }
-            if (this.endlessMode && this.waveItem === this.order.length) {
-                this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
-                this.parse(this.wave);
-            }
-            this.spiderSpawner++;
-            if (this.spiderSpawner > Math.random() * (150 - 50) + 50) {
-                this.spiderSpawner = 0;
+        if (this.running) {
+            if (this.waveItem <= this.order.length - 1) {
+                if (this.spiderSpawner === 1) {
+                    let enemy = new Enemy(this);
+                    enemy.setType(this.order[this.waveItem]);
+                    this.add(enemy);
+                    this.waveItem += 1;
+                    this.activeEnemies += 1;
+                }
+                if (this.endlessMode && this.waveItem === this.order.length) {
+                    this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
+                    this.parse(this.wave);
+                }
+                this.spiderSpawner++;
+                if (this.spiderSpawner > Math.random() * (150 - 50) + 50) {
+                    this.spiderSpawner = 0;
+                }
+            } else {
+
             }
         }
     }

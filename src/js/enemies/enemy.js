@@ -27,6 +27,7 @@ export class Enemy extends Actor {
 
     ];
     positionInRoute;
+
 engine;
     game;
     timeAlive = 0;
@@ -52,7 +53,7 @@ engine;
         this._setName("Enemy");
         this.on('collisionstart', (event) => this.collided(event));
         this.setRoute()
-        this.engine = engine;
+
     }
 
     setRoute() {
@@ -194,6 +195,11 @@ engine;
 
         if (this.deathAnimation < 0) {
             this.kill();
+            this.game.activeEnemies -=1;
+            if(this.engine.levens < 1) {
+                this.engine.goToScene('menu');
+            }
+
         }
         if (this.deathAnimation > 0) {
             this.graphics.opacity = (this.deathAnimation / 50);
@@ -215,15 +221,6 @@ engine;
         }
 
 
-        if (this.pos.y > window.innerHeight) {
-
-            this.kill();
-            console.log("tempostener")
-            if(this.engine.levens < 1) {
-                this.engine.goToScene('menu');
-            }
-
-        }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
             this.move(this.route);
 

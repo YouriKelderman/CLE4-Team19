@@ -59,7 +59,7 @@ export class Tower extends Actor {
         this.collider.set(circle);
         if (this.type === 1) {
             this.on('collisionstart', (event) => {
-                if(event.other instanceof PanBami && event.other !== this.game.placingSprite) this.collisionHandlerTinyLau(event)
+                if (event.other instanceof PanBami && event.other !== this.game.placingSprite) this.collisionHandlerTinyLau(event)
             });
         }
         console.log(this.type);
@@ -85,11 +85,12 @@ export class Tower extends Actor {
 
     collisionHandlerTinyLau(event) {
 
-        if(event.other instanceof PanBami && event.other.type !== 1) {
+        if (event.other instanceof PanBami && event.other.type !== 1) {
             event.other.coolDown = event.other.coolDown - (0.25 * event.other.coolDown);
             console.log(event.other.coolDown);
         }
     }
+
 
     checkSelf(sprite) {
         if (this.game.isLegal === true) {
