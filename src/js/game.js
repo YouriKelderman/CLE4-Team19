@@ -4,8 +4,7 @@ import {Resources, ResourceLoader} from "./resources.js";
 import {Menu} from "./menu.js";
 import {Park} from "./park.js";
 import {Settings} from "./settings.js";
-import {Gulden} from "./money.js";
-import {Levens} from "./health.js";
+import {Levelselect} from "./levelselect.js";
 
 export class Game extends Engine {
 
@@ -29,6 +28,7 @@ export class Game extends Engine {
         };
 
         this.add('menu', new Menu());
+        this.add ('levelselect', new Levelselect());
         this.add('park', new Park());
         this.add('settings', new Settings())
 

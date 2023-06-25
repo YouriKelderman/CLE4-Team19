@@ -109,7 +109,7 @@ export class Menu extends Scene {
         console.log('start game');
         this.click.volume = 1;
         this.click.play();
-        this.engine.goToScene('park');
+        this.engine.goToScene('levelselect');
 
     }
 
