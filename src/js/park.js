@@ -15,7 +15,7 @@ import {
     TextAlign
 } from "excalibur";
 import {Scene} from "excalibur";
-import {PanBami} from "./towers/panBami.js";
+import {Tower} from "./towers/tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
 import {PlaceTower} from "./towers/placeTower.js";
 import {Enemy} from "./enemies/enemy.js";
@@ -125,7 +125,7 @@ export class Park extends Scene {
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
-        mapFloor.pos = new Vector(745, 425);
+        mapFloor.pos = new Vector(745, 473);
         this.add(mapFloor);
         let mapTop = new Actor();
         mapTop.graphics.use(Resources.Map1Top.toSprite());
@@ -245,7 +245,7 @@ export class Park extends Scene {
             if (nearestTower < 100) {
 
                 this.towers.forEach(tower => {
-                    tower.deSelect();
+                    tower.deSelect()
                 });
                 this.activetower = this.nearestTowerName;
                 this.activetower.select();
@@ -265,7 +265,7 @@ export class Park extends Scene {
 
 
         if (this.placing && this.isLegal) {
-            let newClone = new PanBami(this, this.int);
+            let newClone = new Tower(this, this.int);
             newClone.pos = this.placingSprite.pos;
             this.add(newClone);
             this.towers.push(newClone);
@@ -285,11 +285,11 @@ export class Park extends Scene {
     }
 
     menuInfo() {
-        if (this.nameLabel && this.activetower) {
-            this.nameLabel.text = this.activetower.name.toString();
+        if (this.activetower) {
 
             console.log(this.activetower);
             console.log(this.activetower.id);
+            console.log(this.activetower.type);
             console.log(this.activetower._name);
             console.log(this.activetower.tier);
             console.log(this.activetower.range);
@@ -393,7 +393,9 @@ export class Park extends Scene {
                 this.waveItem += 1;
             }
             if (this.endlessMode && this.waveItem === this.order.length) {
-                this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
+                // this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
+                this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*1`];
+
                 this.parse();
             }
             this.spiderSpawner++;

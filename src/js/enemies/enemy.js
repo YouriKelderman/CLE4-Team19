@@ -39,6 +39,7 @@ export class Enemy extends Actor {
     nextPath
     damageOverTime = 0
     damageCooldown = 0
+    enemyType = 0;
 
     constructor(game) {
         super();
@@ -65,12 +66,12 @@ export class Enemy extends Actor {
             this.route.push(newItem);
         });
         this.route[0] = this.route[1];
-        console.log(this.route[1]);
         this.move(this.route);
     }
 
     setType(type) {
         this.type = type;
+        this.enemyType = type
         this.sprite = this.enemies[type][0].toSprite();
         this.graphics.use(this.sprite);
         this.health = this.enemies[type][1];
@@ -110,6 +111,10 @@ export class Enemy extends Actor {
                     this.damageOverTime = 1000;
                 }
                 this.removeBulletHealth(event)
+                this.health -= event.other.damage;
+                this.damageAnimation = 50
+            }
+            if (event.other.name === "curse") {
                 this.health -= event.other.damage;
                 this.damageAnimation = 50
             }
