@@ -1,4 +1,17 @@
-import {Actor, Engine, Vector, Label, Color, Font, Debug, Transform, Screen, Scene, Camera, DisplayMode} from "excalibur";
+import {
+    Actor,
+    Engine,
+    Vector,
+    Label,
+    Color,
+    Font,
+    Debug,
+    Transform,
+    Screen,
+    Scene,
+    Camera,
+    DisplayMode
+} from "excalibur";
 import {DevTool} from "@excaliburjs/dev-tools";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Menu} from "./menu.js";
@@ -8,16 +21,13 @@ import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
 
 export class Game extends Engine {
-
     game
     musicVolume = 0.5;
     gulden = 1000;
-    levens = 0;
+    levens = 20;
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
-
-
         this.start(ResourceLoader).then(() => this.startGame());
         this.showDebug(false);
         this.debug.motion = {
@@ -43,6 +53,12 @@ export class Game extends Engine {
         this.goToScene('menu');
     }
 
+    damage() {
+        this.levens -=1;
+        this.currentScene.camera.shake(2, 2, 300)
+        this.currentScene.camera.tin
+        console.log(this.currentScene.camera)
+    }
 }
 
 new Game();

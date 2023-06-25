@@ -239,7 +239,6 @@ export class PanBami extends Actor {
             this.coolDown = 20
         }
 
-
         // pad 2
         if (this.tier === 2.1) {
             let bullet = new Projectile(1000, this.damage, 1, 1);

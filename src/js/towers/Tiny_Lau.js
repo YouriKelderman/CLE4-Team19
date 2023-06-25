@@ -22,8 +22,7 @@ import {Tower} from "./Tower.js";
 let itemIds = [
     Resources.Pan, Resources.TinyLau
 ];
-let towerRange = 300;
-let game;
+
 
 export class Tiny_Lau extends Tower {
     tier = 0;

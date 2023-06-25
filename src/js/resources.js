@@ -31,7 +31,12 @@ import mouse from '../images/muis.png';
 import rat from '../images/rat.png';
 import racoon from '../images/racoon.png'
 import snail from '../images/snail.png'
-
+//Garden
+import garden from "../images/garden.png"
+import garden1 from "../images/garden-1.png"
+import garden2 from "../images/garden-2.png"
+import garden3 from "../images/garden-3.png"
+import garden4 from "../images/garden-4.png"
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
 import click from '../sounds/click.wav';
@@ -56,12 +61,17 @@ font.load()
 
 const Resources = {
     Logo: new ImageSource(logo),
-    PausedLogo : new ImageSource(pausedLogo),
-    HervatButton : new ImageSource(HervatButton),
-    Volumeup : new ImageSource(Volumeup),
-    Volumedown : new ImageSource(Volumedown),
-    Mutebutton : new ImageSource(Mutebutton),
+    PausedLogo: new ImageSource(pausedLogo),
+    HervatButton: new ImageSource(HervatButton),
+    Volumeup: new ImageSource(Volumeup),
+    Volumedown: new ImageSource(Volumedown),
+    Mutebutton: new ImageSource(Mutebutton),
 
+    Garden: new ImageSource(garden),
+    Garden1: new ImageSource(garden1),
+    Garden2: new ImageSource(garden2),
+    Garden3: new ImageSource(garden3),
+    Garden4: new ImageSource(garden4),
     Loading: new ImageSource(loading),
     Start: new ImageSource(start),
     MenuSpider: new ImageSource(menuSpider),
@@ -97,49 +107,11 @@ const Resources = {
 
 };
 
-
-const ResourceLoader = new Loader([
-    Resources.Logo,
-    Resources.PausedLogo,
-    Resources.HervatButton,
-    Resources.Volumeup,
-    Resources.Volumedown,
-    Resources.Mutebutton,
-
-
-
-    Resources.Loading,
-    Resources.Start,
-    Resources.MenuSpider,
-    Resources.Pan,
-    Resources.TinyLau,
-    Resources.SpiderTrike,
-    Resources.Map1Ground,
-    Resources.Range,
-    Resources.Bami,
-    Resources.SpicyPan,
-    Resources.Map1Top,
-    Resources.SpiderMeneer,
-    Resources.PlayButton,
-    Resources.SettingsButton,
-    Resources.MenuButton,
-    Resources.SideButton,
-    Resources.BuyMenu,
-    Resources.Gulden,
-    Resources.Health,
-
-    Resources.Click,
-    Resources.MenuMusic,
-    Resources.BackgroundMusic,
-    Resources.SettingsMusic,
-    Resources.ParkMusic,
-
-    Resources.Spider,
-    Resources.Mouse,
-    Resources.Rat,
-    Resources.Racoon,
-    Resources.Snail,
-]);
+const resourceArray = []
+for (const key in Resources) {
+    resourceArray.push(Resources[key])
+}
+const ResourceLoader = new Loader(resourceArray)
 
 // Excaliber logo
 ResourceLoader.logo = loading;
