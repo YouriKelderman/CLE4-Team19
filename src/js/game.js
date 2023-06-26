@@ -18,6 +18,8 @@ import {Menu} from "./menu.js";
 import {Park} from "./park.js";
 import {Settings} from "./settings.js";
 import {Levelselect} from "./levelselect.js";
+import {Gulden} from "./money.js";
+import {Levens} from "./health.js";
 
 export class Game extends Engine {
     game
@@ -28,7 +30,7 @@ export class Game extends Engine {
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
         this.start(ResourceLoader).then(() => this.startGame());
-        this.showDebug(false);
+        this.showDebug(true);
         this.debug.motion = {
             accelerationColor: Color.Azure,
             showAcceleration: true,

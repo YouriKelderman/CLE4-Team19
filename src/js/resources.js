@@ -126,51 +126,6 @@ for (const key in Resources) {
 const ResourceLoader = new Loader(resourceArray)
 
 
-const ResourceLoader = new Loader([
-    Resources.Logo,
-    Resources.PausedLogo,
-    Resources.HervatButton,
-    Resources.Volumeup,
-    Resources.Volumedown,
-    Resources.Mutebutton,
-
-
-
-    Resources.Loading,
-    Resources.Start,
-    Resources.MenuSpider,
-    Resources.Pan,
-    Resources.TinyLau,
-    Resources.SpiderTrike,
-    Resources.Map1Ground,
-    Resources.ParkMapselect,
-    Resources.Range,
-    Resources.Bami,
-    Resources.SpicyPan,
-    Resources.Map1Top,
-    Resources.SpiderMeneer,
-    Resources.PlayButton,
-    Resources.SettingsButton,
-    Resources.MenuButton,
-    Resources.SideButton,
-    Resources.BuyMenu,
-    Resources.Gulden,
-    Resources.Health,
-
-    Resources.Click,
-    Resources.MenuMusic,
-    Resources.BackgroundMusic,
-    Resources.SettingsMusic,
-    Resources.ParkMusic,
-
-    Resources.Spider,
-    Resources.Mouse,
-    Resources.Rat,
-    Resources.Racoon,
-    Resources.Snail,
-]);
-
-
 // Excaliber logo
 ResourceLoader.logo = loading;
 ResourceLoader.logoWidth = 550;

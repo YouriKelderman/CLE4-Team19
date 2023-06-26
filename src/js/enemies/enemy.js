@@ -27,8 +27,8 @@ export class Enemy extends Actor {
 
     ];
     positionInRoute;
+    engine;
 
-engine;
     game;
     timeAlive = 0;
     particle;
@@ -40,6 +40,7 @@ engine;
     nextPath
     damageOverTime = 0
     damageCooldown = 0
+
     deathParticles = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
         radius: 10,
@@ -62,6 +63,9 @@ engine;
         repeats: false,
         interval: 200,
     })
+
+    enemyType = 0;
+
     constructor(game) {
         super();
         this.game = game;
@@ -88,12 +92,12 @@ engine;
             this.route.push(newItem);
         });
         this.route[0] = this.route[1];
-
         this.move(this.route);
     }
 
     setType(type) {
         this.type = type;
+        this.enemyType = type
         this.sprite = this.enemies[type][0].toSprite();
         this.graphics.use(this.sprite);
         this.health = this.enemies[type][1];
@@ -133,6 +137,10 @@ engine;
                     this.damageOverTime = 1000;
                 }
                 this.removeBulletHealth(event)
+                this.health -= event.other.damage;
+                this.damageAnimation = 50
+            }
+            if (event.other.name === "curse") {
                 this.health -= event.other.damage;
                 this.damageAnimation = 50
             }
