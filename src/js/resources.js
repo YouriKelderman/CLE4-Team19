@@ -8,6 +8,7 @@ import Volumeup from '../images/Volume-up.png';
 import Volumedown from '../images/Volume-down.png';
 import Mutebutton from '../images/MuteButton.png';
 import fontFile from "../VCR_OSD_MONO_1.001.ttf";
+import web from '../images/web.png';
 
 
 // menu
@@ -75,6 +76,7 @@ const Resources = {
     Volumeup: new ImageSource(Volumeup),
     Volumedown: new ImageSource(Volumedown),
     Mutebutton: new ImageSource(Mutebutton),
+    Web: new ImageSource(web),
 
     Garden: new ImageSource(garden),
     Garden1: new ImageSource(garden1),
@@ -117,7 +119,6 @@ const Resources = {
     Rat: new ImageSource(rat),
     Racoon: new ImageSource(racoon),
     Snail: new ImageSource(snail),
-
 };
 
 

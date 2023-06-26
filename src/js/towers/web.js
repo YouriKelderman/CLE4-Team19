@@ -16,10 +16,10 @@ import {
 import {Resources} from "../resources.js";
 import {Projectile} from "./projectile.js";
 
-export class PanBami extends Projectile {
+export class Web extends Projectile {
 
     projectileSpeed;
-    projectileTime = 200;
+    projectileTime = 25;
     damage = 1;
     health;
     special;
@@ -31,24 +31,12 @@ export class PanBami extends Projectile {
         this.damage = damage;
         this.health = health
         this.special = special
-
     }
 
     onInitialize(engine) {
-        this.graphics.use(Resources.Bami.toSprite());
+        this.graphics.use(Resources.Web.toSprite());
         this._setName("projectile");
-        this.collider.set(Shape.Box(10, 10))
+        this.collider.set(Shape.Box(5, 5))
         this.scale = new Vector(0.2, 0.2);
-
-        if (this.special === 1) {
-            this.graphics.use(Resources.SpicyPan.toSprite());
-        }
-
-
-        if (this.special === 2) {
-            this.scale = new Vector(0.4, 0.4)
-            this.collider.set(Shape.Box(25, 25))
-            this.graphics.use(Resources.SpicyPan.toSprite());
-        }
     }
 }
