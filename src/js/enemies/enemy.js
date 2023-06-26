@@ -115,9 +115,9 @@ export class Enemy extends Actor {
                 if (event.other.special === 1 || event.other.special === 2) {
                     this.damageOverTime = 1000;
                 }
-                if (event.other.special === 4) {
+                if (event.other.special === 4 && this.type === 0) {
                     for (let i = 0; i < Math.ceil(Math.random() * 20); i++) {
-                        let bullet = new Web(1000, 0.1, 4, 1);
+                        let bullet = new Web(1000, 1, 4, 1);
                         bullet.pos = this.pos;
                         bullet.rotation = Math.random() * 6 - Math.PI / 2;
                         this.engine.add(bullet);
