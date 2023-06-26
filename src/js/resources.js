@@ -47,6 +47,12 @@ import crunch from '../sounds/crunch.mp3';
 import plop from '../sounds/plop.mp3'
 import parkMusic from '../sounds/parkSong.mp3';
 import upgrade from '../sounds/upgrade.mp3'
+
+
+// map select screens
+import parkMapselect from '../images/parkmapselect.png';
+
+
 //gui
 import playButton from '../images/play-button.png';
 import settingsButton from '../images/settings-button.png';
@@ -86,6 +92,7 @@ const Resources = {
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
     Map1Top: new ImageSource(map1top),
+    ParkMapselect: new ImageSource(parkMapselect),
 
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
@@ -111,11 +118,58 @@ const Resources = {
 
 };
 
+
 const resourceArray = []
 for (const key in Resources) {
     resourceArray.push(Resources[key])
 }
 const ResourceLoader = new Loader(resourceArray)
+
+
+const ResourceLoader = new Loader([
+    Resources.Logo,
+    Resources.PausedLogo,
+    Resources.HervatButton,
+    Resources.Volumeup,
+    Resources.Volumedown,
+    Resources.Mutebutton,
+
+
+
+    Resources.Loading,
+    Resources.Start,
+    Resources.MenuSpider,
+    Resources.Pan,
+    Resources.TinyLau,
+    Resources.SpiderTrike,
+    Resources.Map1Ground,
+    Resources.ParkMapselect,
+    Resources.Range,
+    Resources.Bami,
+    Resources.SpicyPan,
+    Resources.Map1Top,
+    Resources.SpiderMeneer,
+    Resources.PlayButton,
+    Resources.SettingsButton,
+    Resources.MenuButton,
+    Resources.SideButton,
+    Resources.BuyMenu,
+    Resources.Gulden,
+    Resources.Health,
+
+    Resources.Click,
+    Resources.MenuMusic,
+    Resources.BackgroundMusic,
+    Resources.SettingsMusic,
+    Resources.ParkMusic,
+
+    Resources.Spider,
+    Resources.Mouse,
+    Resources.Rat,
+    Resources.Racoon,
+    Resources.Snail,
+]);
+
 
 // Excaliber logo
 ResourceLoader.logo = loading;
