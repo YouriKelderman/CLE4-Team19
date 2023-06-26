@@ -35,7 +35,7 @@ export class Park extends Scene {
         super();
     }
 
-
+    particleEmitting = false;
     placing = false;
     placingSprite;
     int = 0;
@@ -45,14 +45,36 @@ export class Park extends Scene {
     route = [];
     towers = [];
     crunch = Resources.Crunch;
-    upgradeParticles = new ParticleEmitter({
+    timer = new Timer({
+        fcn: () => this.removeParticles(),
+        repeats: false,
+        interval: 200,
+    })
+    deathParticles = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
-        radius: 1,
-        minVel: 100,
-        maxVel: 160,
+        radius: 10,
+        minVel: 50,
+        maxVel: 100,
         minAngle: 0,
         maxAngle: Math.PI * 2,
         emitRate: 300,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 600,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Red,
+        endColor: Color.fromRGB(139, 69, 19),
+        isEmitting: false
+    })
+    upgradeParticles = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 2,
+        minVel: 100,
+        maxVel: 200,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate:300,
         opacity: 1,
         fadeFlag: true,
         particleLife: 1000,
@@ -62,10 +84,22 @@ export class Park extends Scene {
         endColor: Color.Green,
         isEmitting: false
     })
-    timer = new Timer({
-        fcn: () => this.removeParticles(),
-        repeats: false,
-        interval: 200,
+    impactParticles = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 2,
+        minVel: 100,
+        maxVel: 200,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate:300,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 1000,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Green,
+        endColor: Color.Green,
+        isEmitting: false
     })
     towersInDistance = [];
     mapping = false;
@@ -82,6 +116,7 @@ export class Park extends Scene {
     wave = 0;
     waveItem = 0;
     activeWave;
+    impactParticleCounter = 0;
     order = [];
     walls = [];
     nearestTowerName;
@@ -100,6 +135,7 @@ export class Park extends Scene {
     buyMenuClick = 0;
     upgradeMenuClicked = 0;
     menuOpened = 0
+    particleCounter = 0;
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
@@ -196,7 +232,6 @@ export class Park extends Scene {
         });
 
 
-
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -219,7 +254,7 @@ export class Park extends Scene {
         this.settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(this.settingsButton);
 
-        this. buyMenuButton = new Actor();
+        this.buyMenuButton = new Actor();
         this.buyMenuButton.graphics.use(Resources.BuyButton.toSprite());
         this.buyMenuButton.pos = new Vector(50, 195);
         this.buyMenuButton.scale = new Vector(0.7, 0.7);
@@ -228,7 +263,6 @@ export class Park extends Scene {
         this.buyMenuButton.pointer.useGraphicsBounds = true;
         this.buyMenuButton.on("pointerup", (event) => this.drawBuyMenu());
         this.add(this.buyMenuButton);
-
 
 
         //sidebutton
@@ -241,7 +275,6 @@ export class Park extends Scene {
         this.bamiButton = new Actor();
         this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5))
         this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
-
 
 
         // buy tini en lau tower
@@ -296,6 +329,22 @@ export class Park extends Scene {
         this.parse(this.wave);
     }
 
+    enemyKilled(pos) {
+        this.deathParticles.isEmitting = true;
+        this.deathParticles.pos = pos;
+        this.add(this.deathParticles);
+        this.particleCounter = 0;
+        this.particleEmitting = true;
+        console.log("eeee");
+    }
+    impactParticle(pos) {
+        this.impactParticles.isEmitting = true;
+        this.impactParticles.pos = pos;
+        this.add(this.impactParticles);
+        this.impactParticleCounter = 0;
+        this.impactParticles = true;
+        console.log("eeee");
+    }
     parse(wave) {
         this.order = [];
         let parsedResult = this.levels[wave].split(",");
@@ -311,48 +360,41 @@ export class Park extends Scene {
         this.buyMenuClick++;
         if (this.buyMenuClick === 1) {
             this.buyMenu.pos = new Vector(1500, 450);
-            this.buyMenu.actions.moveTo(1400, 450,1100);
+            this.buyMenu.actions.moveTo(1400, 450, 1100);
 
             this.bamiButton.pos = new Vector(1500, 450);
-            this.bamiButton.actions.moveTo(1350, 450,1300);
+            this.bamiButton.actions.moveTo(1350, 450, 1300);
             this.add(this.buyMenu);
             this.add(this.bamiButton);
 
             this.tinyLauButton.pos = new Vector(1500, 350);
-            this.tinyLauButton.actions.moveTo(1350, 350,1300);
+            this.tinyLauButton.actions.moveTo(1350, 350, 1300);
             this.add(this.tinyLauButton);
 
             this.spiderTrikeButton.pos = new Vector(1500, 250);
-            this.spiderTrikeButton.actions.moveTo(1350, 250,1300);
+            this.spiderTrikeButton.actions.moveTo(1350, 250, 1300);
             this.add(this.spiderTrikeButton);
         }
         if (this.buyMenuClick === 2) {
             this.buyMenu.pos = new Vector(1500, 450);
-            this.buyMenu.actions.moveTo(1400, 450,800);
+            this.buyMenu.actions.moveTo(1400, 450, 800);
             this.buyMenu.kill()
 
             this.bamiButton.pos = new Vector(1350, 450);
-            this.bamiButton.actions.moveTo(1500, 450,1300);
+            this.bamiButton.actions.moveTo(1500, 450, 1300);
             this.bamiButton.kill()
             this.tinyLauButton.pos = new Vector(1350, 350);
-            this.tinyLauButton.actions.moveTo(1500, 350,1300);
+            this.tinyLauButton.actions.moveTo(1500, 350, 1300);
             this.tinyLauButton.kill()
             this.spiderTrikeButton.pos = new Vector(1350, 250);
-            this.spiderTrikeButton.actions.moveTo(1500, 250,1300);
+            this.spiderTrikeButton.actions.moveTo(1500, 250, 1300);
             this.spiderTrikeButton.kill()
-
-
-
 
 
             this.buyMenuClick = 0;
         }
 
     }
-
-
-
-
 
 
     goToSettings() {
@@ -379,7 +421,6 @@ export class Park extends Scene {
                 this.towers.forEach(tower => {
                     tower.deSelect()
                 });
-
 
 
                 this.activetower = this.nearestTowerName;
@@ -433,25 +474,25 @@ export class Park extends Scene {
     }
 
     menuInfo() {
-            if (this.upgradeMenu) {
-                this.upgradeMenu.actions.moveTo(1600, 450, 1000);
-                this.upgradeMenu.kill()
-            }
-                this.upgradeMenu = new UpgradeMenu();
-                this.pos = new Vector(1600, 450);
-                this.upgradeMenu.actions.moveTo(1400, 450, 1000);
-                this.add(this.upgradeMenu);
+        if (this.upgradeMenu) {
+            this.upgradeMenu.actions.moveTo(1600, 450, 1000);
+            this.upgradeMenu.kill()
+        }
+        this.upgradeMenu = new UpgradeMenu();
+        this.pos = new Vector(1600, 450);
+        this.upgradeMenu.actions.moveTo(1400, 450, 1000);
+        this.add(this.upgradeMenu);
 
-                if (this.nameLabel && this.activetower) {
-                    this.nameLabel.text = this.activetower.name.toString();
+        if (this.nameLabel && this.activetower) {
+            this.nameLabel.text = this.activetower.name.toString();
 
-                    console.log(this.activetower);
-                    console.log(this.activetower.id);
-                    console.log(this.activetower._name);
-                    console.log(this.activetower.tier);
-                    console.log(this.activetower.range);
-                    console.log(this.activetower.damage);
-                }
+            console.log(this.activetower);
+            console.log(this.activetower.id);
+            console.log(this.activetower._name);
+            console.log(this.activetower.tier);
+            console.log(this.activetower.range);
+            console.log(this.activetower.damage);
+        }
     }
 
     startWave() {
@@ -501,8 +542,22 @@ export class Park extends Scene {
     }
 
     onPreUpdate(engine, delta) {
-
-
+        if (this.deathParticles.isEmitting) {
+            if (this.particleCounter > 20) {
+                this.particleCounter = 0
+                this.deathParticles.isEmitting = false;
+                this.deathParticles.kill();
+            }
+            this.particleCounter++
+        }
+        if (this.impactParticles.isEmitting) {
+            if (this.impactParticleCounter > 20) {
+                this.impactParticleCounter = 0
+                this.impactParticles.isEmitting = false;
+                this.impactParticles.kill();
+            }
+            this.impactParticleCounter++
+        }
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
             this.goToSettings();
         }
@@ -568,7 +623,7 @@ export class Park extends Scene {
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
             this.int += 1;
-            if (this.int > 2) {
+            if (this.int > 3) {
                 this.int = 0;
             }
         }

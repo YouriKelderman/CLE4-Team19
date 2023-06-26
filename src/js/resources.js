@@ -21,7 +21,8 @@ import range from '../images/range.png';
 // park
 import bami from '../images/bami.png';
 import spicyBami from '../images/spicyBami.png';
-import pan from '../images/aboutaleb.png';
+import pan from '../images/pan-bami.png';
+import aboutaleb from '../images/aboutaleb.png';
 import tinyLau from '../images/TinyLau_Tower.png';
 
 import spidermeneer from '../images/spider-meneer.png';
@@ -94,6 +95,7 @@ const Resources = {
     SpiderMeneer: new ImageSource(spidermeneer),
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
+    aboutaleb: new ImageSource(aboutaleb),
     Map1Top: new ImageSource(map1top),
     ParkMapselect: new ImageSource(parkMapselect),
 
