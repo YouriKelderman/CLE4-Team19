@@ -21,7 +21,6 @@ export class Gulden extends Label {
         console.log(this.text);
     }
 
-
     updateScore() {
         this.text = `Score: 200`
     }

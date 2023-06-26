@@ -1,9 +1,9 @@
 import {Actor, Vector, Engine, Random, CollisionType, Shape, Circle, Color, Line} from "excalibur";
 import {Resources} from "../resources.js";
-import {PanBami} from "./panBami.js";
+import {Tower} from "./tower.js";
 
 
-export class PlaceTower extends PanBami {
+export class PlaceTower extends Tower {
 
     range;
     itemIds = [
@@ -13,6 +13,7 @@ export class PlaceTower extends PanBami {
     constructor(spriteID) {
         super()
     }
+
 
 
     onInitialize(engine) {
