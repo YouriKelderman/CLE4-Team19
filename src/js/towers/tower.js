@@ -76,6 +76,7 @@ export class Tower extends Actor {
         if (this.type === 0) {
             this._setName("Pan Bami");
             this.towerRange = 200;
+
         }
         if (this.type === 1) {
             this._setName("Tiny & Lau");
