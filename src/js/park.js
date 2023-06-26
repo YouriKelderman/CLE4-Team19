@@ -73,7 +73,7 @@ export class Park extends Scene {
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
-        "5*0",
+        "5*1",
         "5*0, 6*1",
         "5*0, 6*1, 12*2, 10*1, 12*3",
         "1000*3"
@@ -109,11 +109,9 @@ export class Park extends Scene {
             this.music.pause();
 
         } else {
-
             this.music.loop = true;
             this.music.play().then(r => console.log(r));
         }
-
     }
 
     onDeactivate(_context) {
@@ -122,7 +120,6 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
-
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
@@ -557,7 +554,7 @@ export class Park extends Scene {
             }
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
-            this.mapping = !this.mapping;
+            this.mapping = !this.wave.mapping;
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
             this.int += 1;
