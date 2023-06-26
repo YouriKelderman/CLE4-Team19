@@ -20,11 +20,14 @@ import {Settings} from "./settings.js";
 import {Levelselect} from "./levelselect.js";
 import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
+import {UpgradeMenu} from "./buyMenu.js";
 
 export class Game extends Engine {
     game
     musicVolume = 0.5;
     gulden = 1000;
+    buyMenu;
+    activetower;
     levens = 20;
 
     constructor() {
@@ -43,6 +46,8 @@ export class Game extends Engine {
         this.add ('levelselect', new Levelselect());
         this.add('park', new Park());
         this.add('settings', new Settings())
+
+
 
     }
 
