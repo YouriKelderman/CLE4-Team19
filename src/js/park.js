@@ -375,23 +375,16 @@ export class Park extends Scene {
             this.add(this.spiderTrikeButton);
         }
         if (this.buyMenuClick === 2) {
-           this.buyMenu.pos = new Vector(1500, 450);
-            this.buyMenu.actions.moveTo(1400, 450, 800);
             this.buyMenu.kill()
 
             this.bamiButton.pos = new Vector(1350, 450);
-            this.bamiButton.actions.moveTo(1500, 450, 1300);
             this.bamiButton.kill()
 
             this.tinyLauButton.pos = new Vector(1350, 350);
-            this.tinyLauButton.actions.moveTo(1500, 350, 1300);
             this.tinyLauButton.kill()
 
             this.spiderTrikeButton.pos = new Vector(1350, 250);
             this.spiderTrikeButton.kill()
-            this.spiderTrikeButton.actions.moveTo(1500, 250, 1300);
-            this.spiderTrikeButton.kill()
-
 
             this.buyMenuClick = 0;
 
@@ -435,20 +428,28 @@ export class Park extends Scene {
                 if (this.upgradeMenu) {
                     this.upgradeMenu.actions.moveTo(1600, 450, 1000);
                     this.upgradeMenu.kill()
-                    this.towerName.kill()
+                    this.towerName.kill();
                     this.upgradeButton.kill()
                     this.towerRange.kill()
+                    this.rangeIndicator.kill()
+                    this.damageIndicator.kill()
 
 
                 }
 
                 this.towers.forEach(tower => {
                     tower.deSelect();
+
+
                 });
             }
             this.towersInDistance = [];
 
+
+
         }
+
+
         if (this.placing && this.isLegal) {
             let newClone = new Tower(this, this.int);
             newClone.pos = this.placingSprite.pos;
@@ -471,17 +472,14 @@ export class Park extends Scene {
             localStorage.setItem("this.path", this.path);
             // console.log(this.path)
         } else {
-
             //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
 
         }
     }
-
     removeParticles() {
         this.upgradeParticles.isEmitting = false;
         this.upgradeParticles.kill();
     }
-
     menuInfo() {
         this.buyMenuClick = 1;
         this.drawBuyMenu();
@@ -491,6 +489,10 @@ export class Park extends Scene {
             this.towerName.actions.moveTo(1600, 450, 1000);
             this.towerName.kill();
             this.upgradeButton.kill()
+            this.towerRange.kill()
+            this.rangeIndicator.kill()
+            this.damageIndicator.kill()
+
         }
         this.upgradeMenu = new UpgradeMenu();
         this.pos = new Vector(1600, 450);
