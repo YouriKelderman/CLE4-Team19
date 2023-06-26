@@ -58,14 +58,14 @@ export class CurseWord extends Actor {
     }
 
     onPreUpdate(engine, _delta) {
+        console.log(this.target)
         if (this.target.other._name !== "Enemy") {
             let pos1 = new Vector(this.pos.x, this.pos.y);
             let pos2 = new Vector(this.target.other.worldPosition.x, this.target.other.worldPosition.y);
 
             let distance = pos1.distance(pos2);
-
             if (distance < 100) {
-                this.target.target.buff(this.special)
+                this.target.other.buff(this.special)
                 this.kill()
             }
         }
