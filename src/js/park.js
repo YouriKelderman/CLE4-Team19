@@ -837,9 +837,17 @@ export class Park extends Scene {
     }
 
     buyTower(id) {
-        if (this.engine.gulden >= 50) {
-            this.engine.gulden -= 50;
-            this.guldenDisplay.text = `${this.engine.gulden}`;
+        if (id === 1 && this.engine.gulden >= 375) {
+            this.engine.gulden -= 375;
+        }
+        if (id === 2 && this.engine.gulden >= 800) {
+            this.engine.gulden -= 800;
+        }
+        if (id === 3 && this.engine.gulden >= 650) {
+            this.engine.gulden -= 650;
+        }
+
+        this.guldenDisplay.text = `${this.engine.gulden}`;
 
             if (id === 1) {
                 this.int = 0;
@@ -869,7 +877,7 @@ export class Park extends Scene {
                 this.placingSprite.kill();
             }
         }
-    }
+
 
     onPreUpdate(engine, delta) {
         if (this.deathParticles.isEmitting) {
@@ -925,7 +933,7 @@ export class Park extends Scene {
             this.guldenDisplay.text = `${this.engine.gulden}`;
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
-            this.running = !this.running;
+            this.startWave()
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.P)) {
             this.activetower.updateRange(this.activetower.range += 50);
@@ -974,7 +982,7 @@ export class Park extends Scene {
                     this.parse(this.wave);
                 }
                 this.spiderSpawner++;
-                if (this.spiderSpawner > Math.random() * (50 - 10) + 10) {
+                if (this.spiderSpawner > Math.random() * (100 - 25) + 25) {
                     this.spiderSpawner = 0;
                 }
             } else {
