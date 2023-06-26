@@ -88,24 +88,13 @@ engine;
             this.description = ("Scheld naar andere.\n\nVersterkt anderen of\npijnigt de vijand");
         }
         if (this.type === 2) {
-            this._setName("Spiderman");
+            this._setName("Spinnenman");
             this.towerRange = 300;
             this.description = ("Kookt lekker eten.\n\nMaar schiet ook\nwebben naar vijanden");
             this.shootingMode = 3
         }
-        if (this.type === 0) {
-            this._setName("Pan Bami");
-            this.description =("Gooit een pan bami\n\nnaar ongedierte. \n\nHet liefst uit het\nraam naar beneden.");
-            this.towerRange = 200;
-            this.shootingMode = 0
 
-        }
-        if (this.type === 1) {
-            this._setName("Tiny & Lau");
-            this.towerRange = 100;
-            this.description = ("Scheld naar andere.\nVersterkt anderen of\npijnigt de vijand");
-        }
-        if (this.type === 4) {
+        if (this.type === 3) {
             this._setName("Aboutaleb");
             this.towerRange = 300;
             this.description = ("Kookt lekker eten.\nMaar schiet ook\nwebben naar vijanden");

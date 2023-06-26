@@ -457,7 +457,10 @@ export class Park extends Scene {
     uiRemover(){
         this.upgradeMenu.kill()
         this.towerName.kill();
-        this.upgradeButton.kill()
+        this.add(this.upgradeButton1);
+        this.add(this.upgradeButton2);
+        this.add(this.upgradeButton3);
+        this.add(this.upgradeButton4);
         this.towerRange.kill()
         this.rangeIndicator.kill()
         this.damageIndicator.kill()
@@ -604,18 +607,52 @@ export class Park extends Scene {
 
         this.add(this.upgradeText);
 
-        this.upgradeButton = new Actor();
-        this.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
-        this.upgradeButton.pos = new Vector(1500, 550);
-        this.upgradeButton.actions.moveTo(1290, 550, 1600);
-        this.upgradeButton.scale = new Vector(1, 1);
-        this.upgradeButton.z = 999999;
-        this.upgradeButton.enableCapturePointer = true;
-        this.upgradeButton.pointer.useGraphicsBounds = true;
-        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUp1_1());
+        this.upgradeButton1 = new Actor();
+        this.upgradeButton1.graphics.use(Resources.UpgradeButton.toSprite());
+        this.upgradeButton1.pos = new Vector(1500, 550);
+        this.upgradeButton1.actions.moveTo(1290, 550, 1600);
+        this.upgradeButton1.scale = new Vector(1, 1);
+        this.upgradeButton1.z = 999999;
+        this.upgradeButton1.enableCapturePointer = true;
+        this.upgradeButton1.pointer.useGraphicsBounds = true;
+        this.upgradeButton1.on("pointerdown", (event) => this.activetower.tierUp1_1());
+
+        this.upgradeButton2 = new Actor();
+        this.upgradeButton2.graphics.use(Resources.UpgradeButton.toSprite());
+        this.upgradeButton2.pos = new Vector(1500, 650);
+        this.upgradeButton2.actions.moveTo(1290, 650, 1600);
+        this.upgradeButton2.scale = new Vector(1, 1);
+        this.upgradeButton2.z = 999999;
+        this.upgradeButton2.enableCapturePointer = true;
+        this.upgradeButton2.pointer.useGraphicsBounds = true;
+        this.upgradeButton2.on("pointerdown", (event) => this.activetower.tierUp1_2());
+
+        this.upgradeButton3 = new Actor();
+        this.upgradeButton3.graphics.use(Resources.UpgradeButton.toSprite());
+        this.upgradeButton3.pos = new Vector(1500,750 );
+        this.upgradeButton3.actions.moveTo(1290, 750, 1600);
+        this.upgradeButton3.scale = new Vector(1, 1);
+        this.upgradeButton3.z = 999999;
+        this.upgradeButton3.enableCapturePointer = true;
+        this.upgradeButton3.pointer.useGraphicsBounds = true;
+        this.upgradeButton3.on("pointerdown", (event) => this.activetower.tierUp2_1());
+
+        this.upgradeButton4 = new Actor();
+        this.upgradeButton4.graphics.use(Resources.UpgradeButton.toSprite());
+        this.upgradeButton4.pos = new Vector(1500, 750);
+        this.upgradeButton4.actions.moveTo(1390, 750, 1600);
+        this.upgradeButton4.scale = new Vector(1, 1);
+        this.upgradeButton4.z = 999999;
+        this.upgradeButton4.enableCapturePointer = true;
+        this.upgradeButton4.pointer.useGraphicsBounds = true;
+        this.upgradeButton4.on("pointerdown", (event) => this.activetower.tierUp2_2());
 
 
-        this.add(this.upgradeButton);
+        this.add(this.upgradeButton1);
+        this.add(this.upgradeButton2);
+        this.add(this.upgradeButton3);
+        this.add(this.upgradeButton4);
+
 
                 if (this.nameLabel && this.activetower) {
                     this.nameLabel.text = this.activetower.name.toString();
