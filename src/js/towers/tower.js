@@ -1,4 +1,4 @@
-import {Actor, Color, RotationType, Shape, Vector} from "excalibur";
+import {Actor, Color, EmitterType, ParticleEmitter, RotationType, Shape, Timer, Vector} from "excalibur";
 
 import {Resources} from "../resources.js";
 import {PanBami} from "./panBami.js";
@@ -26,12 +26,38 @@ export class Tower extends Actor {
     rangeDisplay;
     worldPosition;
     randomizerCooldown = 0;
+    upgradeParticles;
 
+    upgrade = Resources.Upgrade;
+    upgradeParticles = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 2,
+        minVel: 100,
+        maxVel: 200,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate:300,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 1000,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Green,
+        endColor: Color.Green,
+        isEmitting: false
+    })
+    timer = new Timer({
+        fcn: () => this.removeParticles(),
+        repeats: false,
+        interval: 200,
+    })
     towerRange = 0;
     game;
     curseCooldown = 250;
     damageMultiplier = 1
     seeMouses = false
+
+
 
     constructor(Game, type) {
         super({
@@ -75,7 +101,6 @@ export class Tower extends Actor {
             if (event.other.name === "Enemy" || event.other.name === "Pan Bami" || event.other.name === "Tiny & Lau" || event.other.name === "Spiderman") {
                 this.collisionHandler(event);
             }
-            ;
         });
 
         this.worldPosition = new Vector(this.pos.x, this.pos.y);
@@ -94,7 +119,6 @@ export class Tower extends Actor {
     }
 
     collisionHandler(event) {
-        console.log(event)
         if (this.type === 0) {
             if (event.other.name === "Enemy") {
                 this.amountOfEnemies++;
@@ -183,21 +207,20 @@ export class Tower extends Actor {
             if (this.randomizerCooldown === 1) {
                 let towers = [];
                 this.enemiesInRadiusName.forEach(enemy => {
-                    if (enemy.other.name !== "Enemy") {
+
+                    if (enemy.other instanceof Tower) {
                         towers.push(enemy);
+
                     }
                 });
-                if (this.towers !== undefined) {
-                    if (this.towers.length < 1) {
-                        this.enemy = this.enemiesInRadiusName[Math.floor(Math.random() * this.enemiesInRadiusName.length)];
-                    } else {
+                    if (towers.length > 0) {
                         this.enemy = towers[Math.floor(Math.random() * this.enemiesInRadiusName.length)];
+                    } else {
+                        this.enemy = this.enemiesInRadiusName[Math.floor(Math.random() * this.enemiesInRadiusName.length)];
                     }
-                }
-                this.towers = [];
+                towers = [];
                 this.actions.clearActions();
                 this.shootingCooldown = this.coolDown - 50
-                console.log(this.coolDown)
             }
 
         }
@@ -251,7 +274,7 @@ export class Tower extends Actor {
 
             }
 
-                this.inRange();
+            this.inRange();
         }
     }
 
@@ -389,5 +412,20 @@ export class Tower extends Actor {
         this.damageMultiplier = 1
         this.seeMouses = false
     }
+
+    tierUp() {
+        this.game.add(this.upgradeParticles);
+        this.upgradeParticles.isEmitting = true;
+        this.upgrade.play();
+        this.upgradeParticles.pos = this.pos;
+        this.game.add(this.timer);
+        this.timer.start()
+    }
+
+    removeParticles() {
+        this.upgradeParticles.isEmitting = false;
+        this.upgradeParticles.kill();
+    }
+
 
 }

@@ -14,7 +14,6 @@ import {
 } from "excalibur";
 
 import {Resources} from "../resources.js";
-import {Actor, Shape, Vector} from "excalibur";
 
 export class PanBami extends Actor {
 
@@ -38,7 +37,7 @@ export class PanBami extends Actor {
         this.graphics.use(Resources.Bami.toSprite());
         this._setName("projectile");
         this.collider.set(Shape.Box(10, 10))
-         this.scale = new Vector(0.2, 0.2);
+        this.scale = new Vector(0.2, 0.2);
 
         if (this.special === 1) {
             this.graphics.use(Resources.SpicyPan.toSprite());
