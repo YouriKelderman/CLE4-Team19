@@ -12,6 +12,7 @@ export class PlaceTower extends Tower {
 
     constructor(spriteID) {
         super()
+        this.spriteID = spriteID
     }
 
 

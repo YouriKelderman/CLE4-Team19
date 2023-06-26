@@ -107,7 +107,7 @@ export class Park extends Scene {
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
-        "5*0",
+        "5*1",
         "5*0, 6*1",
         "5*0, 6*1, 12*2, 10*1, 12*3",
         "1000*3"
@@ -145,11 +145,9 @@ export class Park extends Scene {
             this.music.pause();
 
         } else {
-
             this.music.loop = true;
             this.music.play().then(r => console.log(r));
         }
-
     }
 
     onDeactivate(_context) {
@@ -276,7 +274,7 @@ export class Park extends Scene {
 
         this.bamiButton = new Actor();
         this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5))
-        this.bamiButton.on("pointerdown", (event) => this.buyTower());
+        this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
 
 
         // buy tini en lau tower
@@ -289,7 +287,7 @@ export class Park extends Scene {
         this.tinyLauButton.pointer.useGraphicsBounds = true;
 
         this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2))
-        this.tinyLauButton.on("pointerdown", (event) => this.buyTower());
+        this.tinyLauButton.on("pointerdown", (event) => this.buyTower(2));
 
         // buy spiderTrike tower
         this.spiderTrikeButton = new Actor();
@@ -300,7 +298,7 @@ export class Park extends Scene {
         this.spiderTrikeButton.pointer.useGraphicsBounds = true;
         this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
         this.button(this.spiderTrikeButton, Resources.SpiderTrike, new Vector(1350, 500), new Vector(1.5, 1.5))
-        this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
+        this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower(3));
         this.enemies();
 
 
@@ -508,10 +506,20 @@ export class Park extends Scene {
         }
     }
 
-    buyTower() {
+    buyTower(id) {
         if (this.engine.gulden >= 50) {
             this.engine.gulden -= 50;
             this.guldenDisplay.text = `${this.engine.gulden}`;
+
+            if (id === 1) {
+                this.int = 0;
+            }
+            if (id === 2) {
+                this.int= 1;
+            }
+            if (id === 3) {
+                this.int = 2;
+            }
 
             this.placing = !this.placing;
             // console.log(this.int);
@@ -611,7 +619,7 @@ export class Park extends Scene {
             }
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
-            this.mapping = !this.mapping;
+            this.mapping = !this.wave.mapping;
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
             this.int += 1;
