@@ -7,7 +7,7 @@ import {Web} from "./web.js";
 
 
 let itemIds = [
-    Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer,
+    Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer, Resources.aboutaleb,
 ];
 
 
@@ -51,6 +51,7 @@ export class Tower extends Actor {
         repeats: false,
         interval: 200,
     });
+
     towerRange = 0;
     game;
     curseCooldown = 250;
