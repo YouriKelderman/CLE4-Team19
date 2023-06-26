@@ -18,9 +18,4 @@ export class Levens extends Label {
         });
         console.log(this.text);
     }
-
-
-    updateScore() {
-        this.text = `Levens: 200`
-    }
 }

@@ -10,13 +10,15 @@ import Mutebutton from '../images/MuteButton.png';
 import fontFile from "../VCR_OSD_MONO_1.001.ttf";
 
 
+
 // menu
 import loading from '../images/loading.png';
 import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
-
 import range from '../images/range.png';
-
+import upgrade from '../images/UpgradeButton.png';
+import rangeIndicator from '../images/rangeIndicator.png';
+import damageIndicator from '../images/damageIndicator.png';
 // park
 import bami from '../images/bami.png';
 import spicyBami from '../images/spicyBami.png';
@@ -46,7 +48,7 @@ import backgroundMusic from '../sounds/backgroundMusic.mp3';
 import crunch from '../sounds/crunch.mp3';
 import plop from '../sounds/plop.mp3'
 import parkMusic from '../sounds/parkSong.mp3';
-import upgrade from '../sounds/upgrade.mp3'
+import UpgradeButton from '../images/UpgradeButton.png';
 
 
 // map select screens
@@ -64,6 +66,7 @@ import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
 
 
+
 const font = new FontFace("VCR", `url(${fontFile})`)
 document.fonts.add(font)
 font.load()
@@ -75,6 +78,7 @@ const Resources = {
     Volumeup: new ImageSource(Volumeup),
     Volumedown: new ImageSource(Volumedown),
     Mutebutton: new ImageSource(Mutebutton),
+
 
     Garden: new ImageSource(garden),
     Garden1: new ImageSource(garden1),
@@ -94,15 +98,19 @@ const Resources = {
     Bami: new ImageSource(bami),
     Map1Top: new ImageSource(map1top),
     ParkMapselect: new ImageSource(parkMapselect),
+    RangeIndicator: new ImageSource(rangeIndicator),
+    DamageIndicator: new ImageSource(damageIndicator),
 
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
+    UpgradeButton: new ImageSource(UpgradeButton),
     BuyButton: new ImageSource(buyButton),
     MenuButton: new ImageSource(menuButton),
     SideButton: new ImageSource(sideButton),
     BuyMenu: new ImageSource(buyMenu),
     Gulden: new ImageSource(Gulden),
     Health: new ImageSource(Health),
+
 
     Click: new Sound(click),
     MenuMusic: new Sound(menuMusic),
