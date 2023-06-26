@@ -69,6 +69,7 @@ import sideButton from '../images/side-button.png';
 import buyMenu from '../images/BuyMenuBar.png';
 import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
+import costLogo from '../images/costLogo.png';
 
 
 
@@ -121,6 +122,7 @@ const Resources = {
     BuyMenu: new ImageSource(buyMenu),
     Gulden: new ImageSource(Gulden),
     Health: new ImageSource(Health),
+    CostLogo: new ImageSource(costLogo),
 
 
     Click: new Sound(click),

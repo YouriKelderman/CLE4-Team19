@@ -165,13 +165,6 @@ export class Park extends Scene {
         this.buyMenu.enableCapturePointer = true;
         this.buyMenu.pointer.useGraphicsBounds = true;
 
-        this.bamiButton = new Actor();
-        this.bamiButton.graphics.use(Resources.Bami.toSprite());
-        this.bamiButton.scale = new Vector(1, 1);
-        this.bamiButton.z = 99999;
-        this.bamiButton.enableCapturePointer = true;
-        this.bamiButton.pointer.useGraphicsBounds = true;
-        this.bamiButton.on("pointerup", (event) => this.buyBami());
 
         this.guldenLogo = new Actor();
         this.guldenLogo.graphics.use(Resources.Gulden.toSprite());
@@ -266,21 +259,115 @@ export class Park extends Scene {
         this.add(this.buyMenuButton);
 
 
+        this.koopLabel = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 30,
+            }),
+        });
+        this.koopLabel.text = 'Koop:';
+        this.koopLabel.pos = new Vector(1350, 150);
+        this.koopLabel.z = 99999;
+
+        // bami toren name label
+        this.bamiLabel = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 16,
+            }),
+        });
+        this.bamiLabel.text = 'Pan bami';
+        this.bamiLabel.pos = new Vector(1350, 150);
+        this.bamiLabel.z = 99999;
+
         //buy bami tower
         this.bamiButton = new Actor();
         this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5))
         this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
 
+        // cost logo and text
+        this.costlogobami = new Actor();
+        this.costLogo(this.costlogobami, new Vector(1350, 250))
 
-        // buy tini en lau tower
+        this.bamicost = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 16,
+            }),
+        });
+        this.bamicost.text =  '375';
+        this.bamicost.pos = new Vector(1370, 250);
+        this.bamicost.z = 99999;
+
+
+        // tini en lau toren name label
+        this.tinyLauLabel = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 16,
+            }),
+
+        });
+        this.tinyLauLabel.text = 'Tiny en Lau';
+        this.tinyLauLabel.pos = new Vector(1350, 300);
+        this.tinyLauLabel.z = 99999;
+
+        // buy tiny en lau tower
         this.tinyLauButton = new Actor();
         this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2))
         this.tinyLauButton.on("pointerdown", (event) => this.buyTower(2));
+
+        // cost logo and text
+        this.costlogotiny = new Actor();
+        this.costLogo(this.costlogotiny, new Vector(1350, 400))
+
+        this.tinycost = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 16,
+            }),
+        })
+        this.tinycost.text = '500';
+        this.tinycost.pos = new Vector(1370, 400);
+        this.tinycost.z = 99999;
+
+        // spiderTrike toren name label
+        this.spiderTrikeLabel = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 16,
+            }),
+        });
+        this.spiderTrikeLabel.text = 'Spinnenman';
+        this.spiderTrikeLabel.pos = new Vector(1350, 450);
+        this.spiderTrikeLabel.z = 99999;
 
         // buy spiderTrike tower
         this.spiderTrikeButton = new Actor();
         this.button(this.spiderTrikeButton, Resources.SpiderMeneer, new Vector(1350, 500), new Vector(1.5, 1.5))
         this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower(3));
+
+        // cost logo and text
+        this.costlogospider = new Actor();
+        this.costLogo(this.costlogospider, new Vector(1350, 550))
+
+        this.spidercost = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 16,
+            }),
+
+        });
+        this.spidercost.text = '800';
+        this.spidercost.pos = new Vector(1370, 550);
+        this.spidercost.z = 99999;
 
 
         this.activeWave = new Actor();
@@ -300,6 +387,14 @@ export class Park extends Scene {
         item.enableCapturePointer = true;
         item.pointer.useGraphicsBounds = true;
     }
+
+    costLogo(cost, pos) {
+        cost.graphics.use(Resources.CostLogo.toSprite());
+        cost.pos = pos;
+        cost.z = 99999;
+        cost.scale = new Vector(0.75, 0.75);
+    }
+
 
     enemies() {
         if (this.endlessMode) {
@@ -344,29 +439,93 @@ export class Park extends Scene {
             this.buyMenu.actions.moveTo(1400, 450, 1100);
             this.add(this.buyMenu);
 
-            this.bamiButton.pos = new Vector(1500, 450);
-            this.bamiButton.actions.moveTo(1350, 450, 1300);
+            this.koopLabel.pos = new Vector(1500, 100);
+            this.koopLabel.actions.moveTo(1300, 100, 1100);
+            this.add(this.koopLabel);
+
+
+            this.bamiLabel.pos = new Vector(1500, 150);
+            this.bamiLabel.actions.moveTo(1310, 150, 1300);
+            this.add(this.bamiLabel);
+
+            this.bamiButton.pos = new Vector(1500, 180);
+            this.bamiButton.actions.moveTo(1350, 180, 1300);
             this.add(this.bamiButton);
 
-            this.tinyLauButton.pos = new Vector(1500, 350);
-            this.tinyLauButton.actions.moveTo(1350, 350, 1300);
+            this.costlogobami.pos = new Vector(1500, 200);
+            this.costlogobami.actions.moveTo(1300, 230, 1300);
+            this.add(this.costlogobami);
+
+            this.bamicost.pos = new Vector(1500, 230);
+            this.bamicost.actions.moveTo(1330, 230, 1300);
+            this.add(this.bamicost);
+
+
+            this.tinyLauLabel.pos = new Vector(1500, 270);
+            this.tinyLauLabel.actions.moveTo(1295, 270, 1300);
+            this.add(this.tinyLauLabel);
+
+            this.tinyLauButton.pos = new Vector(1500, 300);
+            this.tinyLauButton.actions.moveTo(1350, 300, 1300);
             this.add(this.tinyLauButton);
 
-            this.spiderTrikeButton.pos = new Vector(1500, 250);
-            this.spiderTrikeButton.actions.moveTo(1350, 250, 1300);
+            this.costlogotiny.pos = new Vector(1500, 350);
+            this.costlogotiny.actions.moveTo(1300, 350, 1300);
+            this.add(this.costlogotiny);
+
+            this.tinycost.pos = new Vector(1500, 380);
+            this.tinycost.actions.moveTo(1330, 350, 1300);
+            this.add(this.tinycost);
+
+
+            this.spiderTrikeLabel.pos = new Vector(1500, 380);
+            this.spiderTrikeLabel.actions.moveTo(1300, 390, 1300);
+            this.add(this.spiderTrikeLabel);
+
+            this.spiderTrikeButton.pos = new Vector(1500, 430);
+            this.spiderTrikeButton.actions.moveTo(1350, 440, 1300);
             this.add(this.spiderTrikeButton);
+
+            this.costlogospider.pos = new Vector(1500, 480);
+            this.costlogospider.actions.moveTo(1300, 490, 1300);
+            this.add(this.costlogospider);
+
+            this.spidercost.pos = new Vector(1500, 510);
+            this.spidercost.actions.moveTo(1330, 490, 1300);
+            this.add(this.spidercost);
         }
         if (this.buyMenuClick === 2) {
             this.buyMenu.kill()
 
+            this.kooplabel.pos = new Vector(1350, 50);
+            this.kooplabel.kill()
+
+            this.bamiLabel.pos = new Vector(1350, 150);
+            this.bamiLabel.kill()
             this.bamiButton.pos = new Vector(1350, 450);
             this.bamiButton.kill()
+            this.costlogobami.pos = new Vector(1350, 250);
+            this.costlogobami.kill()
+            this.bamicost.pos = new Vector(1350, 250);
+            this.bamicost.kill()
 
+            this.tinyLauLabel.pos = new Vector(1350, 250);
+            this.tinyLauLabel.kill()
             this.tinyLauButton.pos = new Vector(1350, 350);
             this.tinyLauButton.kill()
+            this.costlogotiny.pos = new Vector(1350, 350);
+            this.costlogotiny.kill()
+            this.tinycost.pos = new Vector(1350, 350);
+            this.tinycost.kill()
 
+            this.spiderTrikeLabel.pos = new Vector(1350, 450);
+            this.spiderTrikeLabel.kill()
             this.spiderTrikeButton.pos = new Vector(1350, 250);
             this.spiderTrikeButton.kill()
+            this.costlogospider.pos = new Vector(1350, 350);
+            this.costlogospider.kill()
+            this.spidercost.pos = new Vector(1350, 350);
+            this.spidercost.kill()
 
             this.buyMenuClick = 0;
 
