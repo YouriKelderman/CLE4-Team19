@@ -567,13 +567,7 @@ export class Park extends Scene {
             } else {
 
                 if (this.upgradeMenu) {
-                    this.upgradeMenu.actions.moveTo(1600, 450, 1000);
-                    this.upgradeMenu.kill()
-                    this.towerName.kill();
-                    this.upgradeButton.kill()
-                    this.towerRange.kill()
-                    this.rangeIndicator.kill()
-                    this.damageIndicator.kill()
+                    this.uiRemover();
 
 
                 }
@@ -618,6 +612,20 @@ export class Park extends Scene {
 
         }
     }
+
+    uiRemover(){
+        this.upgradeMenu.kill()
+        this.towerName.kill();
+        this.upgradeButton.kill()
+        this.towerRange.kill()
+        this.rangeIndicator.kill()
+        this.damageIndicator.kill()
+        this.towerDamage.kill()
+        this.towerDesc.kill()
+        this.upgradeText.kill()
+        this.towerTargeting.kill()
+        this.towerTargetIndicator.kill()
+}
     removeParticles() {
         this.upgradeParticles.isEmitting = false;
         this.upgradeParticles.kill();
@@ -626,19 +634,12 @@ export class Park extends Scene {
         this.buyMenuClick = 1;
         this.drawBuyMenu();
         if (this.upgradeMenu) {
-            this.upgradeMenu.actions.moveTo(1600, 450, 1000);
-            this.upgradeMenu.kill()
-            this.towerName.actions.moveTo(1600, 450, 1000);
-            this.towerName.kill();
-            this.upgradeButton.kill()
-            this.towerRange.kill()
-            this.rangeIndicator.kill()
-            this.damageIndicator.kill()
+            this.uiRemover();
 
         }
         this.upgradeMenu = new UpgradeMenu();
         this.pos = new Vector(1600, 450);
-        this.upgradeMenu.actions.moveTo(1400, 450, 1000);
+        this.upgradeMenu.actions.moveTo(1400, 450, 1600);
         this.add(this.upgradeMenu);
         this.buyMenuClick = 0;
 
@@ -646,26 +647,45 @@ export class Park extends Scene {
             font: new Font({
                 unit: FontUnit.Px,
                 family: 'VCR',
-                size: 35,
+                size: 28,
             }),
         })
-        this.towerName.pos = new Vector(1400, 150);
-        this.towerName.actions.moveTo(1260, 150, 1000);
+        this.towerName.pos = new Vector(1350, 85);
+        this.towerName.actions.moveTo(1260, 85, 1600);
         this.towerName.text = this.activetower.name.toString();
         this.towerName.z = 99999
 
         this.add(this.towerName);
 
+
+
+
+        this.towerDesc = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 14,
+                color: Color.White
+            }),
+        })
+        this.towerDesc.pos = new Vector(1350, 105);
+        this.towerDesc.actions.moveTo(1260 , 105, 1600);
+        this.towerDesc.text = this.activetower.description.toString();
+        this.towerDesc.z = 99999
+
+        this.add(this.towerDesc);
+
+
         this.towerRange = new Label({
             font: new Font({
                 unit: FontUnit.Px,
                 family: 'VCR',
-                size: 35,
+                size: 36,
             }),
         })
-        this.towerRange.pos = new Vector(1400, 205);
-        this.towerRange.actions.moveTo(1330, 205,1000);
-        this.towerRange.text = this.activetower.towerRange.toString();
+        this.towerRange.pos = new Vector(1500, 220);
+        this.towerRange.actions.moveTo(1330, 220,1650);
+        this.towerRange.text = this.activetower.towerRange.toString() + "m";
         this.towerRange.z = 99999
 
         this.add(this.towerRange);
@@ -673,31 +693,85 @@ export class Park extends Scene {
 
         this.rangeIndicator = new Actor();
         this.rangeIndicator.graphics.use(Resources.RangeIndicator.toSprite());
-        this.rangeIndicator.pos = new Vector(1400, 190);
-        this.rangeIndicator.actions.moveTo(1295, 190, 1000);
+        this.rangeIndicator.pos = new Vector(1500, 210);
+        this.rangeIndicator.actions.moveTo(1295, 210, 1600);
         this.rangeIndicator.scale = new Vector(1, 1);
         this.rangeIndicator.z = 999999;
 
         this.add(this.rangeIndicator);
 
+        this.towerDamage = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 36,
+            }),
+        })
+        this.towerDamage.pos = new Vector(1500, 295);
+        this.towerDamage.actions.moveTo(1330, 295,1650);
+        this.towerDamage.text = this.activetower.damage.toString();
+        this.towerDamage.z = 99999
+
+        this.add(this.towerDamage);
+
         this.damageIndicator = new Actor();
         this.damageIndicator.graphics.use(Resources.DamageIndicator.toSprite());
-        this.damageIndicator.pos = new Vector(1400, 260);
-        this.damageIndicator.actions.moveTo(1295, 260, 1000);
+        this.damageIndicator.pos = new Vector(1500, 280);
+        this.damageIndicator.actions.moveTo(1295, 280, 1600);
         this.damageIndicator.scale = new Vector(1, 1);
         this.damageIndicator.z = 999999;
 
         this.add(this.damageIndicator);
 
+        this.towerTargeting = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 36,
+            }),
+        })
+
+        this.towerTargetIndicator = new Actor();
+        this.towerTargetIndicator.graphics.use(Resources.TargetingSymbol.toSprite());
+        this.towerTargetIndicator.pos = new Vector(1500, 355);
+        this.towerTargetIndicator.actions.moveTo(1295, 355, 1600);
+        this.towerTargetIndicator.scale = new Vector(1, 1);
+        this.towerTargetIndicator.z = 999999;
+
+        this.add(this.towerTargetIndicator);
+
+        this.towerTargeting.pos = new Vector(1500, 365);
+        this.towerTargeting.actions.moveTo(1330, 365,1650);
+        this.towerTargeting.text = this.activetower.shootingMode.toString() ;
+        this.towerTargeting.z = 99999
+
+        this.add(this.towerTargeting);
+
+
+        this.upgradeText = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 28,
+            }),
+        })
+        this.upgradeText.pos = new Vector(1350, 500);
+        this.upgradeText.actions.moveTo(1260, 500, 1600);
+        this.upgradeText.text = `Upgrades`
+        this.upgradeText.z = 99999
+
+
+        this.add(this.upgradeText);
+
         this.upgradeButton = new Actor();
         this.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
-        this.upgradeButton.pos = new Vector(1400, 400);
-        this.upgradeButton.actions.moveTo(1290, 400, 1000);
+        this.upgradeButton.pos = new Vector(1500, 550);
+        this.upgradeButton.actions.moveTo(1290, 550, 1600);
         this.upgradeButton.scale = new Vector(1, 1);
         this.upgradeButton.z = 999999;
         this.upgradeButton.enableCapturePointer = true;
         this.upgradeButton.pointer.useGraphicsBounds = true;
-        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUp());
+        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUp1_1());
 
 
         this.add(this.upgradeButton);
@@ -834,7 +908,7 @@ export class Park extends Scene {
                 this.engine.gulden -= 50;
                 this.guldenDisplay.text = `${this.engine.gulden}`;
                 this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) + 1)];
-                this.activetower.tierUp();
+                this.activetower.tierUpDefault();
             }
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
