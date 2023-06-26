@@ -50,6 +50,7 @@ export class Tower extends Actor {
         repeats: false,
         interval: 200,
     })
+
     towerRange = 0;
     game;
     curseCooldown = 250;
