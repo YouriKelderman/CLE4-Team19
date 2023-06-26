@@ -52,7 +52,7 @@ export class Park extends Scene {
         maxVel: 160,
         minAngle: 0,
         maxAngle: Math.PI * 2,
-        emitRate:300,
+        emitRate: 300,
         opacity: 1,
         fadeFlag: true,
         particleLife: 1000,
@@ -76,6 +76,7 @@ export class Park extends Scene {
         "5*0",
         "5*0, 6*1",
         "5*0, 6*1, 12*2, 10*1, 12*3",
+        "1000*3"
     ];
 
     wave = 0;
@@ -185,7 +186,7 @@ export class Park extends Scene {
         this.garden.graphics.use(this.garden.sprite);
         this.add(this.garden)
         this.garden.z = 9999;
-        this.garden.pos = new Vector(163, 755);
+        this.garden.pos = new Vector(157, 807);
         this.garden.collisionType = CollisionType.Passive;
 
         this.garden.on("collisionstart", (event) => {
@@ -368,20 +369,15 @@ export class Park extends Scene {
     mouseInput() {
 
         if (!this.placing) {
-
             // determine which tower is closest and which tower gets click priority
             for (let i = 0; i < this.towers.length; i++) {
                 let pos1 = new Vector(this.engine.input.pointers.primary.lastWorldPos.x, this.engine.input.pointers.primary.lastWorldPos.y);
                 let pos2 = new Vector(this.towers[i].worldPosition.x, this.towers[i].worldPosition.y);
-
                 let distance = pos1.distance(pos2);
-
                 this.towersInDistance.push(distance);
             }
             let nearestTower = Math.min(...this.towersInDistance);
-
             this.nearestTowerName = this.towers[this.towersInDistance.indexOf(nearestTower, 0)];
-
             if (nearestTower < 100) {
                 this.towers.forEach(tower => {
                     tower.deSelect()
@@ -392,7 +388,6 @@ export class Park extends Scene {
                 this.activetower = this.nearestTowerName;
                 this.activetower.select();
                 this.menuInfo();
-
             } else {
 
                 if (this.upgradeMenu) {
@@ -403,15 +398,10 @@ export class Park extends Scene {
 
                 this.towers.forEach(tower => {
                     tower.deSelect();
-
                 });
             }
             this.towersInDistance = [];
-
-
         }
-
-
         if (this.placing && this.isLegal) {
             let newClone = new Tower(this, this.int);
             newClone.pos = this.placingSprite.pos;
@@ -434,14 +424,17 @@ export class Park extends Scene {
             localStorage.setItem("this.path", this.path);
             // console.log(this.path)
         } else {
+
             //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
 
         }
     }
+
     removeParticles() {
         this.upgradeParticles.isEmitting = false;
         this.upgradeParticles.kill();
     }
+
     menuInfo() {
             if (this.upgradeMenu) {
                 this.upgradeMenu.actions.moveTo(1600, 450, 1000);
