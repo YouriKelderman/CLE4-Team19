@@ -3,7 +3,7 @@ import {Actor, Shape, Vector, Text, Font, FontUnit, Color} from "excalibur";
 import {Enemy} from "../enemies/enemy.js";
 import {Projectile} from "./projectile.js";
 
-export class CurseWord extends Projectile {
+export class CurseWord extends Actor {
 
     projectileSpeed;
     projectileTime = 1000;
@@ -70,5 +70,18 @@ export class CurseWord extends Projectile {
                 this.kill()
             }
         }
+
+        if (this.health < 1) {
+            this.kill()
+        }
+
+        this.vel = new Vector(
+            Math.cos(this.rotation) * this.projectileSpeed,
+            Math.sin(this.rotation) * this.projectileSpeed
+        );
+        if (this.projectileTime < 0) {
+            this.kill();
+        }
+        this.projectileTime--;
     }
 }

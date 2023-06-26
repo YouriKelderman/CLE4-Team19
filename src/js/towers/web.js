@@ -37,6 +37,16 @@ export class Web extends Projectile {
         this.graphics.use(Resources.Web.toSprite());
         this._setName("projectile");
         this.collider.set(Shape.Box(5, 5))
-        this.scale = new Vector(0.2, 0.2);
+        this.scale = new Vector(0.6, 0.6);
+
+        if (this.special === 3) {
+            this.scale = new Vector(1.6, 1.6);
+        }
+
+        if (this.special === 4) {
+            this.graphics.use(Resources.ExplosiveWeb.toSprite());
+            this.scale = new Vector(2, 2);
+        }
+
     }
 }
