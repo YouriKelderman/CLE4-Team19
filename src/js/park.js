@@ -52,7 +52,7 @@ export class Park extends Scene {
         maxVel: 160,
         minAngle: 0,
         maxAngle: Math.PI * 2,
-        emitRate:300,
+        emitRate: 300,
         opacity: 1,
         fadeFlag: true,
         particleLife: 1000,
@@ -73,9 +73,10 @@ export class Park extends Scene {
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
-        "5*0",
+        "5*1",
         "5*0, 6*1",
         "5*0, 6*1, 12*2, 10*1, 12*3",
+        "1000*3"
     ];
 
     wave = 0;
@@ -107,11 +108,9 @@ export class Park extends Scene {
             this.music.pause();
 
         } else {
-
             this.music.loop = true;
             this.music.play().then(r => console.log(r));
         }
-
     }
 
     onDeactivate(_context) {
@@ -120,7 +119,6 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
-
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
@@ -184,7 +182,7 @@ export class Park extends Scene {
         this.garden.graphics.use(this.garden.sprite);
         this.add(this.garden)
         this.garden.z = 9999;
-        this.garden.pos = new Vector(163, 755);
+        this.garden.pos = new Vector(157, 807);
         this.garden.collisionType = CollisionType.Passive;
 
         this.garden.on("collisionstart", (event) => {
@@ -241,7 +239,7 @@ export class Park extends Scene {
 
         this.bamiButton = new Actor();
         this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5))
-        this.bamiButton.on("pointerdown", (event) => this.buyTower());
+        this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
 
 
 
@@ -255,6 +253,8 @@ export class Park extends Scene {
         this.tinyLauButton.pointer.useGraphicsBounds = true;
 
         this.tinyLauButton.on("pointerdown", (event) => this.buyTower());
+        this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2))
+        this.tinyLauButton.on("pointerdown", (event) => this.buyTower(2));
 
         // buy spiderTrike tower
         this.spiderTrikeButton = new Actor();
@@ -265,7 +265,7 @@ export class Park extends Scene {
         this.spiderTrikeButton.pointer.useGraphicsBounds = true;
         this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
         this.button(this.spiderTrikeButton, Resources.SpiderTrike, new Vector(1350, 500), new Vector(1.5, 1.5))
-        this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
+        this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower(3));
         this.enemies();
 
 
@@ -359,20 +359,15 @@ export class Park extends Scene {
     mouseInput() {
 
         if (!this.placing) {
-
             // determine which tower is closest and which tower gets click priority
             for (let i = 0; i < this.towers.length; i++) {
                 let pos1 = new Vector(this.engine.input.pointers.primary.lastWorldPos.x, this.engine.input.pointers.primary.lastWorldPos.y);
                 let pos2 = new Vector(this.towers[i].worldPosition.x, this.towers[i].worldPosition.y);
-
                 let distance = pos1.distance(pos2);
-
                 this.towersInDistance.push(distance);
             }
             let nearestTower = Math.min(...this.towersInDistance);
-
             this.nearestTowerName = this.towers[this.towersInDistance.indexOf(nearestTower, 0)];
-
             if (nearestTower < 100) {
                 this.towers.forEach(tower => {
                     tower.deSelect()
@@ -384,15 +379,16 @@ export class Park extends Scene {
                 this.activetower = this.nearestTowerName;
                 this.activetower.select();
                 this.menuInfo();
-
             } else {
 
                 if (this.upgradeMenu) {
                     this.upgradeMenu.actions.moveTo(1600, 450, 1000);
                     this.upgradeMenu.kill()
-                    this.towerName.kill()
+                    this.towerName.kill();
                     this.upgradeButton.kill()
                     this.towerRange.kill()
+                    this.rangeIndicator.kill()
+                    this.damageIndicator.kill()
 
 
                 }
@@ -449,6 +445,9 @@ export class Park extends Scene {
             this.towerName.actions.moveTo(1600, 450, 1000);
             this.towerName.kill();
             this.upgradeButton.kill()
+            this.towerRange.kill()
+            this.rangeIndicator.kill()
+            this.damageIndicator.kill()
 
         }
         this.upgradeMenu = new UpgradeMenu();

@@ -91,7 +91,16 @@ export class Settings extends Scene {
         this.add(this.volumeDownButton);
 
 
-        // spinnen mode
+        // profanity filter
+        this.profanityFilter = new Actor();
+        this.profanityFilter.graphics.use(Resources.Mutebutton.toSprite());
+        this.profanityFilter.pos = new Vector(720, 650);
+        this.profanityFilter.scale = new Vector(0.1, 0.1)
+        this.profanityFilter.z = 1000;
+        this.profanityFilter.enableCapturePointer = true;
+        this.profanityFilter.pointer.useGraphicsBounds = true;
+        this.profanityFilter.on("pointerup", (event) => this.toggleProfanityFilter());
+        this.add(this.profanityFilter);
 
     }
 
@@ -102,6 +111,7 @@ export class Settings extends Scene {
         this.soundButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.volumeUpButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.volumeDownButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
 
         if (this.music.volume === 0) {
             this.music.pause()
@@ -149,6 +159,10 @@ export class Settings extends Scene {
         console.log('start game');
         this.engine.goToScene('park');
 
+    }
+
+    toggleProfanityFilter() {
+        this.engine.profanityMode = this.engine.profanityMode === false;
     }
 
     onPreUpdate(engine, _delta) {

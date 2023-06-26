@@ -58,11 +58,6 @@ export class Enemy extends Actor {
         endColor: Color.fromRGB(139, 69, 19),
         isEmitting: false
     })
-    timer = new Timer({
-        fcn: () => this.removeParticles(),
-        repeats: false,
-        interval: 200,
-    })
 
     enemyType = 0;
 
@@ -160,11 +155,11 @@ export class Enemy extends Actor {
         this.actions.clearActions();
         this.collider.clear();
         this.deathAnimation = 50;
-        this.game.add(this.deathParticles);
-        this.deathParticles.isEmitting = true;
-        this.deathParticles.pos = this.pos;
-        this.game.add(this.timer);
-        this.timer.start()
+        //this.game.add(this.deathParticles);
+        //this.deathParticles.isEmitting = true;
+        //this.deathParticles.pos = this.pos;
+        //this.game.add(this.timer);
+        //this.timer.start()
     }
     removeParticles() {
         this.deathParticles.isEmitting = false;
