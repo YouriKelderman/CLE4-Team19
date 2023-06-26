@@ -125,10 +125,11 @@ export class Enemy extends Actor {
         }
     }
 
-    removeBulletHealth(target) {
-        let bullet = target
-        bullet.other.health--
+    removeBulletHealth(event) {
+        let bullet = event
 
+        this.game.impactParticleFunction(event.other.pos)
+        bullet.other.health--
         if (bullet.other.speed > 100) {
             bullet.other.speed = bullet.other.speed - 100
         }

@@ -27,7 +27,7 @@ export class Tower extends Actor {
     rangeDisplay;
     worldPosition;
     randomizerCooldown = 0;
-
+engine;
     upgrade = Resources.Upgrade;
     upgradeParticles = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
@@ -69,6 +69,7 @@ export class Tower extends Actor {
     }
 
     onInitialize(engine) {
+        this.engine = engine;
         this.rangeDisplay = new Actor();
         this.rangeDisplay.graphics.use(Resources.Range.toSprite());
         this.rangeDisplay.pos = new Vector(0, 0);
@@ -328,6 +329,7 @@ export class Tower extends Actor {
                 bullet.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(bullet);
                 this.coolDown = 25;
+                this.engine.shake();
             }
         }
         if (this.type === 1) {

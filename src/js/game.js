@@ -64,8 +64,9 @@ export class Game extends Engine {
     damage() {
         this.levens -=1;
         this.currentScene.camera.shake(2, 2, 300)
-        console.log(this.currentScene.camera)
-
+    }
+    shake(){
+        this.currentScene.camera.shake(0.5, 0.5, 300)
     }
 }
 
