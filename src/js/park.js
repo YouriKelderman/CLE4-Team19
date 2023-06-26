@@ -497,8 +497,8 @@ export class Park extends Scene {
         if (this.buyMenuClick === 2) {
             this.buyMenu.kill()
 
-            this.kooplabel.pos = new Vector(1350, 50);
-            this.kooplabel.kill()
+            this.koopLabel.pos = new Vector(1350, 50);
+            this.koopLabel.kill()
 
             this.bamiLabel.pos = new Vector(1350, 150);
             this.bamiLabel.kill()
