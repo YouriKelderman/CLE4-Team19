@@ -120,9 +120,7 @@ export class Park extends Scene {
         super.onDeactivate(_context);
         this.music.pause();
     }
-
     onInitialize(_engine) {
-
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
@@ -561,7 +559,7 @@ export class Park extends Scene {
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
             this.int += 1;
-            if (this.int > 2) {
+            if (this.int > 3) {
                 this.int = 0;
             }
         }

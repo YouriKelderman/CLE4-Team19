@@ -6,7 +6,7 @@ import {CurseWord} from "./curseword.js";
 
 
 let itemIds = [
-    Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer,
+    Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer, Resources.aboutaleb,
 ];
 
 
