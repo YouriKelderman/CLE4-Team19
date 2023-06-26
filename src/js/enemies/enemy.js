@@ -27,8 +27,8 @@ export class Enemy extends Actor {
 
     ];
     positionInRoute;
+    engine;
 
-engine;
     game;
     timeAlive = 0;
     particle;

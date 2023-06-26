@@ -18,6 +18,8 @@ import {Menu} from "./menu.js";
 import {Park} from "./park.js";
 import {Settings} from "./settings.js";
 import {Levelselect} from "./levelselect.js";
+import {Gulden} from "./money.js";
+import {Levens} from "./health.js";
 
 export class Game extends Engine {
     game
