@@ -20,7 +20,7 @@ import range from '../images/range.png';
 // park
 import bami from '../images/bami.png';
 import spicyBami from '../images/spicyBami.png';
-import pan from '../images/bami-pan.png';
+import pan from '../images/aboutaleb.png';
 import tinyLau from '../images/TinyLau_Tower.png';
 
 import spidermeneer from '../images/spider-meneer.png';
