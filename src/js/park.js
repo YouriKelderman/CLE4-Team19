@@ -14,6 +14,7 @@ import {
     Font,
     TextAlign, ParticleEmitter, EmitterType, Timer
 } from "excalibur";
+
 import {Scene} from "excalibur";
 import {Tower} from "./towers/tower.js";
 import {Resources, ResourceLoader} from "./resources.js";
@@ -23,17 +24,22 @@ import {Wall} from "./hitbox.js";
 import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
 
+import {UpgradeMenu} from "./buyMenu.js";
+
 import {Settings} from "./settings.js";
 
 export class Park extends Scene {
+
+
     constructor() {
         super();
     }
 
+
     placing = false;
     placingSprite;
     int = 0;
-    activetower;
+    activetower = this.activetower
     path = "";
     engine;
     route = [];
@@ -91,6 +97,9 @@ export class Park extends Scene {
     activeEnemies = 0;
     nameLabel;
     settingsButton;
+    buyMenuClick = 0;
+    upgradeMenuClicked = 0;
+    menuOpened = 0
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
@@ -114,15 +123,34 @@ export class Park extends Scene {
 
     onInitialize(_engine) {
 
+        this.buyMenu = new Actor();
+        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
+        this.buyMenu.pos = new Vector(1400, 450);
+        this.buyMenu.scale = new Vector(3, 1.0)
+        this.buyMenu.z = 9999;
+        this.buyMenu.enableCapturePointer = true;
+        this.buyMenu.pointer.useGraphicsBounds = true;
+
+        this.bamiButton = new Actor();
+        this.bamiButton.graphics.use(Resources.Bami.toSprite());
+        this.bamiButton.scale = new Vector(1, 1);
+        this.bamiButton.z = 99999;
+        this.bamiButton.enableCapturePointer = true;
+        this.bamiButton.pointer.useGraphicsBounds = true;
+        this.bamiButton.on("pointerup", (event) => this.buyBami());
+
         this.guldenLogo = new Actor();
         this.guldenLogo.graphics.use(Resources.Gulden.toSprite());
         this.guldenLogo.scale = new Vector(0.4, 0.4);
         this.guldenLogo.pos = new Vector(120, 80);
         this.guldenLogo.z = 99999;
         this.add(this.guldenLogo);
+
         this.guldenDisplay = new Gulden(
+
         );
         this.add(this.guldenDisplay);
+
         this.levensLogo = new Actor();
         this.levensLogo.graphics.use(Resources.Health.toSprite());
         this.levensLogo.scale = new Vector(0.4, 0.4);
@@ -171,6 +199,7 @@ export class Park extends Scene {
         });
 
 
+
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -193,16 +222,22 @@ export class Park extends Scene {
         this.settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(this.settingsButton);
 
+        this. buyMenuButton = new Actor();
+        this.buyMenuButton.graphics.use(Resources.BuyButton.toSprite());
+        this.buyMenuButton.pos = new Vector(50, 195);
+        this.buyMenuButton.scale = new Vector(0.7, 0.7);
+        this.buyMenuButton.z = 9999;
+        this.buyMenuButton.enableCapturePointer = true;
+        this.buyMenuButton.pointer.useGraphicsBounds = true;
+        this.buyMenuButton.on("pointerup", (event) => this.drawBuyMenu());
+        this.add(this.buyMenuButton);
 
-        this.enemies();
-        this.buyMenu = new Actor();
-        this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
-        this.buyMenu.pos = new Vector(1400, 450);
-        this.buyMenu.scale = new Vector(3, 1.0);
-        this.buyMenu.z = 9999;
-        this.buyMenu.enableCapturePointer = true;
-        this.buyMenu.pointer.useGraphicsBounds = true;
-        this.add(this.buyMenu);
+
+
+        //sidebutton
+
+
+        this.enemies()
 
         //buy bami tower
 
@@ -211,13 +246,27 @@ export class Park extends Scene {
         this.bamiButton.on("pointerdown", (event) => this.buyTower());
 
 
+
         // buy tini en lau tower
         this.tinyLauButton = new Actor();
+        this.tinyLauButton.graphics.use(Resources.TinyLau.toSprite());
+
+        this.tinyLauButton.scale = new Vector(2, 2);
+        this.tinyLauButton.z = 99999;
+        this.tinyLauButton.enableCapturePointer = true;
+        this.tinyLauButton.pointer.useGraphicsBounds = true;
+
         this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2))
         this.tinyLauButton.on("pointerdown", (event) => this.buyTower());
 
         // buy spiderTrike tower
         this.spiderTrikeButton = new Actor();
+        this.spiderTrikeButton.graphics.use(Resources.SpiderTrike.toSprite());
+        this.spiderTrikeButton.scale = new Vector(1.5, 1.5);
+        this.spiderTrikeButton.z = 99999;
+        this.spiderTrikeButton.enableCapturePointer = true;
+        this.spiderTrikeButton.pointer.useGraphicsBounds = true;
+        this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
         this.button(this.spiderTrikeButton, Resources.SpiderTrike, new Vector(1350, 500), new Vector(1.5, 1.5))
         this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
         this.enemies();
@@ -261,6 +310,54 @@ export class Park extends Scene {
         });
     }
 
+    drawBuyMenu() {
+        this.buyMenuClick++;
+        if (this.buyMenuClick === 1) {
+            this.buyMenu.pos = new Vector(1500, 450);
+            this.buyMenu.actions.moveTo(1400, 450,1100);
+
+            this.bamiButton.pos = new Vector(1500, 450);
+            this.bamiButton.actions.moveTo(1350, 450,1300);
+            this.add(this.buyMenu);
+            this.add(this.bamiButton);
+
+            this.tinyLauButton.pos = new Vector(1500, 350);
+            this.tinyLauButton.actions.moveTo(1350, 350,1300);
+            this.add(this.tinyLauButton);
+
+            this.spiderTrikeButton.pos = new Vector(1500, 250);
+            this.spiderTrikeButton.actions.moveTo(1350, 250,1300);
+            this.add(this.spiderTrikeButton);
+        }
+        if (this.buyMenuClick === 2) {
+            this.buyMenu.pos = new Vector(1500, 450);
+            this.buyMenu.actions.moveTo(1400, 450,800);
+            this.buyMenu.kill()
+
+            this.bamiButton.pos = new Vector(1350, 450);
+            this.bamiButton.actions.moveTo(1500, 450,1300);
+            this.bamiButton.kill()
+            this.tinyLauButton.pos = new Vector(1350, 350);
+            this.tinyLauButton.actions.moveTo(1500, 350,1300);
+            this.tinyLauButton.kill()
+            this.spiderTrikeButton.pos = new Vector(1350, 250);
+            this.spiderTrikeButton.actions.moveTo(1500, 250,1300);
+            this.spiderTrikeButton.kill()
+
+
+
+
+
+            this.buyMenuClick = 0;
+        }
+
+    }
+
+
+
+
+
+
     goToSettings() {
         console.log("goToSettings");
         this.click.play();
@@ -285,10 +382,20 @@ export class Park extends Scene {
                 this.towers.forEach(tower => {
                     tower.deSelect()
                 });
+
+
+
                 this.activetower = this.nearestTowerName;
                 this.activetower.select();
                 this.menuInfo();
             } else {
+
+                if (this.upgradeMenu) {
+                    this.upgradeMenu.actions.moveTo(1600, 450, 1000);
+                    this.upgradeMenu.kill()
+
+                }
+
                 this.towers.forEach(tower => {
                     tower.deSelect();
                 });
@@ -309,6 +416,7 @@ export class Park extends Scene {
             this.activetower = newClone;
             this.placing = false;
             this.placingSprite.kill();
+            this.drawBuyMenu();
             this.plop.play();
         } else if (this.mapping) {
             let pos = this.engine.input.pointers.primary.lastWorldPos;
@@ -328,16 +436,25 @@ export class Park extends Scene {
     }
 
     menuInfo() {
-        if (this.activetower) {
+            if (this.upgradeMenu) {
+                this.upgradeMenu.actions.moveTo(1600, 450, 1000);
+                this.upgradeMenu.kill()
+            }
+                this.upgradeMenu = new UpgradeMenu();
+                this.pos = new Vector(1600, 450);
+                this.upgradeMenu.actions.moveTo(1400, 450, 1000);
+                this.add(this.upgradeMenu);
 
-            console.log(this.activetower);
-            console.log(this.activetower.id);
-            console.log(this.activetower.type);
-            console.log(this.activetower._name);
-            console.log(this.activetower.tier);
-            console.log(this.activetower.range);
-            console.log(this.activetower.damage);
-        }
+                if (this.nameLabel && this.activetower) {
+                    this.nameLabel.text = this.activetower.name.toString();
+
+                    console.log(this.activetower);
+                    console.log(this.activetower.id);
+                    console.log(this.activetower._name);
+                    console.log(this.activetower.tier);
+                    console.log(this.activetower.range);
+                    console.log(this.activetower.damage);
+                }
     }
 
     startWave() {
@@ -377,6 +494,7 @@ export class Park extends Scene {
     }
 
     onPreUpdate(engine, delta) {
+
 
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
             this.goToSettings();
