@@ -3,10 +3,11 @@ import {Actor, Color, EmitterType, ParticleEmitter, RotationType, Shape, Timer, 
 import {Resources} from "../resources.js";
 import {PanBami} from "./panBami.js";
 import {CurseWord} from "./curseword.js";
+import {Web} from "./web.js";
 
 
 let itemIds = [
-    Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer,
+    Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer, Resources.aboutaleb,
 ];
 
 
@@ -35,7 +36,7 @@ export class Tower extends Actor {
         maxVel: 200,
         minAngle: 0,
         maxAngle: Math.PI * 2,
-        emitRate:300,
+        emitRate: 300,
         opacity: 1,
         fadeFlag: true,
         particleLife: 1000,
@@ -44,18 +45,18 @@ export class Tower extends Actor {
         beginColor: Color.Green,
         endColor: Color.Green,
         isEmitting: false
-    })
+    });
     timer = new Timer({
         fcn: () => this.removeParticles(),
         repeats: false,
         interval: 200,
-    })
+    });
+
     towerRange = 0;
     game;
     curseCooldown = 250;
-    damageMultiplier = 1
-    seeMouses = false
-
+    damageMultiplier = 1;
+    seeMouses = false;
 
 
     constructor(Game, type) {
@@ -75,6 +76,8 @@ export class Tower extends Actor {
         if (this.type === 0) {
             this._setName("Pan Bami");
             this.towerRange = 200;
+            this.shootingMode = 0
+
         }
         if (this.type === 1) {
             this._setName("Tiny & Lau");
@@ -83,6 +86,7 @@ export class Tower extends Actor {
         if (this.type === 2) {
             this._setName("Spiderman");
             this.towerRange = 300;
+            this.shootingMode = 3
         }
 
         this.coolDown = 100;
@@ -119,25 +123,26 @@ export class Tower extends Actor {
 
     collisionHandler(event) {
         if (this.type === 0) {
-            if (event.other.name === "Enemy") {
-                this.amountOfEnemies++;
-                this.enemiesInRadiusName.push(event);
-                this.enemiesInRadiusTime.push(event.other.timeAlive);
-            }
-        }
-        if (this.type === 1) {
+            console.log(this.seeMouses)
             if (this.seeMouses === true) {
-                if (event.other.name === "Enemy" || event.other.name === "Pan Bami" || event.other.name === "Spiderman") {
+                if (event.other.name === "Enemy") {
                     this.amountOfEnemies++;
                     this.enemiesInRadiusName.push(event);
+                    this.enemiesInRadiusTime.push(event.other.timeAlive);
                 }
             } else {
-                if (event.other.enemyType !== 1) {
-                    if (event.other.name === "Enemy" || event.other.name === "Pan Bami" || event.other.name === "Spiderman") {
-                        this.amountOfEnemies++;
-                        this.enemiesInRadiusName.push(event);
-                    }
+                if (event.other.name === "Enemy" && event.other.enemyType !== 1) {
+                    this.amountOfEnemies++;
+                    this.enemiesInRadiusName.push(event);
+                    this.enemiesInRadiusTime.push(event.other.timeAlive);
                 }
+            }
+        }
+
+        if (this.type === 1) {
+            if (event.other.name === "Enemy" || event.other.name === "Pan Bami" || event.other.name === "Spiderman") {
+                this.amountOfEnemies++;
+                this.enemiesInRadiusName.push(event);
             }
         }
         if (this.type === 2) {
@@ -168,7 +173,7 @@ export class Tower extends Actor {
         this.amountOfEnemies = 0;
 
 
-        if (this.type === 0) {
+        if (this.type === 0 || this.type === 2) {
             if (this.shootingMode === 0) {
                 let oldestEnemy = Math.max(...this.enemiesInRadiusTime);
                 this.enemy = this.enemiesInRadiusName[this.enemiesInRadiusTime.indexOf(oldestEnemy, 0)];
@@ -212,14 +217,14 @@ export class Tower extends Actor {
 
                     }
                 });
-                    if (towers.length > 0) {
-                        this.enemy = towers[Math.floor(Math.random() * this.enemiesInRadiusName.length)];
-                    } else {
-                        this.enemy = this.enemiesInRadiusName[Math.floor(Math.random() * this.enemiesInRadiusName.length)];
-                    }
+                if (towers.length > 0) {
+                    this.enemy = towers[Math.floor(Math.random() * this.enemiesInRadiusName.length)];
+                } else {
+                    this.enemy = this.enemiesInRadiusName[Math.floor(Math.random() * this.enemiesInRadiusName.length)];
+                }
                 towers = [];
                 this.actions.clearActions();
-                this.shootingCooldown = this.coolDown - 50
+                this.shootingCooldown = this.coolDown - 50;
             }
 
         }
@@ -236,7 +241,7 @@ export class Tower extends Actor {
             this.buffCooldown--;
         }
         if (this.buffCooldown === 1) {
-            this.deBuff()
+            this.deBuff();
         }
     }
 
@@ -259,13 +264,13 @@ export class Tower extends Actor {
                 }
 
                 if (this.type === 0) {
-                    this.actions.rotateTo(angle + 0.5 * Math.PI, 30, RotationType.ShortestPath);
+                    this.actions.rotateTo(angle + 0.5 * Math.PI, 1000, RotationType.ShortestPath);
                 }
                 if (this.type === 1) {
-                    this.actions.rotateTo(angle + 0.5 * Math.PI, 25, RotationType.ShortestPath);
+                    this.actions.rotateTo(angle + 0.5 * Math.PI, 30, RotationType.ShortestPath);
                 }
                 if (this.type === 2) {
-                    this.actions.rotateTo(angle + 0.5 * Math.PI, 30, RotationType.ShortestPath);
+                    this.actions.rotateTo(angle + 0.5 * Math.PI, 1000, RotationType.ShortestPath);
                 }
 
             }
@@ -309,7 +314,6 @@ export class Tower extends Actor {
                 this.coolDown = 20;
             }
 
-
             // pad 2
             if (this.tier === 2.1) {
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 1, 1);
@@ -333,27 +337,27 @@ export class Tower extends Actor {
                 curse.pos = this.pos;
                 curse.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(curse);
-                this.coolDown = 250
-                this.curseCooldown = 200
-                this.updateRange(100)
+                this.coolDown = 250;
+                this.curseCooldown = 200;
+                this.updateRange(100);
             }
             if (this.tier === 1.1 && this.enemy !== undefined) {
                 let curse = new CurseWord(300, 1, 0, this.enemy);
                 curse.pos = this.pos;
                 curse.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(curse);
-                this.coolDown = 250
-                this.curseCooldown = 150
-                this.updateRange(100)
+                this.coolDown = 250;
+                this.curseCooldown = 150;
+                this.updateRange(100);
             }
             if (this.tier === 1.2 && this.enemy !== undefined) {
                 let curse = new CurseWord(300, 1, 1, this.enemy);
                 curse.pos = this.pos;
                 curse.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(curse);
-                this.coolDown = 250
-                this.curseCooldown = 150
-                this.updateRange(100)
+                this.coolDown = 250;
+                this.curseCooldown = 150;
+                this.updateRange(100);
 
             }
             if (this.tier === 2.1 && this.enemy !== undefined) {
@@ -361,23 +365,89 @@ export class Tower extends Actor {
                 curse.pos = this.pos;
                 curse.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(curse);
-                this.coolDown = 250
-                this.curseCooldown = 200
-                this.updateRange(300)
+                this.coolDown = 250;
+                this.curseCooldown = 200;
+                this.updateRange(300);
             }
             if (this.tier === 2.2 && this.enemy !== undefined) {
                 let curse = new CurseWord(250, 1, 2, this.enemy);
                 curse.pos = this.pos;
                 curse.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(curse);
-                this.coolDown = 250
-                this.curseCooldown = 200
-                this.updateRange(300)
+                this.coolDown = 250;
+                this.curseCooldown = 200;
+                this.updateRange(300);
             }
 
 
         }
 
+        if (this.type === 2) {
+            // default
+            if (this.tier === 0) {
+                let bullet = new Web(1000, 0.75 * this.damageMultiplier, 0, 1);
+                bullet.pos = this.pos;
+                bullet.rotation = this.rotation - Math.PI / 2;
+                this.engine.add(bullet);
+                this.coolDown = 20;
+            }
+            if (this.tier === 1.1) {
+                let bullet = new Web(1000, 0.5 * this.damageMultiplier, 0, 1);
+                bullet.pos = this.pos;
+                bullet.rotation = this.rotation - Math.PI / 2;
+                this.engine.add(bullet);
+                let bullet1 = new Web(1000, 0.5 * this.damageMultiplier, 0, 1);
+                bullet1.pos = this.pos;
+                bullet1.rotation = this.rotation - 1.3;
+                this.engine.add(bullet1);
+                let bullet2 = new Web(1000, 0.5 * this.damageMultiplier, 0, 1);
+                bullet2.pos = this.pos;
+                bullet2.rotation = this.rotation - 1.8;
+                this.engine.add(bullet2);
+                this.coolDown = 20;
+            }
+            if (this.tier === 1.2) {
+                let bullet = new Web(1000, 0.25 * this.damageMultiplier, 0, 1);
+                bullet.pos = this.pos;
+                bullet.rotation = this.rotation - Math.PI / 2;
+                this.engine.add(bullet);
+                let bullet1 = new Web(1000, 0.25 * this.damageMultiplier, 0, 1);
+                bullet1.pos = this.pos;
+                bullet1.rotation = this.rotation - 1.3;
+                this.engine.add(bullet1);
+                let bullet2 = new Web(1000, 0.25 * this.damageMultiplier, 0, 1);
+                bullet2.pos = this.pos;
+                bullet2.rotation = this.rotation - 1.8;
+                this.engine.add(bullet2);
+                let bullet3 = new Web(1000, 0.25 * this.damageMultiplier, 0, 1);
+                bullet3.pos = this.pos;
+                bullet3.rotation = this.rotation - 1.45;
+                this.engine.add(bullet3);
+                let bullet4 = new Web(1000, 0.25 * this.damageMultiplier, 0, 1);
+                bullet4.pos = this.pos;
+                bullet4.rotation = this.rotation - 1.65;
+                this.engine.add(bullet4);
+
+                this.coolDown = 20;
+            }
+            if (this.tier === 2.1) {
+                let bullet = new Web(1500, 0.5 * this.damageMultiplier, 0, 1);
+                bullet.pos = this.pos;
+                bullet.rotation = this.rotation - Math.PI / 2;
+                this.engine.add(bullet);
+                this.coolDown = 15;
+            }
+            if (this.tier === 2.2) {
+                let bullet = new Web(1500, 0.5 * this.damageMultiplier, 1, 1);
+                bullet.pos = this.pos;
+                bullet.rotation = this.rotation - Math.PI / 2;
+                this.engine.add(bullet);
+                this.coolDown = 15;
+            }
+
+
+
+        }
     }
 
     inRange() {
@@ -394,24 +464,21 @@ export class Tower extends Actor {
     buff(type) {
         let tint = itemIds[this.type].toSprite();
         tint.tint = new Color(0, 100, 0);
-        this.graphics.use(tint)
-        this.buffCooldown = 500
-        if (type === 1.1) {
-            this.damageMultiplier = 2
+        this.graphics.use(tint);
+        this.buffCooldown = 500;
+        if (type === 1) {
+            this.damageMultiplier = 2;
         }
-        if (type === 1.2) {
-            this.damageMultiplier = 2
-        }
-        if (type === 2.2) {
-            this.seeMouses = true
+        if (type === 2) {
+            this.seeMouses = true;
         }
     }
 
     deBuff() {
-        this.graphics.use(itemIds[this.type].toSprite())
+        this.graphics.use(itemIds[this.type].toSprite());
 
-        this.damageMultiplier = 1
-        this.seeMouses = false
+        this.damageMultiplier = 1;
+        this.seeMouses = false;
     }
 
     tierUp() {
@@ -420,7 +487,7 @@ export class Tower extends Actor {
         this.upgrade.play();
         this.upgradeParticles.pos = this.pos;
         this.game.add(this.timer);
-        this.timer.start()
+        this.timer.start();
     }
 
     removeParticles() {

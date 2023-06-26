@@ -8,6 +8,7 @@ import Volumeup from '../images/Volume-up.png';
 import Volumedown from '../images/Volume-down.png';
 import Mutebutton from '../images/MuteButton.png';
 import fontFile from "../VCR_OSD_MONO_1.001.ttf";
+import web from '../images/web.png';
 
 
 
@@ -22,7 +23,8 @@ import damageIndicator from '../images/damageIndicator.png';
 // park
 import bami from '../images/bami.png';
 import spicyBami from '../images/spicyBami.png';
-import pan from '../images/bami-pan.png';
+import pan from '../images/pan-bami.png';
+import aboutaleb from '../images/aboutaleb.png';
 import tinyLau from '../images/TinyLau_Tower.png';
 
 import spidermeneer from '../images/spider-meneer.png';
@@ -78,6 +80,7 @@ const Resources = {
     Volumeup: new ImageSource(Volumeup),
     Volumedown: new ImageSource(Volumedown),
     Mutebutton: new ImageSource(Mutebutton),
+    Web: new ImageSource(web),
 
 
     Garden: new ImageSource(garden),
@@ -96,6 +99,7 @@ const Resources = {
     SpiderMeneer: new ImageSource(spidermeneer),
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
+    aboutaleb: new ImageSource(aboutaleb),
     Map1Top: new ImageSource(map1top),
     ParkMapselect: new ImageSource(parkMapselect),
     RangeIndicator: new ImageSource(rangeIndicator),
@@ -125,7 +129,6 @@ const Resources = {
     Rat: new ImageSource(rat),
     Racoon: new ImageSource(racoon),
     Snail: new ImageSource(snail),
-
 };
 
 

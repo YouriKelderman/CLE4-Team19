@@ -7,11 +7,12 @@ export class PlaceTower extends Tower {
 
     range;
     itemIds = [
-        Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer,
+        Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer, Resources.aboutaleb
     ]
 
     constructor(spriteID) {
         super()
+        this.spriteID = spriteID
     }
 
 

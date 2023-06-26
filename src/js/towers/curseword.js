@@ -1,8 +1,9 @@
 import {Resources} from "../resources.js";
 import {Actor, Shape, Vector, Text, Font, FontUnit, Color} from "excalibur";
 import {Enemy} from "../enemies/enemy.js";
+import {Projectile} from "./projectile.js";
 
-export class CurseWord extends Actor {
+export class CurseWord extends Projectile {
 
     projectileSpeed;
     projectileTime = 1000;
@@ -22,8 +23,13 @@ export class CurseWord extends Actor {
     }
 
     onInitialize(engine) {
-        let curseWords = ["pestkankertering", "bloedkankerding", "pestpleurislijer", "sjongejonge", "geestelijk gestoord", "kersemus", "godverdom maar op"];
+        let curseWords = []
+        if (engine.profanityMode === false) {
+            curseWords = ["godgodverdommes", "pestkankertering", "bloedkankerding", "pestpleurislijer", "godverdom maar op", "kankeritus"];
+        } else {
+            curseWords = ["sjongejonge", "geestelijk gestoord", "kersemus", "achterlijk", "gezeik met jou", "niet goed bij je verstand"];
 
+        }
         this.colour = Color.White
 
         if (this.special === 1) {
@@ -42,11 +48,6 @@ export class CurseWord extends Actor {
                 size: 20,
 
                 color: this.colour,
-                shadow: {
-                    blur: 20,
-                    offset: new Vector(0, 0),
-                    color: Color.Black,
-                }
             }),
         });
 
@@ -69,20 +70,5 @@ export class CurseWord extends Actor {
                 this.kill()
             }
         }
-
-
-        if (this.health < 1) {
-            this.kill();
-        }
-
-        this.vel = new Vector(
-            Math.cos(this.rotation) * this.projectileSpeed,
-            Math.sin(this.rotation) * this.projectileSpeed
-        );
-        if (this.projectileTime < 0) {
-            this.kill();
-        }
-        this.projectileTime--;
     }
-
 }
