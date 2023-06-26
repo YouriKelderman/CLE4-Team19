@@ -84,21 +84,21 @@ export class Park extends Scene {
         endColor: Color.Green,
         isEmitting: false
     })
-    impactParticles = new ParticleEmitter({
+    impactParticle = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
-        radius: 2,
-        minVel: 100,
-        maxVel: 200,
+        radius: 1,
+        minVel: 50,
+        maxVel: 100,
         minAngle: 0,
         maxAngle: Math.PI * 2,
-        emitRate:300,
+        emitRate:50,
         opacity: 1,
         fadeFlag: true,
         particleLife: 1000,
         maxSize: 3,
         minSize: 1,
-        beginColor: Color.Green,
-        endColor: Color.Green,
+        beginColor: Color.Red,
+        endColor: Color.Red,
         isEmitting: false
     })
     towersInDistance = [];
@@ -107,7 +107,7 @@ export class Park extends Scene {
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
-        "1000*0",
+        "5*0",
         "5*0, 6*1",
         "5*0, 6*1, 12*2, 10*1, 12*3",
         "1000*3"
@@ -336,12 +336,13 @@ export class Park extends Scene {
         this.particleEmitting = true;
         console.log("eeee");
     }
-    impactParticle(pos) {
-        this.impactParticles.isEmitting = true;
-        this.impactParticles.pos = pos;
-        this.add(this.impactParticles);
+    impactParticleFunction(pos) {
+        this.impactParticle.isEmitting = true;
+        this.impactParticle.pos = pos;
+        this.add(this.impactParticle);
         this.impactParticleCounter = 0;
-        this.impactParticles = true;
+
+
         console.log("eeee");
     }
     parse(wave) {
@@ -633,11 +634,11 @@ export class Park extends Scene {
             }
             this.particleCounter++
         }
-        if (this.impactParticles.isEmitting) {
-            if (this.impactParticleCounter > 20) {
+        if (this.impactParticle.isEmitting) {
+            if (this.impactParticleCounter > 5) {
                 this.impactParticleCounter = 0
-                this.impactParticles.isEmitting = false;
-                this.impactParticles.kill();
+                this.impactParticle.isEmitting = false;
+                this.impactParticle.kill();
             }
             this.impactParticleCounter++
         }
