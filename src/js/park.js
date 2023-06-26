@@ -41,9 +41,9 @@ export class Park extends Scene {
     crunch = Resources.Crunch;
     upgradeParticles = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
-        radius: 2,
+        radius: 1,
         minVel: 100,
-        maxVel: 200,
+        maxVel: 160,
         minAngle: 0,
         maxAngle: Math.PI * 2,
         emitRate:300,
@@ -69,7 +69,9 @@ export class Park extends Scene {
     levels = [
         "5*0",
         "5*0, 6*1",
+        "5*0, 6*1, 12*2, 10*1, 12*3",
     ];
+
     wave = 0;
     waveItem = 0;
     activeWave;
@@ -442,8 +444,6 @@ export class Park extends Scene {
                 this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) + 1)];
                 this.activetower.tierUp();
             }
-
-
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
             this.mapping = !this.mapping;

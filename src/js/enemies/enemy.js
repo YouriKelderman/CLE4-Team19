@@ -40,7 +40,28 @@ engine;
     nextPath
     damageOverTime = 0
     damageCooldown = 0
-
+    deathParticles = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 10,
+        minVel: 50,
+        maxVel: 100,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate: 300,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 600,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Red,
+        endColor: Color.fromRGB(139, 69, 19),
+        isEmitting: false
+    })
+    timer = new Timer({
+        fcn: () => this.removeParticles(),
+        repeats: false,
+        interval: 200,
+    })
     constructor(game) {
         super();
         this.game = game;
@@ -131,6 +152,15 @@ engine;
         this.actions.clearActions();
         this.collider.clear();
         this.deathAnimation = 50;
+        this.game.add(this.deathParticles);
+        this.deathParticles.isEmitting = true;
+        this.deathParticles.pos = this.pos;
+        this.game.add(this.timer);
+        this.timer.start()
+    }
+    removeParticles() {
+        this.deathParticles.isEmitting = false;
+        this.deathParticles.kill();
     }
 
     move(pathToFollow) {
