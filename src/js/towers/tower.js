@@ -26,7 +26,6 @@ export class Tower extends Actor {
     rangeDisplay;
     worldPosition;
     randomizerCooldown = 0;
-    upgradeParticles;
 
     upgrade = Resources.Upgrade;
     upgradeParticles = new ParticleEmitter({
@@ -239,9 +238,6 @@ export class Tower extends Actor {
         if (this.buffCooldown === 1) {
             this.deBuff()
         }
-
-
-
     }
 
     onCollision() {
@@ -396,6 +392,9 @@ export class Tower extends Actor {
     }
 
     buff(type) {
+        let tint = itemIds[this.type].toSprite();
+        tint.tint = new Color(0, 100, 0);
+        this.graphics.use(tint)
         this.buffCooldown = 500
         if (type === 1.1) {
             this.damageMultiplier = 2
@@ -409,6 +408,8 @@ export class Tower extends Actor {
     }
 
     deBuff() {
+        this.graphics.use(itemIds[this.type].toSprite())
+
         this.damageMultiplier = 1
         this.seeMouses = false
     }
