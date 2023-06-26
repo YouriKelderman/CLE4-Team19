@@ -30,7 +30,7 @@ export class Game extends Engine {
     buyMenu;
     activetower;
     levens = 20;
-    profanityMode = false
+    profanityMode = true
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
