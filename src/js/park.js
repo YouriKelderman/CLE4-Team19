@@ -266,13 +266,7 @@ export class Park extends Scene {
         this.add(this.buyMenuButton);
 
 
-        //sidebutton
-
-
-        this.enemies()
-
         //buy bami tower
-
         this.bamiButton = new Actor();
         this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5))
         this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
@@ -280,26 +274,13 @@ export class Park extends Scene {
 
         // buy tini en lau tower
         this.tinyLauButton = new Actor();
-        this.tinyLauButton.graphics.use(Resources.TinyLau.toSprite());
-
-        this.tinyLauButton.scale = new Vector(2, 2);
-        this.tinyLauButton.z = 99999;
-        this.tinyLauButton.enableCapturePointer = true;
-        this.tinyLauButton.pointer.useGraphicsBounds = true;
         this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2))
         this.tinyLauButton.on("pointerdown", (event) => this.buyTower(2));
 
         // buy spiderTrike tower
         this.spiderTrikeButton = new Actor();
-        this.spiderTrikeButton.graphics.use(Resources.SpiderTrike.toSprite());
-        this.spiderTrikeButton.scale = new Vector(1.5, 1.5);
-        this.spiderTrikeButton.z = 99999;
-        this.spiderTrikeButton.enableCapturePointer = true;
-        this.spiderTrikeButton.pointer.useGraphicsBounds = true;
-        this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower());
-        this.button(this.spiderTrikeButton, Resources.SpiderTrike, new Vector(1350, 500), new Vector(1.5, 1.5))
+        this.button(this.spiderTrikeButton, Resources.SpiderMeneer, new Vector(1350, 500), new Vector(1.5, 1.5))
         this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower(3));
-        this.enemies();
 
 
         this.activeWave = new Actor();
@@ -361,10 +342,10 @@ export class Park extends Scene {
         if (this.buyMenuClick === 1) {
             this.buyMenu.pos = new Vector(1500, 450);
             this.buyMenu.actions.moveTo(1400, 450, 1100);
+            this.add(this.buyMenu);
 
             this.bamiButton.pos = new Vector(1500, 450);
             this.bamiButton.actions.moveTo(1350, 450, 1300);
-            this.add(this.buyMenu);
             this.add(this.bamiButton);
 
             this.tinyLauButton.pos = new Vector(1500, 350);
@@ -466,6 +447,7 @@ export class Park extends Scene {
             this.placing = false;
             this.placingSprite.kill();
             this.drawBuyMenu();
+
             this.plop.play();
         } else if (this.mapping) {
             let pos = this.engine.input.pointers.primary.lastWorldPos;
@@ -561,13 +543,6 @@ export class Park extends Scene {
 
         this.add(this.upgradeButton);
 
-
-
-
-
-
-
-
                 if (this.nameLabel && this.activetower) {
                     this.nameLabel.text = this.activetower.name.toString();
 
@@ -607,6 +582,7 @@ export class Park extends Scene {
             }
 
             this.placing = !this.placing;
+            this.drawBuyMenu();
             if (this.placing) {
                 this.walls.forEach(wall => {
                     this.add(wall);
