@@ -26,7 +26,7 @@ import {Gameover} from "./gameover.js";
 export class Game extends Engine {
     game
     musicVolume = 0.5;
-    gulden = 1000;
+    gulden = 10000;
     buyMenu;
     activetower;
     levens = 20;
