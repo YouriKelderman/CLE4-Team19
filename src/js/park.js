@@ -107,7 +107,7 @@ export class Park extends Scene {
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
-        "5*1",
+        "1000*0",
         "5*0, 6*1",
         "5*0, 6*1, 12*2, 10*1, 12*3",
         "1000*3"

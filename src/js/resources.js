@@ -9,6 +9,7 @@ import Volumedown from '../images/Volume-down.png';
 import Mutebutton from '../images/MuteButton.png';
 import fontFile from "../VCR_OSD_MONO_1.001.ttf";
 import web from '../images/web.png';
+import explosiveWeb from '../images/explosive-web.png';
 
 
 
@@ -81,6 +82,7 @@ const Resources = {
     Volumedown: new ImageSource(Volumedown),
     Mutebutton: new ImageSource(Mutebutton),
     Web: new ImageSource(web),
+    ExplosiveWeb: new ImageSource(explosiveWeb),
 
 
     Garden: new ImageSource(garden),

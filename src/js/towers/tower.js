@@ -431,14 +431,14 @@ export class Tower extends Actor {
                 this.coolDown = 20;
             }
             if (this.tier === 2.1) {
-                let bullet = new Web(1500, 0.5 * this.damageMultiplier, 0, 1);
+                let bullet = new Web(1500, 0.5 * this.damageMultiplier, 3, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(bullet);
                 this.coolDown = 15;
             }
             if (this.tier === 2.2) {
-                let bullet = new Web(1500, 0.5 * this.damageMultiplier, 1, 1);
+                let bullet = new Web(1500, 0.5 * this.damageMultiplier, 4, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(bullet);
