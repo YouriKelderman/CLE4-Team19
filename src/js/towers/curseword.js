@@ -22,8 +22,13 @@ export class CurseWord extends Actor {
     }
 
     onInitialize(engine) {
-        let curseWords = ["pestkankertering", "bloedkankerding", "pestpleurislijer", "sjongejonge", "geestelijk gestoord", "kersemus", "godverdom maar op"];
+        let curseWords = []
+        if (engine.profanityMode === false) {
+            curseWords = ["godgodverdommes", "pestkankertering", "bloedkankerding", "pestpleurislijer", "godverdom maar op", "kankeritus"];
+        } else {
+            curseWords = ["sjongejonge", "geestelijk gestoord", "kersemus", "achterlijk", "gezeik met jou", "niet goed bij je verstand"];
 
+        }
         this.colour = Color.White
 
         if (this.special === 1) {
