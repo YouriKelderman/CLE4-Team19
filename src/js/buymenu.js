@@ -1,8 +1,9 @@
-import {Vector,Actor} from "excalibur";
+import {Vector, Actor, Label, Font, Color} from "excalibur";
 import {Resources} from "./resources.js";
+import {Park} from "./park.js";
 
 export class UpgradeMenu extends Actor {
-
+    rangeIndicator;
 
     constructor() {
         super({
@@ -16,5 +17,18 @@ export class UpgradeMenu extends Actor {
         this.enableCapturePointer = true;
         this.pointer.useGraphicsBounds = true;
 
+
+        this.rangeIndicator = new Label(
+            {
+                pos: new Vector(500, 500),
+                z: 99999,
+                font: new Font({
+                    family: 'VCR',
+                    size: 20,
+                    color: Color.White,
+                    text: 'test',
+                }),
+            }
+        )
     }
 }

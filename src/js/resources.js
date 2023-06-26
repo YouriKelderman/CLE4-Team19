@@ -42,7 +42,7 @@ import parkMusic from '../sounds/parkSong.mp3';
 
 //gui
 import playButton from '../images/play-button.png';
-import settingsButton from '../images/settings-button.png';
+import settingsButton from '../images/settingsButton.png';
 import buyButton from '../images/BuyLogo.png';
 import menuButton from '../images/menu-button.png';
 import sideButton from '../images/side-button.png';

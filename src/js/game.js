@@ -15,6 +15,7 @@ export class Game extends Engine {
     gulden = 1000;
     levens = 0;
     buyMenu;
+    activetower;
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
