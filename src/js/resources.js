@@ -51,6 +51,8 @@ import crunch from '../sounds/crunch.mp3';
 import plop from '../sounds/plop.mp3'
 import parkMusic from '../sounds/parkSong.mp3';
 import UpgradeButton from '../images/UpgradeButton.png';
+import SwearUit from '../images/swearOff.png';
+import SwearAan from '../images/swearOn.png';
 
 
 // map select screens
@@ -108,6 +110,9 @@ const Resources = {
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     UpgradeButton: new ImageSource(UpgradeButton),
+    SwearUit: new ImageSource(SwearUit),
+    SwearAan: new ImageSource(SwearAan),
+
     BuyButton: new ImageSource(buyButton),
     MenuButton: new ImageSource(menuButton),
     SideButton: new ImageSource(sideButton),
