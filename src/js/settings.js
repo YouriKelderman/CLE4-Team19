@@ -30,7 +30,6 @@ export class Settings extends Scene {
 
     onInitialize(engine) {
 
-
         this.logo = new Actor();
         this.logo.graphics.use(Resources.PausedLogo.toSprite());
         this.logo.pos = new Vector(720, 250);
@@ -93,7 +92,7 @@ export class Settings extends Scene {
 
         // profanity filter
         this.profanityFilter = new Actor();
-        this.profanityFilter.graphics.use(Resources.Mutebutton.toSprite());
+        this.profanityFilter.graphics.use(Resources.SwearAan.toSprite());
         this.profanityFilter.pos = new Vector(720, 650);
         this.profanityFilter.scale = new Vector(0.1, 0.1)
         this.profanityFilter.z = 1000;
@@ -163,6 +162,13 @@ export class Settings extends Scene {
 
     toggleProfanityFilter() {
         this.engine.profanityMode = this.engine.profanityMode === false;
+
+        if (this.engine.profanityMode === false) {
+            this.profanityFilter.graphics.use(Resources.SwearUit.toSprite());
+        }
+        if (this.engine.profanityMode === true) {
+            this.profanityFilter.graphics.use(Resources.SwearAan.toSprite());
+        }
     }
 
     onPreUpdate(engine, _delta) {

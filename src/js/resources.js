@@ -9,6 +9,7 @@ import Volumedown from '../images/Volume-down.png';
 import Mutebutton from '../images/MuteButton.png';
 import fontFile from "../VCR_OSD_MONO_1.001.ttf";
 import web from '../images/web.png';
+import explosiveWeb from '../images/explosive-web.png';
 
 
 
@@ -51,6 +52,8 @@ import crunch from '../sounds/crunch.mp3';
 import plop from '../sounds/plop.mp3'
 import parkMusic from '../sounds/parkSong.mp3';
 import UpgradeButton from '../images/UpgradeButton.png';
+import SwearUit from '../images/swearOff.png';
+import SwearAan from '../images/swearOn.png';
 
 
 // map select screens
@@ -81,6 +84,7 @@ const Resources = {
     Volumedown: new ImageSource(Volumedown),
     Mutebutton: new ImageSource(Mutebutton),
     Web: new ImageSource(web),
+    ExplosiveWeb: new ImageSource(explosiveWeb),
 
 
     Garden: new ImageSource(garden),
@@ -108,6 +112,9 @@ const Resources = {
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     UpgradeButton: new ImageSource(UpgradeButton),
+    SwearUit: new ImageSource(SwearUit),
+    SwearAan: new ImageSource(SwearAan),
+
     BuyButton: new ImageSource(buyButton),
     MenuButton: new ImageSource(menuButton),
     SideButton: new ImageSource(sideButton),
