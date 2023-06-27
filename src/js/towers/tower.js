@@ -25,6 +25,12 @@ export class Tower extends Actor {
     coolDown = 0;
     damage = 1;
     shootingMode = 0;
+    upgrade1_1;
+    upgrade1_2;
+    upgrade2_1;
+    upgrade2_2;
+    upgradeButton;
+
     rangeDisplay;
     worldPosition;
     randomizerCooldown = 0;
@@ -82,25 +88,41 @@ export class Tower extends Actor {
             this.description = ("Gooit een pan bami\nnaar ongedierte. \n\nHet liefst uit het\nraam naar beneden.");
             this.towerRange = 200;
             this.shootingMode = 0
+            this.upgrade1_1 = ("Sneller schieten");
+            this.upgrade1_2 = ("Meer schade");
+            this.upgrade2_1 = ("Pittige bami");
+            this.upgrade2_2 = ("Grotere pan");
 
         }
         if (this.type === 1) {
             this._setName("Tiny & Lau");
             this.towerRange = 100;
             this.description = ("Scheld naar andere.\n\nVersterkt anderen of\npijnigt de vijand");
+            this.upgrade1_1 = ("Scheld meer");
+            this.upgrade1_2 = ("Scheld sneller");
+            this.upgrade2_1 = ("Beïnvloed meer");
+            this.upgrade2_2 = ("Beïnvloede zien muizen ");
         }
         if (this.type === 2) {
             this._setName("Spinnenman");
             this.towerRange = 300;
             this.description = ("Kookt lekker eten.\n\nMaar schiet ook\nwebben naar vijanden");
             this.shootingMode = 3
+            this.upgrade1_1 = ("Schiet 3 webben");
+            this.upgrade1_2 = ("Schiet nog 2 webben");
+            this.upgrade2_1 = ("Meer schade");
+            this.upgrade2_2 = ("Ontpfloffende spinnen?");
         }
 
         if (this.type === 3) {
             this._setName("Aboutaleb");
-            this.towerRange = 300;
-            this.description = ("Kookt lekker eten.\nMaar schiet ook\nwebben naar vijanden");
+            this.towerRange = 9999;
+            this.description = ("Leuke burgemeester.\nPas op want hij ziet\n alles en iedereen.");
             this.shootingMode = 3
+            this.upgrade1_1 = ("Meer schade");
+            this.upgrade1_2 = ("Nog meer schade en kan\nongedierte verlammen");
+            this.upgrade2_1 = ("Schoten kunnen splitsen");
+            this.upgrade2_2 = ("Kans op splitsen verhogen");
         }
 
         this.coolDown = 100;
@@ -506,6 +528,8 @@ export class Tower extends Actor {
         this.seeMouses = false;
     }
 
+
+
     tierUpDefault() {
         this.game.add(this.upgradeParticles);
         this.upgradeParticles.isEmitting = true;
@@ -515,24 +539,54 @@ export class Tower extends Actor {
         this.timer.start();
     }
 
-    tierUp1_1() {
-        this.tierUpDefault()
-        this.tier = 1.1;
+    tierUpPath1() {
+        console.log(`test`)
+        if (this.tier === 0) {
+            this.tier = 1.1;
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton2.add()
+console.log(this.engine.currentScene.upgradeButton)
+            this.engine.currentScene.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton2.kill();
+            this.engine.currentScene.upgradeButton2.graphics.use(Resources.upgradeLock.toSprite());
+            this.engine.currentScene.upgradeButton2.add()
+        }
+        if (this.tier === 1.1) {
+            this.tier = 1.2;
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton2.add()
+            this.engine.currentScene.upgradeButton.kill();
+            this.engine.currentScene.upgradeButton.graphics.use(Resources.upgradeLock.toSprite());
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton2.kill();
+            this.engine.currentScene.upgradeButton2.graphics.use(Resources.upgradeLock.toSprite());
+            this.engine.currentScene.upgradeButton2.add()
+        }
+        console.log(this.tier)
     }
 
-    tierUp1_2() {
-        this.tierUpDefault()
-        this.tier = 1.2
-    }
-
-    tierUp2_1() {
-        this.tierUpDefault()
-        this.tier = 2.1
-    }
-
-    tierUp2_2() {
-        this.tierUpDefault()
-        this.tier = 2.2
+    tierUpPath2() {
+        if (this.activetower.tier === 0) {
+            this.activetower.tier = 2.1;
+            this.upgradeButton.kill();
+            this.upgradeButton.graphics.use(this.upgradeLock);
+            this.upgradeButton.add
+            this.upgradeButton2.kill();
+            this.upgradeButton2.graphics.use(this.UpgradeButton);
+            this.upgradeButton2.add
+        }
+        if (this.activetower.tier === 1.1) {
+            this.activetower.tier = 2.2;
+            this.upgradeButton.kill();
+            this.upgradeButton.graphics.use(this.upgradeLock);
+            this.upgradeButton.add
+            this.upgradeButton2.kill();
+            this.upgradeButton2.graphics.use(this.upgradeLock);
+            this.upgradeButton2.add
+        }
+        console.log(`test`)
     }
 
     removeParticles() {

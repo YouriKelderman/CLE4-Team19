@@ -33,6 +33,7 @@ export class Park extends Scene {
         super();
     }
 
+    upgradeButton;
     particleEmitting = false;
     placing = false;
     placingSprite;
@@ -126,8 +127,7 @@ export class Park extends Scene {
     click = Resources.Click;
     spiderSpawner = 0;
     isLegal = true;
-    string = "";
-    endlessMode = false;
+        endlessMode = false;
     activeEnemies = 0;
     nameLabel;
     settingsButton;
@@ -554,14 +554,6 @@ export class Park extends Scene {
                 this.menuInfo();
             } else {
                 if (this.upgradeMenu) {
-
-                    this.upgradeMenu.actions.moveTo(1600, 450, 1000);
-                    this.upgradeMenu.kill();
-                    this.towerName.kill();
-                    this.upgradeButton.kill();
-                    this.towerRange.kill();
-                    this.rangeIndicator.kill();
-                    this.damageIndicator.kill();
                     this.uiRemover();
                 }
                 this.towers.forEach(tower => {
@@ -602,43 +594,39 @@ export class Park extends Scene {
     }
 
     uiRemover() {
+        this.upgradeMenuClicked = 0;
         this.upgradeMenu.kill();
         this.towerName.kill();
-        this.upgradeButton1.kill();
-        this.upgradeButton2.kill();
-        this.upgradeButton3.kill();
-        this.upgradeButton4.kill();
-        this.towerRange.kill();
-        this.rangeIndicator.kill();
-        this.damageIndicator.kill();
-        this.towerDamage.kill();
-        this.towerDesc.kill();
-        this.upgradeText.kill();
-        this.towerTargeting.kill();
-        this.towerTargetIndicator.kill();
+        this.towerRange.kill()
+        this.rangeIndicator.kill()
+        this.damageIndicator.kill()
+        this.towerDamage.kill()
+        this.towerDesc.kill()
+        this.upgradeText.kill()
+        this.towerTargeting.kill()
+        this.towerTargetIndicator.kill()
+        this.upgradeDesc1.kill()
+        this.upgradeDesc2.kill()
+        this.upgradeDesc3.kill()
+        this.upgradeDesc4.kill()
     }
+
 
     removeParticles() {
         this.upgradeParticles.isEmitting = false;
         this.upgradeParticles.kill();
     }
 
+
     menuInfo() {
+
         this.buyMenuClick = 1;
         this.drawBuyMenu();
         if (this.upgradeMenu) {
-
-            this.upgradeMenu.actions.moveTo(1600, 450, 1000);
-            this.upgradeMenu.kill();
-            this.towerName.actions.moveTo(1600, 450, 1000);
-            this.towerName.kill();
-            this.upgradeButton.kill();
-            this.towerRange.kill();
-            this.rangeIndicator.kill();
-            this.damageIndicator.kill();
             this.uiRemover();
 
         }
+        this.upgradeMenuClicked = 1;
         this.upgradeMenu = new UpgradeMenu();
         this.pos = new Vector(1600, 450);
         this.upgradeMenu.actions.moveTo(1400, 450, 1600);
@@ -712,18 +700,8 @@ export class Park extends Scene {
         this.damageIndicator.actions.moveTo(1295, 280, 1600);
         this.damageIndicator.scale = new Vector(1, 1);
         this.damageIndicator.z = 999999;
-        this.add(this.damageIndicator);
 
-        this.upgradeButton = new Actor();
-        this.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
-        this.upgradeButton.pos = new Vector(1400, 400);
-        this.upgradeButton.actions.moveTo(1290, 400, 1000);
-        this.upgradeButton.scale = new Vector(1, 1);
-        this.upgradeButton.z = 999999;
-        this.upgradeButton.enableCapturePointer = true;
-        this.upgradeButton.pointer.useGraphicsBounds = true;
-        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUp());
-        this.add(this.upgradeButton);
+        this.add(this.damageIndicator);
 
         this.towerTargeting = new Label({
             font: new Font({
@@ -754,7 +732,7 @@ export class Park extends Scene {
             font: new Font({
                 unit: FontUnit.Px,
                 family: 'VCR',
-                size: 28,
+                size: 32,
             }),
         });
         this.upgradeText.pos = new Vector(1350, 500);
@@ -762,66 +740,112 @@ export class Park extends Scene {
         this.upgradeText.text = `Upgrades`;
         this.upgradeText.z = 99999;
 
-
         this.add(this.upgradeText);
 
-        this.upgradeButton1 = new Actor();
-        this.upgradeButton1.graphics.use(Resources.UpgradeButton.toSprite());
-        this.upgradeButton1.pos = new Vector(1500, 550);
-        this.upgradeButton1.actions.moveTo(1290, 550, 1600);
-        this.upgradeButton1.scale = new Vector(1, 1);
-        this.upgradeButton1.z = 999999;
-        this.upgradeButton1.enableCapturePointer = true;
-        this.upgradeButton1.pointer.useGraphicsBounds = true;
-        this.upgradeButton1.on("pointerdown", (event) => this.activetower.tierUp1_1());
+        this.upgradeDesc1 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 14,
+                color: Color.White
+
+            }),
+        })
+
+        this.upgradeDesc1.pos = new Vector(1500, 660);
+        this.upgradeDesc1.actions.moveTo(1255, 660, 1600);
+        this.upgradeDesc1.text = this.activetower.upgrade1_1.toString();
+        this.upgradeDesc1.z = 99999
+        this.upgradeDesc1.enableCapturePointer = true;
+        this.upgradeDesc1.pointer.useGraphicsBounds = true;
+
+
+        this.upgradeDesc2 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 14,
+                color: Color.White
+
+            }),
+        })
+        this.upgradeDesc2.pos = new Vector(1500, 810);
+        this.upgradeDesc2.actions.moveTo(1255, 810, 1600);
+        this.upgradeDesc2.text = this.activetower.upgrade1_2.toString();
+        this.upgradeDesc2.z = 99999
+        this.upgradeDesc2.enableCapturePointer = true;
+        this.upgradeDesc2.pointer.useGraphicsBounds = true;
+
+
+        this.upgradeDesc3 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 14,
+                color: Color.White
+
+            }),
+        })
+        this.upgradeDesc3.pos = new Vector(1500, 570);
+        this.upgradeDesc3.actions.moveTo(1270, 570, 1600);
+        this.upgradeDesc3.text = this.activetower.upgrade2_1.toString();
+        this.upgradeDesc3.z = 99999
+        this.upgradeDesc3.enableCapturePointer = true;
+        this.upgradeDesc3.pointer.useGraphicsBounds = true;
+
+
+
+        this.upgradeDesc4 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 14,
+                color: Color.White
+
+            }),
+        })
+        this.upgradeDesc4.pos = new Vector(1500, 570);
+        this.upgradeDesc4.actions.moveTo(1270, 570, 1600);
+        this.upgradeDesc4.text = this.activetower.upgrade2_2.toString();
+        this.upgradeDesc4.z = 99999
+        this.upgradeDesc4.enableCapturePointer = true;
+        this.upgradeDesc4.pointer.useGraphicsBounds = true;
+
+        this.upgradeButton = new Actor();
+        this.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
+        this.upgradeButton.pos = new Vector(1500, 600);
+        this.upgradeButton.actions.moveTo(1340, 600, 1600);
+        this.upgradeButton.scale = new Vector(1.7, 1.7);
+        this.upgradeButton.z = 999999;
+        this.upgradeButton.enableCapturePointer = true;
+        this.upgradeButton.pointer.useGraphicsBounds = true;
+        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUpPath1());
+
 
         this.upgradeButton2 = new Actor();
         this.upgradeButton2.graphics.use(Resources.UpgradeButton.toSprite());
-        this.upgradeButton2.pos = new Vector(1500, 650);
-        this.upgradeButton2.actions.moveTo(1290, 650, 1600);
-        this.upgradeButton2.scale = new Vector(1, 1);
+        this.upgradeButton2.pos = new Vector(1500, 750);
+        this.upgradeButton2.actions.moveTo(1340, 750, 1600);
+        this.upgradeButton2.scale = new Vector(1.7, 1.7);
         this.upgradeButton2.z = 999999;
         this.upgradeButton2.enableCapturePointer = true;
         this.upgradeButton2.pointer.useGraphicsBounds = true;
-        this.upgradeButton2.on("pointerdown", (event) => this.activetower.tierUp1_2());
+        this.upgradeButton2.on("pointerdown", (event) => this.activetower.tierUpPath2());
 
-        this.upgradeButton3 = new Actor();
-        this.upgradeButton3.graphics.use(Resources.UpgradeButton.toSprite());
-        this.upgradeButton3.pos = new Vector(1500, 750);
-        this.upgradeButton3.actions.moveTo(1290, 750, 1600);
-        this.upgradeButton3.scale = new Vector(1, 1);
-        this.upgradeButton3.z = 999999;
-        this.upgradeButton3.enableCapturePointer = true;
-        this.upgradeButton3.pointer.useGraphicsBounds = true;
-        this.upgradeButton3.on("pointerdown", (event) => this.activetower.tierUp2_1());
+        this.upgradeButtonlock = new Actor();
+        this.upgradeButtonlock.graphics.use(Resources.upgradeLock.toSprite());
+        this.upgradeButtonlock.pos = new Vector(1500, 750);
+        this.upgradeButtonlock.actions.moveTo(1340, 750, 1600);
+        this.upgradeButtonlock.scale = new Vector(1.7, 1.7);
+        this.upgradeButtonlock.z = 999999;
 
-        this.upgradeButton4 = new Actor();
-        this.upgradeButton4.graphics.use(Resources.UpgradeButton.toSprite());
-        this.upgradeButton4.pos = new Vector(1500, 750);
-        this.upgradeButton4.actions.moveTo(1390, 750, 1600);
-        this.upgradeButton4.scale = new Vector(1, 1);
-        this.upgradeButton4.z = 999999;
-        this.upgradeButton4.enableCapturePointer = true;
-        this.upgradeButton4.pointer.useGraphicsBounds = true;
-        this.upgradeButton4.on("pointerdown", (event) => this.activetower.tierUp2_2());
-
-
-        this.add(this.upgradeButton1);
-        this.add(this.upgradeButton2);
-        this.add(this.upgradeButton3);
-        this.add(this.upgradeButton4);
-
-
-        if (this.nameLabel && this.activetower) {
-            this.nameLabel.text = this.activetower.name.toString();
-
-            console.log(this.activetower);
-            console.log(this.activetower.id);
-            console.log(this.activetower._name);
-            console.log(this.activetower.tier);
-            console.log(this.activetower.towerRange);
-            console.log(this.activetower.damage);
+        if (this.activetower.tier === 0 || this.activetower.tier === undefined) {
+            this.add(this.upgradeButton);
+            this.add(this.upgradeButton2);
         }
+
+
+
     }
 
     startWave() {
@@ -875,6 +899,7 @@ export class Park extends Scene {
             this.placingSprite.kill();
         }
     }
+
 
     onPreUpdate (engine, delta) {
         if (this.deathParticles.isEmitting) {
@@ -989,6 +1014,7 @@ export class Park extends Scene {
                 }
             } else {
             }
+
         }
     }
 }

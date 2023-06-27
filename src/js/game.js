@@ -49,7 +49,7 @@ export class Game extends Engine {
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
         this.start(ResourceLoader).then(() => this.startGame());
-        this.showDebug(true);
+        this.showDebug(false);
         this.debug.motion = {
             accelerationColor: Color.Azure,
             showAcceleration: true,
@@ -70,7 +70,6 @@ export class Game extends Engine {
 
     onInitialize(engine) {
         this.game = engine;
-        const devtool = new DevTool(this.game);
     }
 
     startGame(engine) {
