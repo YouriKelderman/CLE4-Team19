@@ -75,6 +75,17 @@ export class Levelselect extends Scene {
         parklevel2.on("pointerup", (event) => this.parkLevel(2));
         this.add(parklevel2);
 
+        const parklevel3 = new Actor();
+        parklevel3.graphics.use(Resources.ParkMapSelect3.toSprite());
+        parklevel3.pos = new Vector(1090, 500);
+        parklevel3.scale = new Vector(0.1, 0.1)
+        parklevel3.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
+        parklevel3.z = 1000;
+        parklevel3.enableCapturePointer = true;
+        parklevel3.pointer.useGraphicsBounds = true;
+        parklevel3.on("pointerup", (event) => this.parkLevel(3));
+        this.add(parklevel3);
+
 
         // Funny menu things
         this.spider = new Actor();
@@ -112,6 +123,11 @@ export class Levelselect extends Scene {
             this.engine.goToScene('level2');
             this.engine.activeScene = 2
             console.log('park level2');
+        }
+        if (id === 3) {
+            this.engine.goToScene('level3');
+            this.engine.activeScene = 3
+            console.log('park level3');
         }
 
     }

@@ -52,6 +52,8 @@ import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
 import map2ground from '../images/map-2-ground.png';
 import map2top from '../images/map-2-top.png';
+import map3ground from '../images/map-3-ground.png';
+import map3top from '../images/map-3-top.png';
 import click from '../sounds/click.wav';
 import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
@@ -67,6 +69,7 @@ import SwearAan from '../images/swearOn.png';
 // map select screens
 import parkMapselect from '../images/parkmapselect.png';
 import parkMapSelect2 from '../images/parkmapselect2.png';
+import parkMapSelect3 from '../images/parkmapselect3.png';
 
 
 //gui
@@ -114,6 +117,8 @@ const Resources = {
     SpiderTrike: new ImageSource(spiderTrike),
     Map1Ground: new ImageSource(map1ground),
     Map2Ground: new ImageSource(map2ground),
+    Map3Ground: new ImageSource(map3ground),
+    Map3Top: new ImageSource(map3top),
     SpiderMeneer: new ImageSource(spidermeneer),
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
@@ -122,6 +127,7 @@ const Resources = {
     Map2Top: new ImageSource(map2top),
     ParkMapselect: new ImageSource(parkMapselect),
     ParkMapSelect2: new ImageSource(parkMapSelect2),
+    ParkMapSelect3: new ImageSource(parkMapSelect3),
     RangeIndicator: new ImageSource(rangeIndicator),
     DamageIndicator: new ImageSource(damageIndicator),
     Laser: new ImageSource(laser),
