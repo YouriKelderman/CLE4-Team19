@@ -870,6 +870,7 @@ export class Park extends Scene {
             });
             this.placingSprite.kill();
         }
+    }
 
 
     onPreUpdate (engine, delta) {
