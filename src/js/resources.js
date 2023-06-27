@@ -84,7 +84,7 @@ import buyMenu from '../images/BuyMenuBar.png';
 import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
 import costLogo from '../images/costLogo.png';
-
+import bg from '../images/background.jpg';
 
 const font = new FontFace("VCR", `url(${fontFile})`)
 document.fonts.add(font)
@@ -149,7 +149,7 @@ const Resources = {
     Health: new ImageSource(Health),
     TargetingSymbol: new ImageSource(targetingSymbol),
     CostLogo: new ImageSource(costLogo),
-
+background: new ImageSource(bg),
 
     Click: new Sound(click),
     MenuMusic: new Sound(menuMusic),

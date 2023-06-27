@@ -98,6 +98,11 @@ export class Levelselect extends Scene {
         this.mapLabel2.pos = new Vector(700, 630);
         this.mapLabel2.z = 99999;
         this.add(this.mapLabel2)
+        let mapFloor = new Actor();
+        mapFloor.graphics.use(Resources.background.toSprite());
+        mapFloor.scale = new Vector(5, 5);
+        mapFloor.pos = new Vector(745, 433);
+        this.add(mapFloor);
         const parklevel3 = new Actor();
         parklevel3.graphics.use(Resources.ParkMapSelect3.toSprite());
         parklevel3.pos = new Vector(1090, 500);
