@@ -25,7 +25,7 @@ export class Park3 extends Park {
         "5*0, 6*1, 12*2, 10*1, 12*3",
         "1000*3"
     ];
-    id = 1;
+    id = 2;
     wave = 0;
     waveItem = 0;
     activeWave;
@@ -127,7 +127,7 @@ export class Park3 extends Park {
         this.placingSprite = new PlaceTower();
         this.engine.input.pointers.primary.on("up", () => this.mouseInput());
         this.engine = _engine;
-        let hitboxPoints = [1011, 854,1184, 853,1187, 45,1110, 45,1143, 854,1082, 854,1083, 45,1017, 45,1012, 472,753, 408,425, 325,365, 300,258, 271,175, 192,177, 45,115, 45,116, 211,159, 212,162, 315,117, 180,113, 854,165, 853,165, 445,203, 399,259, 357,327, 362,424, 403,1012, 551,1011, 852,1011, 852];
+        let hitboxPoints = [182, 45,184, 854,249, 853,238, 45,309, 45,318, 846,389, 846,382, 45,384, 854,393, 72,1371, 74,1371, 136,400, 140,403, 197,1369, 188,1371, 806,1334, 807,1334, 72,1281, 70,1297, 811,1244, 811,1236, 72,565, 73,571, 809,506, 811,530, 72,459, 72,496, 810,398, 813,396, 761,1372, 761,1373, 716,399, 711,397, 671,1371, 679,1373, 626,399, 629,399, 629,];
         for (let i = 0; i < hitboxPoints.length; i += 2) {
             //console.log(`${hitboxPoints[i]} ${hitboxPoints[i + 1]} ${hitboxPoints[i + 2]} ${hitboxPoints[i + 3]}`);
             let offsetX = 0;
@@ -148,7 +148,7 @@ export class Park3 extends Park {
         this.garden.graphics.use(this.garden.sprite);
         this.add(this.garden);
         this.garden.z = 9999;
-        this.garden.pos = new Vector(1093, 796);
+        this.garden.pos = new Vector(900, 400);
         this.garden.collisionType = CollisionType.Passive;
 
         this.garden.on("collisionstart", (event) => {
