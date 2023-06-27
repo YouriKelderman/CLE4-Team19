@@ -13,8 +13,6 @@ export class Gulden extends Label {
                 unit: FontUnit.Px,
                 family: 'VCR',
                 size: 35,
-
-
                 color: Color.White,
             }),
         });
