@@ -87,8 +87,8 @@ export class Levelselect extends Scene {
     }
 
     onPreUpdate(engine, _delta) {
-        this.levelselect.actions.scaleTo(vec(1.2, 1.2), vec(0.05, 0.05));
-        this.levelselect.actions.scaleTo(vec(1.0, 1.0), vec(0.05, 0.05));
+        this.levelselect.actions.scaleTo(vec(4.5, 4.5), vec(0.05, 0.05));
+        this.levelselect.actions.scaleTo(vec(4.2, 4.2), vec(0.1, 0.1));
 
         if (Math.floor(Math.random() * (2000 - 1) + 1) === 1) {
             this.spiderPeek();
