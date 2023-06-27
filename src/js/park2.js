@@ -16,6 +16,7 @@ export class Park2 extends Park {
     constructor() {
         super();
     }
+
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
@@ -24,7 +25,7 @@ export class Park2 extends Park {
         "5*0, 6*1, 12*2, 10*1, 12*3",
         "1000*3"
     ];
-
+    id = 1;
     wave = 0;
     waveItem = 0;
     activeWave;
@@ -92,7 +93,7 @@ export class Park2 extends Park {
         this.garden.graphics.use(this.garden.sprite);
         this.add(this.garden);
         this.garden.z = 9999;
-        this.garden.pos = new Vector(157, 807);
+        this.garden.pos = new Vector(1093, 796);
         this.garden.collisionType = CollisionType.Passive;
 
         this.garden.on("collisionstart", (event) => {
@@ -105,15 +106,16 @@ export class Park2 extends Park {
         });
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map2Ground.toSprite());
-        mapFloor.scale = new Vector(5.5, 5.5);
-        mapFloor.pos = new Vector(745, 473);
+        mapFloor.scale = new Vector(5.9, 5.9);
+        mapFloor.pos = new Vector(750, 450);
         this.add(mapFloor);
         let mapTop = new Actor();
         mapTop.graphics.use(Resources.Map2Top.toSprite());
-        mapTop.scale = new Vector(5.5, 5.5);
-        mapTop.pos = new Vector(745, 425);
+        mapTop.scale = new Vector(5.9, 5.9);
+        mapTop.pos = new Vector(691, 450);
         mapTop.z = 9999;
         this.add(mapTop);
+
         this.settingsButton = new Actor();
         this.settingsButton.graphics.use(Resources.SettingsButton.toSprite());
         this.settingsButton.pos = new Vector(50, 105);
@@ -213,11 +215,11 @@ export class Park2 extends Park {
         this.tinycost.z = 99999;
 
 
-
         this.activeWave = new Actor();
         this.button(this.activeWave, Resources.TinyLau, new Vector(130, 350), new Vector(2, 2));
         this.activeWave.on("pointerdown", (event) => this.startWave());
     }
+
     drawBuyMenu() {
         this.buyMenuClick++;
         if (this.buyMenuClick === 1) {

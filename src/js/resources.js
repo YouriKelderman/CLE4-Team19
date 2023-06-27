@@ -14,6 +14,9 @@ import gameover from '../images/gameover.png';
 import selectText from '../images/selecttext.png';
 
 
+import whoosh from '../sounds/whoosh.mp3'
+import thud from '../sounds/536766__egomassive__thud.mp3'
+import smash from '../sounds/smash.wav'
 
 // menu
 import loading from '../images/loading.png';
@@ -78,7 +81,6 @@ import Health from '../images/Levens.png';
 import costLogo from '../images/costLogo.png';
 
 
-
 const font = new FontFace("VCR", `url(${fontFile})`)
 document.fonts.add(font)
 font.load()
@@ -96,6 +98,8 @@ const Resources = {
     SelectText: new ImageSource(selectText),
 
 
+    Whoosh: new Sound(whoosh),
+    Thud: new Sound(thud),
     Garden: new ImageSource(garden),
     Garden1: new ImageSource(garden1),
     Garden2: new ImageSource(garden2),
@@ -143,6 +147,7 @@ const Resources = {
     SettingsMusic: new Sound(settingsMusic),
     ParkMusic: new Sound(parkMusic),
     Crunch: new Sound(crunch),
+    Smash: new Sound(smash),
     Upgrade: new Sound(upgrade),
     Plop: new Sound(plop),
     Mouse: new ImageSource(mouse),
@@ -151,7 +156,6 @@ const Resources = {
     Racoon: new ImageSource(racoon),
     Snail: new ImageSource(snail),
 };
-
 
 
 const resourceArray = []
