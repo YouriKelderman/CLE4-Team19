@@ -28,7 +28,7 @@ export class Tower extends Actor {
     rangeDisplay;
     worldPosition;
     randomizerCooldown = 0;
-engine;
+    engine;
     upgrade = Resources.Upgrade;
     upgradeParticles = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
@@ -59,8 +59,8 @@ engine;
     curseCooldown = 250;
     damageMultiplier = 1;
     seeMouses = false;
-
-
+    whoosh = Resources.Whoosh;
+thud = Resources.Thud;
     constructor(Game, type) {
         super({
             width: 50, height: 50
@@ -78,7 +78,7 @@ engine;
 
         if (this.type === 0) {
             this._setName("Pan Bami");
-            this.description =("Gooit een pan bami\nnaar ongedierte. \n\nHet liefst uit het\nraam naar beneden.");
+            this.description = ("Gooit een pan bami\nnaar ongedierte. \n\nHet liefst uit het\nraam naar beneden.");
             this.towerRange = 200;
             this.shootingMode = 0
 
@@ -303,6 +303,7 @@ engine;
         if (this.type === 0) {
             // default
             if (this.tier === 0) {
+                this.whoosh.play(0.5);
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 0, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -312,6 +313,7 @@ engine;
 
             // pad 1
             if (this.tier === 1.1) {
+                this.whoosh.play(0.5);
                 let bullet = new PanBami(1700, this.damage * this.damageMultiplier * 1.3, 0, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -319,6 +321,7 @@ engine;
                 this.coolDown = 25;
             }
             if (this.tier === 1.2) {
+                this.whoosh.play();
                 let bullet = new PanBami(2000, this.damage * this.damageMultiplier * 1.5, 0, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -328,6 +331,7 @@ engine;
 
             // pad 2
             if (this.tier === 2.1) {
+                this.whoosh.play();
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 1, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -335,6 +339,7 @@ engine;
                 this.coolDown = 25;
             }
             if (this.tier === 2.2) {
+                this.thud.play();
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 2, 5);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -462,13 +467,14 @@ engine;
         }
     }
 
-    shootLaser(){
-            let bullet = new Laser(1500, 0.5 * this.damageMultiplier, 4, 1);
-            bullet.pos = this.pos;
-            bullet.rotation = this.rotation - Math.PI / 2;
-            this.engine.add(bullet);
-            this.coolDown = 15;
+    shootLaser() {
+        let bullet = new Laser(1500, 0.5 * this.damageMultiplier, 4, 1);
+        bullet.pos = this.pos;
+        bullet.rotation = this.rotation - Math.PI / 2;
+        this.engine.add(bullet);
+        this.coolDown = 15;
     }
+
     inRange() {
         if (this.shootingCooldown === 1) {
             this.fire();
@@ -482,7 +488,7 @@ engine;
 
     buff(type) {
         let tint = itemIds[this.type].toSprite();
-        tint.tint = new Color(0, 100, 0);
+        tint.tint = new Color(0, 255, 0);
         this.graphics.use(tint);
         this.buffCooldown = 500;
         if (type === 1) {
@@ -508,18 +514,22 @@ engine;
         this.game.add(this.timer);
         this.timer.start();
     }
+
     tierUp1_1() {
         this.tierUpDefault()
         this.tier = 1.1;
     }
+
     tierUp1_2() {
         this.tierUpDefault()
         this.tier = 1.2
     }
+
     tierUp2_1() {
         this.tierUpDefault()
         this.tier = 2.1
     }
+
     tierUp2_2() {
         this.tierUpDefault()
         this.tier = 2.2
