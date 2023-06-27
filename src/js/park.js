@@ -281,15 +281,6 @@ export class Park extends Scene {
         this.bamiButton = new Actor();
         this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5));
         this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
-        // buy tini en lau tower
-        this.tinyLauButton = new Actor();
-        this.tinyLauButton.graphics.use(Resources.TinyLau.toSprite());
-        this.tinyLauButton.scale = new Vector(2, 2);
-        this.tinyLauButton.z = 99999;
-        this.tinyLauButton.enableCapturePointer = true;
-        this.tinyLauButton.pointer.useGraphicsBounds = true;
-        this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2));
-        this.tinyLauButton.on("pointerdown", (event) => this.buyTower(2));
 
         // cost logo and text
         this.costlogobami = new Actor();
@@ -441,8 +432,6 @@ export class Park extends Scene {
         if (this.buyMenuClick === 1) {
             this.buyMenu.pos = new Vector(1500, 450);
             this.buyMenu.actions.moveTo(1400, 450, 1100);
-            this.bamiButton.pos = new Vector(1500, 450);
-            this.bamiButton.actions.moveTo(1350, 450, 1300);
             this.add(this.buyMenu);
 
             this.koopLabel.pos = new Vector(1500, 100);
@@ -457,11 +446,6 @@ export class Park extends Scene {
             this.bamiButton.pos = new Vector(1500, 180);
             this.bamiButton.actions.moveTo(1350, 180, 1300);
             this.add(this.bamiButton);
-            this.tinyLauButton.pos = new Vector(1500, 350);
-            this.tinyLauButton.actions.moveTo(1350, 350, 1300);
-            this.add(this.tinyLauButton);
-            this.spiderTrikeButton.pos = new Vector(1500, 250);
-            this.spiderTrikeButton.actions.moveTo(1350, 250, 1300);
 
             this.costlogobami.pos = new Vector(1500, 200);
             this.costlogobami.actions.moveTo(1300, 230, 1300);
@@ -507,12 +491,6 @@ export class Park extends Scene {
         }
         if (this.buyMenuClick === 2) {
             this.buyMenu.kill();
-            this.bamiButton.pos = new Vector(1350, 450);
-            this.bamiButton.kill();
-            this.tinyLauButton.pos = new Vector(1350, 350);
-            this.tinyLauButton.kill();
-            this.spiderTrikeButton.pos = new Vector(1350, 250);
-            this.spiderTrikeButton.kill();
 
             this.koopLabel.pos = new Vector(1350, 50);
             this.koopLabel.kill();
@@ -892,6 +870,7 @@ export class Park extends Scene {
             });
             this.placingSprite.kill();
         }
+    }
 
 
     onPreUpdate (engine, delta) {
