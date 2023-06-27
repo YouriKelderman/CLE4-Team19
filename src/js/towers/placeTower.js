@@ -4,24 +4,41 @@ import {Tower} from "./tower.js";
 
 
 export class PlaceTower extends Tower {
-
+    game
     range;
+    type
+    rangeDisplay;
     itemIds = [
         Resources.Pan, Resources.TinyLau, Resources.SpiderMeneer, Resources.aboutaleb
     ]
 
-    constructor(spriteID) {
+    constructor(type) {
         super()
-        this.spriteID = spriteID
+        this.type = type;
     }
 
 
-
     onInitialize(engine) {
+        this.game = engine;
         this.scale = new Vector(1, 1);
         console.log(this.towerRange)
-        this.towerRange = 300;
-
+        this.rangeDisplay = new Actor();
+        this.rangeDisplay.graphics.use(Resources.Range.toSprite());
+        this.rangeDisplay.pos = new Vector(0, 0);
+        if (this.type === 0) {
+            this.towerRange = 200;
+        }
+        if (this.type === 1) {
+            this.towerRange = 100;
+        }
+        if (this.type === 2) {
+            this.towerRange = 300;
+        }
+        if (this.type === 3) {
+            this.towerRange = 300;
+        }
+        this.range = this.towerRange;
+        this.rangeDisplay.scale = new Vector(this.towerRange / 24, this.towerRange / 24);
     }
 
     checkSelf(sprite, legal) {
@@ -31,10 +48,9 @@ export class PlaceTower extends Tower {
         } else {
             let tint = this.itemIds[sprite].toSprite()
             tint.tint = new Color(255, 0, 0)
-
             this.sprite = tint;
             this.graphics.use(tint);
-
         }
     }
+
 }

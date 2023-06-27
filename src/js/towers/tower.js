@@ -60,7 +60,8 @@ export class Tower extends Actor {
     damageMultiplier = 1;
     seeMouses = false;
     whoosh = Resources.Whoosh;
-thud = Resources.Thud;
+    thud = Resources.Thud;
+
     constructor(Game, type) {
         super({
             width: 50, height: 50
@@ -111,7 +112,6 @@ thud = Resources.Thud;
         this.z = 100;
         const circle = Shape.Circle(this.towerRange);
         this.collider.clear();
-
         this.collider.set(circle);
         this.on('precollision', (event) => {
             if (event.other.name === "Enemy" || event.other.name === "Pan Bami" || event.other.name === "Tiny & Lau" || event.other.name === "Spiderman") {
@@ -539,6 +539,4 @@ thud = Resources.Thud;
         this.upgradeParticles.isEmitting = false;
         this.upgradeParticles.kill();
     }
-
-
 }
