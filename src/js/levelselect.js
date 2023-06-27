@@ -42,7 +42,7 @@ export class Levelselect extends Scene {
 
     }
     onInitialize(engine) {
-
+    this.engine = engine;
 
         // levelselect & buttons
         this.levelselect = new Actor();
@@ -61,7 +61,7 @@ export class Levelselect extends Scene {
         parklevel.z = 1000;
         parklevel.enableCapturePointer = true;
         parklevel.pointer.useGraphicsBounds = true;
-        parklevel.on("pointerup", (event) => this.parkLevel());
+        parklevel.on("pointerup", (event) => this.parkLevel(1));
         this.add(parklevel);
 
         const parklevel2 = new Actor();
@@ -72,7 +72,7 @@ export class Levelselect extends Scene {
         parklevel2.z = 1000;
         parklevel2.enableCapturePointer = true;
         parklevel2.pointer.useGraphicsBounds = true;
-        parklevel2.on("pointerup", (event) => this.parkLevel());
+        parklevel2.on("pointerup", (event) => this.parkLevel(2));
         this.add(parklevel2);
 
 
@@ -99,11 +99,20 @@ export class Levelselect extends Scene {
         }
     }
 
-    parkLevel() {
-        console.log('park level');
+    parkLevel(id) {
         this.click.volume = 1;
         this.click.play();
-        this.engine.goToScene('park');
+
+        if (id === 1) {
+            this.engine.goToScene('level1');
+            this.engine.activeScene = 1
+            console.log('park level1');
+        }
+        if (id === 2) {
+            this.engine.goToScene('level2');
+            this.engine.activeScene = 2
+            console.log('park level2');
+        }
 
     }
 

@@ -45,6 +45,8 @@ import garden3 from "../images/garden-3.png"
 import garden4 from "../images/garden-4.png"
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
+import map2ground from '../images/map-2-ground.png';
+import map2top from '../images/map-2-top.png';
 import click from '../sounds/click.wav';
 import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
@@ -103,11 +105,13 @@ const Resources = {
     TinyLau: new ImageSource(tinyLau),
     SpiderTrike: new ImageSource(spiderTrike),
     Map1Ground: new ImageSource(map1ground),
+    Map2Ground: new ImageSource(map2ground),
     SpiderMeneer: new ImageSource(spidermeneer),
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
     aboutaleb: new ImageSource(aboutaleb),
     Map1Top: new ImageSource(map1top),
+    Map2Top: new ImageSource(map2top),
     ParkMapselect: new ImageSource(parkMapselect),
     ParkMapSelect2: new ImageSource(parkMapSelect2),
     RangeIndicator: new ImageSource(rangeIndicator),
