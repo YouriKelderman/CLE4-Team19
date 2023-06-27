@@ -24,6 +24,10 @@ import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 import range from '../images/range.png';
 import upgrade from '../images/UpgradeButton.png';
+
+import upgrade1 from '../images/UpgradeButtonPath1.png';
+import upgrade2 from '../images/UpgradeButtonPath2.png';
+
 import upgradelock from '../images/upgradeLockButton.png';
 import rangeIndicator from '../images/rangeIndicator.png';
 import damageIndicator from '../images/damageIndicator.png';
@@ -136,6 +140,11 @@ const Resources = {
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     UpgradeButton: new ImageSource(UpgradeButton),
+
+    UpgradeButtonPath1: new ImageSource(upgrade1),
+    UpgradeButtonPath2: new ImageSource(upgrade2),
+
+
     upgradeLock: new ImageSource(upgradelock),
     SwearUit: new ImageSource(SwearUit),
     SwearAan: new ImageSource(SwearAan),
@@ -149,7 +158,7 @@ const Resources = {
     Health: new ImageSource(Health),
     TargetingSymbol: new ImageSource(targetingSymbol),
     CostLogo: new ImageSource(costLogo),
-background: new ImageSource(bg),
+    background: new ImageSource(bg),
 
     Click: new Sound(click),
     MenuMusic: new Sound(menuMusic),
