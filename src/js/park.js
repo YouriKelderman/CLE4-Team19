@@ -864,6 +864,10 @@ export class Park extends Scene {
     startWave() {
         if (this.activeEnemies === 0) {
             this.wave = Number(localStorage.getItem(`${this.engine.currentScene.id}`));
+            if(this.wave >= this.engine.currentScene.levels.length -1) {
+                this.wave = 0;
+            }
+
             this.engine.currentScene.waveText.text = `${localStorage.getItem(`${this.engine.currentScene.id}`)}/${this.engine.currentScene.levels.length}`;
             this.waveItem = 0;
             this.parse(Number(localStorage.getItem(`${this.engine.currentScene.id}`)));
@@ -1020,6 +1024,7 @@ export class Park extends Scene {
                     this.add(enemy);
                     this.waveItem += 1;
                     this.activeEnemies += 1;
+                    this.engine.currentScene.activeEnemyObjects.push(enemy);
                 }
                 if (this.endlessMode && this.waveItem === this.order.length) {
                     this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];

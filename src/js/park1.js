@@ -26,13 +26,14 @@ export class Park1 extends Park {
         "4*4",
         "12*1"
     ];
-id= 0;
+    id = 0;
 
     waveItem = 0;
     activeWave;
     waveText;
     order = [];
     walls = [];
+    activeEnemyObjects = [];
     garden = new Actor({width: 100, height: 100});
     gardenSprites = [Resources.Garden, Resources.Garden4, Resources.Garden3, Resources.Garden2, Resources.Garden1, Resources.Garden1];
     endlessMode = false;
@@ -261,7 +262,6 @@ id= 0;
         this.bamicost.z = 99999;
 
 
-
         this.activeWave = new Actor();
         this.button(this.activeWave, Resources.TinyLau, new Vector(130, 350), new Vector(2, 2));
         this.activeWave.on("pointerdown", (event) => this.startWave());
@@ -321,6 +321,7 @@ id= 0;
         this.game = this.engine;
         this.engine.goToScene('settings');
     }
+
     enemyKilled(pos) {
         this.deathParticles.isEmitting = true;
         this.deathParticles.pos = pos;
@@ -337,6 +338,7 @@ id= 0;
         this.impactParticleCounter = 0;
         console.log("eeee");
     }
+
     removeParticles() {
         this.upgradeParticles.isEmitting = false;
         this.upgradeParticles.kill();

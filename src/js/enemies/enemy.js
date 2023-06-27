@@ -229,8 +229,15 @@ export class Enemy extends Actor {
         if (this.deathAnimation < 0) {
             this.kill();
             this.game.currentScene.activeEnemies -= 1;
+            this.game.currentScene.activeEnemyObjects.splice(this.game.currentScene.activeEnemyObjects.indexOf(this));
             if (this.engine.levens < 1) {
+                this.game.currentScene.activeEnemyObjects.forEach(enemy => {
+                    enemy.kill();
+                })
+                this.game.levens = 20;
+
                 this.engine.goToScene('gameover');
+
             }
 
         }
