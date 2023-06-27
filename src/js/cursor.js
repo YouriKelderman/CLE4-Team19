@@ -26,6 +26,7 @@ export class Cursor extends Actor {
 
     onInitialize(engine) {
         this.game = engine
+        this._setName("Cursor")
 
         this.z = 10000;
 
@@ -78,7 +79,7 @@ export class Cursor extends Actor {
 
                 this.actorsDistance.push(distance);
             } else {
-                this.actorsDistance.splice(i, 1)
+                this.actorsDistance.splice(i, 0)
             }
         }
 
