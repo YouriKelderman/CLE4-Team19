@@ -148,8 +148,7 @@ export class Enemy extends Actor {
 
     removeBulletHealth(event) {
         let bullet = event
-
-        this.game.impactParticleFunction(event.other.pos)
+        this.game.currentScene.impactParticleFunction(event.other.pos)
         bullet.other.health--
         if (bullet.other.speed > 100) {
             bullet.other.speed = bullet.other.speed - 100
@@ -162,7 +161,7 @@ export class Enemy extends Actor {
         this.deathAnimation = 50;
         Resources.Smash.play(0.1);
         this.engine.gulden += this.worth
-        this.game.enemyKilled(this.pos);
+        this.game.currentScene.enemyKilled(this.pos);
     }
 
     move(pathToFollow) {
