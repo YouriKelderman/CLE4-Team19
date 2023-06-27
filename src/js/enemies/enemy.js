@@ -62,7 +62,7 @@ export class Enemy extends Actor {
     onInitialize(engine) {
         this.engine = engine;
         this.game = engine;
-        console.log(this.game.currentScene.id);
+
         this.anchor = new Vector(0.5, 0.5);
         this.z = 100;
         this._setName("Enemy");
@@ -71,11 +71,11 @@ export class Enemy extends Actor {
     }
 
     setRoute() {
-        console.log(this.routes[this.game.currentScene.id])
+
         this.tempRoute = this.routes[this.game.currentScene.id];
-        console.log(this.tempRoute)
+
         let routeToUse = 0;
-        console.log(routeToUse)
+
         this.tempRoute[routeToUse].forEach(item => {
             item = item.split(".");
             let newItem = new Vector(Number(item[0]), Number(item[1]));
@@ -228,7 +228,7 @@ export class Enemy extends Actor {
 
         if (this.deathAnimation < 0) {
             this.kill();
-            this.game.activeEnemies -= 1;
+            this.game.currentScene.activeEnemies -= 1;
             if (this.engine.levens < 1) {
                 this.engine.goToScene('gameover');
             }

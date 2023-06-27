@@ -60,7 +60,7 @@ export class Game extends Engine {
 
         this.add('menu', new Menu());
         this.add ('levelselect', new Levelselect());
-        this.add('level1', new Park1)
+        this.add('level1', new Park1())
         this.add('level2', new Park2())
         this.add('level3', new Park3())
         this.add('settings', new Settings())
@@ -71,6 +71,15 @@ export class Game extends Engine {
     onInitialize(engine) {
         this.game = engine;
         const devtool = new DevTool(this.game);
+        if(localStorage.getItem("0") === null || localStorage.getItem("0") === "5"){
+            localStorage.setItem("0", "0");
+        }
+        if(localStorage.getItem("1") === null){
+            localStorage.setItem("1", "0");
+        }
+        if(localStorage.getItem("2") === null){
+            localStorage.setItem("2", "0");
+        }
     }
 
     startGame(engine) {

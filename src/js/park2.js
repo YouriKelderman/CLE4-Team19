@@ -26,7 +26,6 @@ export class Park2 extends Park {
         "1000*3"
     ];
     id = 1;
-    wave = 0;
     waveItem = 0;
     activeWave;
     order = [];
