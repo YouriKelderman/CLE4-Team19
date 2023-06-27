@@ -10,6 +10,10 @@ import Mutebutton from '../images/MuteButton.png';
 import fontFile from "../VCR_OSD_MONO_1.001.ttf";
 import web from '../images/web.png';
 import explosiveWeb from '../images/explosive-web.png';
+import gameover from '../images/gameover.png';
+import selectText from '../images/selecttext.png';
+
+
 import whoosh from '../sounds/whoosh.mp3'
 import thud from '../sounds/536766__egomassive__thud.mp3'
 import smash from '../sounds/smash.wav'
@@ -90,6 +94,10 @@ const Resources = {
     Mutebutton: new ImageSource(Mutebutton),
     Web: new ImageSource(web),
     ExplosiveWeb: new ImageSource(explosiveWeb),
+    GameOver: new ImageSource(gameover),
+    SelectText: new ImageSource(selectText),
+
+
     Whoosh: new Sound(whoosh),
     Thud: new Sound(thud),
     Garden: new ImageSource(garden),
