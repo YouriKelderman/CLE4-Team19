@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@excaliburjs/dev-tools": "^0.27.1",
-    "arcade-game": "github:HR-CMGT/arcade-game",
     "excalibur": "^0.27.0",
     "sounds": "^1.0.2"
   }
