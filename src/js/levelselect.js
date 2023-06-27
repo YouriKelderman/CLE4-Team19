@@ -76,8 +76,8 @@ export class Levelselect extends Scene {
         this.add(parklevel2);
 
         const parklevel3 = new Actor();
-        parklevel3.graphics.use(Resources.ParkMapSelect2.toSprite());
-        parklevel3.pos = new Vector(920, 500);
+        parklevel3.graphics.use(Resources.ParkMapSelect3.toSprite());
+        parklevel3.pos = new Vector(1090, 500);
         parklevel3.scale = new Vector(0.1, 0.1)
         parklevel3.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
         parklevel3.z = 1000;

@@ -28,6 +28,7 @@ import {Cursor} from "./cursor.js";
 
 import {Park1} from "./park1.js";
 import {Park2} from "./park2.js";
+import {Park3} from "./park3.js";
 
 
 export class Game extends Engine {
@@ -61,6 +62,7 @@ export class Game extends Engine {
         this.add ('levelselect', new Levelselect());
         this.add('level1', new Park1)
         this.add('level2', new Park2())
+        this.add('level3', new Park3())
         this.add('settings', new Settings())
         this.add('gameover', new Gameover())
 
