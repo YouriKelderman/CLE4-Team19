@@ -45,6 +45,8 @@ import garden3 from "../images/garden-3.png"
 import garden4 from "../images/garden-4.png"
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
+import map2ground from '../images/map-2-ground.png';
+import map2top from '../images/map-2-top.png';
 import click from '../sounds/click.wav';
 import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
@@ -59,6 +61,7 @@ import SwearAan from '../images/swearOn.png';
 
 // map select screens
 import parkMapselect from '../images/parkmapselect.png';
+import parkMapSelect2 from '../images/parkmapselect2.png';
 
 
 //gui
@@ -102,15 +105,18 @@ const Resources = {
     TinyLau: new ImageSource(tinyLau),
     SpiderTrike: new ImageSource(spiderTrike),
     Map1Ground: new ImageSource(map1ground),
+    Map2Ground: new ImageSource(map2ground),
     SpiderMeneer: new ImageSource(spidermeneer),
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
     aboutaleb: new ImageSource(aboutaleb),
     Map1Top: new ImageSource(map1top),
+    Map2Top: new ImageSource(map2top),
     ParkMapselect: new ImageSource(parkMapselect),
+    ParkMapSelect2: new ImageSource(parkMapSelect2),
     RangeIndicator: new ImageSource(rangeIndicator),
     DamageIndicator: new ImageSource(damageIndicator),
-Laser: new ImageSource(laser),
+    Laser: new ImageSource(laser),
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     UpgradeButton: new ImageSource(UpgradeButton),

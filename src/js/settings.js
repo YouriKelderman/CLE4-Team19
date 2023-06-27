@@ -19,16 +19,17 @@ export class Settings extends Scene {
     spider
     music = Resources.SettingsMusic;
     click = Resources.Click;
+    mapId
 
     constructor() {
         super();
         //Physics.useRealisticPhysics();
         console.log("I am settings!")
-
     }
 
 
     onInitialize(engine) {
+        this.engine = engine;
 
         this.logo = new Actor();
         this.logo.graphics.use(Resources.PausedLogo.toSprite());
@@ -104,7 +105,7 @@ export class Settings extends Scene {
     }
 
     onActivate(_context) {
-
+        this.mapId = _context.id;
 
         this.resumeButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.soundButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
@@ -156,7 +157,12 @@ export class Settings extends Scene {
         this.click.play();
         this.music.pause();
         console.log('start game');
-        this.engine.goToScene('park');
+        if (this.engine.activeScene === 1) {
+            this.engine.goToScene('level1');
+        }
+        if (this.engine.activeScene === 2) {
+            this.engine.goToScene('level2');
+        }
 
     }
 
@@ -173,7 +179,7 @@ export class Settings extends Scene {
 
     onPreUpdate(engine, _delta) {
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
-            this.goToPark();
+            this.resumeGame();
         }
     }
 
@@ -190,12 +196,5 @@ export class Settings extends Scene {
         this.volumeDownButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
 
         this.music.pause();
-    }
-
-    goToPark() {
-        this.click.play();
-        this.music.pause();
-        console.log('start game');
-        this.engine.goToScene('park');
     }
 }
