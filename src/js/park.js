@@ -40,6 +40,7 @@ export class Park extends Scene {
     activetower = this.activetower;
     path = "";
     engine;
+    id= 0;
     route = [];
     towers = [];
     crunch = Resources.Crunch;
@@ -207,21 +208,7 @@ export class Park extends Scene {
             });
             this.walls.push(wall);
         }
-        this.garden.sprite = Resources.Garden.toSprite();
-        this.garden.graphics.use(this.garden.sprite);
-        this.add(this.garden);
-        this.garden.z = 9999;
-        this.garden.pos = new Vector(157, 807);
-        this.garden.collisionType = CollisionType.Passive;
 
-        this.garden.on("collisionstart", (event) => {
-            if (event.other instanceof Enemy) {
-                this.engine.damage();
-                this.crunch.play();
-                this.garden.graphics.use(this.gardenSprites[Math.ceil(this.engine.levens / 4)].toSprite());
-                event.other.explode();
-            }
-        });
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -593,8 +580,11 @@ export class Park extends Scene {
             localStorage.setItem("this.path", this.path);
             // console.log(this.path)
         } else {
-            //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+
+            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+            console.log(this.string);
         }
+
     }
 
     uiRemover() {
@@ -872,7 +862,6 @@ export class Park extends Scene {
         }
     }
 
-    }
     onPreUpdate (engine, delta) {
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
