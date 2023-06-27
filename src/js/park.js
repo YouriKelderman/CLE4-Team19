@@ -893,7 +893,7 @@ export class Park extends Scene {
             this.placingSprite.kill();
         }
 
-
+    }
     onPreUpdate (engine, delta) {
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
