@@ -73,10 +73,11 @@ export class Settings extends Scene {
         this.profanityFilter = new Actor(
         );
         this.profanityFilter.graphics.use(Resources.SwearAan.toSprite());
-        this.profanityFilter.pos = new Vector(794.00, 643.5);
+        this.profanityFilter.pos = new Vector(794.00, 639.5);
         this.profanityFilter.scale = new Vector(0.1, 0.1)
         this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.profanityFilter.z = 1000;
+        this.profanityFilter.collider.useCircleCollider(50);
         this.profanityFilter.enableCapturePointer = true;
         this.profanityFilter.pointer.useGraphicsBounds = true;
         this.profanityFilter.on("pointerup", (event) => this.toggleProfanityFilter());
