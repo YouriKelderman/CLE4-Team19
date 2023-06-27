@@ -152,6 +152,7 @@ export class Enemy extends Actor {
         this.actions.clearActions();
         this.collider.clear();
         this.deathAnimation = 50;
+        Resources.Smash.play(0.1);
         this.engine.gulden += this.worth
         this.game.enemyKilled(this.pos);
     }

@@ -872,7 +872,7 @@ export class Park extends Scene {
         }
     }
 
-
+    }
     onPreUpdate (engine, delta) {
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
