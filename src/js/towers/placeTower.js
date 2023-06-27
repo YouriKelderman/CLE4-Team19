@@ -34,14 +34,11 @@ export class PlaceTower extends Tower {
         if (this.type === 2) {
             this.towerRange = 300;
         }
-
         if (this.type === 3) {
             this.towerRange = 300;
-
         }
         this.range = this.towerRange;
         this.rangeDisplay.scale = new Vector(this.towerRange / 24, this.towerRange / 24);
-        this.game.currentScene.add(this.rangeDisplay)
     }
 
     checkSelf(sprite, legal) {
@@ -56,13 +53,4 @@ export class PlaceTower extends Tower {
         }
     }
 
-    select() {
-        this.addChild(this.rangeDisplay);
-
-    }
-
-    deSelect() {
-        this.rangeDisplay.unparent();
-        this.rangeDisplay.kill();
-    }
 }

@@ -40,7 +40,7 @@ export class Park extends Scene {
     activetower = this.activetower;
     path = "";
     engine;
-    id = 0;
+    id= 0;
     route = [];
     towers = [];
     crunch = Resources.Crunch;
@@ -188,8 +188,7 @@ export class Park extends Scene {
         );
         this.add(this.levensDisplay);
 
-        this.placingSprite = new PlaceTower(this.int);
-        this.placingSprite.select();
+        this.placingSprite = new PlaceTower();
         this.engine.input.pointers.primary.on("up", () => this.mouseInput());
         this.engine = _engine;
         let hitboxPoints = [1103, 45, 1094, 188, 1083, 321, 1066, 361, 994, 454, 913, 440, 787, 409, 736, 404, 714, 324, 656, 229, 592, 192, 515, 166, 458, 162, 394, 179, 302, 220, 214, 347, 210, 501, 232, 557, 263, 617, 216, 646, 175, 680, 130, 796, 186, 808, 204, 743, 241, 700, 302, 643, 322, 596, 272, 515, 271, 373, 315, 313, 357, 264, 421, 237, 526, 237, 594, 268, 646, 328, 677, 368, 684, 447, 571, 449, 537, 377, 474, 345, 414, 371, 375, 435, 399, 504, 469, 547, 543, 514, 579, 458, 534, 372, 582, 449, 480, 547, 325, 590, 399, 617, 488, 628, 602, 591, 663, 527, 679, 466, 676, 386, 633, 321, 541, 252, 459, 247, 351, 279, 296, 348, 271, 430, 283, 522, 321, 580, 306, 646, 357, 674, 418, 701, 556, 710, 634, 672, 702, 608, 739, 518, 743, 473, 866, 484, 1009, 500, 1079, 552, 1079, 591, 1075, 708, 1067, 803, 1120, 805, 1121, 734, 1116, 605, 1321, 814, 1410, 809, 1050, 465, 1093, 427, 1126, 369, 1145, 333, 1148, 192, 1152, 47];
@@ -575,7 +574,6 @@ export class Park extends Scene {
         if (this.placing && this.isLegal) {
             let newClone = new Tower(this, this.int);
             newClone.pos = this.placingSprite.pos;
-            this.placingSprite.deSelect();
             this.add(newClone);
             this.towers.push(newClone);
             this.add(this.upgradeParticles);
@@ -715,6 +713,7 @@ export class Park extends Scene {
         this.damageIndicator.scale = new Vector(1, 1);
         this.damageIndicator.z = 999999;
         this.add(this.damageIndicator);
+
         this.upgradeButton = new Actor();
         this.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
         this.upgradeButton.pos = new Vector(1400, 400);
@@ -725,6 +724,7 @@ export class Park extends Scene {
         this.upgradeButton.pointer.useGraphicsBounds = true;
         this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUp());
         this.add(this.upgradeButton);
+
         this.towerTargeting = new Label({
             font: new Font({
                 unit: FontUnit.Px,
@@ -739,7 +739,9 @@ export class Park extends Scene {
         this.towerTargetIndicator.actions.moveTo(1295, 355, 1600);
         this.towerTargetIndicator.scale = new Vector(1, 1);
         this.towerTargetIndicator.z = 999999;
+
         this.add(this.towerTargetIndicator);
+
         this.towerTargeting.pos = new Vector(1500, 365);
         this.towerTargeting.actions.moveTo(1330, 365, 1650);
         this.towerTargeting.text = this.activetower.shootingMode.toString();
@@ -866,7 +868,6 @@ export class Park extends Scene {
             this.placingSprite.collisionType = CollisionType.Passive;
             this.placingSprite._setName('this.placingSprite');
             this.add(this.placingSprite);
-
         } else {
             this.walls.forEach(wall => {
                 wall.kill();
@@ -875,7 +876,7 @@ export class Park extends Scene {
         }
     }
 
-    onPreUpdate(engine, delta) {
+    onPreUpdate (engine, delta) {
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
                 this.particleCounter = 0;
@@ -967,7 +968,6 @@ export class Park extends Scene {
         }
         if (this.placing) {
             this.placingSprite.pos = this.engine.input.pointers.primary.lastWorldPos;
-            this.placingSprite.rangeDisplay.pos = this.engine.input.pointers.primary.lastWorldPos;
         }
         if (this.running) {
             if (this.waveItem <= this.order.length - 1) {
