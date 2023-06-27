@@ -21,10 +21,10 @@ export class Park1 extends Park {
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
         "5*0",
-        "5*1, 6*1",
-        "3*3",
-        "4*4",
-        "12*1"
+        "8*0, 2*2, 2*0",
+        "10*0,3*2,4*0",
+        "5*2, 5*0, 5*2, 5*0",
+        "12*3"
     ];
 id= 0;
 
