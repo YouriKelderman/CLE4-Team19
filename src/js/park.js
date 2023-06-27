@@ -618,10 +618,15 @@ export class Park extends Scene {
         this.towerTargetIndicator.kill()
         this.upgradeDesc1.kill()
         this.upgradeDesc2.kill()
-        this.upgradeDesc3.kill()
-        this.upgradeDesc4.kill()
-    }
+        this.upgradeButton.kill()
+        this.upgradeButton2.kill()
+        this.coin1.kill()
+        this.coin2.kill()
+        this.coinDesc1.kill()
+        this.coinDesc2.kill()
 
+    }
+b
 
     removeParticles() {
         this.upgradeParticles.isEmitting = false;
@@ -680,7 +685,6 @@ export class Park extends Scene {
         });
         this.towerRange.pos = new Vector(1500, 220);
         this.towerRange.actions.moveTo(1330, 220, 1650);
-        this.towerRange.text = this.activetower.towerRange.toString() + "m";
         this.towerRange.z = 99999;
         this.add(this.towerRange);
         this.rangeIndicator = new Actor();
@@ -700,7 +704,6 @@ export class Park extends Scene {
         });
         this.towerDamage.pos = new Vector(1500, 295);
         this.towerDamage.actions.moveTo(1330, 295, 1650);
-        this.towerDamage.text = this.activetower.damage.toString();
         this.towerDamage.z = 99999;
 
         this.add(this.towerDamage);
@@ -733,7 +736,6 @@ export class Park extends Scene {
 
         this.towerTargeting.pos = new Vector(1500, 365);
         this.towerTargeting.actions.moveTo(1330, 365, 1650);
-        this.towerTargeting.text = this.activetower.shootingMode.toString();
         this.towerTargeting.z = 99999;
 
         this.add(this.towerTargeting);
@@ -758,17 +760,40 @@ export class Park extends Scene {
                 unit: FontUnit.Px,
                 family: 'VCR',
                 size: 14,
-                color: Color.White
+                color: Color.White,
+                textAlign: TextAlign.Center
 
             }),
         })
 
-        this.upgradeDesc1.pos = new Vector(1500, 660);
-        this.upgradeDesc1.actions.moveTo(1255, 660, 1600);
-        this.upgradeDesc1.text = this.activetower.upgrade1_1.toString();
+        this.upgradeDesc1.pos = new Vector(1500, 540);
+        this.upgradeDesc1.actions.moveTo(1335, 540, 1600);
         this.upgradeDesc1.z = 99999
-        this.upgradeDesc1.enableCapturePointer = true;
-        this.upgradeDesc1.pointer.useGraphicsBounds = true;
+        this.add(this.upgradeDesc1)
+
+        this.coin1 = new Actor()
+        this.coin1.graphics.use(Resources.Gulden.toSprite())
+        this.coin1.scale = new Vector(0.2, 0.2)
+        this.coin1.pos = new Vector(1500, 555);
+        this.coin1.actions.moveTo(1305, 555, 1600);
+        this.coin1.z = 99999
+        this.add(this.coin1)
+
+        this.coinDesc1 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 14,
+                color: Color.White,
+                textAlign: TextAlign.Right
+
+            }),
+        })
+
+        this.coinDesc1.pos = new Vector(1500, 558);
+        this.coinDesc1.actions.moveTo(1345, 558, 1600);
+        this.coinDesc1.z = 99999
+        this.add(this.coinDesc1)
 
 
         this.upgradeDesc2 = new Label({
@@ -776,83 +801,60 @@ export class Park extends Scene {
                 unit: FontUnit.Px,
                 family: 'VCR',
                 size: 14,
-                color: Color.White
+                color: Color.White,
+                textAlign: TextAlign.Center
 
             }),
         })
-        this.upgradeDesc2.pos = new Vector(1500, 810);
-        this.upgradeDesc2.actions.moveTo(1255, 810, 1600);
-        this.upgradeDesc2.text = this.activetower.upgrade1_2.toString();
+        this.upgradeDesc2.pos = new Vector(1500, 690);
+        this.upgradeDesc2.actions.moveTo(1335, 690, 1600);
         this.upgradeDesc2.z = 99999
-        this.upgradeDesc2.enableCapturePointer = true;
-        this.upgradeDesc2.pointer.useGraphicsBounds = true;
+        this.add(this.upgradeDesc2)
 
+        this.coin2 = new Actor()
+        this.coin2.graphics.use(Resources.Gulden.toSprite())
+        this.coin2.scale = new Vector(0.2, 0.2)
+        this.coin2.pos = new Vector(1500, 705);
+        this.coin2.actions.moveTo(1305, 705, 1600);
+        this.coin2.z = 99999
+        this.add(this.coin2)
 
-        this.upgradeDesc3 = new Label({
+        this.coinDesc2 = new Label({
             font: new Font({
                 unit: FontUnit.Px,
                 family: 'VCR',
                 size: 14,
-                color: Color.White
+                color: Color.White,
+                textAlign: TextAlign.Right
 
             }),
         })
-        this.upgradeDesc3.pos = new Vector(1500, 570);
-        this.upgradeDesc3.actions.moveTo(1270, 570, 1600);
-        this.upgradeDesc3.text = this.activetower.upgrade2_1.toString();
-        this.upgradeDesc3.z = 99999
-        this.upgradeDesc3.enableCapturePointer = true;
-        this.upgradeDesc3.pointer.useGraphicsBounds = true;
 
-
-        this.upgradeDesc4 = new Label({
-            font: new Font({
-                unit: FontUnit.Px,
-                family: 'VCR',
-                size: 14,
-                color: Color.White
-
-            }),
-        })
-        this.upgradeDesc4.pos = new Vector(1500, 570);
-        this.upgradeDesc4.actions.moveTo(1270, 570, 1600);
-        this.upgradeDesc4.text = this.activetower.upgrade2_2.toString();
-        this.upgradeDesc4.z = 99999
-        this.upgradeDesc4.enableCapturePointer = true;
-        this.upgradeDesc4.pointer.useGraphicsBounds = true;
+        this.coinDesc2.pos = new Vector(1500, 708);
+        this.coinDesc2.actions.moveTo(1345, 708, 1600);
+        this.coinDesc2.z = 99999
+        this.add(this.coinDesc2)
 
         this.upgradeButton = new Actor();
-        this.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
         this.upgradeButton.pos = new Vector(1500, 600);
         this.upgradeButton.actions.moveTo(1340, 600, 1600);
         this.upgradeButton.scale = new Vector(1.7, 1.7);
         this.upgradeButton.z = 999999;
         this.upgradeButton.enableCapturePointer = true;
         this.upgradeButton.pointer.useGraphicsBounds = true;
-        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUpPath1());
-
+        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUp(1));
 
         this.upgradeButton2 = new Actor();
-        this.upgradeButton2.graphics.use(Resources.UpgradeButton.toSprite());
         this.upgradeButton2.pos = new Vector(1500, 750);
         this.upgradeButton2.actions.moveTo(1340, 750, 1600);
         this.upgradeButton2.scale = new Vector(1.7, 1.7);
         this.upgradeButton2.z = 999999;
         this.upgradeButton2.enableCapturePointer = true;
         this.upgradeButton2.pointer.useGraphicsBounds = true;
-        this.upgradeButton2.on("pointerdown", (event) => this.activetower.tierUpPath2());
+        this.upgradeButton2.on("pointerdown", (event) => this.activetower.tierUp(2));
 
-        this.upgradeButtonlock = new Actor();
-        this.upgradeButtonlock.graphics.use(Resources.upgradeLock.toSprite());
-        this.upgradeButtonlock.pos = new Vector(1500, 750);
-        this.upgradeButtonlock.actions.moveTo(1340, 750, 1600);
-        this.upgradeButtonlock.scale = new Vector(1.7, 1.7);
-        this.upgradeButtonlock.z = 999999;
-
-        if (this.activetower.tier === 0 || this.activetower.tier === undefined) {
             this.add(this.upgradeButton);
             this.add(this.upgradeButton2);
-        }
 
 
     }
@@ -888,8 +890,6 @@ export class Park extends Scene {
             this.engine.gulden -= 650;
         }
 
-        this.guldenDisplay.text = `${this.engine.gulden}`;
-
         if (id === 1) {
             this.int = 0;
         }
@@ -920,6 +920,9 @@ export class Park extends Scene {
 
 
     onPreUpdate(engine, delta) {
+        this.guldenDisplay.text = `${this.engine.gulden}`;
+        this.levensDisplay.text = `${this.engine.levens}`;
+
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
                 this.particleCounter = 0;
@@ -944,8 +947,6 @@ export class Park extends Scene {
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
             this.goToSettings();
         }
-        this.guldenDisplay.text = `${this.engine.gulden}`;
-        this.levensDisplay.text = `${this.engine.levens}`;
         this.placingSprite.checkSelf(this.int, this.isLegal);
         if (this.engine.input.keyboard.wasPressed(Input.Keys.B)) {
             this.placing = !this.placing;
@@ -970,11 +971,9 @@ export class Park extends Scene {
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Y)) {
             this.engine.gulden += 50;
-            this.guldenDisplay.text = `${this.engine.gulden}`;
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.U)) {
             this.engine.gulden -= 50;
-            this.guldenDisplay.text = `${this.engine.gulden}`;
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
             this.startWave();
@@ -985,20 +984,11 @@ export class Park extends Scene {
         if (engine.input.keyboard.wasPressed(Input.Keys.T)) {
             this.towers.splice(this.towers.indexOf(this.activetower), 1);
             this.engine.gulden += 50;
-            this.guldenDisplay.text = `${this.engine.gulden}`;
             this.activetower.kill();
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.K)) {
 
             this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) - 1)];
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.L)) {
-            if (this.engine.gulden >= 50) {
-                this.engine.gulden -= 50;
-                this.guldenDisplay.text = `${this.engine.gulden}`;
-                this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) + 1)];
-                this.activetower.tierUpDefault();
-            }
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
             this.mapping = !this.wave.mapping;
