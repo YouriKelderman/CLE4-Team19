@@ -31,7 +31,7 @@ import tinyLau from '../images/TinyLau_Tower.png';
 
 import spidermeneer from '../images/spider-meneer.png';
 import spiderTrike from '../images/SpinManTrike_Sprite.png'
-
+import laser from '../images/laser.png'
 import spider from '../images/spider.png';
 import mouse from '../images/muis.png';
 import rat from '../images/rat.png';
@@ -110,7 +110,7 @@ const Resources = {
     ParkMapselect: new ImageSource(parkMapselect),
     RangeIndicator: new ImageSource(rangeIndicator),
     DamageIndicator: new ImageSource(damageIndicator),
-
+Laser: new ImageSource(laser),
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     UpgradeButton: new ImageSource(UpgradeButton),

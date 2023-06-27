@@ -224,8 +224,6 @@ export class Park extends Scene {
                 event.other.explode();
             }
         });
-
-
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -237,7 +235,6 @@ export class Park extends Scene {
         mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999;
         this.add(mapTop);
-
         this.settingsButton = new Actor();
         this.settingsButton.graphics.use(Resources.SettingsButton.toSprite());
         this.settingsButton.pos = new Vector(50, 105);
@@ -247,7 +244,6 @@ export class Park extends Scene {
         this.settingsButton.pointer.useGraphicsBounds = true;
         this.settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(this.settingsButton);
-
         this.buyMenuButton = new Actor();
         this.buyMenuButton.graphics.use(Resources.BuyButton.toSprite());
         this.buyMenuButton.pos = new Vector(50, 195);
@@ -258,7 +254,8 @@ export class Park extends Scene {
         this.buyMenuButton.on("pointerup", (event) => this.drawBuyMenu());
         this.add(this.buyMenuButton);
 
-
+        //sidebutton
+        this.enemies()
         this.koopLabel = new Label({
             font: new Font({
                 unit: FontUnit.Px,
@@ -286,6 +283,15 @@ export class Park extends Scene {
         this.bamiButton = new Actor();
         this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5))
         this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
+        // buy tini en lau tower
+        this.tinyLauButton = new Actor();
+        this.tinyLauButton.graphics.use(Resources.TinyLau.toSprite());
+        this.tinyLauButton.scale = new Vector(2, 2);
+        this.tinyLauButton.z = 99999;
+        this.tinyLauButton.enableCapturePointer = true;
+        this.tinyLauButton.pointer.useGraphicsBounds = true;
+        this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2))
+        this.tinyLauButton.on("pointerdown", (event) => this.buyTower(2));
 
         // cost logo and text
         this.costlogobami = new Actor();
@@ -347,11 +353,12 @@ export class Park extends Scene {
         this.spiderTrikeLabel.text = 'Spinnenman';
         this.spiderTrikeLabel.pos = new Vector(1350, 450);
         this.spiderTrikeLabel.z = 99999;
-
         // buy spiderTrike tower
         this.spiderTrikeButton = new Actor();
         this.button(this.spiderTrikeButton, Resources.SpiderMeneer, new Vector(1350, 500), new Vector(1.5, 1.5))
         this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower(3));
+        this.enemies();
+
 
         // cost logo and text
         this.costlogospider = new Actor();
@@ -400,7 +407,6 @@ export class Park extends Scene {
         if (this.endlessMode) {
             this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
         }
-
         this.parse(this.wave);
     }
 
@@ -417,8 +423,6 @@ export class Park extends Scene {
         this.impactParticle.pos = pos;
         this.add(this.impactParticle);
         this.impactParticleCounter = 0;
-
-
         console.log("eeee");
     }
     parse(wave) {
@@ -437,6 +441,8 @@ export class Park extends Scene {
         if (this.buyMenuClick === 1) {
             this.buyMenu.pos = new Vector(1500, 450);
             this.buyMenu.actions.moveTo(1400, 450, 1100);
+            this.bamiButton.pos = new Vector(1500, 450);
+            this.bamiButton.actions.moveTo(1350, 450, 1300);
             this.add(this.buyMenu);
 
             this.koopLabel.pos = new Vector(1500, 100);
@@ -451,6 +457,11 @@ export class Park extends Scene {
             this.bamiButton.pos = new Vector(1500, 180);
             this.bamiButton.actions.moveTo(1350, 180, 1300);
             this.add(this.bamiButton);
+            this.tinyLauButton.pos = new Vector(1500, 350);
+            this.tinyLauButton.actions.moveTo(1350, 350, 1300);
+            this.add(this.tinyLauButton);
+            this.spiderTrikeButton.pos = new Vector(1500, 250);
+            this.spiderTrikeButton.actions.moveTo(1350, 250, 1300);
 
             this.costlogobami.pos = new Vector(1500, 200);
             this.costlogobami.actions.moveTo(1300, 230, 1300);
@@ -496,6 +507,12 @@ export class Park extends Scene {
         }
         if (this.buyMenuClick === 2) {
             this.buyMenu.kill()
+            this.bamiButton.pos = new Vector(1350, 450);
+            this.bamiButton.kill()
+            this.tinyLauButton.pos = new Vector(1350, 350);
+            this.tinyLauButton.kill()
+            this.spiderTrikeButton.pos = new Vector(1350, 250);
+            this.spiderTrikeButton.kill()
 
             this.koopLabel.pos = new Vector(1350, 50);
             this.koopLabel.kill()
@@ -528,22 +545,15 @@ export class Park extends Scene {
             this.spidercost.kill()
 
             this.buyMenuClick = 0;
-
         }
-
     }
-
-
     goToSettings() {
         console.log("goToSettings");
         this.click.play();
         this.game = this.engine;
         this.engine.goToScene('settings');
     }
-
-
     mouseInput() {
-
         if (!this.placing) {
             // determine which tower is closest and which tower gets click priority
             for (let i = 0; i < this.towers.length; i++) {
@@ -557,34 +567,29 @@ export class Park extends Scene {
             if (nearestTower < 100) {
                 this.towers.forEach(tower => {
                     tower.deSelect()
-
                 });
-
-
                 this.activetower = this.nearestTowerName;
                 this.activetower.select();
                 this.menuInfo();
             } else {
-
                 if (this.upgradeMenu) {
+
+                    this.upgradeMenu.actions.moveTo(1600, 450, 1000);
+                    this.upgradeMenu.kill()
+                    this.towerName.kill();
+                    this.upgradeButton.kill()
+                    this.towerRange.kill()
+                    this.rangeIndicator.kill()
+                    this.damageIndicator.kill()
                     this.uiRemover();
-
-
                 }
-
                 this.towers.forEach(tower => {
                     tower.deSelect();
-
 
                 });
             }
             this.towersInDistance = [];
-
-
-
         }
-
-
         if (this.placing && this.isLegal) {
             let newClone = new Tower(this, this.int);
             newClone.pos = this.placingSprite.pos;
@@ -609,7 +614,6 @@ export class Park extends Scene {
             // console.log(this.path)
         } else {
             //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
-
         }
     }
 
@@ -637,6 +641,15 @@ this.upgradeButton1.kill()
         this.buyMenuClick = 1;
         this.drawBuyMenu();
         if (this.upgradeMenu) {
+
+            this.upgradeMenu.actions.moveTo(1600, 450, 1000);
+            this.upgradeMenu.kill()
+            this.towerName.actions.moveTo(1600, 450, 1000);
+            this.towerName.kill();
+            this.upgradeButton.kill()
+            this.towerRange.kill()
+            this.rangeIndicator.kill()
+            this.damageIndicator.kill()
             this.uiRemover();
 
         }
@@ -645,7 +658,6 @@ this.upgradeButton1.kill()
         this.upgradeMenu.actions.moveTo(1400, 450, 1600);
         this.add(this.upgradeMenu);
         this.buyMenuClick = 0;
-
         this.towerName = new Label({
             font: new Font({
                 unit: FontUnit.Px,
@@ -657,11 +669,7 @@ this.upgradeButton1.kill()
         this.towerName.actions.moveTo(1260, 85, 1600);
         this.towerName.text = this.activetower.name.toString();
         this.towerName.z = 99999
-
         this.add(this.towerName);
-
-
-
 
         this.towerDesc = new Label({
             font: new Font({
@@ -678,7 +686,6 @@ this.upgradeButton1.kill()
 
         this.add(this.towerDesc);
 
-
         this.towerRange = new Label({
             font: new Font({
                 unit: FontUnit.Px,
@@ -690,17 +697,13 @@ this.upgradeButton1.kill()
         this.towerRange.actions.moveTo(1330, 220,1650);
         this.towerRange.text = this.activetower.towerRange.toString() + "m";
         this.towerRange.z = 99999
-
         this.add(this.towerRange);
-
-
         this.rangeIndicator = new Actor();
         this.rangeIndicator.graphics.use(Resources.RangeIndicator.toSprite());
         this.rangeIndicator.pos = new Vector(1500, 210);
         this.rangeIndicator.actions.moveTo(1295, 210, 1600);
         this.rangeIndicator.scale = new Vector(1, 1);
         this.rangeIndicator.z = 999999;
-
         this.add(this.rangeIndicator);
 
         this.towerDamage = new Label({
@@ -723,8 +726,18 @@ this.upgradeButton1.kill()
         this.damageIndicator.actions.moveTo(1295, 280, 1600);
         this.damageIndicator.scale = new Vector(1, 1);
         this.damageIndicator.z = 999999;
-
         this.add(this.damageIndicator);
+
+        this.upgradeButton = new Actor();
+        this.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
+        this.upgradeButton.pos = new Vector(1400, 400);
+        this.upgradeButton.actions.moveTo(1290, 400, 1000);
+        this.upgradeButton.scale = new Vector(1, 1);
+        this.upgradeButton.z = 999999;
+        this.upgradeButton.enableCapturePointer = true;
+        this.upgradeButton.pointer.useGraphicsBounds = true;
+        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUp());
+        this.add(this.upgradeButton);
 
         this.towerTargeting = new Label({
             font: new Font({
@@ -824,7 +837,6 @@ this.upgradeButton1.kill()
                     console.log(this.activetower.damage);
                 }
     }
-
     startWave() {
         if (this.activeEnemies === 0) {
             this.waveItem = 0;
@@ -835,7 +847,6 @@ this.upgradeButton1.kill()
             console.log("Already Running");
         }
     }
-
     buyTower(id) {
         if (id === 1 && this.engine.gulden >= 375) {
             this.engine.gulden -= 375;
@@ -858,7 +869,6 @@ this.upgradeButton1.kill()
             if (id === 3) {
                 this.int = 2;
             }
-
             this.placing = !this.placing;
             this.drawBuyMenu();
             if (this.placing) {
@@ -877,7 +887,7 @@ this.upgradeButton1.kill()
                 this.placingSprite.kill();
             }
         }
-
+    }
 
     onPreUpdate(engine, delta) {
         if (this.deathParticles.isEmitting) {
@@ -896,12 +906,16 @@ this.upgradeButton1.kill()
             }
             this.impactParticleCounter++
         }
+        if(engine.input.keyboard.isHeld(Input.Keys.R)) {
+            if(this.activetower.type === 3) {
+                this.activetower.shootLaser();
+            }
+        }
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
             this.goToSettings();
         }
         this.guldenDisplay.text = `${this.engine.gulden}`;
         this.levensDisplay.text = `${this.engine.levens}`;
-
         this.placingSprite.checkSelf(this.int, this.isLegal);
         if (this.engine.input.keyboard.wasPressed(Input.Keys.B)) {
             this.placing = !this.placing;
@@ -984,9 +998,9 @@ this.upgradeButton1.kill()
                 this.spiderSpawner++;
                 if (this.spiderSpawner > Math.random() * (100 - 25) + 25) {
                     this.spiderSpawner = 0;
+                    this.spiderSpawner = 0;
                 }
             } else {
-
             }
         }
     }

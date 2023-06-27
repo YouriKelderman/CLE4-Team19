@@ -4,6 +4,7 @@ import {Resources} from "../resources.js";
 import {PanBami} from "./panBami.js";
 import {CurseWord} from "./curseword.js";
 import {Web} from "./web.js";
+import {Laser} from "./laser.js";
 
 
 let itemIds = [
@@ -458,10 +459,16 @@ engine;
             }
 
 
-
         }
     }
 
+    shootLaser(){
+            let bullet = new Laser(1500, 0.5 * this.damageMultiplier, 4, 1);
+            bullet.pos = this.pos;
+            bullet.rotation = this.rotation - Math.PI / 2;
+            this.engine.add(bullet);
+            this.coolDown = 15;
+    }
     inRange() {
         if (this.shootingCooldown === 1) {
             this.fire();
