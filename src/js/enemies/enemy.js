@@ -228,7 +228,7 @@ export class Enemy extends Actor {
             this.kill();
             this.game.activeEnemies -= 1;
             if (this.engine.levens < 1) {
-                this.engine.goToScene('menu');
+                this.engine.goToScene('gameover');
             }
 
         }
