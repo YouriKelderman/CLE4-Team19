@@ -22,6 +22,8 @@ import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
 import {UpgradeMenu} from "./buyMenu.js";
 import {Gameover} from "./gameover.js";
+import {Park1} from "./park1.js";
+import {Park2} from "./park2.js";
 
 export class Game extends Engine {
     game
@@ -31,6 +33,7 @@ export class Game extends Engine {
     activetower;
     levens = 20;
     profanityMode = true
+    activeScene
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
@@ -46,7 +49,8 @@ export class Game extends Engine {
 
         this.add('menu', new Menu());
         this.add ('levelselect', new Levelselect());
-        this.add('park', new Park());
+        this.add('level1', new Park1)
+        this.add('level2', new Park2())
         this.add('settings', new Settings())
         this.add('gameover', new Gameover())
 

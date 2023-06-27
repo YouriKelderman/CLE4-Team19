@@ -10,8 +10,9 @@ import Mutebutton from '../images/MuteButton.png';
 import fontFile from "../VCR_OSD_MONO_1.001.ttf";
 import web from '../images/web.png';
 import explosiveWeb from '../images/explosive-web.png';
-
-
+import whoosh from '../sounds/whoosh.mp3'
+import thud from '../sounds/536766__egomassive__thud.mp3'
+import smash from '../sounds/smash.wav'
 
 // menu
 import loading from '../images/loading.png';
@@ -19,6 +20,7 @@ import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 import range from '../images/range.png';
 import upgrade from '../images/UpgradeButton.png';
+import upgradelock from '../images/upgradeLockButton.png';
 import rangeIndicator from '../images/rangeIndicator.png';
 import damageIndicator from '../images/damageIndicator.png';
 import targetingSymbol from '../images/targetingSymbol.png';
@@ -31,7 +33,7 @@ import tinyLau from '../images/TinyLau_Tower.png';
 
 import spidermeneer from '../images/spider-meneer.png';
 import spiderTrike from '../images/SpinManTrike_Sprite.png'
-
+import laser from '../images/laser.png'
 import spider from '../images/spider.png';
 import mouse from '../images/muis.png';
 import rat from '../images/rat.png';
@@ -45,6 +47,8 @@ import garden3 from "../images/garden-3.png"
 import garden4 from "../images/garden-4.png"
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
+import map2ground from '../images/map-2-ground.png';
+import map2top from '../images/map-2-top.png';
 import click from '../sounds/click.wav';
 import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
@@ -59,6 +63,7 @@ import SwearAan from '../images/swearOn.png';
 
 // map select screens
 import parkMapselect from '../images/parkmapselect.png';
+import parkMapSelect2 from '../images/parkmapselect2.png';
 
 
 //gui
@@ -71,7 +76,6 @@ import buyMenu from '../images/BuyMenuBar.png';
 import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
 import costLogo from '../images/costLogo.png';
-
 
 
 const font = new FontFace("VCR", `url(${fontFile})`)
@@ -87,8 +91,8 @@ const Resources = {
     Mutebutton: new ImageSource(Mutebutton),
     Web: new ImageSource(web),
     ExplosiveWeb: new ImageSource(explosiveWeb),
-
-
+    Whoosh: new Sound(whoosh),
+    Thud: new Sound(thud),
     Garden: new ImageSource(garden),
     Garden1: new ImageSource(garden1),
     Garden2: new ImageSource(garden2),
@@ -102,18 +106,22 @@ const Resources = {
     TinyLau: new ImageSource(tinyLau),
     SpiderTrike: new ImageSource(spiderTrike),
     Map1Ground: new ImageSource(map1ground),
+    Map2Ground: new ImageSource(map2ground),
     SpiderMeneer: new ImageSource(spidermeneer),
     Range: new ImageSource(range),
     Bami: new ImageSource(bami),
     aboutaleb: new ImageSource(aboutaleb),
     Map1Top: new ImageSource(map1top),
+    Map2Top: new ImageSource(map2top),
     ParkMapselect: new ImageSource(parkMapselect),
+    ParkMapSelect2: new ImageSource(parkMapSelect2),
     RangeIndicator: new ImageSource(rangeIndicator),
     DamageIndicator: new ImageSource(damageIndicator),
-
+    Laser: new ImageSource(laser),
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     UpgradeButton: new ImageSource(UpgradeButton),
+    upgradeLock: new ImageSource(upgradelock),
     SwearUit: new ImageSource(SwearUit),
     SwearAan: new ImageSource(SwearAan),
 
@@ -133,6 +141,7 @@ const Resources = {
     SettingsMusic: new Sound(settingsMusic),
     ParkMusic: new Sound(parkMusic),
     Crunch: new Sound(crunch),
+    Smash: new Sound(smash),
     Upgrade: new Sound(upgrade),
     Plop: new Sound(plop),
     Mouse: new ImageSource(mouse),
@@ -141,7 +150,6 @@ const Resources = {
     Racoon: new ImageSource(racoon),
     Snail: new ImageSource(snail),
 };
-
 
 
 const resourceArray = []

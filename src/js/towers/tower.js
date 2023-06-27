@@ -4,6 +4,7 @@ import {Resources} from "../resources.js";
 import {PanBami} from "./panBami.js";
 import {CurseWord} from "./curseword.js";
 import {Web} from "./web.js";
+import {Laser} from "./laser.js";
 
 
 let itemIds = [
@@ -28,11 +29,12 @@ export class Tower extends Actor {
     upgrade1_2;
     upgrade2_1;
     upgrade2_2;
+    upgradeButton;
 
     rangeDisplay;
     worldPosition;
     randomizerCooldown = 0;
-engine;
+    engine;
     upgrade = Resources.Upgrade;
     upgradeParticles = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
@@ -63,8 +65,8 @@ engine;
     curseCooldown = 250;
     damageMultiplier = 1;
     seeMouses = false;
-
-
+    whoosh = Resources.Whoosh;
+thud = Resources.Thud;
     constructor(Game, type) {
         super({
             width: 50, height: 50
@@ -82,7 +84,7 @@ engine;
 
         if (this.type === 0) {
             this._setName("Pan Bami");
-            this.description =("Gooit een pan bami\nnaar ongedierte. \n\nHet liefst uit het\nraam naar beneden.");
+            this.description = ("Gooit een pan bami\nnaar ongedierte. \n\nHet liefst uit het\nraam naar beneden.");
             this.towerRange = 200;
             this.shootingMode = 0
             this.upgrade1_1 = ("Sneller schieten");
@@ -117,7 +119,7 @@ engine;
             this.description = ("Leuke burgemeester.\nPas op want hij ziet\n alles en iedereen.");
             this.shootingMode = 3
             this.upgrade1_1 = ("Meer schade");
-            this.upgrade1_2 = ("Nog meer schade\n en kan ongedierte verlammen");
+            this.upgrade1_2 = ("Nog meer schade en kan\nongedierte verlammen");
             this.upgrade2_1 = ("Schoten kunnen splitsen");
             this.upgrade2_2 = ("Kans op splitsen verhogen");
         }
@@ -323,6 +325,7 @@ engine;
         if (this.type === 0) {
             // default
             if (this.tier === 0) {
+                this.whoosh.play(0.5);
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 0, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -332,6 +335,7 @@ engine;
 
             // pad 1
             if (this.tier === 1.1) {
+                this.whoosh.play(0.5);
                 let bullet = new PanBami(1700, this.damage * this.damageMultiplier * 1.3, 0, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -339,6 +343,7 @@ engine;
                 this.coolDown = 25;
             }
             if (this.tier === 1.2) {
+                this.whoosh.play();
                 let bullet = new PanBami(2000, this.damage * this.damageMultiplier * 1.5, 0, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -348,6 +353,7 @@ engine;
 
             // pad 2
             if (this.tier === 2.1) {
+                this.whoosh.play();
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 1, 1);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -355,6 +361,7 @@ engine;
                 this.coolDown = 25;
             }
             if (this.tier === 2.2) {
+                this.thud.play();
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 2, 5);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -479,8 +486,15 @@ engine;
             }
 
 
-
         }
+    }
+
+    shootLaser() {
+        let bullet = new Laser(1500, 0.5 * this.damageMultiplier, 4, 1);
+        bullet.pos = this.pos;
+        bullet.rotation = this.rotation - Math.PI / 2;
+        this.engine.add(bullet);
+        this.coolDown = 15;
     }
 
     inRange() {
@@ -496,7 +510,7 @@ engine;
 
     buff(type) {
         let tint = itemIds[this.type].toSprite();
-        tint.tint = new Color(0, 100, 0);
+        tint.tint = new Color(0, 255, 0);
         this.graphics.use(tint);
         this.buffCooldown = 500;
         if (type === 1) {
@@ -514,6 +528,8 @@ engine;
         this.seeMouses = false;
     }
 
+
+
     tierUpDefault() {
         this.game.add(this.upgradeParticles);
         this.upgradeParticles.isEmitting = true;
@@ -522,21 +538,55 @@ engine;
         this.game.add(this.timer);
         this.timer.start();
     }
-    tierUp1_1() {
-        this.tierUpDefault()
-        this.tier = 1.1;
+
+    tierUpPath1() {
+        console.log(`test`)
+        if (this.tier === 0) {
+            this.tier = 1.1;
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton2.add()
+console.log(this.engine.currentScene.upgradeButton)
+            this.engine.currentScene.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton2.kill();
+            this.engine.currentScene.upgradeButton2.graphics.use(Resources.upgradeLock.toSprite());
+            this.engine.currentScene.upgradeButton2.add()
+        }
+        if (this.tier === 1.1) {
+            this.tier = 1.2;
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton2.add()
+            this.engine.currentScene.upgradeButton.kill();
+            this.engine.currentScene.upgradeButton.graphics.use(Resources.upgradeLock.toSprite());
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton.add()
+            this.engine.currentScene.upgradeButton2.kill();
+            this.engine.currentScene.upgradeButton2.graphics.use(Resources.upgradeLock.toSprite());
+            this.engine.currentScene.upgradeButton2.add()
+        }
+        console.log(this.tier)
     }
-    tierUp1_2() {
-        this.tierUpDefault()
-        this.tier = 1.2
-    }
-    tierUp2_1() {
-        this.tierUpDefault()
-        this.tier = 2.1
-    }
-    tierUp2_2() {
-        this.tierUpDefault()
-        this.tier = 2.2
+
+    tierUpPath2() {
+        if (this.activetower.tier === 0) {
+            this.activetower.tier = 2.1;
+            this.upgradeButton.kill();
+            this.upgradeButton.graphics.use(this.upgradeLock);
+            this.upgradeButton.add
+            this.upgradeButton2.kill();
+            this.upgradeButton2.graphics.use(this.UpgradeButton);
+            this.upgradeButton2.add
+        }
+        if (this.activetower.tier === 1.1) {
+            this.activetower.tier = 2.2;
+            this.upgradeButton.kill();
+            this.upgradeButton.graphics.use(this.upgradeLock);
+            this.upgradeButton.add
+            this.upgradeButton2.kill();
+            this.upgradeButton2.graphics.use(this.upgradeLock);
+            this.upgradeButton2.add
+        }
+        console.log(`test`)
     }
 
     removeParticles() {

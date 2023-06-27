@@ -29,17 +29,16 @@ import {UpgradeMenu} from "./buyMenu.js";
 import {Settings} from "./settings.js";
 
 export class Park extends Scene {
-
-
     constructor() {
         super();
     }
 
+    upgradeButton;
     particleEmitting = false;
     placing = false;
     placingSprite;
     int = 0;
-    activetower = this.activetower
+    activetower = this.activetower;
     path = "";
     engine;
     route = [];
@@ -49,7 +48,7 @@ export class Park extends Scene {
         fcn: () => this.removeParticles(),
         repeats: false,
         interval: 200,
-    })
+    });
     deathParticles = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
         radius: 10,
@@ -66,7 +65,7 @@ export class Park extends Scene {
         beginColor: Color.Red,
         endColor: Color.fromRGB(139, 69, 19),
         isEmitting: false
-    })
+    });
     upgradeParticles = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
         radius: 2,
@@ -74,7 +73,7 @@ export class Park extends Scene {
         maxVel: 200,
         minAngle: 0,
         maxAngle: Math.PI * 2,
-        emitRate:300,
+        emitRate: 300,
         opacity: 1,
         fadeFlag: true,
         particleLife: 1000,
@@ -83,7 +82,7 @@ export class Park extends Scene {
         beginColor: Color.Green,
         endColor: Color.Green,
         isEmitting: false
-    })
+    });
     impactParticle = new ParticleEmitter({
         emitterType: EmitterType.Rectangle,
         radius: 1,
@@ -91,7 +90,7 @@ export class Park extends Scene {
         maxVel: 100,
         minAngle: 0,
         maxAngle: Math.PI * 2,
-        emitRate:50,
+        emitRate: 50,
         opacity: 1,
         fadeFlag: true,
         particleLife: 1000,
@@ -100,7 +99,7 @@ export class Park extends Scene {
         beginColor: Color.Red,
         endColor: Color.Red,
         isEmitting: false
-    })
+    });
     towersInDistance = [];
     mapping = false;
     running = false;
@@ -121,20 +120,19 @@ export class Park extends Scene {
     walls = [];
     nearestTowerName;
     garden = new Actor({width: 100, height: 100});
-    gardenSprites = [Resources.Garden, Resources.Garden4, Resources.Garden3, Resources.Garden2, Resources.Garden1, Resources.Garden1]
+    gardenSprites = [Resources.Garden, Resources.Garden4, Resources.Garden3, Resources.Garden2, Resources.Garden1, Resources.Garden1];
     music = Resources.ParkMusic;
     plop = Resources.Plop;
     click = Resources.Click;
     spiderSpawner = 0;
     isLegal = true;
-    string = "";
-    endlessMode = false;
+        endlessMode = false;
     activeEnemies = 0;
     nameLabel;
     settingsButton;
     buyMenuClick = 0;
     upgradeMenuClicked = 0;
-    menuOpened = 0
+    menuOpened = 0;
     particleCounter = 0;
 
 
@@ -160,7 +158,7 @@ export class Park extends Scene {
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
-        this.buyMenu.scale = new Vector(3, 1.0)
+        this.buyMenu.scale = new Vector(3, 1.0);
         this.buyMenu.z = 9999;
         this.buyMenu.enableCapturePointer = true;
         this.buyMenu.pointer.useGraphicsBounds = true;
@@ -211,7 +209,7 @@ export class Park extends Scene {
         }
         this.garden.sprite = Resources.Garden.toSprite();
         this.garden.graphics.use(this.garden.sprite);
-        this.add(this.garden)
+        this.add(this.garden);
         this.garden.z = 9999;
         this.garden.pos = new Vector(157, 807);
         this.garden.collisionType = CollisionType.Passive;
@@ -220,12 +218,10 @@ export class Park extends Scene {
             if (event.other instanceof Enemy) {
                 this.engine.damage();
                 this.crunch.play();
-                this.garden.graphics.use(this.gardenSprites[Math.ceil(this.engine.levens / 4)].toSprite())
+                this.garden.graphics.use(this.gardenSprites[Math.ceil(this.engine.levens / 4)].toSprite());
                 event.other.explode();
             }
         });
-
-
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -237,7 +233,6 @@ export class Park extends Scene {
         mapTop.pos = new Vector(745, 425);
         mapTop.z = 9999;
         this.add(mapTop);
-
         this.settingsButton = new Actor();
         this.settingsButton.graphics.use(Resources.SettingsButton.toSprite());
         this.settingsButton.pos = new Vector(50, 105);
@@ -247,7 +242,6 @@ export class Park extends Scene {
         this.settingsButton.pointer.useGraphicsBounds = true;
         this.settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(this.settingsButton);
-
         this.buyMenuButton = new Actor();
         this.buyMenuButton.graphics.use(Resources.BuyButton.toSprite());
         this.buyMenuButton.pos = new Vector(50, 195);
@@ -258,7 +252,8 @@ export class Park extends Scene {
         this.buyMenuButton.on("pointerup", (event) => this.drawBuyMenu());
         this.add(this.buyMenuButton);
 
-
+        //sidebutton
+        this.enemies();
         this.koopLabel = new Label({
             font: new Font({
                 unit: FontUnit.Px,
@@ -284,12 +279,12 @@ export class Park extends Scene {
 
         //buy bami tower
         this.bamiButton = new Actor();
-        this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5))
+        this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5));
         this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
 
         // cost logo and text
         this.costlogobami = new Actor();
-        this.costLogo(this.costlogobami, new Vector(1350, 250))
+        this.costLogo(this.costlogobami, new Vector(1350, 250));
 
         this.bamicost = new Label({
             font: new Font({
@@ -298,7 +293,7 @@ export class Park extends Scene {
                 size: 16,
             }),
         });
-        this.bamicost.text =  '375';
+        this.bamicost.text = '375';
         this.bamicost.pos = new Vector(1370, 250);
         this.bamicost.z = 99999;
 
@@ -318,12 +313,12 @@ export class Park extends Scene {
 
         // buy tiny en lau tower
         this.tinyLauButton = new Actor();
-        this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2))
+        this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2));
         this.tinyLauButton.on("pointerdown", (event) => this.buyTower(2));
 
         // cost logo and text
         this.costlogotiny = new Actor();
-        this.costLogo(this.costlogotiny, new Vector(1350, 400))
+        this.costLogo(this.costlogotiny, new Vector(1350, 400));
 
         this.tinycost = new Label({
             font: new Font({
@@ -331,7 +326,7 @@ export class Park extends Scene {
                 family: 'VCR',
                 size: 16,
             }),
-        })
+        });
         this.tinycost.text = '500';
         this.tinycost.pos = new Vector(1370, 400);
         this.tinycost.z = 99999;
@@ -347,15 +342,16 @@ export class Park extends Scene {
         this.spiderTrikeLabel.text = 'Spinnenman';
         this.spiderTrikeLabel.pos = new Vector(1350, 450);
         this.spiderTrikeLabel.z = 99999;
-
         // buy spiderTrike tower
         this.spiderTrikeButton = new Actor();
-        this.button(this.spiderTrikeButton, Resources.SpiderMeneer, new Vector(1350, 500), new Vector(1.5, 1.5))
+        this.button(this.spiderTrikeButton, Resources.SpiderMeneer, new Vector(1350, 500), new Vector(1.5, 1.5));
         this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower(3));
+        this.enemies();
+
 
         // cost logo and text
         this.costlogospider = new Actor();
-        this.costLogo(this.costlogospider, new Vector(1350, 550))
+        this.costLogo(this.costlogospider, new Vector(1350, 550));
 
         this.spidercost = new Label({
             font: new Font({
@@ -371,7 +367,7 @@ export class Park extends Scene {
 
 
         this.activeWave = new Actor();
-        this.button(this.activeWave, Resources.TinyLau, new Vector(130, 350), new Vector(2, 2))
+        this.button(this.activeWave, Resources.TinyLau, new Vector(130, 350), new Vector(2, 2));
         this.activeWave.on("pointerdown", (event) => this.startWave());
     }
 
@@ -400,7 +396,6 @@ export class Park extends Scene {
         if (this.endlessMode) {
             this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
         }
-
         this.parse(this.wave);
     }
 
@@ -412,15 +407,15 @@ export class Park extends Scene {
         this.particleEmitting = true;
         console.log("eeee");
     }
+
     impactParticleFunction(pos) {
         this.impactParticle.isEmitting = true;
         this.impactParticle.pos = pos;
         this.add(this.impactParticle);
         this.impactParticleCounter = 0;
-
-
         console.log("eeee");
     }
+
     parse(wave) {
         this.order = [];
         let parsedResult = this.levels[wave].split(",");
@@ -495,55 +490,50 @@ export class Park extends Scene {
             this.add(this.spidercost);
         }
         if (this.buyMenuClick === 2) {
-            this.buyMenu.kill()
+            this.buyMenu.kill();
 
             this.koopLabel.pos = new Vector(1350, 50);
-            this.koopLabel.kill()
+            this.koopLabel.kill();
 
             this.bamiLabel.pos = new Vector(1350, 150);
-            this.bamiLabel.kill()
+            this.bamiLabel.kill();
             this.bamiButton.pos = new Vector(1350, 450);
-            this.bamiButton.kill()
+            this.bamiButton.kill();
             this.costlogobami.pos = new Vector(1350, 250);
-            this.costlogobami.kill()
+            this.costlogobami.kill();
             this.bamicost.pos = new Vector(1350, 250);
-            this.bamicost.kill()
+            this.bamicost.kill();
 
             this.tinyLauLabel.pos = new Vector(1350, 250);
-            this.tinyLauLabel.kill()
+            this.tinyLauLabel.kill();
             this.tinyLauButton.pos = new Vector(1350, 350);
-            this.tinyLauButton.kill()
+            this.tinyLauButton.kill();
             this.costlogotiny.pos = new Vector(1350, 350);
-            this.costlogotiny.kill()
+            this.costlogotiny.kill();
             this.tinycost.pos = new Vector(1350, 350);
-            this.tinycost.kill()
+            this.tinycost.kill();
 
             this.spiderTrikeLabel.pos = new Vector(1350, 450);
-            this.spiderTrikeLabel.kill()
+            this.spiderTrikeLabel.kill();
             this.spiderTrikeButton.pos = new Vector(1350, 250);
-            this.spiderTrikeButton.kill()
+            this.spiderTrikeButton.kill();
             this.costlogospider.pos = new Vector(1350, 350);
-            this.costlogospider.kill()
+            this.costlogospider.kill();
             this.spidercost.pos = new Vector(1350, 350);
-            this.spidercost.kill()
+            this.spidercost.kill();
 
             this.buyMenuClick = 0;
-
         }
-
     }
-
 
     goToSettings() {
         console.log("goToSettings");
         this.click.play();
         this.game = this.engine;
-        this.engine.goToScene('settings');
+        this.engine.goToScene('settings', 1);
     }
 
-
     mouseInput() {
-
         if (!this.placing) {
             // determine which tower is closest and which tower gets click priority
             for (let i = 0; i < this.towers.length; i++) {
@@ -556,35 +546,22 @@ export class Park extends Scene {
             this.nearestTowerName = this.towers[this.towersInDistance.indexOf(nearestTower, 0)];
             if (nearestTower < 100) {
                 this.towers.forEach(tower => {
-                    tower.deSelect()
-
+                    tower.deSelect();
                 });
-
-
                 this.activetower = this.nearestTowerName;
                 this.activetower.select();
                 this.menuInfo();
             } else {
-
                 if (this.upgradeMenu) {
                     this.uiRemover();
-
-
                 }
-
                 this.towers.forEach(tower => {
                     tower.deSelect();
-
 
                 });
             }
             this.towersInDistance = [];
-
-
-
         }
-
-
         if (this.placing && this.isLegal) {
             let newClone = new Tower(this, this.int);
             newClone.pos = this.placingSprite.pos;
@@ -594,7 +571,7 @@ export class Park extends Scene {
             this.upgradeParticles.isEmitting = true;
             this.upgradeParticles.pos = newClone.pos;
             this.add(this.timer);
-            this.timer.start()
+            this.timer.start();
             newClone.checkSelf(this.int);
             this.activetower = newClone;
             this.placing = false;
@@ -609,18 +586,13 @@ export class Park extends Scene {
             // console.log(this.path)
         } else {
             //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
-
         }
     }
 
-    uiRemover(){
+    uiRemover() {
         this.upgradeMenuClicked = 0;
-        this.upgradeMenu.kill()
+        this.upgradeMenu.kill();
         this.towerName.kill();
-        // this.upgradeButton1.kill()
-        // this.upgradeButton2.kill()
-        // this.upgradeButton3.kill()
-        // this.upgradeButton4.kill()
         this.towerRange.kill()
         this.rangeIndicator.kill()
         this.damageIndicator.kill()
@@ -630,11 +602,12 @@ export class Park extends Scene {
         this.towerTargeting.kill()
         this.towerTargetIndicator.kill()
         this.upgradeDesc1.kill()
-        // this.upgradeDesc2.kill()
-        // this.upgradeDesc3.kill()
-        // this.upgradeDesc4.kill()
+        this.upgradeDesc2.kill()
+        this.upgradeDesc3.kill()
+        this.upgradeDesc4.kill()
+    }
 
-}
+
     removeParticles() {
         this.upgradeParticles.isEmitting = false;
         this.upgradeParticles.kill();
@@ -642,6 +615,7 @@ export class Park extends Scene {
 
 
     menuInfo() {
+
         this.buyMenuClick = 1;
         this.drawBuyMenu();
         if (this.upgradeMenu) {
@@ -654,23 +628,18 @@ export class Park extends Scene {
         this.upgradeMenu.actions.moveTo(1400, 450, 1600);
         this.add(this.upgradeMenu);
         this.buyMenuClick = 0;
-
         this.towerName = new Label({
             font: new Font({
                 unit: FontUnit.Px,
                 family: 'VCR',
                 size: 28,
             }),
-        })
+        });
         this.towerName.pos = new Vector(1350, 85);
         this.towerName.actions.moveTo(1260, 85, 1600);
         this.towerName.text = this.activetower.name.toString();
-        this.towerName.z = 99999
-
+        this.towerName.z = 99999;
         this.add(this.towerName);
-
-
-
 
         this.towerDesc = new Label({
             font: new Font({
@@ -679,14 +648,13 @@ export class Park extends Scene {
                 size: 14,
                 color: Color.White
             }),
-        })
+        });
         this.towerDesc.pos = new Vector(1350, 105);
-        this.towerDesc.actions.moveTo(1260 , 105, 1600);
+        this.towerDesc.actions.moveTo(1260, 105, 1600);
         this.towerDesc.text = this.activetower.description.toString();
-        this.towerDesc.z = 99999
+        this.towerDesc.z = 99999;
 
         this.add(this.towerDesc);
-
 
         this.towerRange = new Label({
             font: new Font({
@@ -694,22 +662,18 @@ export class Park extends Scene {
                 family: 'VCR',
                 size: 36,
             }),
-        })
+        });
         this.towerRange.pos = new Vector(1500, 220);
-        this.towerRange.actions.moveTo(1330, 220,1650);
+        this.towerRange.actions.moveTo(1330, 220, 1650);
         this.towerRange.text = this.activetower.towerRange.toString() + "m";
-        this.towerRange.z = 99999
-
+        this.towerRange.z = 99999;
         this.add(this.towerRange);
-
-
         this.rangeIndicator = new Actor();
         this.rangeIndicator.graphics.use(Resources.RangeIndicator.toSprite());
         this.rangeIndicator.pos = new Vector(1500, 210);
         this.rangeIndicator.actions.moveTo(1295, 210, 1600);
         this.rangeIndicator.scale = new Vector(1, 1);
         this.rangeIndicator.z = 999999;
-
         this.add(this.rangeIndicator);
 
         this.towerDamage = new Label({
@@ -718,11 +682,11 @@ export class Park extends Scene {
                 family: 'VCR',
                 size: 36,
             }),
-        })
+        });
         this.towerDamage.pos = new Vector(1500, 295);
-        this.towerDamage.actions.moveTo(1330, 295,1650);
+        this.towerDamage.actions.moveTo(1330, 295, 1650);
         this.towerDamage.text = this.activetower.damage.toString();
-        this.towerDamage.z = 99999
+        this.towerDamage.z = 99999;
 
         this.add(this.towerDamage);
 
@@ -741,7 +705,7 @@ export class Park extends Scene {
                 family: 'VCR',
                 size: 36,
             }),
-        })
+        });
 
         this.towerTargetIndicator = new Actor();
         this.towerTargetIndicator.graphics.use(Resources.TargetingSymbol.toSprite());
@@ -753,9 +717,9 @@ export class Park extends Scene {
         this.add(this.towerTargetIndicator);
 
         this.towerTargeting.pos = new Vector(1500, 365);
-        this.towerTargeting.actions.moveTo(1330, 365,1650);
-        this.towerTargeting.text = this.activetower.shootingMode.toString() ;
-        this.towerTargeting.z = 99999
+        this.towerTargeting.actions.moveTo(1330, 365, 1650);
+        this.towerTargeting.text = this.activetower.shootingMode.toString();
+        this.towerTargeting.z = 99999;
 
         this.add(this.towerTargeting);
 
@@ -764,27 +728,15 @@ export class Park extends Scene {
             font: new Font({
                 unit: FontUnit.Px,
                 family: 'VCR',
-                size: 28,
+                size: 32,
             }),
-        })
+        });
         this.upgradeText.pos = new Vector(1350, 500);
         this.upgradeText.actions.moveTo(1260, 500, 1600);
-        this.upgradeText.text = `Upgrades`
-        this.upgradeText.z = 99999
-
+        this.upgradeText.text = `Upgrades`;
+        this.upgradeText.z = 99999;
 
         this.add(this.upgradeText);
-
-        // this.upgradeButton1 = new Actor();
-        // this.upgradeButton1.graphics.use(Resources.UpgradeButton.toSprite());
-        // this.upgradeButton1.pos = new Vector(1500, 580);
-        // this.upgradeButton1.actions.moveTo(1340, 580, 1600);
-        // this.upgradeButton1.scale = new Vector(1.7, 1.7);
-        // this.upgradeButton1.z = 999999;
-        // this.upgradeButton1.enableCapturePointer = true;
-        // this.upgradeButton1.pointer.useGraphicsBounds = true;
-        // this.upgradeButton1.on("pointerdown", (event) => this.activetower.tierUp1_1());
-
 
         this.upgradeDesc1 = new Label({
             font: new Font({
@@ -795,18 +747,14 @@ export class Park extends Scene {
 
             }),
         })
-        this.upgradeDesc1.pos = new Vector(1500, 570);
-        this.upgradeDesc1.actions.moveTo(1270 , 570, 1600);
+
+        this.upgradeDesc1.pos = new Vector(1500, 660);
+        this.upgradeDesc1.actions.moveTo(1255, 660, 1600);
         this.upgradeDesc1.text = this.activetower.upgrade1_1.toString();
         this.upgradeDesc1.z = 99999
-        this.upgradeDesc1.captureMoveEvents = true
         this.upgradeDesc1.enableCapturePointer = true;
         this.upgradeDesc1.pointer.useGraphicsBounds = true;
-        this.upgradeDesc1.on("pointerdown", (event) => this.activetower.tierUp1_1());
 
-
-
-        this.add(this.upgradeDesc1);
 
         this.upgradeDesc2 = new Label({
             font: new Font({
@@ -817,63 +765,83 @@ export class Park extends Scene {
 
             }),
         })
-        this.upgradeDesc2.pos = new Vector(1500, 600);
-        this.upgradeDesc2.actions.moveTo(1270 , 600, 1600);
+        this.upgradeDesc2.pos = new Vector(1500, 810);
+        this.upgradeDesc2.actions.moveTo(1255, 810, 1600);
         this.upgradeDesc2.text = this.activetower.upgrade1_2.toString();
         this.upgradeDesc2.z = 99999
         this.upgradeDesc2.enableCapturePointer = true;
         this.upgradeDesc2.pointer.useGraphicsBounds = true;
-        this.upgradeDesc2.on("pointerdown", (event) => this.activetower.tierUp1_2());
-
-        this.add(this.upgradeDesc2);
-
-        // this.upgradeButton2 = new Actor();
-        // this.upgradeButton2.graphics.use(Resources.UpgradeButton.toSprite());
-        // this.upgradeButton2.pos = new Vector(1500, 630);
-        // this.upgradeButton2.actions.moveTo(1290, 630, 1600);
-        // this.upgradeButton2.scale = new Vector(0.6, 0.6);
-        // this.upgradeButton2.z = 999999;
-        // this.upgradeButton2.enableCapturePointer = true;
-        // this.upgradeButton2.pointer.useGraphicsBounds = true;
-        // this.upgradeButton2.on("pointerdown", (event) => this.activetower.tierUp1_2());
-
-        // this.upgradeButton3 = new Actor();
-        // this.upgradeButton3.graphics.use(Resources.UpgradeButton.toSprite());
-        // this.upgradeButton3.pos = new Vector(1500,720 );
-        // this.upgradeButton3.actions.moveTo(1290, 720, 1600);
-        // this.upgradeButton3.scale = new Vector(0.6, 0.6);
-        // this.upgradeButton3.z = 999999;
-        // this.upgradeButton3.enableCapturePointer = true;
-        // this.upgradeButton3.pointer.useGraphicsBounds = true;
-        // this.upgradeButton3.on("pointerdown", (event) => this.activetower.tierUp2_1());
-        //
-        // this.upgradeButton4 = new Actor();
-        // this.upgradeButton4.graphics.use(Resources.UpgradeButton.toSprite());
-        // this.upgradeButton4.pos = new Vector(1500, 800);
-        // this.upgradeButton4.actions.moveTo(1290, 800, 1600);
-        // this.upgradeButton4.scale = new Vector(0.6, 0.6);
-        // this.upgradeButton4.z = 999999;
-        // this.upgradeButton4.enableCapturePointer = true;
-        // this.upgradeButton4.pointer.useGraphicsBounds = true;
-        // this.upgradeButton4.on("pointerdown", (event) => this.activetower.tierUp2_2());
 
 
-        // this.add(this.upgradeButton1);
-        // this.add(this.upgradeButton2);
-        // this.add(this.upgradeButton3);
-        // this.add(this.upgradeButton4);
+        this.upgradeDesc3 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 14,
+                color: Color.White
+
+            }),
+        })
+        this.upgradeDesc3.pos = new Vector(1500, 570);
+        this.upgradeDesc3.actions.moveTo(1270, 570, 1600);
+        this.upgradeDesc3.text = this.activetower.upgrade2_1.toString();
+        this.upgradeDesc3.z = 99999
+        this.upgradeDesc3.enableCapturePointer = true;
+        this.upgradeDesc3.pointer.useGraphicsBounds = true;
 
 
-                if (this.nameLabel && this.activetower) {
-                    this.nameLabel.text = this.activetower.name.toString();
 
-                    console.log(this.activetower);
-                    console.log(this.activetower.id);
-                    console.log(this.activetower._name);
-                    console.log(this.activetower.tier);
-                    console.log(this.activetower.towerRange);
-                    console.log(this.activetower.damage);
-                }
+        this.upgradeDesc4 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 14,
+                color: Color.White
+
+            }),
+        })
+        this.upgradeDesc4.pos = new Vector(1500, 570);
+        this.upgradeDesc4.actions.moveTo(1270, 570, 1600);
+        this.upgradeDesc4.text = this.activetower.upgrade2_2.toString();
+        this.upgradeDesc4.z = 99999
+        this.upgradeDesc4.enableCapturePointer = true;
+        this.upgradeDesc4.pointer.useGraphicsBounds = true;
+
+        this.upgradeButton = new Actor();
+        this.upgradeButton.graphics.use(Resources.UpgradeButton.toSprite());
+        this.upgradeButton.pos = new Vector(1500, 600);
+        this.upgradeButton.actions.moveTo(1340, 600, 1600);
+        this.upgradeButton.scale = new Vector(1.7, 1.7);
+        this.upgradeButton.z = 999999;
+        this.upgradeButton.enableCapturePointer = true;
+        this.upgradeButton.pointer.useGraphicsBounds = true;
+        this.upgradeButton.on("pointerdown", (event) => this.activetower.tierUpPath1());
+
+
+        this.upgradeButton2 = new Actor();
+        this.upgradeButton2.graphics.use(Resources.UpgradeButton.toSprite());
+        this.upgradeButton2.pos = new Vector(1500, 750);
+        this.upgradeButton2.actions.moveTo(1340, 750, 1600);
+        this.upgradeButton2.scale = new Vector(1.7, 1.7);
+        this.upgradeButton2.z = 999999;
+        this.upgradeButton2.enableCapturePointer = true;
+        this.upgradeButton2.pointer.useGraphicsBounds = true;
+        this.upgradeButton2.on("pointerdown", (event) => this.activetower.tierUpPath2());
+
+        this.upgradeButtonlock = new Actor();
+        this.upgradeButtonlock.graphics.use(Resources.upgradeLock.toSprite());
+        this.upgradeButtonlock.pos = new Vector(1500, 750);
+        this.upgradeButtonlock.actions.moveTo(1340, 750, 1600);
+        this.upgradeButtonlock.scale = new Vector(1.7, 1.7);
+        this.upgradeButtonlock.z = 999999;
+
+        if (this.activetower.tier === 0 || this.activetower.tier === undefined) {
+            this.add(this.upgradeButton);
+            this.add(this.upgradeButton2);
+        }
+
+
+
     }
 
     startWave() {
@@ -888,67 +856,73 @@ export class Park extends Scene {
     }
 
     buyTower(id) {
-        if (this.engine.gulden >= 50) {
-            this.engine.gulden -= 50;
-            this.guldenDisplay.text = `${this.engine.gulden}`;
+        if (id === 1 && this.engine.gulden >= 375) {
+            this.engine.gulden -= 375;
+        }
+        if (id === 2 && this.engine.gulden >= 800) {
+            this.engine.gulden -= 800;
+        }
+        if (id === 3 && this.engine.gulden >= 650) {
+            this.engine.gulden -= 650;
+        }
 
-            if (id === 1) {
-                this.int = 0;
-            }
-            if (id === 2) {
-                this.int= 1;
-            }
-            if (id === 3) {
-                this.int = 2;
-            }
+        this.guldenDisplay.text = `${this.engine.gulden}`;
 
-            this.placing = !this.placing;
-            this.drawBuyMenu();
-            if (this.placing) {
-                this.walls.forEach(wall => {
-                    this.add(wall);
-                });
-                const circle = Shape.Circle(50);
-                this.placingSprite.collider.set(circle);
-                this.placingSprite.collisionType = CollisionType.Passive;
-                this.placingSprite._setName('this.placingSprite');
-                this.add(this.placingSprite);
-            } else {
-                this.walls.forEach(wall => {
-                    wall.kill();
-                });
-                this.placingSprite.kill();
-            }
+        if (id === 1) {
+            this.int = 0;
+        }
+        if (id === 2) {
+            this.int = 1;
+        }
+        if (id === 3) {
+            this.int = 2;
+        }
+        this.placing = !this.placing;
+        this.drawBuyMenu();
+        if (this.placing) {
+            this.walls.forEach(wall => {
+                this.add(wall);
+            });
+            const circle = Shape.Circle(50);
+            this.placingSprite.collider.set(circle);
+            this.placingSprite.collisionType = CollisionType.Passive;
+            this.placingSprite._setName('this.placingSprite');
+            this.add(this.placingSprite);
+        } else {
+            this.walls.forEach(wall => {
+                wall.kill();
+            });
+            this.placingSprite.kill();
         }
     }
 
     onPreUpdate(engine, delta) {
-        if (this.upgradeMenuClicked === 1) {
-
-            this.upgradeDesc1.on("pointerenter", (event) => this.upgradeDesc1.color = Color.Yellow);
-    }
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
-                this.particleCounter = 0
+                this.particleCounter = 0;
                 this.deathParticles.isEmitting = false;
                 this.deathParticles.kill();
             }
-            this.particleCounter++
+            this.particleCounter++;
         }
         if (this.impactParticle.isEmitting) {
             if (this.impactParticleCounter > 5) {
-                this.impactParticleCounter = 0
+                this.impactParticleCounter = 0;
                 this.impactParticle.isEmitting = false;
                 this.impactParticle.kill();
             }
-            this.impactParticleCounter++
+            this.impactParticleCounter++;
+        }
+        if (engine.input.keyboard.isHeld(Input.Keys.R)) {
+            if (this.activetower.type === 3) {
+                this.activetower.shootLaser();
+            }
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
             this.goToSettings();
         }
         this.guldenDisplay.text = `${this.engine.gulden}`;
         this.levensDisplay.text = `${this.engine.levens}`;
-
         this.placingSprite.checkSelf(this.int, this.isLegal);
         if (this.engine.input.keyboard.wasPressed(Input.Keys.B)) {
             this.placing = !this.placing;
@@ -980,7 +954,7 @@ export class Park extends Scene {
             this.guldenDisplay.text = `${this.engine.gulden}`;
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
-            this.running = !this.running;
+            this.startWave();
         }
         if (engine.input.keyboard.wasPressed(Input.Keys.P)) {
             this.activetower.updateRange(this.activetower.range += 50);
@@ -1029,12 +1003,13 @@ export class Park extends Scene {
                     this.parse(this.wave);
                 }
                 this.spiderSpawner++;
-                if (this.spiderSpawner > Math.random() * (50 - 10) + 10) {
+                if (this.spiderSpawner > Math.random() * (100 - 25) + 25) {
+                    this.spiderSpawner = 0;
                     this.spiderSpawner = 0;
                 }
             } else {
-
             }
+
         }
     }
 }
