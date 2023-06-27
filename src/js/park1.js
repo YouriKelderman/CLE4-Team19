@@ -16,7 +16,7 @@ export class Park1 extends Park {
     constructor() {
         super();
     }
-    
+
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
@@ -30,6 +30,7 @@ id= 0;
 
     waveItem = 0;
     activeWave;
+    waveText;
     order = [];
     walls = [];
     garden = new Actor({width: 100, height: 100});
@@ -93,7 +94,19 @@ id= 0;
     });
 
     onInitialize(_engine) {
-
+        this.waveText = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 30,
+                color: Color.White,
+                strokeColor: Color.Black,
+            }),
+        });
+        this.waveText.text = `${localStorage.getItem(`0`)}/${this.levels.length}`;
+        this.waveText.pos = new Vector(20, 350);
+        this.waveText.z = 99999;
+        this.add(this.waveText);
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
