@@ -22,8 +22,13 @@ import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
 import {UpgradeMenu} from "./buyMenu.js";
 import {Gameover} from "./gameover.js";
+
+import {Arcade} from "arcade-game";
+import {Cursor} from "./cursor.js";
+
 import {Park1} from "./park1.js";
 import {Park2} from "./park2.js";
+
 
 export class Game extends Engine {
     game
@@ -34,6 +39,11 @@ export class Game extends Engine {
     levens = 20;
     profanityMode = true
     activeScene
+
+    #arcade;
+    #joystickListener;
+
+    cursor
 
     constructor() {
         super({width: 1440, height: 900, displayMode: DisplayMode.FitScreenAndZoom});
@@ -62,8 +72,33 @@ export class Game extends Engine {
     }
 
     startGame(engine) {
-        this.goToScene('menu');
+
+        this.#arcade = new Arcade(this, false, false);
+        this.#joystickListener = (e) => this.#joyStickFound(e);
+        document.addEventListener("joystickcreated",  this.#joystickListener);
+
+    this.goToScene('menu');
     }
+
+    onPreUpdate(){
+        for (let joystick of this.#arcade.Joysticks) {
+            joystick.update();
+        }
+    }
+
+    #joyStickFound(e) {
+        let joystick = this.#arcade.Joysticks[e.detail]
+
+        // debug, this shows you the names of the buttons when they are pressed
+        for (const buttonEvent of joystick.ButtonEvents) {
+            document.addEventListener(buttonEvent, () => console.log(buttonEvent))
+        }
+    }
+
+    disconnect() {
+        document.removeEventListener("joystickcreated", this.#joystickListener)
+    }
+
 
     damage() {
         this.levens -=1;
@@ -72,6 +107,7 @@ export class Game extends Engine {
     shake(){
         this.currentScene.camera.shake(0.5, 0.5, 300)
     }
+
 }
 
 new Game();
