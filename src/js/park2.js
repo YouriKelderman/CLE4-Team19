@@ -1,7 +1,7 @@
 import {
     Actor,
     Vector,
-    CollisionType, Label, Font, FontUnit,
+    CollisionType, Label, Font, FontUnit, Timer, ParticleEmitter, EmitterType, Color,
 } from "excalibur";
 
 import {Resources, ResourceLoader} from "./resources.js";
@@ -34,7 +34,62 @@ export class Park2 extends Park {
     garden = new Actor({width: 100, height: 100});
     gardenSprites = [Resources.Garden, Resources.Garden4, Resources.Garden3, Resources.Garden2, Resources.Garden1, Resources.Garden1];
     endlessMode = false;
-
+    timer = new Timer({
+        fcn: () => this.removeParticles(),
+        repeats: false,
+        interval: 200,
+    });
+    deathParticles = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 10,
+        minVel: 50,
+        maxVel: 100,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate: 300,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 600,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Red,
+        endColor: Color.fromRGB(139, 69, 19),
+        isEmitting: false
+    });
+    upgradeParticles = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 2,
+        minVel: 100,
+        maxVel: 200,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate: 300,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 1000,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Green,
+        endColor: Color.Green,
+        isEmitting: false
+    });
+    impactParticle = new ParticleEmitter({
+        emitterType: EmitterType.Rectangle,
+        radius: 1,
+        minVel: 50,
+        maxVel: 100,
+        minAngle: 0,
+        maxAngle: Math.PI * 2,
+        emitRate: 50,
+        opacity: 1,
+        fadeFlag: true,
+        particleLife: 1000,
+        maxSize: 3,
+        minSize: 1,
+        beginColor: Color.Red,
+        endColor: Color.Red,
+        isEmitting: false
+    });
 
     onInitialize(_engine) {
         this.buyMenu = new Actor();
@@ -72,7 +127,7 @@ export class Park2 extends Park {
         this.placingSprite = new PlaceTower();
         this.engine.input.pointers.primary.on("up", () => this.mouseInput());
         this.engine = _engine;
-        let hitboxPoints = [1103, 45, 1094, 188, 1083, 321, 1066, 361, 994, 454, 913, 440, 787, 409, 736, 404, 714, 324, 656, 229, 592, 192, 515, 166, 458, 162, 394, 179, 302, 220, 214, 347, 210, 501, 232, 557, 263, 617, 216, 646, 175, 680, 130, 796, 186, 808, 204, 743, 241, 700, 302, 643, 322, 596, 272, 515, 271, 373, 315, 313, 357, 264, 421, 237, 526, 237, 594, 268, 646, 328, 677, 368, 684, 447, 571, 449, 537, 377, 474, 345, 414, 371, 375, 435, 399, 504, 469, 547, 543, 514, 579, 458, 534, 372, 582, 449, 480, 547, 325, 590, 399, 617, 488, 628, 602, 591, 663, 527, 679, 466, 676, 386, 633, 321, 541, 252, 459, 247, 351, 279, 296, 348, 271, 430, 283, 522, 321, 580, 306, 646, 357, 674, 418, 701, 556, 710, 634, 672, 702, 608, 739, 518, 743, 473, 866, 484, 1009, 500, 1079, 552, 1079, 591, 1075, 708, 1067, 803, 1120, 805, 1121, 734, 1116, 605, 1321, 814, 1410, 809, 1050, 465, 1093, 427, 1126, 369, 1145, 333, 1148, 192, 1152, 47];
+        let hitboxPoints = [1011, 854,1184, 853,1187, 45,1110, 45,1143, 854,1082, 854,1083, 45,1017, 45,1012, 472,753, 408,425, 325,365, 300,258, 271,175, 192,177, 45,115, 45,116, 211,159, 212,162, 315,117, 180,113, 854,165, 853,165, 445,203, 399,259, 357,327, 362,424, 403,1012, 551,1011, 852,1011, 852];
         for (let i = 0; i < hitboxPoints.length; i += 2) {
             //console.log(`${hitboxPoints[i]} ${hitboxPoints[i + 1]} ${hitboxPoints[i + 2]} ${hitboxPoints[i + 3]}`);
             let offsetX = 0;
@@ -294,4 +349,27 @@ export class Park2 extends Park {
             this.buyMenuClick = 0;
         }
     }
+
+    enemyKilled(pos) {
+        this.deathParticles.isEmitting = true;
+        this.deathParticles.pos = pos;
+        this.add(this.deathParticles);
+        this.particleCounter = 0;
+        this.particleEmitting = true;
+        console.log("eeee");
+    }
+
+    impactParticleFunction(pos) {
+        this.impactParticle.isEmitting = true;
+        this.impactParticle.pos = pos;
+        this.add(this.impactParticle);
+        this.impactParticleCounter = 0;
+        console.log("eeee");
+    }
+
+    removeParticles() {
+        this.upgradeParticles.isEmitting = false;
+        this.upgradeParticles.kill();
+    }
+
 }
