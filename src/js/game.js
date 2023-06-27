@@ -23,7 +23,6 @@ import {Levens} from "./health.js";
 import {UpgradeMenu} from "./buyMenu.js";
 import {Gameover} from "./gameover.js";
 
-import {Arcade} from "arcade-game";
 import {Cursor} from "./cursor.js";
 
 import {Park1} from "./park1.js";
@@ -40,9 +39,6 @@ export class Game extends Engine {
     levens = 20;
     profanityMode = true
     activeScene
-
-    #arcade;
-    #joystickListener;
 
     cursor
 
@@ -73,31 +69,7 @@ export class Game extends Engine {
     }
 
     startGame(engine) {
-
-        this.#arcade = new Arcade(this, false, false);
-        this.#joystickListener = (e) => this.#joyStickFound(e);
-        document.addEventListener("joystickcreated",  this.#joystickListener);
-
-    this.goToScene('menu');
-    }
-
-    onPreUpdate(){
-        for (let joystick of this.#arcade.Joysticks) {
-            joystick.update();
-        }
-    }
-
-    #joyStickFound(e) {
-        let joystick = this.#arcade.Joysticks[e.detail]
-
-        // debug, this shows you the names of the buttons when they are pressed
-        for (const buttonEvent of joystick.ButtonEvents) {
-            document.addEventListener(buttonEvent, () => console.log(buttonEvent))
-        }
-    }
-
-    disconnect() {
-        document.removeEventListener("joystickcreated", this.#joystickListener)
+        this.goToScene('menu');
     }
 
 

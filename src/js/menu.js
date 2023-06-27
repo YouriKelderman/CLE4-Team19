@@ -64,9 +64,9 @@ export class Menu extends Scene {
         startButton.z = 1000;
         startButton.enableCapturePointer = true;
         startButton.pointer.useGraphicsBounds = true;
-        startButton.clickable = true
         startButton.collider.set(Shape.Box(500, 200));
         startButton.on("pointerup", (event) => this.startGame());
+        startButton.on("precollision", (event) => this.onCollision(event));
         this.add(startButton);
 
 
@@ -95,6 +95,12 @@ export class Menu extends Scene {
         // this.add(sliderHead)
         //     this.add(sliderBase)
 
+    }
+
+    onCollision(event) {
+        if (event.other.name === "Cursor" && event.other.clicked === true) {
+            this.startGame()
+        }
     }
 
     onPreUpdate(engine, _delta) {
