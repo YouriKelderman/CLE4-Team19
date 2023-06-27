@@ -12,7 +12,7 @@ import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
 import {Enemy} from "./enemies/enemy.js";
 
-export class Park2 extends Park {
+export class Park3 extends Park {
     constructor() {
         super();
     }
@@ -160,12 +160,12 @@ export class Park2 extends Park {
             }
         });
         let mapFloor = new Actor();
-        mapFloor.graphics.use(Resources.Map2Ground.toSprite());
+        mapFloor.graphics.use(Resources.Map3Ground.toSprite());
         mapFloor.scale = new Vector(5.9, 5.9);
         mapFloor.pos = new Vector(750, 450);
         this.add(mapFloor);
         let mapTop = new Actor();
-        mapTop.graphics.use(Resources.Map2Top.toSprite());
+        mapTop.graphics.use(Resources.Map3Top.toSprite());
         mapTop.scale = new Vector(5.9, 5.9);
         mapTop.pos = new Vector(691, 450);
         mapTop.z = 9999;
@@ -280,6 +280,40 @@ export class Park2 extends Park {
         this.tinycost.pos = new Vector(1370, 400);
         this.tinycost.z = 99999;
 
+        // spiderTrike toren name label
+        this.spiderTrikeLabel = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 16,
+            }),
+        });
+        this.spiderTrikeLabel.text = 'Spinnenman';
+        this.spiderTrikeLabel.pos = new Vector(1350, 450);
+        this.spiderTrikeLabel.z = 99999;
+        // buy spiderTrike tower
+        this.spiderTrikeButton = new Actor();
+        this.button(this.spiderTrikeButton, Resources.SpiderMeneer, new Vector(1350, 500), new Vector(1.5, 1.5));
+        this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower(3));
+        this.enemies();
+
+
+        // cost logo and text
+        this.costlogospider = new Actor();
+        this.costLogo(this.costlogospider, new Vector(1350, 550));
+
+        this.spidercost = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 16,
+            }),
+
+        });
+        this.spidercost.text = '800';
+        this.spidercost.pos = new Vector(1370, 550);
+        this.spidercost.z = 99999;
+
 
         this.activeWave = new Actor();
         this.button(this.activeWave, Resources.TinyLau, new Vector(130, 350), new Vector(2, 2));
@@ -331,6 +365,22 @@ export class Park2 extends Park {
             this.tinycost.actions.moveTo(1330, 350, 1300);
             this.add(this.tinycost);
 
+            this.spiderTrikeLabel.pos = new Vector(1500, 380);
+            this.spiderTrikeLabel.actions.moveTo(1300, 390, 1300);
+            this.add(this.spiderTrikeLabel);
+
+            this.spiderTrikeButton.pos = new Vector(1500, 430);
+            this.spiderTrikeButton.actions.moveTo(1350, 440, 1300);
+            this.add(this.spiderTrikeButton);
+
+            this.costlogospider.pos = new Vector(1500, 480);
+            this.costlogospider.actions.moveTo(1300, 490, 1300);
+            this.add(this.costlogospider);
+
+            this.spidercost.pos = new Vector(1500, 510);
+            this.spidercost.actions.moveTo(1330, 490, 1300);
+            this.add(this.spidercost);
+
         }
         if (this.buyMenuClick === 2) {
             this.buyMenu.kill();
@@ -355,6 +405,15 @@ export class Park2 extends Park {
             this.costlogotiny.kill();
             this.tinycost.pos = new Vector(1350, 350);
             this.tinycost.kill();
+
+            this.spiderTrikeLabel.pos = new Vector(1350, 450);
+            this.spiderTrikeLabel.kill();
+            this.spiderTrikeButton.pos = new Vector(1350, 250);
+            this.spiderTrikeButton.kill();
+            this.costlogospider.pos = new Vector(1350, 350);
+            this.costlogospider.kill();
+            this.spidercost.pos = new Vector(1350, 350);
+            this.spidercost.kill();
 
 
             this.buyMenuClick = 0;

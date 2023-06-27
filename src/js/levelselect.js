@@ -46,10 +46,10 @@ export class Levelselect extends Scene {
 
         // levelselect & buttons
         this.levelselect = new Actor();
-        this.levelselect.graphics.use(Resources.Logo.toSprite());
+        this.levelselect.graphics.use(Resources.SelectText.toSprite());
         this.levelselect.pos = new Vector(720, 250);
         this.levelselect.scale = new Vector(0.1, 0.1)
-        this.levelselect.actions.scaleTo(vec(1.1,1.1),vec(1,1));
+        this.levelselect.actions.scaleTo(vec(4.5,4.5),vec(3,3));
         this.levelselect.z = 1000;
         this.add(this.levelselect);
 
@@ -75,6 +75,17 @@ export class Levelselect extends Scene {
         parklevel2.on("pointerup", (event) => this.parkLevel(2));
         this.add(parklevel2);
 
+        const parklevel3 = new Actor();
+        parklevel3.graphics.use(Resources.ParkMapSelect3.toSprite());
+        parklevel3.pos = new Vector(1090, 500);
+        parklevel3.scale = new Vector(0.1, 0.1)
+        parklevel3.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
+        parklevel3.z = 1000;
+        parklevel3.enableCapturePointer = true;
+        parklevel3.pointer.useGraphicsBounds = true;
+        parklevel3.on("pointerup", (event) => this.parkLevel(3));
+        this.add(parklevel3);
+
 
         // Funny menu things
         this.spider = new Actor();
@@ -87,8 +98,8 @@ export class Levelselect extends Scene {
     }
 
     onPreUpdate(engine, _delta) {
-        this.levelselect.actions.scaleTo(vec(1.2, 1.2), vec(0.05, 0.05));
-        this.levelselect.actions.scaleTo(vec(1.0, 1.0), vec(0.05, 0.05));
+        this.levelselect.actions.scaleTo(vec(4.5, 4.5), vec(0.05, 0.05));
+        this.levelselect.actions.scaleTo(vec(4.2, 4.2), vec(0.1, 0.1));
 
         if (Math.floor(Math.random() * (2000 - 1) + 1) === 1) {
             this.spiderPeek();
@@ -112,6 +123,11 @@ export class Levelselect extends Scene {
             this.engine.goToScene('level2');
             this.engine.activeScene = 2
             console.log('park level2');
+        }
+        if (id === 3) {
+            this.engine.goToScene('level3');
+            this.engine.activeScene = 3
+            console.log('park level3');
         }
 
     }
