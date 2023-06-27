@@ -54,6 +54,7 @@ engine;
     });
 
     towerRange = 0;
+    description = "";
     game;
     curseCooldown = 250;
     damageMultiplier = 1;
@@ -77,6 +78,7 @@ engine;
 
         if (this.type === 0) {
             this._setName("Pan Bami");
+            this.description =("Gooit een pan bami\nnaar ongedierte. \n\nHet liefst uit het\nraam naar beneden.");
             this.towerRange = 200;
             this.shootingMode = 0
 
@@ -84,10 +86,19 @@ engine;
         if (this.type === 1) {
             this._setName("Tiny & Lau");
             this.towerRange = 100;
+            this.description = ("Scheld naar andere.\n\nVersterkt anderen of\npijnigt de vijand");
         }
         if (this.type === 2) {
-            this._setName("Spiderman");
+            this._setName("Spinnenman");
             this.towerRange = 300;
+            this.description = ("Kookt lekker eten.\n\nMaar schiet ook\nwebben naar vijanden");
+            this.shootingMode = 3
+        }
+
+        if (this.type === 3) {
+            this._setName("Aboutaleb");
+            this.towerRange = 300;
+            this.description = ("Kookt lekker eten.\nMaar schiet ook\nwebben naar vijanden");
             this.shootingMode = 3
         }
 
@@ -125,7 +136,6 @@ engine;
 
     collisionHandler(event) {
         if (this.type === 0) {
-            console.log(this.seeMouses)
             if (this.seeMouses === true) {
                 if (event.other.name === "Enemy") {
                     this.amountOfEnemies++;
@@ -490,13 +500,29 @@ engine;
         this.seeMouses = false;
     }
 
-    tierUp() {
+    tierUpDefault() {
         this.game.add(this.upgradeParticles);
         this.upgradeParticles.isEmitting = true;
         this.upgrade.play();
         this.upgradeParticles.pos = this.pos;
         this.game.add(this.timer);
         this.timer.start();
+    }
+    tierUp1_1() {
+        this.tierUpDefault()
+        this.tier = 1.1;
+    }
+    tierUp1_2() {
+        this.tierUpDefault()
+        this.tier = 1.2
+    }
+    tierUp2_1() {
+        this.tierUpDefault()
+        this.tier = 2.1
+    }
+    tierUp2_2() {
+        this.tierUpDefault()
+        this.tier = 2.2
     }
 
     removeParticles() {

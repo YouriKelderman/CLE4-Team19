@@ -93,7 +93,7 @@ export class Settings extends Scene {
         // profanity filter
         this.profanityFilter = new Actor();
         this.profanityFilter.graphics.use(Resources.SwearAan.toSprite());
-        this.profanityFilter.pos = new Vector(720, 650);
+        this.profanityFilter.pos = new Vector(720, 680);
         this.profanityFilter.scale = new Vector(0.1, 0.1)
         this.profanityFilter.z = 1000;
         this.profanityFilter.enableCapturePointer = true;

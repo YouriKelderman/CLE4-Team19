@@ -21,6 +21,7 @@ import range from '../images/range.png';
 import upgrade from '../images/UpgradeButton.png';
 import rangeIndicator from '../images/rangeIndicator.png';
 import damageIndicator from '../images/damageIndicator.png';
+import targetingSymbol from '../images/targetingSymbol.png';
 // park
 import bami from '../images/bami.png';
 import spicyBami from '../images/spicyBami.png';
@@ -69,6 +70,7 @@ import sideButton from '../images/side-button.png';
 import buyMenu from '../images/BuyMenuBar.png';
 import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
+import costLogo from '../images/costLogo.png';
 
 
 
@@ -121,6 +123,8 @@ Laser: new ImageSource(laser),
     BuyMenu: new ImageSource(buyMenu),
     Gulden: new ImageSource(Gulden),
     Health: new ImageSource(Health),
+    TargetingSymbol: new ImageSource(targetingSymbol),
+    CostLogo: new ImageSource(costLogo),
 
 
     Click: new Sound(click),

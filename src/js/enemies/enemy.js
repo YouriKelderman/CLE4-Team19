@@ -41,6 +41,7 @@ export class Enemy extends Actor {
     nextPath
     damageOverTime = 0
     damageCooldown = 0
+    worth;
 
 
     enemyType = 0;
@@ -80,6 +81,7 @@ export class Enemy extends Actor {
         this.sprite = this.enemies[type][0].toSprite();
         this.graphics.use(this.sprite);
         this.health = this.enemies[type][1];
+        this.worth = this.health
 
         if (type === 0) {
             this.body.scale = new Vector(0.25, 0.25);
@@ -122,7 +124,7 @@ export class Enemy extends Actor {
                         bullet.rotation = Math.random() * 6 - Math.PI / 2;
                         this.engine.add(bullet);
                     }
-                    this.kill()
+                    this.explode()
                 }
 
                 this.removeBulletHealth(event)
@@ -150,16 +152,8 @@ export class Enemy extends Actor {
         this.actions.clearActions();
         this.collider.clear();
         this.deathAnimation = 50;
+        this.engine.gulden += this.worth
         this.game.enemyKilled(this.pos);
-        //this.game.add(this.deathParticles);
-        //this.deathParticles.isEmitting = true;
-        //this.deathParticles.pos = this.pos;
-        //this.game.add(this.timer);
-        //this.timer.start()
-    }
-    removeParticles() {
-        this.deathParticles.isEmitting = false;
-        this.deathParticles.kill();
     }
 
     move(pathToFollow) {
