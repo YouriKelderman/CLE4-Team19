@@ -17,6 +17,7 @@ import {
 } from "excalibur";
 
 import {Resources, ResourceLoader} from "./resources.js";
+import {Cursor} from "./cursor.js";
 
 export class Menu extends Scene {
 
@@ -42,6 +43,8 @@ export class Menu extends Scene {
 
     }
     onInitialize(engine) {
+        this.cursor = new Cursor(this.engine);
+        this.add(this.cursor);
 
 
         // logo & buttons
@@ -61,6 +64,8 @@ export class Menu extends Scene {
         startButton.z = 1000;
         startButton.enableCapturePointer = true;
         startButton.pointer.useGraphicsBounds = true;
+        startButton.clickable = true
+        startButton.collider.set(Shape.Box(500, 200));
         startButton.on("pointerup", (event) => this.startGame());
         this.add(startButton);
 
