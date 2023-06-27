@@ -180,6 +180,7 @@ export class Park2 extends Park {
         this.settingsButton.pointer.useGraphicsBounds = true;
         this.settingsButton.on("pointerup", (event) => this.goToSettings());
         this.add(this.settingsButton);
+
         this.buyMenuButton = new Actor();
         this.buyMenuButton.graphics.use(Resources.BuyButton.toSprite());
         this.buyMenuButton.pos = new Vector(50, 195);
@@ -189,6 +190,16 @@ export class Park2 extends Park {
         this.buyMenuButton.pointer.useGraphicsBounds = true;
         this.buyMenuButton.on("pointerup", (event) => this.drawBuyMenu());
         this.add(this.buyMenuButton);
+
+        this.playRoundButton = new Actor();
+        this.playRoundButton.graphics.use(Resources.PlayButton.toSprite());
+        this.playRoundButton.pos = new Vector(50, 285);
+        this.playRoundButton.scale = new Vector(0.7, 0.7);
+        this.playRoundButton.z = 9999;
+        this.playRoundButton.enableCapturePointer = true;
+        this.playRoundButton.pointer.useGraphicsBounds = true;
+        this.playRoundButton.on("pointerup", (event) => this.startWave());
+        this.add(this.playRoundButton);
 
         //sidebutton
         this.enemies();
