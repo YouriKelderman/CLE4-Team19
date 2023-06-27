@@ -616,10 +616,10 @@ export class Park extends Scene {
     uiRemover(){
         this.upgradeMenu.kill()
         this.towerName.kill();
-        this.add(this.upgradeButton1);
-        this.add(this.upgradeButton2);
-        this.add(this.upgradeButton3);
-        this.add(this.upgradeButton4);
+this.upgradeButton1.kill()
+        this.upgradeButton2.kill()
+        this.upgradeButton3.kill()
+        this.upgradeButton4.kill()
         this.towerRange.kill()
         this.rangeIndicator.kill()
         this.damageIndicator.kill()
