@@ -41,7 +41,7 @@ export class Park extends Scene {
     activetower = this.activetower;
     path = "";
     engine;
-    id= 0;
+    id = 0;
     route = [];
     towers = [];
     crunch = Resources.Crunch;
@@ -113,7 +113,7 @@ export class Park extends Scene {
         "1000*3"
     ];
 
-    wave = 0;
+    wave =0;
     waveItem = 0;
     activeWave;
     impactParticleCounter = 0;
@@ -127,7 +127,7 @@ export class Park extends Scene {
     click = Resources.Click;
     spiderSpawner = 0;
     isLegal = true;
-        endlessMode = false;
+    endlessMode = false;
     activeEnemies = 0;
     nameLabel;
     settingsButton;
@@ -156,6 +156,7 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
+        this.game = _engine;
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
@@ -163,7 +164,6 @@ export class Park extends Scene {
         this.buyMenu.z = 9999;
         this.buyMenu.enableCapturePointer = true;
         this.buyMenu.pointer.useGraphicsBounds = true;
-
 
         this.guldenLogo = new Actor();
         this.guldenLogo.graphics.use(Resources.Gulden.toSprite());
@@ -587,8 +587,8 @@ export class Park extends Scene {
             // console.log(this.path)
         } else {
 
-            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}, ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
-            console.log(this.string);
+            //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}, ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+            //console.log(this.string);
         }
 
     }
@@ -794,7 +794,6 @@ export class Park extends Scene {
         this.upgradeDesc3.pointer.useGraphicsBounds = true;
 
 
-
         this.upgradeDesc4 = new Label({
             font: new Font({
                 unit: FontUnit.Px,
@@ -845,15 +844,18 @@ export class Park extends Scene {
         }
 
 
-
     }
 
     startWave() {
+        this.wave = Number(localStorage.getItem(`${this.engine.currentScene.id}`));
         if (this.activeEnemies === 0) {
             this.waveItem = 0;
-            this.parse(this.wave);
+            this.parse(Number(localStorage.getItem(`${this.engine.currentScene.id}`)));
             this.running = true;
             this.wave += 1;
+            console.log(this.wave)
+            localStorage.setItem(`${this.engine.currentScene.id}`, `${this.wave}`);
+
         } else {
             console.log("Already Running");
         }
@@ -901,7 +903,7 @@ export class Park extends Scene {
     }
 
 
-    onPreUpdate (engine, delta) {
+    onPreUpdate(engine, delta) {
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
                 this.particleCounter = 0;

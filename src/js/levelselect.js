@@ -24,6 +24,9 @@ export class Levelselect extends Scene {
     spider
     music = Resources.BackgroundMusic;
     click = Resources.Click;
+    mapLabel1;
+    mapLabel2;
+    mapLabel3;
 
     constructor() {
         super();
@@ -63,7 +66,17 @@ export class Levelselect extends Scene {
         parklevel.pointer.useGraphicsBounds = true;
         parklevel.on("pointerup", (event) => this.parkLevel(1));
         this.add(parklevel);
-
+        this.mapLabel1 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 30,
+            }),
+        });
+        this.mapLabel1.text = `${localStorage.getItem("0")}/5`;
+        this.mapLabel1.pos = new Vector(320, 630);
+        this.mapLabel1.z = 99999;
+        this.add(this.mapLabel1)
         const parklevel2 = new Actor();
         parklevel2.graphics.use(Resources.ParkMapSelect2.toSprite());
         parklevel2.pos = new Vector(720, 500);
@@ -74,7 +87,17 @@ export class Levelselect extends Scene {
         parklevel2.pointer.useGraphicsBounds = true;
         parklevel2.on("pointerup", (event) => this.parkLevel(2));
         this.add(parklevel2);
-
+        this.mapLabel2 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 30,
+            }),
+        });
+        this.mapLabel2.text = `${localStorage.getItem("1")}/8`;
+        this.mapLabel2.pos = new Vector(700, 630);
+        this.mapLabel2.z = 99999;
+        this.add(this.mapLabel2)
         const parklevel3 = new Actor();
         parklevel3.graphics.use(Resources.ParkMapSelect3.toSprite());
         parklevel3.pos = new Vector(1090, 500);
@@ -85,7 +108,17 @@ export class Levelselect extends Scene {
         parklevel3.pointer.useGraphicsBounds = true;
         parklevel3.on("pointerup", (event) => this.parkLevel(3));
         this.add(parklevel3);
-
+        this.mapLabel2 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 30,
+            }),
+        });
+        this.mapLabel2.text = `${localStorage.getItem("2")}/10`;
+        this.mapLabel2.pos = new Vector(1065, 630);
+        this.mapLabel2.z = 99999;
+        this.add(this.mapLabel2)
 
         // Funny menu things
         this.spider = new Actor();
