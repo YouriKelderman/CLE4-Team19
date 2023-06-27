@@ -46,10 +46,10 @@ export class Levelselect extends Scene {
 
         // levelselect & buttons
         this.levelselect = new Actor();
-        this.levelselect.graphics.use(Resources.Logo.toSprite());
+        this.levelselect.graphics.use(Resources.SelectText.toSprite());
         this.levelselect.pos = new Vector(720, 250);
         this.levelselect.scale = new Vector(0.1, 0.1)
-        this.levelselect.actions.scaleTo(vec(1.1,1.1),vec(1,1));
+        this.levelselect.actions.scaleTo(vec(4.5,4.5),vec(3,3));
         this.levelselect.z = 1000;
         this.add(this.levelselect);
 

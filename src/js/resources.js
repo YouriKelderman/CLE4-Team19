@@ -10,6 +10,8 @@ import Mutebutton from '../images/MuteButton.png';
 import fontFile from "../VCR_OSD_MONO_1.001.ttf";
 import web from '../images/web.png';
 import explosiveWeb from '../images/explosive-web.png';
+import gameover from '../images/gameover.png';
+import selectText from '../images/selecttext.png';
 
 
 
@@ -90,6 +92,8 @@ const Resources = {
     Mutebutton: new ImageSource(Mutebutton),
     Web: new ImageSource(web),
     ExplosiveWeb: new ImageSource(explosiveWeb),
+    GameOver: new ImageSource(gameover),
+    SelectText: new ImageSource(selectText),
 
 
     Garden: new ImageSource(garden),

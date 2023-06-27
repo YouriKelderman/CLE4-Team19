@@ -530,7 +530,7 @@ export class Park extends Scene {
         console.log("goToSettings");
         this.click.play();
         this.game = this.engine;
-        this.engine.goToScene('settings', 1);
+        this.engine.goToScene('settings');
     }
 
     mouseInput() {

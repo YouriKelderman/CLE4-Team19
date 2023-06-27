@@ -46,10 +46,10 @@ export class Gameover extends Scene {
 
         // logo & buttons
         this.logo = new Actor();
-        this.logo.graphics.use(Resources.Logo.toSprite());
+        this.logo.graphics.use(Resources.GameOver.toSprite());
         this.logo.pos = new Vector(720, 250);
         this.logo.scale = new Vector(0.1, 0.1)
-        this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
+        this.logo.actions.scaleTo(vec(4,4),vec(2,2));
         this.logo.z = 1000;
         this.add(this.logo);
 

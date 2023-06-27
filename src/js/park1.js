@@ -233,11 +233,5 @@ export class Park1 extends Park {
         }
     }
 
-    goToSettings() {
-        console.log("goToSettings");
-        this.click.play();
-        this.game = this.engine;
-        this.engine.goToScene('settings');
-    }
 
 }
