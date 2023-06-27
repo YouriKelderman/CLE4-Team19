@@ -29,8 +29,6 @@ import {UpgradeMenu} from "./buyMenu.js";
 import {Settings} from "./settings.js";
 
 export class Park extends Scene {
-
-
     constructor() {
         super();
     }
@@ -887,9 +885,9 @@ this.upgradeButton1.kill()
                 this.placingSprite.kill();
             }
         }
-    }
 
-    onPreUpdate(engine, delta) {
+
+    onPreUpdate (engine, delta) {
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
                 this.particleCounter = 0
