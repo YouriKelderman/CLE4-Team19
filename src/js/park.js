@@ -113,7 +113,7 @@ export class Park extends Scene {
         "1000*3"
     ];
 
-    wave = 0;
+    wave = Number(localStorage.getItem(`${this.game.currentScene.id}`));
     waveItem = 0;
     activeWave;
     impactParticleCounter = 0;
@@ -854,6 +854,7 @@ export class Park extends Scene {
             this.parse(this.wave);
             this.running = true;
             this.wave += 1;
+            localStorage.setItem(this.game.currentScene.id.toString(), this.wave.toString());
         } else {
             console.log("Already Running");
         }
