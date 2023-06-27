@@ -67,6 +67,7 @@ import SwearAan from '../images/swearOn.png';
 // map select screens
 import parkMapselect from '../images/parkmapselect.png';
 import parkMapSelect2 from '../images/parkmapselect2.png';
+import parkMapSelect3 from '../images/parkmapselect3.png';
 
 
 //gui
@@ -122,6 +123,7 @@ const Resources = {
     Map2Top: new ImageSource(map2top),
     ParkMapselect: new ImageSource(parkMapselect),
     ParkMapSelect2: new ImageSource(parkMapSelect2),
+    ParkMapSelect3: new ImageSource(parkMapSelect3),
     RangeIndicator: new ImageSource(rangeIndicator),
     DamageIndicator: new ImageSource(damageIndicator),
     Laser: new ImageSource(laser),
