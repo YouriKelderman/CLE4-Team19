@@ -104,6 +104,7 @@ export class Park extends Scene {
     towersInDistance = [];
     mapping = false;
     running = false;
+    wavetext;
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
@@ -113,9 +114,10 @@ export class Park extends Scene {
         "1000*3"
     ];
 
-    wave =0;
+    wave = 0;
     waveItem = 0;
     activeWave;
+    waveText;
     impactParticleCounter = 0;
     order = [];
     walls = [];
@@ -135,7 +137,7 @@ export class Park extends Scene {
     upgradeMenuClicked = 0;
     menuOpened = 0;
     particleCounter = 0;
-
+    id = 0;
 
     onActivate(_context) {
         this.engine.backgroundColor = new Color(239, 255, 228);
@@ -157,6 +159,18 @@ export class Park extends Scene {
 
     onInitialize(_engine) {
         this.game = _engine;
+        this.waveText = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 30,
+            }),
+        });
+        this.waveText.text = `${localStorage.getItem(`0`)}/${this.levels.length}`;
+        this.waveText.pos = new Vector(20, 350);
+        this.waveText.z = 99999;
+        this.game.currentScene.add(this.waveText);
+
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
@@ -223,6 +237,7 @@ export class Park extends Scene {
                 event.other.explode();
             }
         });
+
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.Map1Ground.toSprite());
         mapFloor.scale = new Vector(5.5, 5.5);
@@ -847,8 +862,9 @@ export class Park extends Scene {
     }
 
     startWave() {
-        this.wave = Number(localStorage.getItem(`${this.engine.currentScene.id}`));
         if (this.activeEnemies === 0) {
+            this.wave = Number(localStorage.getItem(`${this.engine.currentScene.id}`));
+            this.engine.currentScene.waveText.text = `${localStorage.getItem(`${this.engine.currentScene.id}`)}/${this.engine.currentScene.levels.length}`;
             this.waveItem = 0;
             this.parse(Number(localStorage.getItem(`${this.engine.currentScene.id}`)));
             this.running = true;

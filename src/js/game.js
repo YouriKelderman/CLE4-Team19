@@ -80,6 +80,7 @@ export class Game extends Engine {
         if(localStorage.getItem("2") === null){
             localStorage.setItem("2", "0");
         }
+
     }
 
     startGame(engine) {
