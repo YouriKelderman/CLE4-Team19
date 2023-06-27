@@ -24,7 +24,7 @@ export class Park1 extends Park {
         "5*0, 6*1, 12*2, 10*1, 12*3",
         "1000*3"
     ];
-
+id= 0;
     wave = 0;
     waveItem = 0;
     activeWave;
@@ -36,6 +36,7 @@ export class Park1 extends Park {
 
 
     onInitialize(_engine) {
+
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);

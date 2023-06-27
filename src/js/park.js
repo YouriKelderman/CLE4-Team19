@@ -40,6 +40,7 @@ export class Park extends Scene {
     activetower = this.activetower;
     path = "";
     engine;
+    id= 0;
     route = [];
     towers = [];
     crunch = Resources.Crunch;
@@ -593,8 +594,11 @@ export class Park extends Scene {
             localStorage.setItem("this.path", this.path);
             // console.log(this.path)
         } else {
-            //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+
+            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}. ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+            console.log(this.string);
         }
+
     }
 
     uiRemover() {
@@ -872,7 +876,6 @@ export class Park extends Scene {
         }
     }
 
-    }
     onPreUpdate (engine, delta) {
         if (this.deathParticles.isEmitting) {
             if (this.particleCounter > 20) {
