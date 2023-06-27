@@ -65,6 +65,7 @@ import parkMusic from '../sounds/parkSong.mp3';
 import UpgradeButton from '../images/UpgradeButton.png';
 import SwearUit from '../images/swearOff.png';
 import SwearAan from '../images/swearOn.png';
+import levelSelectButtonSymbol from '../images/levelSelectButton.png';
 
 
 // map select screens
@@ -138,6 +139,7 @@ const Resources = {
     upgradeLock: new ImageSource(upgradelock),
     SwearUit: new ImageSource(SwearUit),
     SwearAan: new ImageSource(SwearAan),
+    levelSelectButtonX: new ImageSource(levelSelectButtonSymbol),
 
     BuyButton: new ImageSource(buyButton),
     MenuButton: new ImageSource(menuButton),

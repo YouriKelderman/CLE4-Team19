@@ -13,6 +13,7 @@ import {Park} from "./park.js";
 
 
 
+
 export class Settings extends Scene {
 
     logo
@@ -20,6 +21,7 @@ export class Settings extends Scene {
     music = Resources.SettingsMusic;
     click = Resources.Click;
     mapId
+    musicVolume;
 
     constructor() {
         super();
@@ -57,7 +59,7 @@ export class Settings extends Scene {
         //geluid knop aan uit of zachter
         this.soundButton = new Actor();
         this.soundButton.graphics.use(Resources.Mutebutton.toSprite());
-        this.soundButton.pos = new Vector(648.00, 540);
+        this.soundButton.pos = new Vector(648.00, 640);
         this.soundButton.scale = new Vector(0.1, 0.1)
 
         this.soundButton.z = 1000;
@@ -66,41 +68,30 @@ export class Settings extends Scene {
         this.soundButton.on("pointerup", (event) => this.muteSound());
         this.add(this.soundButton);
 
-        //volume knop harder
-        this.volumeUpButton = new Actor();
-        this.volumeUpButton.graphics.use(Resources.Volumeup.toSprite());
-        this.volumeUpButton.pos = new Vector(790, 520.00);
-        this.volumeUpButton.scale = new Vector(0.1, 0.1)
-
-        this.volumeUpButton.z = 1000;
-        this.volumeUpButton.enableCapturePointer = true;
-        this.volumeUpButton.pointer.useGraphicsBounds = true;
-        this.volumeUpButton.on("pointerup", (event) => this.raiseVolume());
-        this.add(this.volumeUpButton);
-
-        //volume knop zachter
-        this.volumeDownButton = new Actor();
-        this.volumeDownButton.graphics.use(Resources.Volumedown.toSprite());
-        this.volumeDownButton.pos = new Vector(790, 570.00);
-        this.volumeDownButton.scale = new Vector(0.1, 0.1)
-        this.volumeDownButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.volumeDownButton.z = 1000;
-        this.volumeDownButton.enableCapturePointer = true;
-        this.volumeDownButton.pointer.useGraphicsBounds = true;
-        this.volumeDownButton.on("pointerup", (event) => this.lowerVolume());
-        this.add(this.volumeDownButton);
-
 
         // profanity filter
-        this.profanityFilter = new Actor();
+        this.profanityFilter = new Actor(
+        );
         this.profanityFilter.graphics.use(Resources.SwearAan.toSprite());
-        this.profanityFilter.pos = new Vector(720, 680);
+        this.profanityFilter.pos = new Vector(794.00, 643.5);
         this.profanityFilter.scale = new Vector(0.1, 0.1)
+        this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.profanityFilter.z = 1000;
         this.profanityFilter.enableCapturePointer = true;
         this.profanityFilter.pointer.useGraphicsBounds = true;
         this.profanityFilter.on("pointerup", (event) => this.toggleProfanityFilter());
         this.add(this.profanityFilter);
+
+        this.levelSelectButton = new Actor();
+        this.levelSelectButton.graphics.use(Resources.levelSelectButtonX.toSprite());
+        this.levelSelectButton.pos = new Vector(720, 520);
+        this.levelSelectButton.scale = new Vector(0.1, 0.1)
+        this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.levelSelectButton.z = 1000;
+        this.levelSelectButton.enableCapturePointer = true;
+        this.levelSelectButton.pointer.useGraphicsBounds = true;
+        this.levelSelectButton.on("pointerup", (event) =>  this.engine.goToScene('levelselect'));
+        this.add(this.levelSelectButton);
 
     }
 
@@ -109,8 +100,8 @@ export class Settings extends Scene {
 
         this.resumeButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.soundButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.volumeUpButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.volumeDownButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+
         this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
 
         if (this.music.volume === 0) {
@@ -136,6 +127,7 @@ export class Settings extends Scene {
     }
 
     raiseVolume() {
+        this.buttonAnimatior(this.volumeUpButton)
         this.click.play();
         if (this.engine.musicVolume < 1) {
             this.engine.musicVolume += 0.1;
@@ -187,13 +179,13 @@ export class Settings extends Scene {
 
         this.resumeButton.scale = new Vector(0.1, 0.1)
         this.soundButton.scale = new Vector(0.1, 0.1)
-        this.volumeUpButton.scale = new Vector(0.1, 0.1)
-        this.volumeDownButton.scale = new Vector(0.1, 0.1)
+        this.profanityFilter.scale = new Vector(0.1, 0.1)
+        this.levelSelectButton.scale = new Vector(0.1, 0.1)
 
         this.resumeButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.soundButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.volumeUpButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.volumeDownButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
 
         this.music.pause();
     }
