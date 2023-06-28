@@ -43,6 +43,7 @@ export class Levelselect extends Scene {
         this.music.play().then(r => console.log(r));
 
     }
+
     onInitialize(engine) {
         this.engine = engine;
         // levelselect & buttons
@@ -91,7 +92,8 @@ export class Levelselect extends Scene {
         } else {
             const lock = new Actor();
             lock.graphics.use(Resources.Lock.toSprite());
-            lock.scale = new Vector(0.5, 0.5)
+            lock.scale = new Vector(0.01, 0.01)
+            lock.actions.scaleTo(vec(0.5, 0.5), vec(0.5, 0.5));
             lock.pos = new Vector(720, 490);
             lock.z = 1100;
             this.add(lock);
@@ -132,7 +134,8 @@ export class Levelselect extends Scene {
         } else {
             const lock = new Actor();
             lock.graphics.use(Resources.Lock.toSprite());
-            lock.scale = new Vector(0.5, 0.5)
+            lock.scale = new Vector(0.01, 0.01)
+            lock.actions.scaleTo(vec(0.5, 0.5), vec(0.5, 0.5));
             lock.pos = new Vector(1090, 490);
             let tint = Resources.ParkMapSelect3.toSprite();
             tint.tint = new Color(100, 100, 100);
@@ -141,81 +144,77 @@ export class Levelselect extends Scene {
             lock.z = 1100;
             this.add(lock);
         }
-            this.add(parklevel3);
-            this.mapLabel2 = new Label({
-                font: new Font({
-                    unit: FontUnit.Px,
-                    family: 'VCR',
-                    size: 30,
-                }),
-            });
-            this.mapLabel2.text = `${localStorage.getItem("2")}/10`;
-            this.mapLabel2.pos = new Vector(1065, 630);
-            this.mapLabel2.z = 99999;
-            this.add(this.mapLabel2)
+        this.add(parklevel3);
+        this.mapLabel2 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 30,
+            }),
+        });
+        this.mapLabel2.text = `${localStorage.getItem("2")}/10`;
+        this.mapLabel2.pos = new Vector(1065, 630);
+        this.mapLabel2.z = 99999;
+        this.add(this.mapLabel2)
 
-            // Funny menu things
-            this.spider = new Actor();
-            this.spider.graphics.use(Resources.MenuSpider.toSprite());
-            this.spider.pos = new Vector(100, 0);
-            this.spider.scale = new Vector(1.5, 1.5)
-            this.spider.z = 1000;
-            this.add(this.spider);
+        // Funny menu things
+        this.spider = new Actor();
+        this.spider.graphics.use(Resources.MenuSpider.toSprite());
+        this.spider.pos = new Vector(100, 0);
+        this.spider.scale = new Vector(1.5, 1.5)
+        this.spider.z = 1000;
+        this.add(this.spider);
 
+    }
+
+    onPreUpdate(engine, _delta) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
+            localStorage.clear()
+        }
+        this.levelselect.actions.scaleTo(vec(4.5, 4.5), vec(0.05, 0.05));
+        this.levelselect.actions.scaleTo(vec(4.2, 4.2), vec(0.1, 0.1));
+
+        if (Math.floor(Math.random() * (2000 - 1) + 1) === 1) {
+            this.spiderPeek();
         }
 
-        onPreUpdate(engine, _delta)
-        {
-            if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
-                localStorage.clear()
-            }
-            this.levelselect.actions.scaleTo(vec(4.5, 4.5), vec(0.05, 0.05));
-            this.levelselect.actions.scaleTo(vec(4.2, 4.2), vec(0.1, 0.1));
-
-            if (Math.floor(Math.random() * (2000 - 1) + 1) === 1) {
-                this.spiderPeek();
-            }
-
-            if (engine.input.keyboard.wasReleased(Input.Keys.S)) {
-                this.spiderPeek()
-            }
-        }
-
-        parkLevel(id)
-        {
-            this.click.volume = 1;
-            this.click.play();
-
-            if (id === 1) {
-                this.engine.goToScene('level1');
-                this.engine.activeScene = 1
-                console.log('park level1');
-            }
-            if (id === 2) {
-                this.engine.goToScene('level2');
-                this.engine.activeScene = 2
-                console.log('park level2');
-            }
-            if (id === 3) {
-                this.engine.goToScene('level3');
-                this.engine.activeScene = 3
-                console.log('park level3');
-            }
-
-        }
-
-        spiderPeek()
-        {
-            this.spider.actions
-                .moveTo(vec(100, 100), 50)
-                .delay(1000)
-                .moveTo(vec(100, 0), 50)
-        }
-
-
-        onDeactivate(_)
-        {
-            this.music.stop();
-            this.music.volume = 0
+        if (engine.input.keyboard.wasReleased(Input.Keys.S)) {
+            this.spiderPeek()
         }
     }
+
+    parkLevel(id) {
+        this.click.volume = 1;
+        this.click.play();
+
+        if (id === 1) {
+            this.engine.goToScene('level1');
+            this.engine.activeScene = 1
+            console.log('park level1');
+        }
+        if (id === 2) {
+            this.engine.goToScene('level2');
+            this.engine.activeScene = 2
+            console.log('park level2');
+        }
+        if (id === 3) {
+            this.engine.goToScene('level3');
+            this.engine.activeScene = 3
+            console.log('park level3');
+        }
+
+    }
+
+    spiderPeek() {
+        this.spider.actions
+            .moveTo(vec(100, 100), 50)
+            .delay(1000)
+            .moveTo(vec(100, 0), 50)
+    }
+
+
+    onDeactivate(_) {
+        this.music.stop();
+        this.music.volume = 0
+    }
+}
