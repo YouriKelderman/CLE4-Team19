@@ -86,11 +86,9 @@ export class Game extends Engine {
         if(localStorage.getItem("2") === null){
             localStorage.setItem("2", "0");
         }
-
     }
 
     startGame(engine) {
-
         this.#arcade = new Arcade(this, false, false);
         this.#joystickListener = (e) => this.#joyStickFound(e);
         document.addEventListener("joystickcreated",  this.#joystickListener);

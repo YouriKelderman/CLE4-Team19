@@ -410,7 +410,7 @@ export class Park extends Scene {
         if (this.endlessMode) {
             this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
         }
-        this.parse(this.wave);
+        this.parse(0);
     }
 
     enemyKilled(pos) {
