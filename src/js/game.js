@@ -29,6 +29,7 @@ import {Cursor} from "./cursor.js";
 import {Park1} from "./park1.js";
 import {Park2} from "./park2.js";
 import {Park3} from "./park3.js";
+import {CutScene} from "./cutscene.js";
 
 
 export class Game extends Engine {
@@ -67,7 +68,7 @@ export class Game extends Engine {
         this.add('level3', new Park3())
         this.add('settings', new Settings())
         this.add('gameover', new Gameover())
-
+        this.add('cutscene', new CutScene())
     }
 
     onInitialize(engine) {

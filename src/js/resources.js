@@ -92,6 +92,10 @@ import costLogo from '../images/costLogo.png';
 import bg from '../images/background.jpg';
 import bamigeluid from '../sounds/bami-impact.mp3'
 import lock from '../images/lock.png'
+
+import cutscene from '../images/cutscene.png';
+
+
 const font = new FontFace("VCR", `url(${fontFile})`)
 document.fonts.add(font)
 font.load()
@@ -108,6 +112,7 @@ const Resources = {
     GameOver: new ImageSource(gameover),
     SelectText: new ImageSource(selectText),
 
+    CutScene: new ImageSource(cutscene),
 
     Whoosh: new Sound(whoosh),
     Thud: new Sound(thud),
