@@ -66,6 +66,7 @@ export class Levelselect extends Scene {
         parklevel.pointer.useGraphicsBounds = true;
         parklevel.on("pointerup", (event) => this.parkLevel(1));
         this.add(parklevel);
+
         this.mapLabel1 = new Label({
             font: new Font({
                 unit: FontUnit.Px,

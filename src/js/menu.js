@@ -52,7 +52,7 @@ export class Menu extends Scene {
         this.logo.graphics.use(Resources.Logo.toSprite());
         this.logo.pos = new Vector(720, 250);
         this.logo.scale = new Vector(0.1, 0.1)
-        this.logo.actions.scaleTo(vec(1.1,1.1),vec(1,1));
+        this.logo.actions.scaleTo(vec(1.1,1.1),vec(2,2));
         this.logo.z = 1000;
         this.add(this.logo);
 
@@ -60,7 +60,7 @@ export class Menu extends Scene {
         startButton.graphics.use(Resources.Start.toSprite());
         startButton.pos = new Vector(720, 500);
         startButton.scale = new Vector(0.1, 0.1)
-        startButton.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
+        startButton.actions.scaleTo(vec(0.6,0.6),vec(2.5,2.5));
         startButton.z = 1000;
         startButton.enableCapturePointer = true;
         startButton.pointer.useGraphicsBounds = true;
@@ -68,6 +68,18 @@ export class Menu extends Scene {
         startButton.on("pointerup", (event) => this.startGame());
         startButton.on("precollision", (event) => this.onCollision(event));
         this.add(startButton);
+
+        // this.helpSelect = new Actor();
+        // this.helpSelect.graphics.use(Resources.helpButton.toSprite());
+        // this.helpSelect.pos = new Vector(1330, 790);
+        // this.helpSelect.scale = new Vector(0.3, 0.3)
+        // this.helpSelect.actions.scaleTo(vec(0.8,0.8),vec(2.5,2.5));
+        //
+        // this.helpSelect.z = 1000;
+        // this.helpSelect.enableCapturePointer = true;
+        // this.helpSelect.pointer.useGraphicsBounds = true;
+        // this.helpSelect.on("pointerup", (event) => this.startHelp());
+        // this.add(this.helpSelect);
 
 
         const practise = new Actor();
@@ -94,6 +106,13 @@ export class Menu extends Scene {
         // let sliderHead = new Slider(400, 500)
         // this.add(sliderHead)
         //     this.add(sliderBase)
+
+    }
+    startHelp() {
+        console.log('start game');
+        this.click.volume = 1;
+        this.click.play();
+        this.engine.goToScene('Helper');
 
     }
 
@@ -123,6 +142,7 @@ export class Menu extends Scene {
         this.engine.goToScene('levelselect');
 
     }
+
 
     startPractise() {
     }

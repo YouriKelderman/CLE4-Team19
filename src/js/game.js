@@ -22,6 +22,7 @@ import {Gulden} from "./money.js";
 import {Levens} from "./health.js";
 import {UpgradeMenu} from "./buyMenu.js";
 import {Gameover} from "./gameover.js";
+import {Helper} from "./help.js";
 
 import {Arcade} from "arcade-game";
 import {Cursor} from "./cursor.js";
@@ -65,6 +66,7 @@ export class Game extends Engine {
         this.add('level3', new Park3())
         this.add('settings', new Settings())
         this.add('gameover', new Gameover())
+        this.add('Helper', new Helper())
 
     }
 
