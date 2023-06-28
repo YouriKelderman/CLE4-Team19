@@ -26,6 +26,10 @@ import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 import range from '../images/range.png';
 import upgrade from '../images/UpgradeButton.png';
+
+import upgrade1 from '../images/UpgradeButtonPath1.png';
+import upgrade2 from '../images/UpgradeButtonPath2.png';
+
 import upgradelock from '../images/upgradeLockButton.png';
 import rangeIndicator from '../images/rangeIndicator.png';
 import damageIndicator from '../images/damageIndicator.png';
@@ -87,6 +91,11 @@ import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
 import costLogo from '../images/costLogo.png';
 import bg from '../images/background.jpg';
+import bamigeluid from '../sounds/bami-impact.mp3'
+import lock from '../images/lock.png'
+
+import cutscene from '../images/cutscene.png';
+
 
 const font = new FontFace("VCR", `url(${fontFile})`)
 document.fonts.add(font)
@@ -106,6 +115,7 @@ const Resources = {
     GameOver: new ImageSource(gameover),
     SelectText: new ImageSource(selectText),
 
+    CutScene: new ImageSource(cutscene),
 
     Whoosh: new Sound(whoosh),
     Thud: new Sound(thud),
@@ -140,6 +150,11 @@ const Resources = {
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     UpgradeButton: new ImageSource(UpgradeButton),
+
+    UpgradeButtonPath1: new ImageSource(upgrade1),
+    UpgradeButtonPath2: new ImageSource(upgrade2),
+
+
     upgradeLock: new ImageSource(upgradelock),
     SwearUit: new ImageSource(SwearUit),
     SwearAan: new ImageSource(SwearAan),
@@ -153,7 +168,7 @@ const Resources = {
     Health: new ImageSource(Health),
     TargetingSymbol: new ImageSource(targetingSymbol),
     CostLogo: new ImageSource(costLogo),
-background: new ImageSource(bg),
+    background: new ImageSource(bg),
 
     Click: new Sound(click),
     MenuMusic: new Sound(menuMusic),
@@ -162,6 +177,8 @@ background: new ImageSource(bg),
     ParkMusic: new Sound(parkMusic),
     Crunch: new Sound(crunch),
     Smash: new Sound(smash),
+    Bamigeluid: new Sound(bamigeluid),
+    Lock: new ImageSource(lock),
     Upgrade: new Sound(upgrade),
     Plop: new Sound(plop),
     Mouse: new ImageSource(mouse),
@@ -169,6 +186,7 @@ background: new ImageSource(bg),
     Rat: new ImageSource(rat),
     Racoon: new ImageSource(racoon),
     Snail: new ImageSource(snail),
+
 };
 
 

@@ -30,17 +30,19 @@ import {Cursor} from "./cursor.js";
 import {Park1} from "./park1.js";
 import {Park2} from "./park2.js";
 import {Park3} from "./park3.js";
+import {CutScene} from "./cutscene.js";
 
 
 export class Game extends Engine {
     game
     musicVolume = 0.5;
-    gulden = 10000;
+    gulden = 500;
     buyMenu;
     activetower;
     levens = 20;
     profanityMode = true
     activeScene
+    paused = false
 
     #arcade;
     #joystickListener;
@@ -68,11 +70,13 @@ export class Game extends Engine {
         this.add('gameover', new Gameover())
         this.add('Helper', new Helper())
 
+        this.add('cutscene', new CutScene())
+
     }
 
     onInitialize(engine) {
         this.game = engine;
-        if(localStorage.getItem("0") === null || localStorage.getItem("0") === "5"){
+        if(localStorage.getItem("0") === null){
             localStorage.setItem("0", "0");
         }
         if(localStorage.getItem("1") === null){
@@ -94,9 +98,7 @@ export class Game extends Engine {
     }
 
     onPreUpdate(){
-        for (let joystick of this.#arcade.Joysticks) {
-            joystick.update();
-        }
+        console.log(this.paused)
     }
 
     #joyStickFound(e) {

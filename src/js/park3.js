@@ -40,6 +40,7 @@ export class Park3 extends Park {
     wave = 0;
     waveItem = 0;
     activeWave;
+    activeEnemyObjects = [];
     order = [];
     walls = [];
     garden = new Actor({width: 100, height: 100});
@@ -113,7 +114,7 @@ export class Park3 extends Park {
             }),
         });
         this.waveText.text = `${localStorage.getItem(`2`)}/${this.levels.length}`;
-        this.waveText.pos = new Vector(20, 350);
+        this.waveText.pos = new Vector(2, 350);
         this.waveText.z = 99999;
         this.add(this.waveText);
         this.buyMenu = new Actor();
@@ -334,7 +335,7 @@ export class Park3 extends Park {
             }),
 
         });
-        this.spidercost.text = '800';
+        this.spidercost.text = '650';
         this.spidercost.pos = new Vector(1370, 550);
         this.spidercost.z = 99999;
 

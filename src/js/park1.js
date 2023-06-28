@@ -20,19 +20,20 @@ export class Park1 extends Park {
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
-        "5*0",
-        "8*0, 2*2, 2*0",
-        "10*0,3*2,4*0",
-        "5*2, 5*0, 5*2, 5*0",
-        "12*3"
+        "3*0",
+        "5*0, 2*2, 2*0",
+        "3*0,3*2,3*0, 3*2",
+        "5*2, 10*0, 5*2, 5*0",
+        "15*0, 5*2"
     ];
-id= 0;
+    id = 0;
 
     waveItem = 0;
     activeWave;
     waveText;
     order = [];
     walls = [];
+    activeEnemyObjects = [];
     garden = new Actor({width: 100, height: 100});
     gardenSprites = [Resources.Garden, Resources.Garden4, Resources.Garden3, Resources.Garden2, Resources.Garden1, Resources.Garden1];
     endlessMode = false;
@@ -256,10 +257,9 @@ id= 0;
                 size: 16,
             }),
         });
-        this.bamicost.text = '375';
+        this.bamicost.text = '200';
         this.bamicost.pos = new Vector(1370, 250);
         this.bamicost.z = 99999;
-
 
 
         this.activeWave = new Actor();
@@ -321,6 +321,7 @@ id= 0;
         this.game = this.engine;
         this.engine.goToScene('settings');
     }
+
     enemyKilled(pos) {
         this.deathParticles.isEmitting = true;
         this.deathParticles.pos = pos;
@@ -337,6 +338,7 @@ id= 0;
         this.impactParticleCounter = 0;
         console.log("eeee");
     }
+
     removeParticles() {
         this.upgradeParticles.isEmitting = false;
         this.upgradeParticles.kill();
