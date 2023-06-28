@@ -252,7 +252,11 @@ export class Park2 extends Park {
         //buy bami tower
         this.bamiButton = new Actor();
         this.button(this.bamiButton, Resources.Pan, new Vector(1350, 200), new Vector(1.5, 1.5));
-        this.bamiButton.on("pointerdown", (event) => this.buyTower(1));
+        this.bamiButton.on("pointerdown", (event) => {
+            if (this.engine.gulden >= 200) {
+                this.buyTower(1)
+            }
+        });
 
         // cost logo and text
         this.costlogobami = new Actor();
