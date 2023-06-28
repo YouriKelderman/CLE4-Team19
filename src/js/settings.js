@@ -156,6 +156,9 @@ export class Settings extends Scene {
         if (this.engine.activeScene === 2) {
             this.engine.goToScene('level2');
         }
+        if (this.engine.activeScene === 3) {
+            this.engine.goToScene('level3');
+        }
 
     }
 

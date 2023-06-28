@@ -862,19 +862,18 @@ b
     startWave() {
         if (this.activeEnemies === 0) {
             this.wave = Number(localStorage.getItem(`${this.engine.currentScene.id}`));
-            if(this.wave >= this.engine.currentScene.levels.length -1) {
-                this.wave = 0;
+            if (this.wave < this.engine.currentScene.levels.length) {
+                this.waveItem = 0;
+                this.parse(Number(localStorage.getItem(`${this.engine.currentScene.id}`)));
+                this.running = true;
+                this.wave += 1;
+                console.log(this.wave)
+                localStorage.setItem(`${this.engine.currentScene.id}`, `${this.wave}`);
+                this.engine.currentScene.waveText.text = `${localStorage.getItem(`${this.engine.currentScene.id}`)}/${this.engine.currentScene.levels.length}`;
+
             }
-
-            this.engine.currentScene.waveText.text = `${localStorage.getItem(`${this.engine.currentScene.id}`)}/${this.engine.currentScene.levels.length}`;
-            this.waveItem = 0;
-            this.parse(Number(localStorage.getItem(`${this.engine.currentScene.id}`)));
-            this.running = true;
-            this.wave += 1;
-            console.log(this.wave)
-            localStorage.setItem(`${this.engine.currentScene.id}`, `${this.wave}`);
-
-        } else {
+        }
+        else {
             console.log("Already Running");
         }
     }
@@ -944,6 +943,7 @@ b
                 this.activetower.shootLaser();
             }
         }
+
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
             this.goToSettings();
         }

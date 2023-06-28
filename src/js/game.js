@@ -70,7 +70,7 @@ export class Game extends Engine {
 
     onInitialize(engine) {
         this.game = engine;
-        if(localStorage.getItem("0") === null || localStorage.getItem("0") === "5"){
+        if(localStorage.getItem("0") === null){
             localStorage.setItem("0", "0");
         }
         if(localStorage.getItem("1") === null){
