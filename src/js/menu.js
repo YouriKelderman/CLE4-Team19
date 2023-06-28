@@ -69,6 +69,18 @@ export class Menu extends Scene {
         startButton.on("precollision", (event) => this.onCollision(event));
         this.add(startButton);
 
+        const endlessButton = new Actor();
+        endlessButton.graphics.use(Resources.EndlessButton.toSprite());
+        endlessButton.pos = new Vector(720, 700);
+        endlessButton.scale = new Vector(0.1, 0.1)
+        endlessButton.actions.scaleTo(vec(0.6,0.6),vec(0.5,0.5));
+        endlessButton.z = 1000;
+        endlessButton.enableCapturePointer = true;
+        endlessButton.pointer.useGraphicsBounds = true;
+        endlessButton.on("pointerup", (event) => this.startEndless());
+        this.add(endlessButton);
+
+
 
         const practise = new Actor();
         // let practiseButton = Resources.Practise.toSprite()
@@ -122,6 +134,14 @@ export class Menu extends Scene {
         this.click.play();
         this.engine.goToScene('levelselect');
 
+    }
+
+    startEndless() {
+        console.log('start endless');
+        this.click.volume = 1;
+        this.click.play();
+        this.engine.endless = true;
+        this.engine.goToScene('levelselect');
     }
 
     startPractise() {

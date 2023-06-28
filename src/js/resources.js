@@ -84,6 +84,7 @@ import settingsButton from '../images/settingsButton.png';
 import buyButton from '../images/BuyLogo.png';
 import menuButton from '../images/menu-button.png';
 import sideButton from '../images/side-button.png';
+import endlessButton from '../images/endLessMode.png';
 import buyMenu from '../images/BuyMenuBar.png';
 import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
@@ -140,6 +141,7 @@ const Resources = {
     PlayButton: new ImageSource(playButton),
     SettingsButton: new ImageSource(settingsButton),
     UpgradeButton: new ImageSource(UpgradeButton),
+    EndlessButton: new ImageSource(endlessButton),
 
     UpgradeButtonPath1: new ImageSource(upgrade1),
     UpgradeButtonPath2: new ImageSource(upgrade2),

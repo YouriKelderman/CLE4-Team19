@@ -95,19 +95,23 @@ export class Park1 extends Park {
     });
 
     onInitialize(_engine) {
-        this.waveText = new Label({
-            font: new Font({
-                unit: FontUnit.Px,
-                family: 'VCR',
-                size: 30,
-                color: Color.White,
-                strokeColor: Color.Black,
-            }),
-        });
-        this.waveText.text = `${localStorage.getItem(`0`)}/${this.levels.length}`;
-        this.waveText.pos = new Vector(20, 350);
-        this.waveText.z = 99999;
-        this.add(this.waveText);
+        this.endlessMode = this.engine.endless;
+        if (this.endlessMode === false) {
+            this.waveText = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 30,
+                    color: Color.White,
+                    strokeColor: Color.Black,
+                }),
+            });
+            this.waveText.text = `${localStorage.getItem(`0`)}/${this.levels.length}`;
+            this.waveText.pos = new Vector(20, 350);
+            this.waveText.z = 99999;
+            this.add(this.waveText);
+        }
+
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);
@@ -261,6 +265,75 @@ export class Park1 extends Park {
         this.bamicost.pos = new Vector(1370, 250);
         this.bamicost.z = 99999;
 
+        if (this.endlessMode === true)  {
+            // tini en lau toren name label
+            this.tinyLauLabel = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 16,
+                }),
+
+            });
+            this.tinyLauLabel.text = 'Tiny en Lau';
+            this.tinyLauLabel.pos = new Vector(1350, 300);
+            this.tinyLauLabel.z = 99999;
+
+            // buy tiny en lau tower
+            this.tinyLauButton = new Actor();
+            this.button(this.tinyLauButton, Resources.TinyLau, new Vector(1350, 350), new Vector(2, 2));
+            this.tinyLauButton.on("pointerdown", (event) => this.buyTower(2));
+
+            // cost logo and text
+            this.costlogotiny = new Actor();
+            this.costLogo(this.costlogotiny, new Vector(1350, 400));
+
+            this.tinycost = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 16,
+                }),
+            });
+            this.tinycost.text = '500';
+            this.tinycost.pos = new Vector(1370, 400);
+            this.tinycost.z = 99999;
+
+            // spiderTrike toren name label
+            this.spiderTrikeLabel = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 16,
+                }),
+            });
+            this.spiderTrikeLabel.text = 'Spinnenman';
+            this.spiderTrikeLabel.pos = new Vector(1350, 450);
+            this.spiderTrikeLabel.z = 99999;
+            // buy spiderTrike tower
+            this.spiderTrikeButton = new Actor();
+            this.button(this.spiderTrikeButton, Resources.SpiderMeneer, new Vector(1350, 500), new Vector(1.5, 1.5));
+            this.spiderTrikeButton.on("pointerdown", (event) => this.buyTower(3));
+            this.enemies();
+
+
+            // cost logo and text
+            this.costlogospider = new Actor();
+            this.costLogo(this.costlogospider, new Vector(1350, 550));
+
+            this.spidercost = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 16,
+                }),
+
+            });
+            this.spidercost.text = '800';
+            this.spidercost.pos = new Vector(1370, 550);
+            this.spidercost.z = 99999;
+        }
+
 
         this.activeWave = new Actor();
         this.button(this.activeWave, Resources.TinyLau, new Vector(130, 350), new Vector(2, 2));
@@ -294,6 +367,41 @@ export class Park1 extends Park {
             this.bamicost.pos = new Vector(1500, 230);
             this.bamicost.actions.moveTo(1330, 230, 1300);
             this.add(this.bamicost);
+
+            if (this.endlessMode === true) {
+                this.tinyLauLabel.pos = new Vector(1500, 270);
+                this.tinyLauLabel.actions.moveTo(1295, 270, 1300);
+                this.add(this.tinyLauLabel);
+
+                this.tinyLauButton.pos = new Vector(1500, 300);
+                this.tinyLauButton.actions.moveTo(1350, 300, 1300);
+                this.add(this.tinyLauButton);
+
+                this.costlogotiny.pos = new Vector(1500, 350);
+                this.costlogotiny.actions.moveTo(1300, 350, 1300);
+                this.add(this.costlogotiny);
+
+                this.tinycost.pos = new Vector(1500, 380);
+                this.tinycost.actions.moveTo(1330, 350, 1300);
+                this.add(this.tinycost);
+
+
+                this.spiderTrikeLabel.pos = new Vector(1500, 380);
+                this.spiderTrikeLabel.actions.moveTo(1300, 390, 1300);
+                this.add(this.spiderTrikeLabel);
+
+                this.spiderTrikeButton.pos = new Vector(1500, 430);
+                this.spiderTrikeButton.actions.moveTo(1350, 440, 1300);
+                this.add(this.spiderTrikeButton);
+
+                this.costlogospider.pos = new Vector(1500, 480);
+                this.costlogospider.actions.moveTo(1300, 490, 1300);
+                this.add(this.costlogospider);
+
+                this.spidercost.pos = new Vector(1500, 510);
+                this.spidercost.actions.moveTo(1330, 490, 1300);
+                this.add(this.spidercost);
+            }
         }
         if (this.buyMenuClick === 2) {
             this.buyMenu.kill();
@@ -309,6 +417,26 @@ export class Park1 extends Park {
             this.costlogobami.kill();
             this.bamicost.pos = new Vector(1350, 250);
             this.bamicost.kill();
+
+            if (this.endlessMode === true) {
+                this.tinyLauLabel.pos = new Vector(1350, 250);
+                this.tinyLauLabel.kill();
+                this.tinyLauButton.pos = new Vector(1350, 350);
+                this.tinyLauButton.kill();
+                this.costlogotiny.pos = new Vector(1350, 350);
+                this.costlogotiny.kill();
+                this.tinycost.pos = new Vector(1350, 350);
+                this.tinycost.kill();
+
+                this.spiderTrikeLabel.pos = new Vector(1350, 450);
+                this.spiderTrikeLabel.kill();
+                this.spiderTrikeButton.pos = new Vector(1350, 250);
+                this.spiderTrikeButton.kill();
+                this.costlogospider.pos = new Vector(1350, 350);
+                this.costlogospider.kill();
+                this.spidercost.pos = new Vector(1350, 350);
+                this.spidercost.kill();
+            }
 
 
             this.buyMenuClick = 0;
