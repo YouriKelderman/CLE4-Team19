@@ -68,6 +68,7 @@ export class Levelselect extends Scene {
         parklevel.pointer.useGraphicsBounds = true;
         parklevel.on("pointerup", (event) => this.parkLevel(1));
         this.add(parklevel);
+
         if (this.endlessMode === false) {
             this.mapLabel1 = new Label({
                 font: new Font({
@@ -82,6 +83,18 @@ export class Levelselect extends Scene {
             this.add(this.mapLabel1)
         }
 
+
+        this.mapLabel1 = new Label({
+            font: new Font({
+                unit: FontUnit.Px,
+                family: 'VCR',
+                size: 30,
+            }),
+        });
+        this.mapLabel1.text = `${localStorage.getItem("0")}/5`;
+        this.mapLabel1.pos = new Vector(320, 630);
+        this.mapLabel1.z = 99999;
+        this.add(this.mapLabel1)
         const parklevel2 = new Actor();
         parklevel2.graphics.use(Resources.ParkMapSelect2.toSprite());
         parklevel2.pos = new Vector(720, 500);

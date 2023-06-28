@@ -12,6 +12,8 @@ import web from '../images/web.png';
 import explosiveWeb from '../images/explosive-web.png';
 import gameover from '../images/gameover.png';
 import selectText from '../images/selecttext.png';
+import helpText from '../images/helpSymbol.png';
+import helpButton from '../images/helpButtonSymbol.png';
 
 
 import whoosh from '../sounds/whoosh.mp3'
@@ -108,6 +110,8 @@ const Resources = {
     Volumedown: new ImageSource(Volumedown),
     Mutebutton: new ImageSource(Mutebutton),
     Web: new ImageSource(web),
+    helpText: new ImageSource(helpText),
+    helpButton: new ImageSource(helpButton),
     ExplosiveWeb: new ImageSource(explosiveWeb),
     GameOver: new ImageSource(gameover),
     SelectText: new ImageSource(selectText),
