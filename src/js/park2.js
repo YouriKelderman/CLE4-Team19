@@ -34,6 +34,7 @@ export class Park2 extends Park {
     ];
     id = 1;
     waveItem = 0;
+    activeEnemyObjects =[];
     activeWave;
     order = [];
     walls = [];

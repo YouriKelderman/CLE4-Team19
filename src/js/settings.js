@@ -33,6 +33,8 @@ export class Settings extends Scene {
     onInitialize(engine) {
         this.engine = engine;
 
+        this.engine.paused = true
+
         this.logo = new Actor();
         this.logo.graphics.use(Resources.PausedLogo.toSprite());
         this.logo.pos = new Vector(720, 250);
@@ -156,6 +158,9 @@ export class Settings extends Scene {
         if (this.engine.activeScene === 2) {
             this.engine.goToScene('level2');
         }
+        if (this.engine.activeScene === 3) {
+            this.engine.goToScene('level3');
+        }
 
     }
 
@@ -176,7 +181,14 @@ export class Settings extends Scene {
         }
     }
 
+    onActivate() {
+        this.engine.paused = true
+    }
+
     onDeactivate(_) {
+
+        this.engine.paused = false
+
 
         this.resumeButton.scale = new Vector(0.1, 0.1)
         this.soundButton.scale = new Vector(0.1, 0.1)

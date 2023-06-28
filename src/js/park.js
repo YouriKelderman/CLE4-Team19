@@ -136,6 +136,7 @@ export class Park extends Scene {
     id = 0;
 
     onActivate(_context) {
+        this.activetower = undefined;
         this.engine.backgroundColor = new Color(239, 255, 228);
 
         this.music.volume = this.engine.musicVolume;
@@ -863,19 +864,17 @@ b
     startWave() {
         if (this.activeEnemies === 0 && this.endlessMode === false) {
             this.wave = Number(localStorage.getItem(`${this.engine.currentScene.id}`));
-            if(this.wave >= this.engine.currentScene.levels.length -1) {
-                this.wave = 0;
+            if (this.wave < this.engine.currentScene.levels.length) {
+                this.waveItem = 0;
+                this.parse(Number(localStorage.getItem(`${this.engine.currentScene.id}`)));
+                this.running = true;
+                this.wave += 1;
+                console.log(this.wave)
+                localStorage.setItem(`${this.engine.currentScene.id}`, `${this.wave}`);
+                this.engine.currentScene.waveText.text = `${localStorage.getItem(`${this.engine.currentScene.id}`)}/${this.engine.currentScene.levels.length}`;
+
             }
-
-            this.engine.currentScene.waveText.text = `${localStorage.getItem(`${this.engine.currentScene.id}`)}/${this.engine.currentScene.levels.length}`;
-            this.waveItem = 0;
-            this.parse(Number(localStorage.getItem(`${this.engine.currentScene.id}`)));
-            this.running = true;
-            this.wave += 1;
-            console.log(this.wave)
-            localStorage.setItem(`${this.engine.currentScene.id}`, `${this.wave}`);
-
-        } else if (this.endlessMode ===true) {
+        }else if (this.endlessMode ===true) {
             this.running = true;
 
         }
@@ -949,6 +948,7 @@ b
                 this.activetower.shootLaser();
             }
         }
+
         if (engine.input.keyboard.wasPressed(Input.Keys.Esc || Input.Keys.Escape)) {
             this.goToSettings();
         }

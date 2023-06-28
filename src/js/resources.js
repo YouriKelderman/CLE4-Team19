@@ -90,7 +90,8 @@ import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
 import costLogo from '../images/costLogo.png';
 import bg from '../images/background.jpg';
-
+import bamigeluid from '../sounds/bami-impact.mp3'
+import lock from '../images/lock.png'
 const font = new FontFace("VCR", `url(${fontFile})`)
 document.fonts.add(font)
 font.load()
@@ -169,6 +170,8 @@ const Resources = {
     ParkMusic: new Sound(parkMusic),
     Crunch: new Sound(crunch),
     Smash: new Sound(smash),
+    Bamigeluid: new Sound(bamigeluid),
+    Lock: new ImageSource(lock),
     Upgrade: new Sound(upgrade),
     Plop: new Sound(plop),
     Mouse: new ImageSource(mouse),
@@ -176,6 +179,7 @@ const Resources = {
     Rat: new ImageSource(rat),
     Racoon: new ImageSource(racoon),
     Snail: new ImageSource(snail),
+
 };
 
 

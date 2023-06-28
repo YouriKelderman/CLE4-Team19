@@ -40,6 +40,7 @@ export class Park3 extends Park {
     wave = 0;
     waveItem = 0;
     activeWave;
+    activeEnemyObjects = [];
     order = [];
     walls = [];
     garden = new Actor({width: 100, height: 100});

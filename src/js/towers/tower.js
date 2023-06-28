@@ -65,7 +65,7 @@ export class Tower extends Actor {
     damageMultiplier = 1;
     seeMouses = false;
     whoosh = Resources.Whoosh;
-    thud = Resources.Thud;
+    Bami = Resources.Bamigeluid;
 
     constructor(Game, type) {
         super({
@@ -193,6 +193,10 @@ export class Tower extends Actor {
     }
 
     onPreUpdate(engine, _delta) {
+
+        this.updateMenu()
+
+
         if (this.amountOfEnemies > 0) {
             this.onCollision();
         }
@@ -353,7 +357,7 @@ export class Tower extends Actor {
                 this.coolDown = 25;
             }
             if (this.tier === 2.2) {
-                this.thud.play();
+                this.Bami.play();
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 2, 5);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
@@ -520,8 +524,8 @@ export class Tower extends Actor {
         this.seeMouses = false;
     }
 
-    onPostUpdate(_engine, _delta) {
-        if (this.selected === true) {
+    updateMenu() {
+        if (this.selected === true && this.engine.paused === false) {
             console.log(this.tier)
             this.engine.currentScene.towerRange.text = this.range.toString() + "cm";
             this.engine.currentScene.towerDamage.text = `${this.damage * this.damageMultiplier}`;
