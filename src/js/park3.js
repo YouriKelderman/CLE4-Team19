@@ -104,19 +104,22 @@ export class Park3 extends Park {
     });
 
     onInitialize(_engine) {
-        this.waveText = new Label({
-            font: new Font({
-                unit: FontUnit.Px,
-                family: 'VCR',
-                size: 30,
-                color: Color.White,
-                strokeColor: Color.Black,
-            }),
-        });
-        this.waveText.text = `${localStorage.getItem(`2`)}/${this.levels.length}`;
-        this.waveText.pos = new Vector(2, 350);
-        this.waveText.z = 99999;
-        this.add(this.waveText);
+        this.endlessMode = this.engine.endless;
+        if (this.endlessMode === false) {
+            this.waveText = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 30,
+                    color: Color.White,
+                    strokeColor: Color.Black,
+                }),
+            });
+            this.waveText.text = `${localStorage.getItem(`0`)}/${this.levels.length}`;
+            this.waveText.pos = new Vector(20, 350);
+            this.waveText.z = 99999;
+            this.add(this.waveText);
+        }
         this.buyMenu = new Actor();
         this.buyMenu.graphics.use(Resources.BuyMenu.toSprite());
         this.buyMenu.pos = new Vector(1400, 450);

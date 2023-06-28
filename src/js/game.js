@@ -42,6 +42,7 @@ export class Game extends Engine {
     levens = 20;
     profanityMode = true
     activeScene
+    endless = false
     paused = false
 
     #arcade;

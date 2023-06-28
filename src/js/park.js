@@ -155,6 +155,7 @@ export class Park extends Scene {
     }
 
     onInitialize(_engine) {
+        this.endlessMode = this.engine.endless;
         this.game = _engine;
         this.waveText = new Label({
             font: new Font({
@@ -861,7 +862,7 @@ b
     }
 
     startWave() {
-        if (this.activeEnemies === 0) {
+        if (this.activeEnemies === 0 && this.endlessMode === false) {
             this.wave = Number(localStorage.getItem(`${this.engine.currentScene.id}`));
             if (this.wave < this.engine.currentScene.levels.length) {
                 this.engine.gulden += this.wave * 100;
@@ -875,6 +876,9 @@ b
                 this.engine.currentScene.waveText.text = `${localStorage.getItem(`${this.engine.currentScene.id}`)}/${this.engine.currentScene.levels.length}`;
 
             }
+        }else if (this.endlessMode ===true) {
+            this.running = true;
+
         }
         else {
             console.log("Already Running");
@@ -1006,6 +1010,10 @@ b
             this.placingSprite.pos = this.engine.input.pointers.primary.lastWorldPos;
         }
         if (this.running) {
+            if (this.endlessMode === true) {
+                this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
+                this.parse(0);
+            }
             if (this.waveItem <= this.order.length - 1) {
                 if (this.spiderSpawner === 1) {
                     let enemy = new Enemy(this);
@@ -1014,10 +1022,6 @@ b
                     this.waveItem += 1;
                     this.activeEnemies += 1;
                     this.engine.currentScene.activeEnemyObjects.push(enemy);
-                }
-                if (this.endlessMode && this.waveItem === this.order.length) {
-                    this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
-                    this.parse(this.wave);
                 }
                 this.spiderSpawner++;
                 if (this.spiderSpawner > Math.random() * (100 - 25) + 25) {

@@ -27,6 +27,7 @@ export class Levelselect extends Scene {
     mapLabel1;
     mapLabel2;
     mapLabel3;
+    endlessMode
 
     constructor() {
         super();
@@ -46,6 +47,8 @@ export class Levelselect extends Scene {
 
     onInitialize(engine) {
         this.engine = engine;
+        this.endlessMode = this.engine.endless
+
         // levelselect & buttons
         this.levelselect = new Actor();
         this.levelselect.graphics.use(Resources.SelectText.toSprite());
@@ -65,6 +68,21 @@ export class Levelselect extends Scene {
         parklevel.pointer.useGraphicsBounds = true;
         parklevel.on("pointerup", (event) => this.parkLevel(1));
         this.add(parklevel);
+
+        if (this.endlessMode === false) {
+            this.mapLabel1 = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 30,
+                }),
+            });
+            this.mapLabel1.text = `${localStorage.getItem("0")}/5`;
+            this.mapLabel1.pos = new Vector(320, 630);
+            this.mapLabel1.z = 99999;
+            this.add(this.mapLabel1)
+        }
+
 
         this.mapLabel1 = new Label({
             font: new Font({
@@ -104,17 +122,19 @@ export class Levelselect extends Scene {
             parklevel2.graphics.use(tint);
         }
         this.add(parklevel2);
-        this.mapLabel2 = new Label({
-            font: new Font({
-                unit: FontUnit.Px,
-                family: 'VCR',
-                size: 30,
-            }),
-        });
-        this.mapLabel2.text = `${localStorage.getItem("1")}/10`;
-        this.mapLabel2.pos = new Vector(700, 630);
-        this.mapLabel2.z = 99999;
-        this.add(this.mapLabel2)
+        if (this.endlessMode === false) {
+            this.mapLabel2 = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 30,
+                }),
+            });
+            this.mapLabel2.text = `${localStorage.getItem("1")}/8`;
+            this.mapLabel2.pos = new Vector(700, 630);
+            this.mapLabel2.z = 99999;
+            this.add(this.mapLabel2)
+        }
         let mapFloor = new Actor();
         mapFloor.graphics.use(Resources.background.toSprite());
         mapFloor.scale = new Vector(5, 5);
@@ -145,18 +165,20 @@ export class Levelselect extends Scene {
             lock.z = 1100;
             this.add(lock);
         }
-        this.add(parklevel3);
-        this.mapLabel2 = new Label({
-            font: new Font({
-                unit: FontUnit.Px,
-                family: 'VCR',
-                size: 30,
-            }),
-        });
-        this.mapLabel2.text = `${localStorage.getItem("2")}/10`;
-        this.mapLabel2.pos = new Vector(1065, 630);
-        this.mapLabel2.z = 99999;
-        this.add(this.mapLabel2)
+            this.add(parklevel3);
+            if (this.endlessMode === false) {
+            this.mapLabel3 = new Label({
+                font: new Font({
+                    unit: FontUnit.Px,
+                    family: 'VCR',
+                    size: 30,
+                }),
+            });
+            this.mapLabel3.text = `${localStorage.getItem("2")}/10`;
+            this.mapLabel3.pos = new Vector(1065, 630);
+            this.mapLabel3.z = 99999;
+            this.add(this.mapLabel3)
+        }
 
         // Funny menu things
         this.spider = new Actor();
