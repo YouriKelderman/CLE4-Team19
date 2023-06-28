@@ -65,7 +65,7 @@ export class Tower extends Actor {
     damageMultiplier = 1;
     seeMouses = false;
     whoosh = Resources.Whoosh;
-    thud = Resources.Thud;
+    Bami = Resources.Bamigeluid;
 
     constructor(Game, type) {
         super({
@@ -357,7 +357,7 @@ export class Tower extends Actor {
                 this.coolDown = 25;
             }
             if (this.tier === 2.2) {
-                this.thud.play();
+                this.Bami.play();
                 let bullet = new PanBami(1000, this.damage * this.damageMultiplier, 2, 5);
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
