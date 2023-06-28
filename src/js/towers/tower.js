@@ -88,14 +88,14 @@ export class Tower extends Actor {
             this.towerRange = 200;
             this.shootingMode = 0
             this.descriptionList = ["Sneller schieten", "Meer schade", "Pittige bami", "Grotere pan"]
-            this.costList = ["200", "600", "350", "750"]
+            this.costList = ["145", "200", "250", "550"]
         }
         if (this.type === 1) {
             this._setName("Tiny & Lau");
             this.towerRange = 100;
             this.description = ("Scheld naar andere.\n\nVersterkt anderen of\npijnigt de vijand");
             this.descriptionList = ["Scheld meer", "Scheld sneller", "Beïnvloed meer", "Beïnvloede zien muizen"]
-            this.costList = ["400", "800", "375", "1000"]
+            this.costList = ["300", "800", "375", "1000"]
         }
         if (this.type === 2) {
             this._setName("Spinnenman");
@@ -326,7 +326,7 @@ export class Tower extends Actor {
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(bullet);
-                this.coolDown = 25;
+                this.coolDown = 20;
             }
 
             // pad 1
@@ -336,7 +336,7 @@ export class Tower extends Actor {
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(bullet);
-                this.coolDown = 25;
+                this.coolDown = 20;
             }
             if (this.tier === 1.2) {
                 this.whoosh.play();
@@ -344,7 +344,7 @@ export class Tower extends Actor {
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(bullet);
-                this.coolDown = 20;
+                this.coolDown = 15;
             }
 
             // pad 2
@@ -354,7 +354,7 @@ export class Tower extends Actor {
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(bullet);
-                this.coolDown = 25;
+                this.coolDown = 20;
             }
             if (this.tier === 2.2) {
                 this.Bami.play();
@@ -362,7 +362,7 @@ export class Tower extends Actor {
                 bullet.pos = this.pos;
                 bullet.rotation = this.rotation - Math.PI / 2;
                 this.engine.add(bullet);
-                this.coolDown = 25;
+                this.coolDown = 20;
                 this.engine.shake();
             }
         }

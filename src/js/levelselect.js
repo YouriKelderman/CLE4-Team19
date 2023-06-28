@@ -41,6 +41,7 @@ export class Levelselect extends Scene {
         this.music.volume = 0.3;
         this.music.loop = true;
         this.music.play().then(r => console.log(r));
+
     }
     onInitialize(engine) {
         this.engine = engine;
