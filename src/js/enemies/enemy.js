@@ -28,7 +28,7 @@ export class Enemy extends Actor {
     ];
 
     enemies = [
-        [Resources.Spider, 5],
+        [Resources.Spider, 4],
         [Resources.Mouse, 3],
         [Resources.Rat, 6],
         [Resources.Racoon, 10],
@@ -91,7 +91,7 @@ export class Enemy extends Actor {
         this.sprite = this.enemies[type][0].toSprite();
         this.graphics.use(this.sprite);
         this.health = this.enemies[type][1];
-        this.worth = this.health
+        this.worth = this.health *3
 
         if (type === 0) {
             this.body.scale = new Vector(0.25, 0.25);

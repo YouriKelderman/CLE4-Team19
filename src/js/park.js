@@ -307,7 +307,7 @@ export class Park extends Scene {
                 size: 16,
             }),
         });
-        this.bamicost.text = '375';
+        this.bamicost.text = '200';
         this.bamicost.pos = new Vector(1370, 250);
         this.bamicost.z = 99999;
 
@@ -341,7 +341,7 @@ export class Park extends Scene {
                 size: 16,
             }),
         });
-        this.tinycost.text = '500';
+        this.tinycost.text = '300';
         this.tinycost.pos = new Vector(1370, 400);
         this.tinycost.z = 99999;
 
@@ -375,7 +375,7 @@ export class Park extends Scene {
             }),
 
         });
-        this.spidercost.text = '800';
+        this.spidercost.text = '650';
         this.spidercost.pos = new Vector(1370, 550);
         this.spidercost.z = 99999;
 
@@ -865,6 +865,8 @@ b
         if (this.activeEnemies === 0 && this.endlessMode === false) {
             this.wave = Number(localStorage.getItem(`${this.engine.currentScene.id}`));
             if (this.wave < this.engine.currentScene.levels.length) {
+                this.engine.gulden += this.wave * 100;
+                this.engine.currentScene.guldenDisplay.text = `${this.engine.gulden}`;
                 this.waveItem = 0;
                 this.parse(Number(localStorage.getItem(`${this.engine.currentScene.id}`)));
                 this.running = true;
@@ -884,11 +886,11 @@ b
     }
 
     buyTower(id) {
-        if (id === 1 && this.engine.gulden >= 375) {
-            this.engine.gulden -= 375;
+        if (id === 1 && this.engine.gulden >= 200) {
+            this.engine.gulden -= 200;
         }
-        if (id === 2 && this.engine.gulden >= 800) {
-            this.engine.gulden -= 800;
+        if (id === 2 && this.engine.gulden >= 300) {
+            this.engine.gulden -= 300;
         }
         if (id === 3 && this.engine.gulden >= 650) {
             this.engine.gulden -= 650;
