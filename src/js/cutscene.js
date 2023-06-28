@@ -43,7 +43,7 @@ export class CutScene extends Scene {
         this.add(this.background)
     }
 
-    onPreUpdate(_engine, _delta) {
+    onPreUpdate(engine, _delta) {
         this.timer++
 
         console.log(this.timer)
@@ -54,5 +54,10 @@ export class CutScene extends Scene {
         if (this.timer > 800) {
             this.engine.goToScene('levelselect')
         }
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.Space || Input.Keys.Escape)) {
+            this.engine.goToScene('levelselect')
+        }
+
     }
 }
