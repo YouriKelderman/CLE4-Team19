@@ -193,6 +193,10 @@ export class Tower extends Actor {
     }
 
     onPreUpdate(engine, _delta) {
+
+        this.updateMenu()
+
+
         if (this.amountOfEnemies > 0) {
             this.onCollision();
         }
@@ -520,8 +524,8 @@ export class Tower extends Actor {
         this.seeMouses = false;
     }
 
-    onPostUpdate(_engine, _delta) {
-        if (this.selected === true) {
+    updateMenu() {
+        if (this.selected === true && this.engine.paused === false) {
             console.log(this.tier)
             this.engine.currentScene.towerRange.text = this.range.toString() + "cm";
             this.engine.currentScene.towerDamage.text = `${this.damage * this.damageMultiplier}`;

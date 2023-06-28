@@ -136,6 +136,7 @@ export class Park extends Scene {
     id = 0;
 
     onActivate(_context) {
+        this.activetower = undefined;
         this.engine.backgroundColor = new Color(239, 255, 228);
 
         this.music.volume = this.engine.musicVolume;

@@ -34,12 +34,13 @@ import {Park3} from "./park3.js";
 export class Game extends Engine {
     game
     musicVolume = 0.5;
-    gulden = 10000;
+    gulden = 500;
     buyMenu;
     activetower;
     levens = 20;
     profanityMode = true
     activeScene
+    paused = false
 
     #arcade;
     #joystickListener;
@@ -92,9 +93,7 @@ export class Game extends Engine {
     }
 
     onPreUpdate(){
-        for (let joystick of this.#arcade.Joysticks) {
-            joystick.update();
-        }
+        console.log(this.paused)
     }
 
     #joyStickFound(e) {
