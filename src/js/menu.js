@@ -79,7 +79,7 @@ export class Menu extends Scene {
         endlessButton.enableCapturePointer = true;
         endlessButton.pointer.useGraphicsBounds = true;
         endlessButton.on("pointerup", (event) => this.startEndless());
-        this.add(endlessButton);
+        // this.add(endlessButton);
 
         // this.helpSelect = new Actor();
         // this.helpSelect.graphics.use(Resources.helpButton.toSprite());

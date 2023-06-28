@@ -431,14 +431,27 @@ export class Park extends Scene {
     }
 
     parse(wave) {
-        this.order = [];
-        let parsedResult = this.levels[wave].split(",");
-        parsedResult.forEach(item => {
-            item = item.split("*");
-            for (let i = 0; i < Number(item[0]); i++) {
-                this.order.push(Number(item[1]));
-            }
-        });
+        if (this.endlessMode === false) {
+            this.order = [];
+            let parsedResult = this.levels[wave].split(",");
+            parsedResult.forEach(item => {
+                item = item.split("*");
+                for (let i = 0; i < Number(item[0]); i++) {
+                    this.order.push(Number(item[1]));
+                }
+            });
+        } else {
+            this.order = [];
+            console.log(this.levels)
+            let parsedResult = this.levels[Math.random() * this.levels.length].split(",");
+            parsedResult.forEach(item => {
+                item = item.split("*");
+                for (let i = 0; i < Number(item[0]); i++) {
+                    this.order.push(Number(item[1]));
+                }
+            });
+
+        }
     }
 
     drawBuyMenu() {
@@ -1010,8 +1023,10 @@ b
             this.placingSprite.pos = this.engine.input.pointers.primary.lastWorldPos;
         }
         if (this.running) {
+
             if (this.endlessMode === true) {
-                this.levels = [`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`];
+                this.levels = []
+                this.levels.push(`${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}, ${Math.round(Math.random() * (10 - 1) + 1)}*${Math.round(Math.random() * (4 - 0) + 0)}`)
                 this.parse(0);
             }
             if (this.waveItem <= this.order.length - 1) {
