@@ -10,8 +10,7 @@ import {
 
 import {Resources, ResourceLoader} from "./resources.js";
 import {Park} from "./park.js";
-
-
+import {Helper} from "./help.js";
 
 
 export class Settings extends Scene {
@@ -71,6 +70,7 @@ export class Settings extends Scene {
         this.add(this.soundButton);
 
 
+
         // profanity filter
         this.profanityFilter = new Actor(
         );
@@ -96,6 +96,16 @@ export class Settings extends Scene {
         this.levelSelectButton.on("pointerup", (event) =>  this.engine.goToScene('levelselect'));
         this.add(this.levelSelectButton);
 
+        this.helpSelect = new Actor();
+        this.helpSelect.graphics.use(Resources.helpButton.toSprite());
+        this.helpSelect.pos = new Vector(720, 760);
+        this.helpSelect.scale = new Vector(0.1, 0.1)
+        this.helpSelect.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.helpSelect.z = 1000;
+        this.helpSelect.enableCapturePointer = true;
+        this.helpSelect.pointer.useGraphicsBounds = true;
+        this.helpSelect.on("pointerup", (event) => this.startHelp());
+        this.add(this.helpSelect);
     }
 
     onActivate(_context) {
@@ -137,6 +147,14 @@ export class Settings extends Scene {
             this.music.volume += 0.1;
         }
 
+
+    }
+
+    startHelp() {
+        console.log('start game');
+        this.click.volume = 1;
+        this.click.play();
+        this.engine.goToScene('Helper');
 
     }
 
