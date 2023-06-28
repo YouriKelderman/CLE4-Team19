@@ -23,13 +23,13 @@ export class Park2 extends Park {
         "5*0",
         "8*0, 2*2, 2*0",
         "12*0,3*2,5*0,2*2,6*0",
-        "8*0, 2*2, 2*0",
-        "4*2, 2*3",
+        "8*0, 2*3, 2*0",
+        "4*2, 2*1",
         "13*0, 2*2, 4*0",
-        "5*0, 2*2, 2*0",
+        "5*0, 2*1, 2*0, 8*0",
         "2*3, 7*2, 9*0",
         "8*2, 2*1",
-        "5*0,1*4"
+        "5*0,1*4, 8*3, 7*0, 6*2, 10*0, 15*2"
 
     ];
     id = 1;
@@ -262,7 +262,7 @@ export class Park2 extends Park {
                 size: 16,
             }),
         });
-        this.bamicost.text = '375';
+        this.bamicost.text = '200';
         this.bamicost.pos = new Vector(1370, 250);
         this.bamicost.z = 99999;
 
@@ -296,7 +296,7 @@ export class Park2 extends Park {
                 size: 16,
             }),
         });
-        this.tinycost.text = '500';
+        this.tinycost.text = '300';
         this.tinycost.pos = new Vector(1370, 400);
         this.tinycost.z = 99999;
 

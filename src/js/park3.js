@@ -335,7 +335,7 @@ export class Park3 extends Park {
             }),
 
         });
-        this.spidercost.text = '800';
+        this.spidercost.text = '650';
         this.spidercost.pos = new Vector(1370, 550);
         this.spidercost.z = 99999;
 

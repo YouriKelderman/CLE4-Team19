@@ -20,11 +20,11 @@ export class Park1 extends Park {
     //Volgorde waarin de mobs spawnen, de syntax is: [Aantal Enemies] * [Type Enemy], [...]*[...]
     //Enemies: 0: Spider, 1: Mouse, 2: Rat, 3: Raccoon, 4: Snail
     levels = [
-        "5*0",
-        "8*0, 2*2, 2*0",
-        "10*0,3*2,4*0",
-        "5*2, 5*0, 5*2, 5*0",
-        "12*3"
+        "3*0",
+        "5*0, 2*2, 2*0",
+        "3*0,3*2,3*0, 3*2",
+        "5*2, 10*0, 5*2, 5*0",
+        "15*0, 5*2"
     ];
     id = 0;
 
@@ -257,7 +257,7 @@ export class Park1 extends Park {
                 size: 16,
             }),
         });
-        this.bamicost.text = '375';
+        this.bamicost.text = '200';
         this.bamicost.pos = new Vector(1370, 250);
         this.bamicost.z = 99999;
 
