@@ -120,7 +120,7 @@ export class Menu extends Scene {
         console.log('start game');
         this.click.volume = 1;
         this.click.play();
-        this.engine.goToScene('levelselect');
+        this.engine.goToScene('cutscene');
 
     }
 
