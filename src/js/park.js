@@ -589,7 +589,7 @@ export class Park extends Scene {
             }
             this.towersInDistance = [];
         }
-        if (this.placing && this.isLegal) {
+        if (this.placing && this.isLegal && this.placingSprite.pos.x < 1200) {
             let newClone = new Tower(this, this.int);
             newClone.pos = this.placingSprite.pos;
             this.add(newClone);
@@ -613,8 +613,8 @@ export class Park extends Scene {
             // console.log(this.path)
         } else {
 
-            //this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}, ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
-            //console.log(this.string);
+            this.string += `${Math.floor(this.engine.input.pointers.primary.lastWorldPos.x)}, ${Math.floor(this.engine.input.pointers.primary.lastWorldPos.y)},`;
+            console.log(this.string);
         }
 
     }
