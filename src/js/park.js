@@ -987,39 +987,39 @@ b
                 this.placingSprite.kill();
             }
         }
-        if (engine.input.keyboard.wasPressed(Input.Keys.O)) {
-            this.activetower.updateRange(this.activetower.range -= 50);
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.Y)) {
-            this.engine.gulden += 50;
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.U)) {
-            this.engine.gulden -= 50;
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
-            this.startWave();
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.P)) {
-            this.activetower.updateRange(this.activetower.range += 50);
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.T)) {
-            this.towers.splice(this.towers.indexOf(this.activetower), 1);
-            this.engine.gulden += 50;
-            this.activetower.kill();
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.K)) {
-
-            this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) - 1)];
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
-            this.mapping = !this.wave.mapping;
-        }
-        if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
-            this.int += 1;
-            if (this.int > 3) {
-                this.int = 0;
-            }
-        }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.O)) {
+        //     this.activetower.updateRange(this.activetower.range -= 50);
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.Y)) {
+        //     this.engine.gulden += 50;
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.U)) {
+        //     this.engine.gulden -= 50;
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
+        //     this.startWave();
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.P)) {
+        //     this.activetower.updateRange(this.activetower.range += 50);
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.T)) {
+        //     this.towers.splice(this.towers.indexOf(this.activetower), 1);
+        //     this.engine.gulden += 50;
+        //     this.activetower.kill();
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.K)) {
+        //
+        //     this.activetower.tier = this.activetower.tierList[(this.activetower.tierList.indexOf(this.activetower.tier, 0) - 1)];
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.H)) {
+        //     this.mapping = !this.wave.mapping;
+        // }
+        // if (engine.input.keyboard.wasPressed(Input.Keys.N)) {
+        //     this.int += 1;
+        //     if (this.int > 3) {
+        //         this.int = 0;
+        //     }
+        // }
         if (this.placing) {
             this.placingSprite.pos = this.engine.input.pointers.primary.lastWorldPos;
         }
