@@ -646,7 +646,7 @@ export class Tower extends Actor {
     tierUpSucces() {
         this.game.add(this.upgradeParticles);
         this.upgradeParticles.isEmitting = true;
-        this.upgrade.play();
+        // this.upgrade.play();
         this.upgradeParticles.pos = this.pos;
         this.game.add(this.timer);
         this.timer.start();

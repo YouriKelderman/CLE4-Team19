@@ -16,16 +16,16 @@ import helpText from '../images/helpSymbol.png';
 import helpButton from '../images/helpButtonSymbol.png';
 
 
-import whoosh from '../sounds/whoosh.mp3'
-import thud from '../sounds/536766__egomassive__thud.mp3'
-import smash from '../sounds/smash.wav'
+import whoosh from '../sounds/whoosh.mp3';
+import thud from '../sounds/536766__egomassive__thud.mp3';
+import smash from '../sounds/smash.wav';
 
 // menu
 import loading from '../images/loading.png';
 import start from '../images/start.png';
 import menuSpider from '../images/menu-spider.png';
 import range from '../images/range.png';
-import upgrade from '../images/UpgradeButton.png';
+// import upgrade from '../images/UpgradeButton.png';
 
 import upgrade1 from '../images/UpgradeButtonPath1.png';
 import upgrade2 from '../images/UpgradeButtonPath2.png';
@@ -42,19 +42,19 @@ import aboutaleb from '../images/aboutaleb.png';
 import tinyLau from '../images/TinyLau_Tower.png';
 
 import spidermeneer from '../images/spider-meneer.png';
-import spiderTrike from '../images/SpinManTrike_Sprite.png'
-import laser from '../images/laser.png'
+import spiderTrike from '../images/SpinManTrike_Sprite.png';
+import laser from '../images/laser.png';
 import spider from '../images/spider.png';
 import mouse from '../images/muis.png';
 import rat from '../images/rat.png';
-import racoon from '../images/racoon.png'
-import snail from '../images/snail.png'
+import racoon from '../images/racoon.png';
+import snail from '../images/snail.png';
 //Garden
-import garden from "../images/garden.png"
-import garden1 from "../images/garden-1.png"
-import garden2 from "../images/garden-2.png"
-import garden3 from "../images/garden-3.png"
-import garden4 from "../images/garden-4.png"
+import garden from "../images/garden.png";
+import garden1 from "../images/garden-1.png";
+import garden2 from "../images/garden-2.png";
+import garden3 from "../images/garden-3.png";
+import garden4 from "../images/garden-4.png";
 import map1ground from '../images/map-1-ground.png';
 import map1top from '../images/map-1-top.png';
 import map2ground from '../images/map-2-ground.png';
@@ -66,7 +66,7 @@ import menuMusic from '../sounds/Main_Menu.mp3';
 import settingsMusic from '../sounds/Settings_1.mp3';
 import backgroundMusic from '../sounds/backgroundMusic.mp3';
 import crunch from '../sounds/crunch.mp3';
-import plop from '../sounds/plop.mp3'
+import plop from '../sounds/plop.mp3';
 import parkMusic from '../sounds/parkSong.mp3';
 import UpgradeButton from '../images/UpgradeButton.png';
 import SwearUit from '../images/swearOff.png';
@@ -92,15 +92,15 @@ import Gulden from '../images/Gulden.png';
 import Health from '../images/Levens.png';
 import costLogo from '../images/costLogo.png';
 import bg from '../images/background.jpg';
-import bamigeluid from '../sounds/bami-impact.mp3'
-import lock from '../images/lock.png'
+import bamigeluid from '../sounds/bami-impact.mp3';
+import lock from '../images/lock.png';
 
 import cutscene from '../images/cutscene.png';
 
 
-const font = new FontFace("VCR", `url(${fontFile})`)
-document.fonts.add(font)
-font.load()
+const font = new FontFace("VCR", `url(${fontFile})`);
+document.fonts.add(font);
+font.load();
 
 const Resources = {
     Logo: new ImageSource(logo),
@@ -181,7 +181,7 @@ const Resources = {
     Smash: new Sound(smash),
     Bamigeluid: new Sound(bamigeluid),
     Lock: new ImageSource(lock),
-    Upgrade: new Sound(upgrade),
+    // Upgrade: new Sound(upgrade),
     Plop: new Sound(plop),
     Mouse: new ImageSource(mouse),
     Spider: new ImageSource(spider),
@@ -191,12 +191,93 @@ const Resources = {
 
 };
 
+const ResourceLoader = new Loader([
+    Resources.Logo,
+    Resources.PausedLogo,
+    Resources.HervatButton,
+    Resources.Volumeup,
+    Resources.Volumedown,
+    Resources.Mutebutton,
+    Resources.Web,
+    Resources.helpText,
+    Resources.helpButton,
+    Resources.ExplosiveWeb,
 
-const resourceArray = []
-for (const key in Resources) {
-    resourceArray.push(Resources[key])
-}
-const ResourceLoader = new Loader(resourceArray)
+    Resources.GameOver,
+    Resources.SelectText,
+    Resources.CutScene,
+    Resources.Whoosh,
+    Resources.Thud,
+    Resources.Garden,
+    Resources.Garden1,
+    Resources.Garden2,
+    Resources.Garden3,
+    Resources.Garden4,
+
+    Resources.Loading,
+    Resources.Start,
+    Resources.MenuSpider,
+    Resources.Pan,
+    Resources.SpicyPan,
+    Resources.TinyLau,
+    Resources.SpiderTrike,
+    Resources.Map1Ground,
+    Resources.Map2Ground,
+    Resources.Map3Ground,
+
+    Resources.Map3Top,
+    Resources.SpiderMeneer,
+    Resources.Range,
+    Resources.Bami,
+    Resources.aboutaleb,
+    Resources.Map1Top,
+    Resources.Map2Top,
+    Resources.ParkMapselect,
+    Resources.ParkMapSelect2,
+    Resources.ParkMapSelect3,
+
+    Resources.RangeIndicator,
+    Resources.DamageIndicator,
+    Resources.Laser,
+    Resources.PlayButton,
+    Resources.SettingsButton,
+    Resources.UpgradeButton,
+    Resources.EndlessButton,
+    Resources.UpgradeButtonPath1,
+    Resources.UpgradeButtonPath2,
+    Resources.upgradeLock,
+
+    Resources.SwearUit,
+    Resources.SwearAan,
+    Resources.levelSelectButtonX,
+    Resources.BuyButton,
+    Resources.MenuButton,
+    Resources.SideButton,
+    Resources.BuyMenu,
+    Resources.Gulden,
+    Resources.Health,
+    Resources.TargetingSymbol,
+
+    Resources.CostLogo,
+    Resources.background,
+    Resources.Click,
+    Resources.MenuMusic,
+    Resources.BackgroundMusic,
+    Resources.SettingsMusic,
+    Resources.ParkMusic,
+    Resources.Crunch,
+    Resources.Smash,
+    Resources.Bamigeluid,
+
+    Resources.Lock,
+    // Resources.Upgrade,
+    Resources.Plop,
+    Resources.Mouse,
+    Resources.Spider,
+    Resources.Rat,
+    Resources.Racoon,
+    Resources.Snail
+]);
 
 
 // Excaliber logo

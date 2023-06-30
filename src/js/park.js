@@ -887,7 +887,8 @@ b
                 console.log(this.wave)
                 localStorage.setItem(`${this.engine.currentScene.id}`, `${this.wave}`);
                 this.engine.currentScene.waveText.text = `${localStorage.getItem(`${this.engine.currentScene.id}`)}/${this.engine.currentScene.levels.length}`;
-
+            } else {
+                this.engine.goToScene('levelselect')
             }
         }else if (this.endlessMode ===true) {
             this.running = true;

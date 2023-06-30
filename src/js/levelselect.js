@@ -47,8 +47,12 @@ export class Levelselect extends Scene {
         if (this.firstTime > 0) {
             parklevel2.kill();
             parklevel3.kill();
-            lock1.kill();
-            lock2.kill();
+            if (lock1) {
+                lock1.kill();
+            }
+            if (lock2) {
+                lock2.kill();
+            }
         }
         this.checkPlacement();
         this.firstTime = 1;

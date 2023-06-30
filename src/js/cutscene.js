@@ -48,10 +48,11 @@ export class CutScene extends Scene {
 
         console.log(this.timer)
 
-            this.background.pos.x += -1 * (this.timer / 1000)
-            this.background.scale = new Vector(this.background.scale.x -= (this.timer / 2000000), this.background.scale.y -= (this.timer / 2000000))
-
-        if (this.timer > 800) {
+        if (this.timer < 500) {
+            this.background.pos.x += -1 * (this.timer / 500)
+            this.background.scale = new Vector(this.background.scale.x -= (this.timer / 1000000), this.background.scale.y -= (this.timer / 1000000))
+        }
+        if (this.timer > 600) {
             this.engine.goToScene('levelselect')
         }
 

@@ -49,7 +49,7 @@ export class Settings extends Scene {
         this.resumeButton = new Actor();
         this.resumeButton.graphics.use(Resources.HervatButton.toSprite());
         this.resumeButton.pos = new Vector(720, 400);
-        this.resumeButton.scale = new Vector(0.1, 0.1)
+        this.resumeButton.scale = new Vector(1.1, 1.1)
 
         this.resumeButton.z = 1000;
         this.resumeButton.enableCapturePointer = true;
@@ -61,7 +61,7 @@ export class Settings extends Scene {
         this.soundButton = new Actor();
         this.soundButton.graphics.use(Resources.Mutebutton.toSprite());
         this.soundButton.pos = new Vector(648.00, 640);
-        this.soundButton.scale = new Vector(0.1, 0.1)
+        this.soundButton.scale = new Vector(1.1, 1.1)
 
         this.soundButton.z = 1000;
         this.soundButton.enableCapturePointer = true;
@@ -76,8 +76,8 @@ export class Settings extends Scene {
         );
         this.profanityFilter.graphics.use(Resources.SwearAan.toSprite());
         this.profanityFilter.pos = new Vector(794.00, 639.5);
-        this.profanityFilter.scale = new Vector(0.1, 0.1)
-        this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.profanityFilter.scale = new Vector(1.1, 1.1)
+        // this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.profanityFilter.z = 1000;
         this.profanityFilter.collider.useCircleCollider(50);
         this.profanityFilter.enableCapturePointer = true;
@@ -88,8 +88,8 @@ export class Settings extends Scene {
         this.levelSelectButton = new Actor();
         this.levelSelectButton.graphics.use(Resources.levelSelectButtonX.toSprite());
         this.levelSelectButton.pos = new Vector(720, 520);
-        this.levelSelectButton.scale = new Vector(0.1, 0.1)
-        this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.levelSelectButton.scale = new Vector(1.1, 1.1)
+        // this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.levelSelectButton.z = 1000;
         this.levelSelectButton.enableCapturePointer = true;
         this.levelSelectButton.pointer.useGraphicsBounds = true;
@@ -99,8 +99,8 @@ export class Settings extends Scene {
         this.helpSelect = new Actor();
         this.helpSelect.graphics.use(Resources.helpButton.toSprite());
         this.helpSelect.pos = new Vector(720, 760);
-        this.helpSelect.scale = new Vector(0.1, 0.1)
-        this.helpSelect.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        this.helpSelect.scale = new Vector(1.1, 1.1)
+        // this.helpSelect.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
         this.helpSelect.z = 1000;
         this.helpSelect.enableCapturePointer = true;
         this.helpSelect.pointer.useGraphicsBounds = true;
@@ -111,11 +111,11 @@ export class Settings extends Scene {
     onActivate(_context) {
         this.mapId = _context.id;
 
-        this.resumeButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.soundButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-
-        this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        // this.resumeButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        // this.soundButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        // this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        //
+        // this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
 
         if (this.music.volume === 0) {
             this.music.pause()
@@ -208,15 +208,15 @@ export class Settings extends Scene {
         this.engine.paused = false
 
 
-        this.resumeButton.scale = new Vector(0.1, 0.1)
-        this.soundButton.scale = new Vector(0.1, 0.1)
-        this.profanityFilter.scale = new Vector(0.1, 0.1)
-        this.levelSelectButton.scale = new Vector(0.1, 0.1)
-
-        this.resumeButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.soundButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
-        this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        // this.resumeButton.scale = new Vector(0.1, 0.1)
+        // this.soundButton.scale = new Vector(0.1, 0.1)
+        // this.profanityFilter.scale = new Vector(0.1, 0.1)
+        // this.levelSelectButton.scale = new Vector(0.1, 0.1)
+        //
+        // this.resumeButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        // this.soundButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        // this.profanityFilter.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
+        // this.levelSelectButton.actions.scaleTo(vec(1.1, 1.1), vec(8, 8));
 
         this.music.pause();
     }
