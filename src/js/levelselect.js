@@ -18,8 +18,11 @@ import {
 
 import {Resources, ResourceLoader} from "./resources.js";
 
+let parklevel2;
+let parklevel3;
+let lock1;
+let lock2;
 export class Levelselect extends Scene {
-
     levelselect
     spider
     music = Resources.BackgroundMusic;
@@ -28,12 +31,11 @@ export class Levelselect extends Scene {
     mapLabel2;
     mapLabel3;
     endlessMode
+    firstTime = 0;
 
     constructor() {
         super();
         Physics.useRealisticPhysics();
-
-
     }
 
 
@@ -42,7 +44,14 @@ export class Levelselect extends Scene {
         this.music.volume = 0.3;
         this.music.loop = true;
         this.music.play().then(r => console.log(r));
-
+        if (this.firstTime > 0) {
+            parklevel2.kill();
+            parklevel3.kill();
+            lock1.kill();
+            lock2.kill();
+        }
+        this.checkPlacement();
+        this.firstTime = 1;
     }
 
     onInitialize(engine) {
@@ -95,33 +104,7 @@ export class Levelselect extends Scene {
         this.mapLabel1.pos = new Vector(320, 630);
         this.mapLabel1.z = 99999;
         this.add(this.mapLabel1)
-        const parklevel2 = new Actor();
-        parklevel2.graphics.use(Resources.ParkMapSelect2.toSprite());
-        parklevel2.pos = new Vector(720, 500);
-        parklevel2.scale = new Vector(0.1, 0.1)
-        parklevel2.actions.scaleTo(vec(0.6, 0.6), vec(0.5, 0.5));
-        parklevel2.z = 1000;
-        parklevel2.enableCapturePointer = true;
-        parklevel2.pointer.useGraphicsBounds = true;
-        console.log(Number(localStorage.getItem("0")));
-        if (Number(localStorage.getItem("0")) > 4) {
-            parklevel2.on("pointerup", (event) =>
-                this.parkLevel(2)
-            );
-        } else {
-            const lock = new Actor();
-            lock.graphics.use(Resources.Lock.toSprite());
-            lock.scale = new Vector(0.01, 0.01)
-            lock.actions.scaleTo(vec(0.5, 0.5), vec(0.5, 0.5));
-            lock.pos = new Vector(720, 490);
-            lock.z = 1100;
-            this.add(lock);
-            let tint = Resources.ParkMapSelect2.toSprite();
-            tint.tint = new Color(100, 100, 100);
-            parklevel2.sprite = tint;
-            parklevel2.graphics.use(tint);
-        }
-        this.add(parklevel2);
+
         if (this.endlessMode === false) {
             this.mapLabel2 = new Label({
                 font: new Font({
@@ -140,33 +123,8 @@ export class Levelselect extends Scene {
         mapFloor.scale = new Vector(5, 5);
         mapFloor.pos = new Vector(745, 433);
         this.add(mapFloor);
-        const parklevel3 = new Actor();
-        parklevel3.graphics.use(Resources.ParkMapSelect3.toSprite());
-        parklevel3.pos = new Vector(1090, 500);
-        parklevel3.scale = new Vector(0.1, 0.1)
-        parklevel3.actions.scaleTo(vec(0.6, 0.6), vec(0.5, 0.5));
-        parklevel3.z = 1000;
-        parklevel3.enableCapturePointer = true;
-        parklevel3.pointer.useGraphicsBounds = true;
-        if (Number(localStorage.getItem("1")) > 9) {
-            parklevel3.on("pointerup", (event) =>
-                this.parkLevel(3)
-            );
-        } else {
-            const lock = new Actor();
-            lock.graphics.use(Resources.Lock.toSprite());
-            lock.scale = new Vector(0.01, 0.01)
-            lock.actions.scaleTo(vec(0.5, 0.5), vec(0.5, 0.5));
-            lock.pos = new Vector(1090, 490);
-            let tint = Resources.ParkMapSelect3.toSprite();
-            tint.tint = new Color(100, 100, 100);
-            parklevel3.sprite = tint;
-            parklevel3.graphics.use(tint);
-            lock.z = 1100;
-            this.add(lock);
-        }
-            this.add(parklevel3);
-            if (this.endlessMode === false) {
+
+        if (this.endlessMode === false) {
             this.mapLabel3 = new Label({
                 font: new Font({
                     unit: FontUnit.Px,
@@ -204,6 +162,62 @@ export class Levelselect extends Scene {
         if (engine.input.keyboard.wasReleased(Input.Keys.S)) {
             this.spiderPeek()
         }
+    }
+
+    checkPlacement() {
+        parklevel2 = new Actor();
+        parklevel2.graphics.use(Resources.ParkMapSelect2.toSprite());
+        parklevel2.pos = new Vector(720, 500);
+        parklevel2.scale = new Vector(0.1, 0.1)
+        parklevel2.actions.scaleTo(vec(0.6, 0.6), vec(0.5, 0.5));
+        parklevel2.z = 1000;
+        parklevel2.enableCapturePointer = true;
+        parklevel2.pointer.useGraphicsBounds = true;
+        console.log(Number(localStorage.getItem("0")));
+        if (Number(localStorage.getItem("0")) > 4) {
+            parklevel2.on("pointerup", (event) =>
+                this.parkLevel(2)
+            );
+        } else {
+            lock1 = new Actor();
+            lock1.graphics.use(Resources.Lock.toSprite());
+            lock1.scale = new Vector(0.01, 0.01)
+            lock1.actions.scaleTo(vec(0.5, 0.5), vec(0.5, 0.5));
+            lock1.pos = new Vector(720, 490);
+            lock1.z = 1100;
+            this.add(lock1);
+            let tint = Resources.ParkMapSelect2.toSprite();
+            tint.tint = new Color(100, 100, 100);
+            parklevel2.sprite = tint;
+            parklevel2.graphics.use(tint);
+        }
+        this.add(parklevel2);
+        parklevel3 = new Actor();
+        parklevel3.graphics.use(Resources.ParkMapSelect3.toSprite());
+        parklevel3.pos = new Vector(1090, 500);
+        parklevel3.scale = new Vector(0.1, 0.1)
+        parklevel3.actions.scaleTo(vec(0.6, 0.6), vec(0.5, 0.5));
+        parklevel3.z = 1000;
+        parklevel3.enableCapturePointer = true;
+        parklevel3.pointer.useGraphicsBounds = true;
+        if (Number(localStorage.getItem("1")) > 9) {
+            parklevel3.on("pointerup", (event) =>
+                this.parkLevel(3)
+            );
+        } else {
+            lock2 = new Actor();
+            lock2.graphics.use(Resources.Lock.toSprite());
+            lock2.scale = new Vector(0.01, 0.01)
+            lock2.actions.scaleTo(vec(0.5, 0.5), vec(0.5, 0.5));
+            lock2.pos = new Vector(1090, 490);
+            let tint = Resources.ParkMapSelect3.toSprite();
+            tint.tint = new Color(100, 100, 100);
+            parklevel3.sprite = tint;
+            parklevel3.graphics.use(tint);
+            lock2.z = 1100;
+            this.add(lock2);
+        }
+        this.add(parklevel3);
     }
 
     parkLevel(id) {
